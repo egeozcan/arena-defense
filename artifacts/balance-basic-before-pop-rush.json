@@ -1,0 +1,1886 @@
+[
+  {
+    "mode": "easy",
+    "arena": "barn",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": true,
+    "round": 20,
+    "lives": 150,
+    "cash": 7050,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 0,
+    "averageSeconds": 27.6,
+    "slowest": 64.9,
+    "peak": 132,
+    "results": [
+      {
+        "round": 1,
+        "pops": 20,
+        "lost": 0,
+        "lives": 150,
+        "cash": 592,
+        "fleet": 1,
+        "seconds": 14.3,
+        "peak": 10
+      },
+      {
+        "round": 2,
+        "pops": 30,
+        "lost": 0,
+        "lives": 150,
+        "cash": 503,
+        "fleet": 2,
+        "seconds": 11.1,
+        "peak": 10
+      },
+      {
+        "round": 3,
+        "pops": 41,
+        "lost": 0,
+        "lives": 150,
+        "cash": 810,
+        "fleet": 2,
+        "seconds": 10.1,
+        "peak": 13
+      },
+      {
+        "round": 4,
+        "pops": 57,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1135,
+        "fleet": 2,
+        "seconds": 16.1,
+        "peak": 17
+      },
+      {
+        "round": 5,
+        "pops": 78,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1015,
+        "fleet": 3,
+        "seconds": 15.7,
+        "peak": 18
+      },
+      {
+        "round": 6,
+        "pops": 41,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1349,
+        "fleet": 3,
+        "seconds": 19.6,
+        "peak": 15
+      },
+      {
+        "round": 7,
+        "pops": 68,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1126,
+        "fleet": 4,
+        "seconds": 29.3,
+        "peak": 20
+      },
+      {
+        "round": 8,
+        "pops": 52,
+        "lost": 0,
+        "lives": 150,
+        "cash": 404,
+        "fleet": 4,
+        "seconds": 19.4,
+        "peak": 20
+      },
+      {
+        "round": 9,
+        "pops": 92,
+        "lost": 0,
+        "lives": 150,
+        "cash": 468,
+        "fleet": 4,
+        "seconds": 22.2,
+        "peak": 25
+      },
+      {
+        "round": 10,
+        "pops": 71,
+        "lost": 0,
+        "lives": 150,
+        "cash": 503,
+        "fleet": 4,
+        "seconds": 21.6,
+        "peak": 21
+      },
+      {
+        "round": 11,
+        "pops": 239,
+        "lost": 0,
+        "lives": 150,
+        "cash": 620,
+        "fleet": 4,
+        "seconds": 23.9,
+        "peak": 33
+      },
+      {
+        "round": 12,
+        "pops": 220,
+        "lost": 0,
+        "lives": 150,
+        "cash": 578,
+        "fleet": 4,
+        "seconds": 26.7,
+        "peak": 36
+      },
+      {
+        "round": 13,
+        "pops": 276,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1228,
+        "fleet": 4,
+        "seconds": 33.1,
+        "peak": 56
+      },
+      {
+        "round": 14,
+        "pops": 274,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1834,
+        "fleet": 4,
+        "seconds": 17.8,
+        "peak": 25
+      },
+      {
+        "round": 15,
+        "pops": 329,
+        "lost": 0,
+        "lives": 150,
+        "cash": 2533,
+        "fleet": 4,
+        "seconds": 57.7,
+        "peak": 72
+      },
+      {
+        "round": 16,
+        "pops": 362,
+        "lost": 0,
+        "lives": 150,
+        "cash": 3243,
+        "fleet": 4,
+        "seconds": 25.5,
+        "peak": 49
+      },
+      {
+        "round": 17,
+        "pops": 344,
+        "lost": 0,
+        "lives": 150,
+        "cash": 4008,
+        "fleet": 4,
+        "seconds": 47.2,
+        "peak": 70
+      },
+      {
+        "round": 18,
+        "pops": 437,
+        "lost": 0,
+        "lives": 150,
+        "cash": 4807,
+        "fleet": 4,
+        "seconds": 29.1,
+        "peak": 63
+      },
+      {
+        "round": 19,
+        "pops": 406,
+        "lost": 0,
+        "lives": 150,
+        "cash": 5653,
+        "fleet": 4,
+        "seconds": 46.6,
+        "peak": 80
+      },
+      {
+        "round": 20,
+        "pops": 914,
+        "lost": 0,
+        "lives": 150,
+        "cash": 7050,
+        "fleet": 4,
+        "seconds": 64.9,
+        "peak": 132
+      }
+    ]
+  },
+  {
+    "mode": "easy",
+    "arena": "yard",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": true,
+    "round": 20,
+    "lives": 150,
+    "cash": 6811,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 0,
+    "averageSeconds": 48.4,
+    "slowest": 146.4,
+    "peak": 142,
+    "results": [
+      {
+        "round": 1,
+        "pops": 20,
+        "lost": 0,
+        "lives": 150,
+        "cash": 592,
+        "fleet": 1,
+        "seconds": 15.7,
+        "peak": 11
+      },
+      {
+        "round": 2,
+        "pops": 30,
+        "lost": 0,
+        "lives": 150,
+        "cash": 503,
+        "fleet": 2,
+        "seconds": 15.3,
+        "peak": 19
+      },
+      {
+        "round": 3,
+        "pops": 41,
+        "lost": 0,
+        "lives": 150,
+        "cash": 810,
+        "fleet": 2,
+        "seconds": 17.2,
+        "peak": 21
+      },
+      {
+        "round": 4,
+        "pops": 57,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1135,
+        "fleet": 2,
+        "seconds": 17.8,
+        "peak": 24
+      },
+      {
+        "round": 5,
+        "pops": 78,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1015,
+        "fleet": 3,
+        "seconds": 19.1,
+        "peak": 27
+      },
+      {
+        "round": 6,
+        "pops": 41,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1349,
+        "fleet": 3,
+        "seconds": 25.2,
+        "peak": 24
+      },
+      {
+        "round": 7,
+        "pops": 68,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1127,
+        "fleet": 4,
+        "seconds": 29,
+        "peak": 18
+      },
+      {
+        "round": 8,
+        "pops": 52,
+        "lost": 0,
+        "lives": 150,
+        "cash": 403,
+        "fleet": 4,
+        "seconds": 29.1,
+        "peak": 32
+      },
+      {
+        "round": 9,
+        "pops": 92,
+        "lost": 0,
+        "lives": 150,
+        "cash": 447,
+        "fleet": 4,
+        "seconds": 56.2,
+        "peak": 28
+      },
+      {
+        "round": 10,
+        "pops": 71,
+        "lost": 0,
+        "lives": 150,
+        "cash": 480,
+        "fleet": 4,
+        "seconds": 29.1,
+        "peak": 26
+      },
+      {
+        "round": 11,
+        "pops": 239,
+        "lost": 0,
+        "lives": 150,
+        "cash": 585,
+        "fleet": 4,
+        "seconds": 44.4,
+        "peak": 36
+      },
+      {
+        "round": 12,
+        "pops": 220,
+        "lost": 0,
+        "lives": 150,
+        "cash": 835,
+        "fleet": 4,
+        "seconds": 35.9,
+        "peak": 49
+      },
+      {
+        "round": 13,
+        "pops": 276,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1178,
+        "fleet": 4,
+        "seconds": 47.1,
+        "peak": 48
+      },
+      {
+        "round": 14,
+        "pops": 274,
+        "lost": 0,
+        "lives": 150,
+        "cash": 1782,
+        "fleet": 4,
+        "seconds": 28.8,
+        "peak": 52
+      },
+      {
+        "round": 15,
+        "pops": 329,
+        "lost": 0,
+        "lives": 150,
+        "cash": 2440,
+        "fleet": 4,
+        "seconds": 120.9,
+        "peak": 77
+      },
+      {
+        "round": 16,
+        "pops": 362,
+        "lost": 0,
+        "lives": 150,
+        "cash": 3141,
+        "fleet": 4,
+        "seconds": 38.8,
+        "peak": 66
+      },
+      {
+        "round": 17,
+        "pops": 344,
+        "lost": 0,
+        "lives": 150,
+        "cash": 3866,
+        "fleet": 4,
+        "seconds": 108.8,
+        "peak": 68
+      },
+      {
+        "round": 18,
+        "pops": 437,
+        "lost": 0,
+        "lives": 150,
+        "cash": 4653,
+        "fleet": 4,
+        "seconds": 46.7,
+        "peak": 77
+      },
+      {
+        "round": 19,
+        "pops": 406,
+        "lost": 0,
+        "lives": 150,
+        "cash": 5434,
+        "fleet": 4,
+        "seconds": 146.4,
+        "peak": 92
+      },
+      {
+        "round": 20,
+        "pops": 914,
+        "lost": 0,
+        "lives": 150,
+        "cash": 6811,
+        "fleet": 4,
+        "seconds": 95.8,
+        "peak": 142
+      }
+    ]
+  },
+  {
+    "mode": "medium",
+    "arena": "barn",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": false,
+    "round": 36,
+    "lives": 0,
+    "cash": 37641,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 114,
+    "averageSeconds": 81.8,
+    "slowest": 180,
+    "peak": 286,
+    "results": [
+      {
+        "round": 1,
+        "pops": 23,
+        "lost": 0,
+        "lives": 100,
+        "cash": 520,
+        "fleet": 1,
+        "seconds": 13.2,
+        "peak": 12
+      },
+      {
+        "round": 2,
+        "pops": 35,
+        "lost": 0,
+        "lives": 100,
+        "cash": 354,
+        "fleet": 2,
+        "seconds": 12.7,
+        "peak": 16
+      },
+      {
+        "round": 3,
+        "pops": 48,
+        "lost": 0,
+        "lives": 100,
+        "cash": 653,
+        "fleet": 2,
+        "seconds": 14.2,
+        "peak": 25
+      },
+      {
+        "round": 4,
+        "pops": 68,
+        "lost": 0,
+        "lives": 100,
+        "cash": 974,
+        "fleet": 2,
+        "seconds": 16.3,
+        "peak": 18
+      },
+      {
+        "round": 5,
+        "pops": 93,
+        "lost": 0,
+        "lives": 100,
+        "cash": 772,
+        "fleet": 3,
+        "seconds": 17.3,
+        "peak": 28
+      },
+      {
+        "round": 6,
+        "pops": 49,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1105,
+        "fleet": 3,
+        "seconds": 23.3,
+        "peak": 24
+      },
+      {
+        "round": 7,
+        "pops": 79,
+        "lost": 0,
+        "lives": 100,
+        "cash": 782,
+        "fleet": 4,
+        "seconds": 25.3,
+        "peak": 25
+      },
+      {
+        "round": 8,
+        "pops": 61,
+        "lost": 0,
+        "lives": 100,
+        "cash": 455,
+        "fleet": 4,
+        "seconds": 29.1,
+        "peak": 19
+      },
+      {
+        "round": 9,
+        "pops": 107,
+        "lost": 0,
+        "lives": 100,
+        "cash": 490,
+        "fleet": 4,
+        "seconds": 41.7,
+        "peak": 31
+      },
+      {
+        "round": 10,
+        "pops": 83,
+        "lost": 0,
+        "lives": 100,
+        "cash": 507,
+        "fleet": 4,
+        "seconds": 31.6,
+        "peak": 33
+      },
+      {
+        "round": 11,
+        "pops": 285,
+        "lost": 0,
+        "lives": 100,
+        "cash": 712,
+        "fleet": 4,
+        "seconds": 24.3,
+        "peak": 53
+      },
+      {
+        "round": 12,
+        "pops": 259,
+        "lost": 0,
+        "lives": 100,
+        "cash": 800,
+        "fleet": 4,
+        "seconds": 46.3,
+        "peak": 55
+      },
+      {
+        "round": 13,
+        "pops": 325,
+        "lost": 0,
+        "lives": 100,
+        "cash": 881,
+        "fleet": 4,
+        "seconds": 37.3,
+        "peak": 65
+      },
+      {
+        "round": 14,
+        "pops": 324,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1180,
+        "fleet": 4,
+        "seconds": 25.6,
+        "peak": 44
+      },
+      {
+        "round": 15,
+        "pops": 385,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1942,
+        "fleet": 4,
+        "seconds": 73.1,
+        "peak": 81
+      },
+      {
+        "round": 16,
+        "pops": 425,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2712,
+        "fleet": 4,
+        "seconds": 26.4,
+        "peak": 66
+      },
+      {
+        "round": 17,
+        "pops": 403,
+        "lost": 0,
+        "lives": 100,
+        "cash": 3551,
+        "fleet": 4,
+        "seconds": 62.5,
+        "peak": 86
+      },
+      {
+        "round": 18,
+        "pops": 508,
+        "lost": 0,
+        "lives": 100,
+        "cash": 4420,
+        "fleet": 4,
+        "seconds": 34.2,
+        "peak": 80
+      },
+      {
+        "round": 19,
+        "pops": 472,
+        "lost": 0,
+        "lives": 100,
+        "cash": 5317,
+        "fleet": 4,
+        "seconds": 109.2,
+        "peak": 110
+      },
+      {
+        "round": 20,
+        "pops": 1065,
+        "lost": 0,
+        "lives": 100,
+        "cash": 6884,
+        "fleet": 4,
+        "seconds": 92.9,
+        "peak": 190
+      },
+      {
+        "round": 21,
+        "pops": 1129,
+        "lost": 0,
+        "lives": 100,
+        "cash": 8489,
+        "fleet": 4,
+        "seconds": 106.9,
+        "peak": 181
+      },
+      {
+        "round": 22,
+        "pops": 1171,
+        "lost": 0,
+        "lives": 100,
+        "cash": 10158,
+        "fleet": 4,
+        "seconds": 88.2,
+        "peak": 197
+      },
+      {
+        "round": 23,
+        "pops": 1223,
+        "lost": 0,
+        "lives": 100,
+        "cash": 11883,
+        "fleet": 4,
+        "seconds": 100.8,
+        "peak": 209
+      },
+      {
+        "round": 24,
+        "pops": 1257,
+        "lost": 0,
+        "lives": 100,
+        "cash": 13648,
+        "fleet": 4,
+        "seconds": 102.6,
+        "peak": 199
+      },
+      {
+        "round": 25,
+        "pops": 1275,
+        "lost": 0,
+        "lives": 100,
+        "cash": 15435,
+        "fleet": 4,
+        "seconds": 99.1,
+        "peak": 222
+      },
+      {
+        "round": 26,
+        "pops": 1319,
+        "lost": 0,
+        "lives": 100,
+        "cash": 17282,
+        "fleet": 4,
+        "seconds": 105.5,
+        "peak": 222
+      },
+      {
+        "round": 27,
+        "pops": 1357,
+        "lost": 0,
+        "lives": 100,
+        "cash": 19189,
+        "fleet": 4,
+        "seconds": 90.7,
+        "peak": 235
+      },
+      {
+        "round": 28,
+        "pops": 1392,
+        "lost": 0,
+        "lives": 100,
+        "cash": 21121,
+        "fleet": 4,
+        "seconds": 115.5,
+        "peak": 241
+      },
+      {
+        "round": 29,
+        "pops": 1442,
+        "lost": 0,
+        "lives": 100,
+        "cash": 23108,
+        "fleet": 4,
+        "seconds": 117.9,
+        "peak": 238
+      },
+      {
+        "round": 30,
+        "pops": 1453,
+        "lost": 20,
+        "lives": 80,
+        "cash": 25053,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 242
+      },
+      {
+        "round": 31,
+        "pops": 1478,
+        "lost": 12,
+        "lives": 68,
+        "cash": 27043,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 268
+      },
+      {
+        "round": 32,
+        "pops": 1514,
+        "lost": 8,
+        "lives": 60,
+        "cash": 29075,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 262
+      },
+      {
+        "round": 33,
+        "pops": 1557,
+        "lost": 12,
+        "lives": 48,
+        "cash": 31166,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 273
+      },
+      {
+        "round": 34,
+        "pops": 1602,
+        "lost": 18,
+        "lives": 30,
+        "cash": 33303,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 286
+      },
+      {
+        "round": 35,
+        "pops": 1620,
+        "lost": 20,
+        "lives": 10,
+        "cash": 35458,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 269
+      },
+      {
+        "round": 36,
+        "pops": 1640,
+        "lost": 24,
+        "lives": 0,
+        "cash": 37641,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 284
+      }
+    ]
+  },
+  {
+    "mode": "medium",
+    "arena": "yard",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": false,
+    "round": 32,
+    "lives": 0,
+    "cash": 28448,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 108,
+    "averageSeconds": 96.6,
+    "slowest": 180,
+    "peak": 276,
+    "results": [
+      {
+        "round": 1,
+        "pops": 23,
+        "lost": 0,
+        "lives": 100,
+        "cash": 520,
+        "fleet": 1,
+        "seconds": 14.4,
+        "peak": 12
+      },
+      {
+        "round": 2,
+        "pops": 35,
+        "lost": 0,
+        "lives": 100,
+        "cash": 354,
+        "fleet": 2,
+        "seconds": 14.9,
+        "peak": 19
+      },
+      {
+        "round": 3,
+        "pops": 48,
+        "lost": 0,
+        "lives": 100,
+        "cash": 653,
+        "fleet": 2,
+        "seconds": 14.9,
+        "peak": 24
+      },
+      {
+        "round": 4,
+        "pops": 68,
+        "lost": 0,
+        "lives": 100,
+        "cash": 974,
+        "fleet": 2,
+        "seconds": 22.6,
+        "peak": 24
+      },
+      {
+        "round": 5,
+        "pops": 93,
+        "lost": 0,
+        "lives": 100,
+        "cash": 772,
+        "fleet": 3,
+        "seconds": 19.6,
+        "peak": 30
+      },
+      {
+        "round": 6,
+        "pops": 49,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1105,
+        "fleet": 3,
+        "seconds": 26.9,
+        "peak": 34
+      },
+      {
+        "round": 7,
+        "pops": 79,
+        "lost": 0,
+        "lives": 100,
+        "cash": 782,
+        "fleet": 4,
+        "seconds": 30.6,
+        "peak": 24
+      },
+      {
+        "round": 8,
+        "pops": 61,
+        "lost": 0,
+        "lives": 100,
+        "cash": 455,
+        "fleet": 4,
+        "seconds": 32.3,
+        "peak": 29
+      },
+      {
+        "round": 9,
+        "pops": 107,
+        "lost": 0,
+        "lives": 100,
+        "cash": 473,
+        "fleet": 4,
+        "seconds": 74.4,
+        "peak": 37
+      },
+      {
+        "round": 10,
+        "pops": 83,
+        "lost": 0,
+        "lives": 100,
+        "cash": 490,
+        "fleet": 4,
+        "seconds": 40.6,
+        "peak": 43
+      },
+      {
+        "round": 11,
+        "pops": 285,
+        "lost": 0,
+        "lives": 100,
+        "cash": 675,
+        "fleet": 4,
+        "seconds": 78.5,
+        "peak": 48
+      },
+      {
+        "round": 12,
+        "pops": 259,
+        "lost": 0,
+        "lives": 100,
+        "cash": 763,
+        "fleet": 4,
+        "seconds": 41.6,
+        "peak": 60
+      },
+      {
+        "round": 13,
+        "pops": 325,
+        "lost": 0,
+        "lives": 100,
+        "cash": 812,
+        "fleet": 4,
+        "seconds": 97.7,
+        "peak": 65
+      },
+      {
+        "round": 14,
+        "pops": 324,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1111,
+        "fleet": 4,
+        "seconds": 36.6,
+        "peak": 61
+      },
+      {
+        "round": 15,
+        "pops": 385,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1864,
+        "fleet": 4,
+        "seconds": 86.7,
+        "peak": 71
+      },
+      {
+        "round": 16,
+        "pops": 425,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2634,
+        "fleet": 4,
+        "seconds": 47,
+        "peak": 77
+      },
+      {
+        "round": 17,
+        "pops": 403,
+        "lost": 0,
+        "lives": 100,
+        "cash": 3419,
+        "fleet": 4,
+        "seconds": 145.5,
+        "peak": 88
+      },
+      {
+        "round": 18,
+        "pops": 508,
+        "lost": 0,
+        "lives": 100,
+        "cash": 4283,
+        "fleet": 4,
+        "seconds": 55.4,
+        "peak": 103
+      },
+      {
+        "round": 19,
+        "pops": 472,
+        "lost": 0,
+        "lives": 100,
+        "cash": 5145,
+        "fleet": 4,
+        "seconds": 162.6,
+        "peak": 107
+      },
+      {
+        "round": 20,
+        "pops": 1065,
+        "lost": 0,
+        "lives": 100,
+        "cash": 6693,
+        "fleet": 4,
+        "seconds": 121.7,
+        "peak": 161
+      },
+      {
+        "round": 21,
+        "pops": 1129,
+        "lost": 0,
+        "lives": 100,
+        "cash": 8291,
+        "fleet": 4,
+        "seconds": 118.1,
+        "peak": 193
+      },
+      {
+        "round": 22,
+        "pops": 1171,
+        "lost": 0,
+        "lives": 100,
+        "cash": 9933,
+        "fleet": 4,
+        "seconds": 129.7,
+        "peak": 191
+      },
+      {
+        "round": 23,
+        "pops": 1223,
+        "lost": 0,
+        "lives": 100,
+        "cash": 11632,
+        "fleet": 4,
+        "seconds": 141.1,
+        "peak": 216
+      },
+      {
+        "round": 24,
+        "pops": 1250,
+        "lost": 14,
+        "lives": 86,
+        "cash": 13326,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 212
+      },
+      {
+        "round": 25,
+        "pops": 1275,
+        "lost": 0,
+        "lives": 86,
+        "cash": 15064,
+        "fleet": 4,
+        "seconds": 174,
+        "peak": 226
+      },
+      {
+        "round": 26,
+        "pops": 1319,
+        "lost": 0,
+        "lives": 86,
+        "cash": 16879,
+        "fleet": 4,
+        "seconds": 154.6,
+        "peak": 227
+      },
+      {
+        "round": 27,
+        "pops": 1357,
+        "lost": 0,
+        "lives": 86,
+        "cash": 18742,
+        "fleet": 4,
+        "seconds": 157.5,
+        "peak": 244
+      },
+      {
+        "round": 28,
+        "pops": 1392,
+        "lost": 0,
+        "lives": 86,
+        "cash": 20651,
+        "fleet": 4,
+        "seconds": 151.2,
+        "peak": 248
+      },
+      {
+        "round": 29,
+        "pops": 1436,
+        "lost": 12,
+        "lives": 74,
+        "cash": 22580,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 252
+      },
+      {
+        "round": 30,
+        "pops": 1453,
+        "lost": 20,
+        "lives": 54,
+        "cash": 24525,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 223
+      },
+      {
+        "round": 31,
+        "pops": 1461,
+        "lost": 18,
+        "lives": 36,
+        "cash": 26498,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 276
+      },
+      {
+        "round": 32,
+        "pops": 1446,
+        "lost": 44,
+        "lives": 0,
+        "cash": 28448,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 269
+      }
+    ]
+  },
+  {
+    "mode": "hard",
+    "arena": "barn",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": false,
+    "round": 25,
+    "lives": 0,
+    "cash": 16760,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 70,
+    "averageSeconds": 66.7,
+    "slowest": 180,
+    "peak": 281,
+    "results": [
+      {
+        "round": 1,
+        "pops": 27,
+        "lost": 0,
+        "lives": 50,
+        "cash": 477,
+        "fleet": 1,
+        "seconds": 12.9,
+        "peak": 15
+      },
+      {
+        "round": 2,
+        "pops": 41,
+        "lost": 0,
+        "lives": 50,
+        "cash": 752,
+        "fleet": 1,
+        "seconds": 13.9,
+        "peak": 24
+      },
+      {
+        "round": 3,
+        "pops": 56,
+        "lost": 0,
+        "lives": 50,
+        "cash": 558,
+        "fleet": 2,
+        "seconds": 9.8,
+        "peak": 24
+      },
+      {
+        "round": 4,
+        "pops": 80,
+        "lost": 0,
+        "lives": 50,
+        "cash": 876,
+        "fleet": 2,
+        "seconds": 17.1,
+        "peak": 33
+      },
+      {
+        "round": 5,
+        "pops": 106,
+        "lost": 0,
+        "lives": 50,
+        "cash": 628,
+        "fleet": 3,
+        "seconds": 15.8,
+        "peak": 32
+      },
+      {
+        "round": 6,
+        "pops": 56,
+        "lost": 0,
+        "lives": 50,
+        "cash": 956,
+        "fleet": 3,
+        "seconds": 26.8,
+        "peak": 34
+      },
+      {
+        "round": 7,
+        "pops": 93,
+        "lost": 0,
+        "lives": 50,
+        "cash": 582,
+        "fleet": 4,
+        "seconds": 29.9,
+        "peak": 30
+      },
+      {
+        "round": 8,
+        "pops": 71,
+        "lost": 0,
+        "lives": 50,
+        "cash": 377,
+        "fleet": 4,
+        "seconds": 38.9,
+        "peak": 21
+      },
+      {
+        "round": 9,
+        "pops": 125,
+        "lost": 0,
+        "lives": 50,
+        "cash": 440,
+        "fleet": 4,
+        "seconds": 64.3,
+        "peak": 38
+      },
+      {
+        "round": 10,
+        "pops": 100,
+        "lost": 0,
+        "lives": 50,
+        "cash": 656,
+        "fleet": 4,
+        "seconds": 37,
+        "peak": 45
+      },
+      {
+        "round": 11,
+        "pops": 330,
+        "lost": 0,
+        "lives": 50,
+        "cash": 885,
+        "fleet": 4,
+        "seconds": 42.3,
+        "peak": 57
+      },
+      {
+        "round": 12,
+        "pops": 300,
+        "lost": 0,
+        "lives": 50,
+        "cash": 806,
+        "fleet": 4,
+        "seconds": 42.4,
+        "peak": 71
+      },
+      {
+        "round": 13,
+        "pops": 374,
+        "lost": 0,
+        "lives": 50,
+        "cash": 969,
+        "fleet": 4,
+        "seconds": 52.9,
+        "peak": 81
+      },
+      {
+        "round": 14,
+        "pops": 375,
+        "lost": 0,
+        "lives": 50,
+        "cash": 906,
+        "fleet": 4,
+        "seconds": 29.3,
+        "peak": 61
+      },
+      {
+        "round": 15,
+        "pops": 449,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1752,
+        "fleet": 4,
+        "seconds": 53.3,
+        "peak": 91
+      },
+      {
+        "round": 16,
+        "pops": 492,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2582,
+        "fleet": 4,
+        "seconds": 33.5,
+        "peak": 81
+      },
+      {
+        "round": 17,
+        "pops": 470,
+        "lost": 0,
+        "lives": 50,
+        "cash": 3496,
+        "fleet": 4,
+        "seconds": 90.8,
+        "peak": 124
+      },
+      {
+        "round": 18,
+        "pops": 595,
+        "lost": 0,
+        "lives": 50,
+        "cash": 4449,
+        "fleet": 4,
+        "seconds": 41.1,
+        "peak": 106
+      },
+      {
+        "round": 19,
+        "pops": 555,
+        "lost": 0,
+        "lives": 50,
+        "cash": 5485,
+        "fleet": 4,
+        "seconds": 70.3,
+        "peak": 134
+      },
+      {
+        "round": 20,
+        "pops": 1248,
+        "lost": 0,
+        "lives": 50,
+        "cash": 7272,
+        "fleet": 4,
+        "seconds": 95.8,
+        "peak": 235
+      },
+      {
+        "round": 21,
+        "pops": 1330,
+        "lost": 0,
+        "lives": 50,
+        "cash": 9101,
+        "fleet": 4,
+        "seconds": 129.5,
+        "peak": 238
+      },
+      {
+        "round": 22,
+        "pops": 1353,
+        "lost": 18,
+        "lives": 32,
+        "cash": 10917,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 249
+      },
+      {
+        "round": 23,
+        "pops": 1424,
+        "lost": 16,
+        "lives": 16,
+        "cash": 12823,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 248
+      },
+      {
+        "round": 24,
+        "pops": 1475,
+        "lost": 10,
+        "lives": 6,
+        "cash": 14793,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 278
+      },
+      {
+        "round": 25,
+        "pops": 1486,
+        "lost": 26,
+        "lives": 0,
+        "cash": 16760,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 281
+      }
+    ]
+  },
+  {
+    "mode": "hard",
+    "arena": "yard",
+    "plan": "basic",
+    "seed": 73429,
+    "survived": false,
+    "round": 23,
+    "lives": 0,
+    "cash": 12516,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 70,
+    "averageSeconds": 81.1,
+    "slowest": 180,
+    "peak": 253,
+    "results": [
+      {
+        "round": 1,
+        "pops": 27,
+        "lost": 0,
+        "lives": 50,
+        "cash": 477,
+        "fleet": 1,
+        "seconds": 13.6,
+        "peak": 14
+      },
+      {
+        "round": 2,
+        "pops": 41,
+        "lost": 0,
+        "lives": 50,
+        "cash": 752,
+        "fleet": 1,
+        "seconds": 16,
+        "peak": 21
+      },
+      {
+        "round": 3,
+        "pops": 56,
+        "lost": 0,
+        "lives": 50,
+        "cash": 558,
+        "fleet": 2,
+        "seconds": 14.8,
+        "peak": 30
+      },
+      {
+        "round": 4,
+        "pops": 80,
+        "lost": 0,
+        "lives": 50,
+        "cash": 876,
+        "fleet": 2,
+        "seconds": 21,
+        "peak": 30
+      },
+      {
+        "round": 5,
+        "pops": 106,
+        "lost": 0,
+        "lives": 50,
+        "cash": 628,
+        "fleet": 3,
+        "seconds": 20,
+        "peak": 35
+      },
+      {
+        "round": 6,
+        "pops": 56,
+        "lost": 0,
+        "lives": 50,
+        "cash": 956,
+        "fleet": 3,
+        "seconds": 26.6,
+        "peak": 37
+      },
+      {
+        "round": 7,
+        "pops": 93,
+        "lost": 0,
+        "lives": 50,
+        "cash": 582,
+        "fleet": 4,
+        "seconds": 32.1,
+        "peak": 26
+      },
+      {
+        "round": 8,
+        "pops": 71,
+        "lost": 0,
+        "lives": 50,
+        "cash": 357,
+        "fleet": 4,
+        "seconds": 102.5,
+        "peak": 45
+      },
+      {
+        "round": 9,
+        "pops": 125,
+        "lost": 0,
+        "lives": 50,
+        "cash": 400,
+        "fleet": 4,
+        "seconds": 102.3,
+        "peak": 38
+      },
+      {
+        "round": 10,
+        "pops": 100,
+        "lost": 0,
+        "lives": 50,
+        "cash": 616,
+        "fleet": 4,
+        "seconds": 38.6,
+        "peak": 53
+      },
+      {
+        "round": 11,
+        "pops": 330,
+        "lost": 0,
+        "lives": 50,
+        "cash": 840,
+        "fleet": 4,
+        "seconds": 79.5,
+        "peak": 58
+      },
+      {
+        "round": 12,
+        "pops": 300,
+        "lost": 0,
+        "lives": 50,
+        "cash": 761,
+        "fleet": 4,
+        "seconds": 51.8,
+        "peak": 71
+      },
+      {
+        "round": 13,
+        "pops": 374,
+        "lost": 0,
+        "lives": 50,
+        "cash": 905,
+        "fleet": 4,
+        "seconds": 100.6,
+        "peak": 80
+      },
+      {
+        "round": 14,
+        "pops": 375,
+        "lost": 0,
+        "lives": 50,
+        "cash": 842,
+        "fleet": 4,
+        "seconds": 41.3,
+        "peak": 66
+      },
+      {
+        "round": 15,
+        "pops": 449,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1642,
+        "fleet": 4,
+        "seconds": 142.5,
+        "peak": 97
+      },
+      {
+        "round": 16,
+        "pops": 492,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2472,
+        "fleet": 4,
+        "seconds": 46.1,
+        "peak": 94
+      },
+      {
+        "round": 17,
+        "pops": 470,
+        "lost": 0,
+        "lives": 50,
+        "cash": 3363,
+        "fleet": 4,
+        "seconds": 127.5,
+        "peak": 116
+      },
+      {
+        "round": 18,
+        "pops": 595,
+        "lost": 0,
+        "lives": 50,
+        "cash": 4316,
+        "fleet": 4,
+        "seconds": 54,
+        "peak": 112
+      },
+      {
+        "round": 19,
+        "pops": 555,
+        "lost": 0,
+        "lives": 50,
+        "cash": 5295,
+        "fleet": 4,
+        "seconds": 158.6,
+        "peak": 141
+      },
+      {
+        "round": 20,
+        "pops": 1248,
+        "lost": 0,
+        "lives": 50,
+        "cash": 7035,
+        "fleet": 4,
+        "seconds": 168.6,
+        "peak": 212
+      },
+      {
+        "round": 21,
+        "pops": 1330,
+        "lost": 0,
+        "lives": 50,
+        "cash": 8853,
+        "fleet": 4,
+        "seconds": 146.3,
+        "peak": 239
+      },
+      {
+        "round": 22,
+        "pops": 1353,
+        "lost": 18,
+        "lives": 32,
+        "cash": 10669,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 240
+      },
+      {
+        "round": 23,
+        "pops": 1389,
+        "lost": 52,
+        "lives": 0,
+        "cash": 12516,
+        "fleet": 4,
+        "seconds": 180,
+        "peak": 253
+      }
+    ]
+  }
+]

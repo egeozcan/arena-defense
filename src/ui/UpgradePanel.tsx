@@ -1,0 +1,304 @@
+import { useState, type CSSProperties } from 'react';
+import {
+  ArrowRight,
+  Check,
+  CircleGauge,
+  Crosshair,
+  Droplets,
+  Gauge,
+  Lock,
+  Magnet,
+  MoveUpRight,
+  Radar,
+  Scissors,
+  Shield,
+  Sparkles,
+  Target,
+  Tractor,
+  Waves,
+  Wrench,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
+import {
+  PATHS,
+  SHARED_EFFECTS,
+  TIER_COSTS,
+  UNIQUE_EFFECTS,
+  VEHICLES,
+  price,
+  upgradeAllowed,
+  type OwnedVehicle,
+  type PathName,
+  type Run,
+  type VehicleKind,
+} from '../sim/data';
+
+const PATH_INFO = {
+  attack: {
+    name: 'Attack',
+    icon: Crosshair,
+    color: '#f4a47e',
+    description: 'Hit harder and break through armor.',
+  },
+  speed: {
+    name: 'Speed',
+    icon: Gauge,
+    color: '#f6d779',
+    description: 'Chase faster and shorten tool downtime.',
+  },
+  traction: {
+    name: 'Traction',
+    icon: Tractor,
+    color: '#b9d693',
+    description: 'Keep moving through mud and traffic.',
+  },
+  unique: {
+    name: 'Specialist',
+    icon: Wrench,
+    color: '#96d6dc',
+    description: 'Evolve your tool and unlock a vehicle ability.',
+  },
+};
+const SHARED_ICONS: Record<Exclude<PathName, 'unique'>, LucideIcon[]> = {
+  attack: [Target, Gauge, Shield, Crosshair, Sparkles],
+  speed: [MoveUpRight, CircleGauge, MoveUpRight, Zap, Zap],
+  traction: [Tractor, Tractor, Waves, ArrowRight, Shield],
+};
+const UNIQUE_ICONS: Record<VehicleKind, LucideIcon[]> = {
+  harvester: [Scissors, MoveUpRight, Zap, MoveUpRight, Magnet],
+  sprayer: [Droplets, Radar, Waves, Shield, Radar],
+  excavator: [MoveUpRight, Waves, Zap, Waves, Sparkles],
+  crane: [MoveUpRight, Gauge, Waves, Magnet, Radar],
+};
+const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
+  harvester: [
+    'Adds 0.5 m of horizontal range to catch more low balloons in each sweep.',
+    'Raises the cutting height from 1.5 m to 2 m.',
+    'Cuts behind the chassis too. Unlocks Full throttle: 3 seconds of double movement speed and damage, aimed at a dense crowd (24 s cooldown).',
+    'Raises the cutting height to 3 m, covering more mid-height balloons.',
+    'Pulls balloons within 4 m toward the header so crowds stay in cutting range.',
+  ],
+  sprayer: [
+    'Extends horizontal spray range from 5 m to 6 m. Height coverage stays at 0–4 m.',
+    'Widens the spray cone from 40° to 60° to catch more balloons per attack.',
+    'Hits slow balloons for 3 seconds. Unlocks Sticky cloud: a 6-second slowing cloud around the sprayer (30 s cooldown).',
+    'Deals full damage to armored balloons and removes their armor after 3 acid hits.',
+    'Sprays in every direction, hitting all eligible balloons within range.',
+  ],
+  excavator: [
+    'Extends horizontal arm range from 5 m to 6 m. Height coverage stays at 0–5 m.',
+    'Each strike also hits eligible balloons within 1 m of the target.',
+    'Extends horizontal range to 7 m. Unlocks Ground slam: 3 damage that bypasses armor within 4 m, below 2 m high (36 s cooldown).',
+    'Each attack also damages balloons below 1 m high within 3 m of the chassis.',
+    'Pops a layered balloon completely, preventing its remaining layers from splitting out.',
+  ],
+  crane: [
+    'Extends horizontal boom range from 6 m to 8 m. Height coverage stays at 3–12 m.',
+    'Swings the hook 25% faster for more frequent attacks.',
+    'Adds splash damage within 1.5 m of the target. Unlocks Hook yank: lowers a nearby balloon to 2 m for 5 seconds, letting low tools help (28 s cooldown).',
+    'Lowers hay carriers to 4 m so sprayers and excavators can reach them.',
+    'Anchors the crane in place, hits two targets per swing, and raises height coverage to 14 m. Place it carefully: it can no longer chase balloons.',
+  ],
+};
+const SIGNATURES: Record<VehicleKind, string> = {
+  harvester: 'Doubles cutting damage again, stacking with earlier Attack upgrades.',
+  sprayer: 'Triples spray damage, stacking with earlier Attack upgrades.',
+  excavator: 'Triples crushing damage, stacking with earlier Attack upgrades.',
+  crane:
+    'This tier currently adds no effect to cranes. Damage and range remain at tier 4 values; the reinforced hook assembly gets a visual refit.',
+};
+function detail(kind: VehicleKind, path: PathName, index: number) {
+  if (path === 'unique') return UNIQUE_DETAILS[kind][index];
+  if (path === 'attack')
+    return [
+      'Multiplies damage per hit by 1.25. Especially useful against durable targets.',
+      'Cuts the time between attacks by 20%, for 25% more attacks per second.',
+      'Bypasses half of armor resistance. Harvesters and cranes can now target armored balloons.',
+      'Doubles damage per hit, stacking with the tier 1 damage bonus.',
+      SIGNATURES[kind],
+    ][index];
+  if (path === 'speed')
+    return [
+      'Multiplies movement speed by 1.15 to reach the next target sooner.',
+      'Runs the tool 15% faster. This stacks with Attack path improvements.',
+      'Adds another 30% movement speed, stacking with tier 1.',
+      'Each pop grants 5 seconds of double tool speed. Further pops refresh the timer.',
+      'Keeps double tool speed active continuously, even before the first pop.',
+    ][index];
+  return [
+    'Adds 0.1 traction to reduce terrain slowdown and improve route choices.',
+    'Adds another 0.1 traction, up to a maximum grip rating of 1.',
+    'Improves mud grip by 0.2 so muddy routes cost less movement time.',
+    'Checks blocked routes and requests traffic clearance twice as often.',
+    'Removes movement slowdown from terrain and hay. Chassis still need a clear route.',
+  ][index];
+}
+
+function effectTitle(kind: VehicleKind, path: PathName, index: number) {
+  if (path === 'traction' && index === 2) return 'Better mud grip';
+  if (path === 'speed' && index === 3) return '5 s tool overdrive after a pop';
+  if (path === 'speed' && index === 4) return 'Permanent tool overdrive';
+  if (path === 'attack' && index === 4 && kind === 'crane') return 'No additional crane benefit';
+  return path === 'unique' ? UNIQUE_EFFECTS[kind][index] : SHARED_EFFECTS[path][index];
+}
+
+function UpgradePath({
+  run,
+  vehicle,
+  path,
+  onUpgrade,
+}: {
+  run: Run;
+  vehicle: OwnedVehicle;
+  path: PathName;
+  onUpgrade: (path: PathName) => void;
+}) {
+  const tier = vehicle.upgrades[path];
+  const [inspected, setInspected] = useState<number | null>(null);
+  const index = inspected ?? Math.min(tier, 4);
+  const info = PATH_INFO[path];
+  const name = path === 'unique' ? VEHICLES[vehicle.kind].unique : info.name;
+  const PathIcon = path === 'unique' ? UNIQUE_ICONS[vehicle.kind][0] : info.icon;
+  const effectIcons = path === 'unique' ? UNIQUE_ICONS[vehicle.kind] : SHARED_ICONS[path];
+  const cost = price(run, VEHICLES[vehicle.kind].cost * TIER_COSTS[index]);
+  const allowed = upgradeAllowed(vehicle, path);
+  const used = PATHS.filter((p) => vehicle.upgrades[p] > 0);
+  const purchased = index < tier;
+  const next = index === tier && allowed;
+  const reason = purchased
+    ? 'Installed'
+    : !allowed
+      ? tier === 5
+        ? 'Path complete'
+        : !used.includes(path) && used.length >= 2
+          ? 'Two paths already chosen'
+          : 'Secondary path capped at tier 2'
+      : index > tier
+        ? `Requires tier ${index} first`
+        : cost > run.cash
+          ? `Need $${(cost - run.cash).toLocaleString()} more`
+          : 'Ready to install';
+  return (
+    <section
+      className={`upgrade-card path-${path}`}
+      style={{ '--path-color': info.color } as CSSProperties}
+      aria-label={`${name} upgrades`}
+    >
+      <div className="upgrade-card-heading">
+        <span className="upgrade-path-emblem">
+          <PathIcon size={24} />
+        </span>
+        <div>
+          <h3>{name}</h3>
+          <p>{info.description}</p>
+        </div>
+        <span className="upgrade-progress">
+          {tier}
+          <small>/5</small>
+        </span>
+      </div>
+      <div className="upgrade-tier-rail" aria-label={`${name} tiers`}>
+        {Array.from({ length: 5 }, (_, i) => (
+          <button
+            key={i}
+            className={`${i < tier ? 'installed' : ''} ${i === index ? 'inspected' : ''} ${i === tier && allowed ? 'next-tier' : ''}`}
+            aria-label={`Inspect ${name} tier ${i + 1}${i < tier ? ', installed' : ''}`}
+            aria-pressed={i === index}
+            onMouseEnter={() => setInspected(i)}
+            onFocus={() => setInspected(i)}
+            onClick={() => setInspected(i)}
+          >
+            {i < tier ? (
+              <Check size={15} />
+            ) : i > tier || !allowed ? (
+              <Lock size={12} />
+            ) : (
+              <PlusMark />
+            )}
+            <small>{i + 1}</small>
+          </button>
+        ))}
+      </div>
+      <div className="upgrade-effect-stack">
+        {/* Overlapping previews reserve the tallest tier at the current width, so
+            hover and keyboard inspection cannot resize the card or its neighbors. */}
+        {effectIcons.map((EffectIcon, previewIndex) => (
+          <div
+            key={previewIndex}
+            className={`upgrade-effect ${previewIndex === index ? 'is-inspected' : ''}`}
+            aria-hidden={previewIndex !== index}
+          >
+            <div className="upgrade-effect-art" aria-hidden="true">
+              <EffectIcon size={30} />
+              <span>{String(previewIndex + 1).padStart(2, '0')}</span>
+            </div>
+            <div>
+              <span className="upgrade-tier-label">
+                TIER {previewIndex + 1}
+                {path === 'unique' && previewIndex === 2 ? ' · ABILITY UNLOCK' : ''}
+              </span>
+              <h4>{effectTitle(vehicle.kind, path, previewIndex)}</h4>
+              <p>{detail(vehicle.kind, path, previewIndex)}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button
+        className={`upgrade-purchase ${purchased ? 'installed' : ''}`}
+        disabled={!next || cost > run.cash}
+        onClick={() => {
+          onUpgrade(path);
+          setInspected(null);
+        }}
+        aria-label={
+          next
+            ? `Install ${name} tier ${index + 1} for $${cost}`
+            : `${name} tier ${index + 1}: ${reason}`
+        }
+      >
+        <span>
+          {purchased ? <Check size={14} /> : next ? <Wrench size={14} /> : <Lock size={14} />}
+          {next && cost <= run.cash ? 'Install upgrade' : reason}
+        </span>
+        {!purchased && <strong>${cost.toLocaleString()}</strong>}
+      </button>
+    </section>
+  );
+}
+function PlusMark() {
+  return <span aria-hidden="true">+</span>;
+}
+
+export function UpgradePanel({
+  run,
+  vehicle,
+  onUpgrade,
+}: {
+  run: Run;
+  vehicle: OwnedVehicle;
+  onUpgrade: (path: PathName) => void;
+}) {
+  return (
+    <>
+      <div className="section-label upgrade-label">
+        BUILD YOUR SPECIALIST <span>HOVER OR TAP A TIER TO INSPECT</span>
+      </div>
+      <p className="upgrade-rules">
+        <Shield size={15} /> Choose two paths. The first to reach tier 3 can grow to tier 5; the
+        other stops at tier 2.
+      </p>
+      <div className="upgrade-cards">
+        {PATHS.map((path) => (
+          <UpgradePath
+            key={`${vehicle.id}-${path}`}
+            run={run}
+            vehicle={vehicle}
+            path={path}
+            onUpgrade={onUpgrade}
+          />
+        ))}
+      </div>
+    </>
+  );
+}

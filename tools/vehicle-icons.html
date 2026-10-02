@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vehicle icon studio</title>
+    <style>
+      body {
+        margin: 20px;
+        background: #728664;
+        color: #fff6d8;
+        font: 16px system-ui;
+      }
+      main {
+        display: grid;
+        grid-template-columns: repeat(2, 384px);
+        gap: 24px;
+      }
+      article {
+        text-align: center;
+      }
+      .preview {
+        width: 384px;
+        height: 320px;
+        background: #526a46;
+        border-radius: 16px;
+      }
+      button,
+      a {
+        display: inline-block;
+        margin: 8px;
+        padding: 8px;
+      }
+      .controls {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      select {
+        margin-left: 6px;
+        padding: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vehicle icon studio</h1>
+    <p>Render the in-game models once, then save the transparent PNGs in public/vehicles.</p>
+    <div id="root"></div>
+    <script type="module" src="/tools/vehicle-icons.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "balloon-arena-defense",
+  "version": "0.1.0",
+  "license": "GPL-3.0-only",
+  "author": "Yavuz Ege Özcan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egeozcan/arena-defense.git"
+  },
+  "homepage": "https://egeozcan.github.io/arena-defense/",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "test": "tsx --test tools/*.test.ts",
+    "balance": "tsx tools/balance.ts",
+    "preview": "vite preview --host 127.0.0.1",
+    "format": "prettier --write src tools vite.config.ts"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-deterministic-compat": "^0.21.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.8.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.183.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.183.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "prettier": "^3.9.9",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vite": "^8.3.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

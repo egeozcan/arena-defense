@@ -1,0 +1,611 @@
+export type VehicleKind = 'harvester' | 'sprayer' | 'excavator' | 'crane';
+export type BalloonKind = 'basic' | 'layered' | 'armored' | 'high' | 'carrier';
+export type Mode = 'easy' | 'medium' | 'hard';
+export type ArenaKind = 'barn' | 'yard';
+export type TargetMode = 'Nearest' | 'Strongest' | 'Highest' | 'Oldest' | 'Most lives';
+export type PathName = 'attack' | 'speed' | 'traction' | 'unique';
+export type AbilityKind = 'gust' | 'boost' | 'pitchfork';
+export const MODES = {
+  easy: {
+    lives: 150,
+    rounds: 20,
+    multiplier: 0.85,
+    description: 'Forgiving waves',
+    crowd: 1,
+    packScale: 1,
+    spawnScale: 1,
+    drift: 1,
+    toughGrowth: 0,
+    flee: { start: 15, chance: 0.12 },
+    regen: { start: 18, chance: 0.06 },
+    armor: { start: 35, chance: 0.1 },
+    clearBonus: 100,
+  },
+  medium: {
+    lives: 100,
+    rounds: 40,
+    multiplier: 1,
+    description: 'Build a balanced fleet',
+    crowd: 1.15,
+    packScale: 1.15,
+    spawnScale: 0.9,
+    drift: 1.1,
+    toughGrowth: 0.01,
+    flee: { start: 12, chance: 0.18 },
+    regen: { start: 16, chance: 0.1 },
+    armor: { start: 30, chance: 0.15 },
+    clearBonus: 85,
+  },
+  hard: {
+    lives: 50,
+    rounds: 60,
+    multiplier: 1.08,
+    description: 'Upgrade and use abilities',
+    crowd: 1.35,
+    packScale: 1.35,
+    spawnScale: 0.78,
+    drift: 1.2,
+    toughGrowth: 0.018,
+    flee: { start: 10, chance: 0.24 },
+    regen: { start: 14, chance: 0.16 },
+    armor: { start: 22, chance: 0.22 },
+    clearBonus: 70,
+  },
+};
+export const VEHICLES = {
+  harvester: {
+    name: 'Combine harvester',
+    short: 'Harvester',
+    role: 'Ground-level swarm control',
+    cost: 400,
+    color: '#e84332',
+    speed: 7.8,
+    traction: 0.5,
+    min: 0,
+    max: 1.5,
+    range: 2.2,
+    damage: 1,
+    interval: 0.17,
+    footprint: [2, 3],
+    unique: 'Header',
+    tool: 'CUT',
+    description: 'Cuts low balloons. Cannot damage armor without upgrades.',
+  },
+  sprayer: {
+    name: 'Crop sprayer',
+    short: 'Sprayer',
+    role: 'Mid-height crowd control',
+    cost: 450,
+    color: '#65ae3a',
+    speed: 8.8,
+    traction: 0.3,
+    min: 0,
+    max: 4,
+    range: 5,
+    damage: 1,
+    interval: 0.34,
+    footprint: [2, 2],
+    unique: 'Chemicals',
+    tool: 'SPRAY',
+    description: 'Hits balloons in a cone. Chemicals upgrades add slowing and armor damage.',
+  },
+  excavator: {
+    name: 'Excavator',
+    short: 'Excavator',
+    role: 'Armor breaker',
+    cost: 550,
+    color: '#ffba20',
+    speed: 5.2,
+    traction: 0.8,
+    min: 0,
+    max: 5,
+    range: 5,
+    damage: 4,
+    interval: 0.52,
+    footprint: [2, 2],
+    unique: 'Hydraulics',
+    tool: 'CRUSH',
+    description: 'Deals full damage to armor. Hydraulics upgrades add splash damage.',
+  },
+  crane: {
+    name: 'Mobile crane',
+    short: 'Crane',
+    role: 'High-altitude specialist',
+    cost: 700,
+    color: '#ff852c',
+    speed: 4.6,
+    traction: 0.6,
+    min: 3,
+    max: 12,
+    range: 6,
+    damage: 3,
+    interval: 0.46,
+    footprint: [2, 3],
+    unique: 'Boom',
+    tool: 'PIERCE',
+    description: 'Reaches high balloons; cannot hit below 3 m. Boom upgrades add splash damage.',
+  },
+} satisfies Record<
+  VehicleKind,
+  {
+    name: string;
+    short: string;
+    role: string;
+    cost: number;
+    color: string;
+    speed: number;
+    traction: number;
+    min: number;
+    max: number;
+    range: number;
+    damage: number;
+    interval: number;
+    footprint: number[];
+    unique: string;
+    tool: string;
+    description: string;
+  }
+>;
+export const BALLOONS = {
+  basic: { name: 'Basic', hp: 1, radius: 0.4, color: '#fa3b46', lives: 1, cash: 1, speed: 0.95 },
+  layered: { name: 'Layered', hp: 1, radius: 0.6, color: '#9753ed', lives: 2, cash: 1, speed: 0.8 },
+  armored: {
+    name: 'Armored',
+    hp: 6,
+    radius: 0.7,
+    color: '#5d718d',
+    lives: 3,
+    cash: 4,
+    speed: 0.32,
+  },
+  high: {
+    name: 'High-flyer',
+    hp: 2,
+    radius: 0.4,
+    color: '#20bdf2',
+    lives: 2,
+    cash: 3,
+    speed: 0.75,
+  },
+  carrier: {
+    name: 'Hay carrier',
+    hp: 4,
+    radius: 0.9,
+    color: '#ffc52b',
+    lives: 5,
+    cash: 5,
+    speed: 0.5,
+  },
+};
+export const LAYER_COLORS = ['#ffd339', '#73cf44', '#3e99f5', '#9753ed'];
+export const TARGETS: TargetMode[] = ['Nearest', 'Strongest', 'Highest', 'Oldest', 'Most lives'];
+export const PATHS: PathName[] = ['attack', 'speed', 'traction', 'unique'];
+export const TIER_COSTS = [0.3, 0.5, 1.2, 3, 8];
+export const SHARED_EFFECTS = {
+  attack: [
+    '25% more damage',
+    '20% faster attacks',
+    'Ignores half of armor',
+    'Double damage',
+    'Signature tool transformation',
+  ],
+  speed: [
+    '15% faster movement',
+    '15% faster tool',
+    '30% faster movement',
+    '5 s overdrive after a pop',
+    'Permanent overdrive',
+  ],
+  traction: [
+    '+0.1 traction',
+    '+0.1 traction',
+    'Climbs ramps; +0.2 mud grip',
+    'Faster traffic recovery',
+    'Full grip on all terrain',
+  ],
+};
+export const UNIQUE_EFFECTS: Record<VehicleKind, string[]> = {
+  harvester: [
+    'Wider header',
+    'Reaches 2 m',
+    'Rear header + Full throttle',
+    'Raised header reaches 3 m',
+    'Thresher pulls balloons in',
+  ],
+  sprayer: [
+    'Spray reaches 6 m',
+    '60° spray cone',
+    'Sticky spray + Sticky cloud',
+    'Acid strips armor',
+    '360° fog cannon',
+  ],
+  excavator: [
+    'Arm reaches 6 m',
+    'Splash damage within 1 m',
+    'Arm reaches 7 m + Ground slam',
+    'Ground shockwave',
+    'Demolisher pops every layer',
+  ],
+  crane: [
+    '+2 m boom reach',
+    'Faster hook swing',
+    'Wrecking ball + Hook yank',
+    'Magnet lowers hay carriers',
+    'Tower crane: 2 targets',
+  ],
+};
+export const ABILITIES = {
+  gust: {
+    name: 'Gust of wind',
+    price: 200,
+    cooldown: 30,
+    description: 'Drag across the arena to push balloons. Pulls high-flyers down 3 m.',
+  },
+  boost: {
+    name: 'Emergency boost',
+    price: 300,
+    cooldown: 40,
+    description: 'Click a vehicle to double its movement and tool speed for 8 s.',
+  },
+  pitchfork: {
+    name: 'Pitchfork',
+    price: 450,
+    cooldown: 45,
+    description: 'Click the arena to deal 3 damage in a 1.5 m radius.',
+  },
+};
+export interface OwnedVehicle {
+  id: number;
+  kind: VehicleKind;
+  upgrades: Record<PathName, number>;
+  spent: number;
+  placed: boolean;
+  x: number;
+  z: number;
+  rotation: number;
+  targeting: TargetMode;
+}
+export interface Run {
+  version: 1;
+  mode: Mode;
+  arena: ArenaKind;
+  round: number;
+  cash: number;
+  lives: number;
+  seed: number;
+  fleet: OwnedVehicle[];
+  abilities: Partial<Record<AbilityKind, number>>;
+  freeplay: boolean;
+  nextId: number;
+}
+export function newRun(mode: Mode = 'easy', arena: ArenaKind = 'barn'): Run {
+  return {
+    version: 1,
+    mode,
+    arena,
+    round: 1,
+    cash: 650,
+    lives: MODES[mode].lives,
+    seed: 73429,
+    fleet: [],
+    abilities: {},
+    freeplay: false,
+    nextId: 1,
+  };
+}
+export function price(run: Run, value: number) {
+  return Math.round(value * MODES[run.mode].multiplier);
+}
+export function upgradeAllowed(v: OwnedVehicle, path: PathName) {
+  const used = PATHS.filter((p) => v.upgrades[p] > 0);
+  return (
+    v.upgrades[path] < 5 &&
+    !(used.length >= 2 && !used.includes(path)) &&
+    !(PATHS.some((p) => p !== path && v.upgrades[p] >= 3) && v.upgrades[path] >= 2)
+  );
+}
+export interface Obstacle {
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+  h: number;
+  kind: 'hay' | 'stall' | 'pile' | 'platform';
+}
+export interface Arena {
+  kind: ArenaKind;
+  width: number;
+  depth: number;
+  ceiling: number;
+  obstacles: Obstacle[];
+}
+export function arenaFor(kind: ArenaKind): Arena {
+  return kind === 'barn'
+    ? {
+        kind,
+        width: 32,
+        depth: 24,
+        ceiling: 9,
+        obstacles: [
+          { x: 3, z: 4, w: 3, d: 2, h: 1.5, kind: 'hay' },
+          { x: 3, z: 11, w: 3, d: 2, h: 2, kind: 'hay' },
+          { x: 3, z: 19, w: 3, d: 2, h: 2, kind: 'hay' },
+          { x: 29, z: 5, w: 3, d: 3, h: 1.5, kind: 'hay' },
+          { x: 29, z: 17, w: 3, d: 3, h: 2, kind: 'hay' },
+          { x: 13, z: 20, w: 5, d: 2, h: 2, kind: 'stall' },
+          { x: 22, z: 20, w: 4, d: 2, h: 1.5, kind: 'hay' },
+        ],
+      }
+    : {
+        kind,
+        width: 44,
+        depth: 32,
+        ceiling: 14,
+        obstacles: [
+          { x: 5, z: 5, w: 4, d: 3, h: 1.4, kind: 'pile' },
+          { x: 38, z: 6, w: 4, d: 3, h: 2, kind: 'pile' },
+          { x: 38, z: 25, w: 4, d: 4, h: 2, kind: 'platform' },
+          { x: 6, z: 25, w: 3, d: 3, h: 1.5, kind: 'pile' },
+          { x: 23, z: 6, w: 4, d: 3, h: 1.2, kind: 'platform' },
+          { x: 26, z: 26, w: 5, d: 2, h: 1.5, kind: 'pile' },
+        ],
+      };
+}
+export function blocked(a: Arena, x: number, z: number) {
+  return (
+    x < 1 ||
+    z < 1 ||
+    x >= a.width - 1 ||
+    z >= a.depth - 1 ||
+    a.obstacles.some(
+      (o) => Math.abs(x + 0.5 - o.x) < o.w / 2 + 0.45 && Math.abs(z + 0.5 - o.z) < o.d / 2 + 0.45,
+    )
+  );
+}
+export function grip(a: Arena, x: number, z: number) {
+  if (a.kind === 'barn')
+    return z > a.depth - 6 ? 0.6 : x > a.width * 0.34 && x < a.width * 0.57 && z < 5 ? 0.4 : 0.9;
+  return x > a.width * 0.38 && x < a.width * 0.62 && z > a.depth * 0.58 ? 0.4 : z < 9 ? 1 : 0.75;
+}
+export function vehicleRadius(v: Pick<OwnedVehicle, 'kind'>) {
+  return v.kind === 'harvester' || v.kind === 'crane' ? 1.12 : 0.95;
+}
+export function clearPosition(a: Arena, x: number, z: number, radius: number) {
+  if (
+    x < radius + 0.1 ||
+    z < radius + 0.1 ||
+    x > a.width - radius - 0.1 ||
+    z > a.depth - radius - 0.1
+  )
+    return false;
+  return !a.obstacles.some((o) => {
+    const dx = Math.max(0, Math.abs(x - o.x) - o.w / 2);
+    const dz = Math.max(0, Math.abs(z - o.z) - o.d / 2);
+    return Math.hypot(dx, dz) < radius + 0.08;
+  });
+}
+export function footprint(v: OwnedVehicle) {
+  const [w, d] = VEHICLES[v.kind].footprint;
+  return Math.round(v.rotation / (Math.PI / 2)) % 2 ? [d, w] : [w, d];
+}
+export function canPlace(
+  a: Arena,
+  fleet: OwnedVehicle[],
+  vehicle: OwnedVehicle,
+  x: number,
+  z: number,
+) {
+  const [w, d] = footprint(vehicle);
+  const cx = x + w / 2,
+    cz = z + d / 2;
+  if (!clearPosition(a, cx, cz, vehicleRadius(vehicle))) return false;
+  if (
+    fleet.some((v) => {
+      if (!v.placed || v.id === vehicle.id) return false;
+      const [vw, vd] = footprint(v);
+      return (
+        Math.hypot(cx - v.x - vw / 2, cz - v.z - vd / 2) <
+        vehicleRadius(v) + vehicleRadius(vehicle) + 0.04
+      );
+    })
+  )
+    return false;
+  for (let xx = x; xx < x + w; xx++)
+    for (let zz = z; zz < z + d; zz++) {
+      if (blocked(a, xx, zz)) return false;
+      if (
+        fleet.some((v) => {
+          if (v.id === vehicle.id || !v.placed) return false;
+          const [vw, vd] = footprint(v);
+          return xx >= v.x && xx < v.x + vw && zz >= v.z && zz < v.z + vd;
+        })
+      )
+        return false;
+    }
+  return true;
+}
+// Keep existing deployments where possible when loading an older arena layout.
+export function fitFleet(a: Arena, fleet: OwnedVehicle[]) {
+  const fitted: OwnedVehicle[] = [];
+  for (const owned of fleet) {
+    const v = { ...owned };
+    if (v.placed && !canPlace(a, fitted, v, v.x, v.z)) {
+      const cells: [number, number][] = [];
+      for (let z = 1; z < a.depth - 1; z++)
+        for (let x = 1; x < a.width - 1; x++) cells.push([x, z]);
+      cells.sort((p, q) => Math.hypot(p[0] - v.x, p[1] - v.z) - Math.hypot(q[0] - v.x, q[1] - v.z));
+      const next = cells.find(([x, z]) => canPlace(a, fitted, v, x, z));
+      if (next) [v.x, v.z] = next;
+      else v.placed = false;
+    }
+    fitted.push(v);
+  }
+  return fitted;
+}
+export class Random {
+  constructor(public state: number) {}
+  next() {
+    let t = (this.state += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+}
+const SCRIPTS: [BalloonKind, number][][] = [
+  [['basic', 14]],
+  [['basic', 22]],
+  [['basic', 30]],
+  [
+    ['basic', 22],
+    ['layered', 6],
+  ],
+  [
+    ['basic', 26],
+    ['layered', 10],
+  ],
+  [
+    ['basic', 25],
+    ['armored', 5],
+  ],
+  [
+    ['layered', 14],
+    ['armored', 8],
+  ],
+  [
+    ['basic', 30],
+    ['high', 8],
+  ],
+  [
+    ['layered', 18],
+    ['high', 12],
+  ],
+  [
+    ['basic', 24],
+    ['armored', 10],
+    ['carrier', 4],
+  ],
+  [
+    ['layered', 20],
+    ['high', 10],
+    ['carrier', 6],
+  ],
+  [
+    ['basic', 36],
+    ['layered', 16],
+    ['armored', 12],
+  ],
+  [
+    ['layered', 25],
+    ['armored', 12],
+    ['high', 15],
+  ],
+  [
+    ['basic', 30],
+    ['layered', 20],
+    ['carrier', 8],
+  ],
+  [
+    ['layered', 30],
+    ['high', 18],
+    ['armored', 12],
+  ],
+  [
+    ['basic', 40],
+    ['layered', 26],
+    ['carrier', 10],
+  ],
+  [
+    ['armored', 20],
+    ['high', 22],
+    ['layered', 30],
+  ],
+  [
+    ['basic', 45],
+    ['layered', 32],
+    ['carrier', 12],
+  ],
+  [
+    ['layered', 36],
+    ['armored', 22],
+    ['high', 24],
+  ],
+  [
+    ['basic', 40],
+    ['layered', 36],
+    ['armored', 20],
+    ['high', 22],
+    ['carrier', 12],
+  ],
+];
+export interface Spawn {
+  tick: number;
+  gate?: 0 | 1;
+  lane?: number;
+  kind: BalloonKind;
+  layer: number;
+  fleeing: boolean;
+  regen: boolean;
+  armor: boolean;
+}
+export function waveFor(round: number, seed: number, mode: Mode = 'easy'): Spawn[] {
+  const rng = new Random(seed + round * 919);
+  const difficulty = MODES[mode];
+  const entries =
+    round <= 20
+      ? SCRIPTS[round - 1]
+      : (['basic', 'layered', 'armored', 'high', 'carrier'] as BalloonKind[]).map(
+          (k, i) =>
+            [k, Math.floor((18 + round * 1.5) * [1.2, 0.8, 0.45, 0.45, 0.18][i])] as [
+              BalloonKind,
+              number,
+            ],
+        );
+  const kinds = entries.flatMap(([k, n]) =>
+    Array<BalloonKind>(Math.ceil((round === 1 ? 20 : Math.ceil(n * 1.35)) * difficulty.crowd)).fill(
+      k,
+    ),
+  );
+  for (let i = kinds.length - 1; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [kinds[i], kinds[j]] = [kinds[j], kinds[i]];
+  }
+  // Packs create bursts of combat with a short breathing space between entrances.
+  const packSize = Math.round((round < 6 ? 7 : round < 15 ? 9 : 12) * difficulty.packScale);
+  const packs = Math.ceil(kinds.length / packSize);
+  const duration = Math.min(14, 5 + round * 0.22) * difficulty.spawnScale;
+  const lanes = Array.from({ length: packs }, () => 0.42 + rng.next() * 0.16);
+  return kinds
+    .map((kind, i) => {
+      const pack = Math.floor(i / packSize),
+        slot = i % packSize;
+      return {
+        tick: Math.floor(((pack / Math.max(1, packs - 1)) * duration + slot * 0.055) * 60),
+        gate: (pack % 2) as 0 | 1,
+        lane: lanes[pack] + (slot - (packSize - 1) / 2) * 0.02,
+        kind,
+        layer: kind === 'layered' ? Math.min(4, 2 + Math.floor(round / 10)) : 1,
+        fleeing: round >= difficulty.flee.start && rng.next() < difficulty.flee.chance,
+        regen: round >= difficulty.regen.start && rng.next() < difficulty.regen.chance,
+        armor:
+          round >= difficulty.armor.start &&
+          kind !== 'armored' &&
+          rng.next() < difficulty.armor.chance,
+      };
+    })
+    .sort((a, b) => a.tick - b.tick);
+}
+export function waveTypes(round: number, seed: number, mode: Mode = 'easy') {
+  return [...new Set(waveFor(round, seed, mode).map((s) => s.kind))];
+}
+
+// Initial flight bands, shared by spawning and the player's wave forecast.
+export function balloonHeightRange(
+  kind: BalloonKind,
+  round: number,
+  arena: Arena,
+): [number, number] {
+  if (kind === 'high') return [6, Math.min(arena.ceiling - 0.6, VEHICLES.crane.max - 0.2)];
+  if (kind === 'armored') return [0.7, 0.7];
+  if (kind === 'carrier') return [2.5, 3.5];
+  return [0.6, round <= 3 ? 1.2 : 2.8];
+}

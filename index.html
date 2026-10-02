@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#243c31" />
+    <meta
+      name="description"
+      content="A little fleet. A big balloon problem. Build, upgrade, and unleash toy vehicles in a free, open-source browser auto-battler."
+    />
+    <title>Balloon Arena Defense — Build. Deploy. Pop.</title>
+    <link rel="stylesheet" href="/src/landing.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="./" aria-label="Balloon Arena Defense home"
+        ><span class="brand-balloon" aria-hidden="true"></span> Balloon Arena Defense</a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#how-to-play">How to play</a
+        ><a href="https://github.com/egeozcan/arena-defense">GitHub ↗</a
+        ><a class="nav-play" href="./play/">Play now <span aria-hidden="true">→</span></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> A TOY-BOX AUTO-BATTLER</p>
+          <h1>A little fleet.<br />A big <em>balloon</em><br />problem.</h1>
+          <p class="intro">
+            Turn farm and construction toys into a balloon-popping dream team. Build your fleet,
+            pick your upgrades, and let the chaos unfold.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="./play/"
+              >Let’s pop some balloons <span aria-hidden="true">→</span></a
+            ><a class="source-link" href="https://github.com/egeozcan/arena-defense"
+              >Explore the source ↗</a
+            >
+          </div>
+          <p class="play-note">Free to play · No account needed · Best on desktop</p>
+        </div>
+        <figure class="hero-image">
+          <img
+            src="./screenshots/pop-rush.png"
+            width="826"
+            height="779"
+            alt="A toy combine harvester popping balloons in the barn arena during Pop Rush"
+            fetchpriority="high"
+          />
+          <figcaption>
+            <span class="live-dot"></span> Actual gameplay
+            <span class="caption-tag">POP RUSH!</span>
+          </figcaption>
+        </figure>
+      </section>
+      <div class="ribbon">
+        <div class="wrap ribbon-inner">
+          <span>4 toy vehicles</span><span>2 arenas</span><span>3 difficulty modes</span
+          ><span>Endless freeplay</span>
+        </div>
+      </div>
+      <section class="fleet-section wrap" aria-labelledby="fleet-title">
+        <div class="section-heading">
+          <p class="eyebrow">MEET YOUR CREW</p>
+          <h2 id="fleet-title">Small toys. Big plans.</h2>
+          <p>Every vehicle has a job. The trick is putting them together.</p>
+        </div>
+        <div class="fleet-grid">
+          <article class="vehicle">
+            <img
+              src="./vehicles/harvester.png"
+              width="768"
+              height="640"
+              loading="lazy"
+              alt="Red toy combine harvester"
+            />
+            <p class="vehicle-role">THE CROWD CLEARER</p>
+            <h3>Combine harvester</h3>
+            <p>Cut through low-flying packs with a spinning header.</p>
+          </article>
+          <article class="vehicle">
+            <img
+              src="./vehicles/sprayer.png"
+              width="768"
+              height="640"
+              loading="lazy"
+              alt="Green toy agricultural sprayer"
+            />
+            <p class="vehicle-role">THE REACH SPECIALIST</p>
+            <h3>Agri sprayer</h3>
+            <p>Spray wide swaths and catch balloons above the cutter.</p>
+          </article>
+          <article class="vehicle">
+            <img
+              src="./vehicles/excavator.png"
+              width="768"
+              height="640"
+              loading="lazy"
+              alt="Yellow toy tracked excavator"
+            />
+            <p class="vehicle-role">THE HEAVY HITTER</p>
+            <h3>Excavator</h3>
+            <p>Bring the bucket down on tougher, armored targets.</p>
+          </article>
+          <article class="vehicle">
+            <img
+              src="./vehicles/crane.png"
+              width="768"
+              height="640"
+              loading="lazy"
+              alt="Yellow toy crawler crane"
+            />
+            <p class="vehicle-role">THE HIGH-FLYER HUNTER</p>
+            <h3>Crawler crane</h3>
+            <p>Reach for the balloons that fly over everyone else.</p>
+          </article>
+        </div>
+      </section>
+      <section id="how-to-play" class="how-section wrap" aria-labelledby="how-title">
+        <div class="how-copy">
+          <p class="eyebrow">PLAN A LITTLE. POP A LOT.</p>
+          <h2 id="how-title">Your next great idea<br />starts in the garage.</h2>
+          <ol class="steps">
+            <li>
+              <strong>Build &amp; deploy</strong>
+              <p>
+                Buy a vehicle, then click a clear spot in the arena. Give each toy room to do its
+                thing.
+              </p>
+            </li>
+            <li>
+              <strong>Press play</strong>
+              <p>
+                Hit Enter to launch the wave. Your fleet drives and attacks automatically; you steer
+                the strategy.
+              </p>
+            </li>
+            <li>
+              <strong>Upgrade &amp; repeat</strong>
+              <p>
+                Spend your earnings on better tools and new teammates. Chain ten pops to ignite Pop
+                Rush.
+              </p>
+            </li>
+          </ol>
+          <a class="button" href="./play/"
+            >Build your first fleet <span aria-hidden="true">→</span></a
+          >
+        </div>
+        <figure class="workshop-image">
+          <img
+            src="./screenshots/workshop.png"
+            width="1280"
+            height="720"
+            loading="lazy"
+            alt="The workshop showing harvester attack and speed upgrades alongside the next wave briefing"
+          />
+          <figcaption>Pick your upgrades. Cover every flight band.</figcaption>
+        </figure>
+      </section>
+      <section class="open-section wrap">
+        <div>
+          <p class="eyebrow">MADE TO PLAY. OPEN TO TINKER.</p>
+          <h2>The whole toy box is yours.</h2>
+          <p>
+            Procedural 3D toys, deterministic physics, and a fleet full of possibilities. Play in
+            your browser, run it locally, or make it your own.
+          </p>
+        </div>
+        <a class="button button-light" href="https://github.com/egeozcan/arena-defense"
+          >Get the source on GitHub ↗</a
+        >
+      </section>
+    </main>
+    <footer class="wrap">
+      <span>© 2026 Yavuz Ege Özcan</span
+      ><span
+        ><a href="https://github.com/egeozcan/arena-defense/blob/main/LICENSE">GNU GPL v3</a> · Free
+        software · Provided without warranty</span
+      ><a href="https://github.com/egeozcan/arena-defense/issues">Report a bug ↗</a>
+    </footer>
+  </body>
+</html>
