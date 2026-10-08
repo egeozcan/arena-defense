@@ -109,7 +109,7 @@ for (const unique of [0, 3])
 test('the rear cutter is an additional upgraded hit while the primary target stays in front', () => {
   for (const unique of [0, 3]) {
     const run = newRun();
-    run.fleet = [harvester(28, 11, 0)];
+    run.fleet = [harvester(44, 11, 0)];
     run.fleet[0].upgrades.unique = unique;
     const sim = new Simulation(run);
     try {

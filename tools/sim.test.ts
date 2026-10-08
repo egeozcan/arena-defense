@@ -104,7 +104,7 @@ test('a starter harvester clears the first round and receives the documented pay
   const sim = new Simulation(run);
   while (!sim.summary) sim.step();
   assert.equal(sim.summary.cleared, true);
-  assert.equal(sim.summary.pops, 20);
+  assert.equal(sim.summary.pops, 30);
   assert.equal(sim.summary.livesLost, 0);
   assert.equal(sim.summary.baseIncome, 162);
   assert.equal(sim.summary.bonus, 100);
@@ -119,7 +119,7 @@ test('timeout pays income and deducts weighted remaining lives', () => {
   assert.equal(sim.tick, 10800);
   assert.equal(sim.summary.baseIncome, 172);
   assert.equal(sim.summary.bonus, 0);
-  assert.equal(sim.summary.livesLost, 55);
+  assert.equal(sim.summary.livesLost, 72);
   sim.dispose();
 });
 test('upgrades lock other paths and enforce the 5 + 2 cap', () => {
@@ -280,7 +280,7 @@ test('freeplay HP scaling starts after the selected mode victory round', () => {
 test('opening waves arrive in short packs and starter rounds clear briskly in both arenas', () => {
   const wave = waveFor(1, 73429);
   assert.ok(wave[2].tick <= 20, 'the opening pack should arrive immediately');
-  assert.equal(wave.length, 20, 'the opening wave should have a full arcade-sized crowd');
+  assert.equal(wave.length, 30, 'the opening wave should have a full arcade-sized crowd');
   assert.ok(wave.at(-1)!.tick < 9 * 60, 'opening spawns should finish within 9 seconds');
   for (const arena of ['barn', 'yard'] as const) {
     const run = newRun('easy', arena);
@@ -292,6 +292,14 @@ test('opening waves arrive in short packs and starter rounds clear briskly in bo
     assert.ok(sim.summary.seconds < 30, `${arena} opening round took ${sim.summary.seconds}s`);
     sim.dispose();
   }
+});
+test('later rounds bring larger crowds from both gates across the wider arena', () => {
+  const wave = waveFor(20, 73429);
+  assert.ok(wave.length >= 230);
+  assert.ok(wave.at(-1)!.tick < 9 * 60);
+  assert.deepEqual(new Set(wave.map((spawn) => spawn.gate)), new Set([0, 1]));
+  const lanes = wave.map((spawn) => spawn.lane!);
+  assert.ok(Math.max(...lanes) - Math.min(...lanes) > 0.5);
 });
 test('uncovered balloons can end a wave with lives deducted and a deterministic replay', () => {
   const run = newRun();

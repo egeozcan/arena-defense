@@ -41,8 +41,8 @@ function assertClear(sim: Simulation) {
   }
 }
 test('expanded arenas provide substantially more playable room', () => {
-  assert.ok(arenaFor('barn').width * arenaFor('barn').depth >= 24 * 16 * 2);
-  assert.ok(arenaFor('yard').width * arenaFor('yard').depth >= 32 * 24 * 1.8);
+  assert.ok(arenaFor('barn').width * arenaFor('barn').depth >= 48 * 36);
+  assert.ok(arenaFor('yard').width * arenaFor('yard').depth >= 64 * 48);
 });
 test('a swept collision blocks tunneling through parked vehicles', () => {
   const a = arenaFor('barn');

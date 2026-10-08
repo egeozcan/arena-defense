@@ -323,31 +323,32 @@ export function arenaFor(kind: ArenaKind): Arena {
   return kind === 'barn'
     ? {
         kind,
-        width: 32,
-        depth: 24,
+        width: 48,
+        depth: 36,
         ceiling: 9,
         obstacles: [
           { x: 3, z: 4, w: 3, d: 2, h: 1.5, kind: 'hay' },
           { x: 3, z: 11, w: 3, d: 2, h: 2, kind: 'hay' },
-          { x: 3, z: 19, w: 3, d: 2, h: 2, kind: 'hay' },
-          { x: 29, z: 5, w: 3, d: 3, h: 1.5, kind: 'hay' },
-          { x: 29, z: 17, w: 3, d: 3, h: 2, kind: 'hay' },
-          { x: 13, z: 20, w: 5, d: 2, h: 2, kind: 'stall' },
-          { x: 22, z: 20, w: 4, d: 2, h: 1.5, kind: 'hay' },
+          { x: 3, z: 21, w: 3, d: 2, h: 2, kind: 'hay' },
+          { x: 3, z: 29, w: 3, d: 2, h: 2, kind: 'hay' },
+          { x: 45, z: 6, w: 3, d: 3, h: 1.5, kind: 'hay' },
+          { x: 45, z: 29, w: 3, d: 3, h: 2, kind: 'hay' },
+          { x: 16, z: 31, w: 5, d: 2, h: 2, kind: 'stall' },
+          { x: 34, z: 31, w: 4, d: 2, h: 1.5, kind: 'hay' },
         ],
       }
     : {
         kind,
-        width: 44,
-        depth: 32,
+        width: 64,
+        depth: 48,
         ceiling: 14,
         obstacles: [
-          { x: 5, z: 5, w: 4, d: 3, h: 1.4, kind: 'pile' },
-          { x: 38, z: 6, w: 4, d: 3, h: 2, kind: 'pile' },
-          { x: 38, z: 25, w: 4, d: 4, h: 2, kind: 'platform' },
-          { x: 6, z: 25, w: 3, d: 3, h: 1.5, kind: 'pile' },
-          { x: 23, z: 6, w: 4, d: 3, h: 1.2, kind: 'platform' },
-          { x: 26, z: 26, w: 5, d: 2, h: 1.5, kind: 'pile' },
+          { x: 5, z: 6, w: 4, d: 3, h: 1.4, kind: 'pile' },
+          { x: 58, z: 7, w: 4, d: 3, h: 2, kind: 'pile' },
+          { x: 58, z: 39, w: 4, d: 4, h: 2, kind: 'platform' },
+          { x: 6, z: 40, w: 3, d: 3, h: 1.5, kind: 'pile' },
+          { x: 33, z: 7, w: 4, d: 3, h: 1.2, kind: 'platform' },
+          { x: 38, z: 40, w: 5, d: 2, h: 1.5, kind: 'pile' },
         ],
       };
 }
@@ -561,7 +562,7 @@ export function waveFor(round: number, seed: number, mode: Mode = 'easy'): Spawn
             ],
         );
   const kinds = entries.flatMap(([k, n]) =>
-    Array<BalloonKind>(Math.ceil((round === 1 ? 20 : Math.ceil(n * 1.35)) * difficulty.crowd)).fill(
+    Array<BalloonKind>(Math.ceil((round === 1 ? 30 : Math.ceil(n * 1.8)) * difficulty.crowd)).fill(
       k,
     ),
   );
@@ -570,17 +571,19 @@ export function waveFor(round: number, seed: number, mode: Mode = 'easy'): Spawn
     [kinds[i], kinds[j]] = [kinds[j], kinds[i]];
   }
   // Packs create bursts of combat with a short breathing space between entrances.
-  const packSize = Math.round((round < 6 ? 7 : round < 15 ? 9 : 12) * difficulty.packScale);
+  const packSize = Math.round((round < 6 ? 10 : round < 15 ? 13 : 16) * difficulty.packScale);
   const packs = Math.ceil(kinds.length / packSize);
-  const duration = Math.min(14, 5 + round * 0.22) * difficulty.spawnScale;
-  const lanes = Array.from({ length: packs }, () => 0.42 + rng.next() * 0.16);
+  const duration = Math.min(11, 4.2 + round * 0.17) * difficulty.spawnScale;
+  const lanes = Array.from({ length: packs }, () =>
+    round === 1 ? 0.18 + rng.next() * 0.08 : 0.35 + rng.next() * 0.3,
+  );
   return kinds
     .map((kind, i) => {
       const pack = Math.floor(i / packSize),
         slot = i % packSize;
       return {
-        tick: Math.floor(((pack / Math.max(1, packs - 1)) * duration + slot * 0.055) * 60),
-        gate: (pack % 2) as 0 | 1,
+        tick: Math.floor(((pack / Math.max(1, packs - 1)) * duration + slot * 0.04) * 60),
+        gate: (round === 1 ? 0 : pack % 2) as 0 | 1,
         lane: lanes[pack] + (slot - (packSize - 1) / 2) * 0.02,
         kind,
         layer: kind === 'layered' ? Math.min(4, 2 + Math.floor(round / 10)) : 1,

@@ -150,6 +150,8 @@ test('simulation spawns stay inside the height bands shown in the briefing', asy
   for (const arena of ['barn', 'yard'] as const) {
     const run = { ...newRun('hard', arena), round: 20 };
     const sim = new Simulation(run);
+    // Stay below the 300 live-balloon cap so the sample can finish spawning.
+    sim.wave = sim.wave.slice(0, 200);
     while (sim.pending) sim.step();
     for (const b of sim.balloons) {
       const [min, max] = balloonHeightRange(b.kind, run.round, arenaFor(arena));

@@ -40,7 +40,7 @@ test('all modes have an affordable starter and a brisk, survivable opening in bo
       assert.equal(sim.summary.cleared, true, `${mode}/${arena} opening`);
       assert.equal(sim.summary.livesLost, 0);
       // A fixed front cutter must maneuver into position instead of hitting behind the chassis.
-      assert.ok(sim.summary.seconds < 35, `${mode}/${arena} opening took ${sim.summary.seconds}s`);
+      assert.ok(sim.summary.seconds < 45, `${mode}/${arena} opening took ${sim.summary.seconds}s`);
       assert.ok(sim.summary.bonus <= MODES[mode].clearBonus);
       assert.ok(
         sim.summary.earned < 300,

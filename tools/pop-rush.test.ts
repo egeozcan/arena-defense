@@ -38,7 +38,7 @@ test('the chain expires on simulation time, preserves its best, and accepts the 
 
 await initPhysics();
 test('fleet overdrive closes travel distance faster and pops armor sooner through normal AI', () => {
-  for (const x of [10, 26]) {
+  for (const x of [10, 42]) {
     const run = newRun();
     run.fleet = [
       {
@@ -46,7 +46,7 @@ test('fleet overdrive closes travel distance faster and pops armor sooner throug
         kind: 'excavator',
         placed: true,
         x,
-        z: 10,
+        z: x === 10 ? 10 : 16.5,
         rotation: 0,
         targeting: 'Nearest',
         spent: 550,

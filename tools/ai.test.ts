@@ -8,7 +8,7 @@ test('anchored cranes apply every strategy only to balloons in boom range', () =
   for (const targeting of TARGETS) {
     const run = newRun();
     run.round = 8;
-    run.fleet = [vehicle('crane', 1, 26, 10)];
+    run.fleet = [vehicle('crane', 1, 42, 16.5)];
     run.fleet[0].upgrades.unique = 5;
     run.fleet[0].targeting = targeting;
     const sim = new Simulation(run);
@@ -25,8 +25,8 @@ test('anchored cranes apply every strategy only to balloons in boom range', () =
       }));
       for (let i = 0; i < 1200; i++) sim.step();
       assert.equal(sim.pops, 1, `${targeting}: distant target blocked a reachable balloon`);
-      assert.equal(sim.vehicles[0].x, 27);
-      assert.equal(sim.vehicles[0].z, 11.5);
+      assert.equal(sim.vehicles[0].x, 43);
+      assert.equal(sim.vehicles[0].z, 18);
       assert.equal(sim.canFinishEarly, true);
     } finally {
       sim.dispose();
