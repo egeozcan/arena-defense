@@ -1130,7 +1130,8 @@ export class Simulation {
               traction,
               v.driveControl,
             );
-            v.nextDrivePlan = this.tick + (aligningHeader ? 24 : 45);
+            // Recheck turns before a fixed steering arc outlives a moving target.
+            v.nextDrivePlan = this.tick + (aligningHeader ? 18 : 30);
           }
           const drivingSpeed = wheeled
             ? aligningHeader

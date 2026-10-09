@@ -43,7 +43,7 @@ export function chooseDriveControl(
 ): DriveControl | null {
   const controls: (DriveControl | null)[] = [null];
   for (const direction of [1, -1] as const)
-    for (const steer of [-MAX_STEER, 0, MAX_STEER])
+    for (const steer of [-MAX_STEER, -MAX_STEER / 2, 0, MAX_STEER / 2, MAX_STEER])
       controls.push({ direction, steer, throttle: 1 });
   const heuristic = (x: number, z: number, m: VehicleMotion) => {
     const distance = Math.hypot(goal.x - x, goal.z - z);

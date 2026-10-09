@@ -11,7 +11,8 @@ import {
   wheelSteering,
   type VehicleMotion,
 } from '../src/sim/vehicle-motion';
-import type { VehicleKind } from '../src/sim/data';
+import type { Arena, VehicleKind } from '../src/sim/data';
+import { chooseDriveControl } from '../src/sim/vehicle-driving';
 
 function tick(
   v: VehicleMotion,
@@ -82,6 +83,30 @@ test('Ackermann steering turns the inner tire further and rear steering uses opp
   assert.equal(wheelSteering(0.4, 0.91, true), -inside);
   assert.equal(wheelSteering(0, 0.91), 0);
   assert.ok(Math.abs(wheelSteering(-0.4, -0.91)) > Math.abs(wheelSteering(-0.4, 0.91)));
+});
+
+test('a moderate bend can use partial steering instead of full lock', () => {
+  const arena: Arena = { kind: 'yard', width: 64, depth: 48, ceiling: 14, obstacles: [] };
+  const body = { id: 1, x: 20, z: 20, radius: 1.12 };
+  const control = chooseDriveControl(
+    motionAt(0),
+    'harvester',
+    arena,
+    body,
+    [],
+    { x: 26, z: 35 },
+    7.8,
+    1,
+  );
+  assert.equal(control?.direction, 1);
+  assert.equal(control?.steer, MAX_STEER / 2);
+});
+
+test('outer wheels roll farther than inner wheels through a turn', () => {
+  const v = motionAt(0);
+  for (let i = 0; i < 90; i++) tick(v, [20, 20], 'harvester');
+  assert.ok(v.angle > 0);
+  assert.ok(v.leftTravel > v.rightTravel);
 });
 
 test('reversing records backward wheel travel and brakes before changing direction', () => {

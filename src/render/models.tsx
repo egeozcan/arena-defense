@@ -104,7 +104,11 @@ function Wheel({
     const steer = vehicle ? vehicle.psteer + (vehicle.steer - vehicle.psteer) * alpha : 0;
     if (knuckle.current) knuckle.current.rotation.y = steering ? wheelSteering(steer, x, rear) : 0;
     if (rotor.current) {
-      const travel = vehicle ? vehicle.ptravel + (vehicle.travel - vehicle.ptravel) * alpha : 0;
+      const travel = vehicle
+        ? x < 0
+          ? vehicle.pleftTravel + (vehicle.leftTravel - vehicle.pleftTravel) * alpha
+          : vehicle.prightTravel + (vehicle.rightTravel - vehicle.prightTravel) * alpha
+        : 0;
       // The local axle points toward -X; negative rotation rolls toward +Z.
       rotor.current.rotation.y = -travel / r;
     }
