@@ -155,8 +155,9 @@ function UpgradePath({
   onUpgrade: (path: PathName) => void;
 }) {
   const tier = vehicle.upgrades[path];
-  const [inspected, setInspected] = useState<number | null>(null);
-  const index = inspected ?? Math.min(tier, 4);
+  const [hoveredTier, setHoveredTier] = useState<number | null>(null);
+  const [focusedTier, setFocusedTier] = useState<number | null>(null);
+  const index = hoveredTier ?? focusedTier ?? Math.min(tier, 4);
   const info = PATH_INFO[path];
   const name = path === 'unique' ? VEHICLES[vehicle.kind].unique : info.name;
   const PathIcon = path === 'unique' ? UNIQUE_ICONS[vehicle.kind][0] : info.icon;
@@ -181,7 +182,7 @@ function UpgradePath({
           : 'Ready to install';
   return (
     <section
-      className={`upgrade-card path-${path}`}
+      className={`upgrade-card path-${path} ${!allowed && tier < 5 ? 'path-locked' : ''}`}
       style={{ '--path-color': info.color } as CSSProperties}
       aria-label={`${name} upgrades`}
     >
@@ -205,9 +206,12 @@ function UpgradePath({
             className={`${i < tier ? 'installed' : ''} ${i === index ? 'inspected' : ''} ${i === tier && allowed ? 'next-tier' : ''}`}
             aria-label={`Inspect ${name} tier ${i + 1}${i < tier ? ', installed' : ''}`}
             aria-pressed={i === index}
-            onMouseEnter={() => setInspected(i)}
-            onFocus={() => setInspected(i)}
-            onClick={() => setInspected(i)}
+            onMouseEnter={() => setHoveredTier(i)}
+            onMouseLeave={() => setHoveredTier(null)}
+            onFocus={(event) => {
+              if (event.currentTarget.matches(':focus-visible')) setFocusedTier(i);
+            }}
+            onBlur={() => setFocusedTier(null)}
           >
             {i < tier ? (
               <Check size={15} />
@@ -249,7 +253,8 @@ function UpgradePath({
         disabled={!next || cost > run.cash}
         onClick={() => {
           onUpgrade(path);
-          setInspected(null);
+          setHoveredTier(null);
+          setFocusedTier(null);
         }}
         aria-label={
           next
@@ -282,7 +287,7 @@ export function UpgradePanel({
   return (
     <>
       <div className="section-label upgrade-label">
-        BUILD YOUR SPECIALIST <span>HOVER OR TAP A TIER TO INSPECT</span>
+        Build your specialist <span>Hover or focus a tier to inspect</span>
       </div>
       <p className="upgrade-rules">
         <Shield size={15} /> Choose two paths. The first to reach tier 3 can grow to tier 5; the

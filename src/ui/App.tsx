@@ -22,6 +22,7 @@ import {
   RotateCw,
   Settings2,
   Shield,
+  ShieldAlert,
   Sparkles,
   Sprout,
   Target,
@@ -70,7 +71,7 @@ import { VehicleThumb } from './VehicleThumb';
 import { UpgradePanel } from './UpgradePanel';
 import { VehicleProfile } from './VehicleProfile';
 import { WaveBriefing, VehicleMatchup } from './WaveBriefing';
-import { forecast, heightLabel, stockVehicle, threatName } from './wave-forecast';
+import { forecast, heightLabel, threatName } from './wave-forecast';
 import { armorLabel, canTargetBalloon } from '../sim/capabilities';
 import { useVehicleTooltip, VehicleTooltip } from './VehicleTooltip';
 import { VEHICLE_GUIDES } from './vehicle-guide';
@@ -1154,11 +1155,18 @@ export default function App() {
             <div className="panel-heading">
               <div>
                 <h2>Prepare for round {run.round}</h2>
-                <p className="workshop-subtitle">Upgrade → check coverage → deploy → launch</p>
+                <p className="workshop-subtitle">
+                  <span>1 Upgrade</span>
+                  <i /> <span>2 Check coverage</span>
+                  <i /> <span>3 Deploy</span>
+                  <i /> <span>4 Launch</span>
+                </p>
               </div>
-              <span className="panel-icon">
-                <Wrench size={21} />
-              </span>
+              <div className="garage-balance" aria-label={`Balance $${money(run.cash)}`}>
+                <span>BALANCE</span>
+                <strong>${money(run.cash)}</strong>
+                {lastRound !== null && summary && <b>+${money(summary.earned)} payout</b>}
+              </div>
               <button
                 className="icon-button garage-close"
                 aria-label="Close garage"
@@ -1241,11 +1249,11 @@ export default function App() {
                     <>
                       {(Object.keys(VEHICLES) as VehicleKind[]).map((kind) => {
                         const v = VEHICLES[kind];
+                        const guide = VEHICLE_GUIDES[kind];
                         const cost = price(run, v.cost);
                         return (
                           <article
                             key={kind}
-                            {...vehicleTooltip.props(kind)}
                             tabIndex={0}
                             className={`shop-card ${shopKind === kind ? 'selected' : ''}`}
                             onClick={() => setShopKind(kind)}
@@ -1255,18 +1263,35 @@ export default function App() {
                                 <VehicleThumb kind={kind} />
                               </div>
                               <div className="shop-card-info">
-                                <span className="tool-tag">
-                                  {v.tool}
-                                  <i /> {v.min}–{v.max} M
-                                </span>
-                                <h3>{v.short}</h3>
+                                <span className="tool-tag">{v.tool}</span>
+                                <h3>{v.name}</h3>
                                 <p>{v.role}</p>
                               </div>
                             </div>
-                            <p className="shop-description">{v.description}</p>
-                            <p className="shop-capability">
-                              {v.range} m tool reach · {armorLabel(stockVehicle(kind))}
-                            </p>
+                            <div className="shop-card-guide">
+                              <div className="shop-card-specs">
+                                <span>STOCK CHASSIS</span>
+                                <b>
+                                  {v.min}–{v.max} m high
+                                </b>
+                                <b>{v.range} m range</b>
+                              </div>
+                              <p className="shop-card-guide-point strength">
+                                <Check size={15} />
+                                <span>
+                                  <b>Strengths</b>
+                                  {guide.strength}
+                                </span>
+                              </p>
+                              <p className="shop-card-guide-point weakness">
+                                <ShieldAlert size={15} />
+                                <span>
+                                  <b>Weaknesses</b>
+                                  {guide.weakness}
+                                </span>
+                              </p>
+                              <p className="shop-card-partner">{guide.partner}</p>
+                            </div>
                             <VehicleMatchup run={run} kind={kind} />
                             <div className="shop-card-bottom">
                               <span>
@@ -1430,6 +1455,7 @@ export default function App() {
               </div>
             </div>
             <div className="panel-bottom">
+              <span>Next: check coverage &amp; place vehicles</span>
               <button className="primary full-width" disabled={!ready} onClick={setup}>
                 {unplacedCount
                   ? `Deploy ${unplacedCount} vehicle${unplacedCount === 1 ? '' : 's'} in arena`
