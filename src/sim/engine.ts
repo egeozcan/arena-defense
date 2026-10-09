@@ -36,7 +36,12 @@ import {
   type VehicleMotion,
   type DriveControl,
 } from './vehicle-motion';
-import { approachSpeed, chooseDriveControl } from './vehicle-driving';
+import {
+  approachSpeed,
+  chooseDriveControl,
+  DRIVE_PLAN_TICKS,
+  HEADER_PLAN_TICKS,
+} from './vehicle-driving';
 import { chooseBalloonHeading } from './balloon-motion';
 import { PopRhythm, POP_RUSH } from './pop-rush';
 import {
@@ -1130,8 +1135,8 @@ export class Simulation {
               traction,
               v.driveControl,
             );
-            // Recheck turns before a fixed steering arc outlives a moving target.
-            v.nextDrivePlan = this.tick + (aligningHeader ? 18 : 30);
+            // Finish cruising arcs, but react sooner while lining up the front cutter.
+            v.nextDrivePlan = this.tick + (aligningHeader ? HEADER_PLAN_TICKS : DRIVE_PLAN_TICKS);
           }
           const drivingSpeed = wheeled
             ? aligningHeader

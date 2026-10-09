@@ -25,6 +25,10 @@ interface Pose {
   score: number;
 }
 
+// Cruising completes the evaluated arc; close header alignment follows targets sooner.
+export const DRIVE_PLAN_TICKS = 45;
+export const HEADER_PLAN_TICKS = 18;
+
 export const approachSpeed = (speed: number, distance: number, traction: number) =>
   Math.min(speed, distance * 8, Math.sqrt(34 * traction * distance));
 
@@ -67,6 +71,7 @@ export function chooseDriveControl(
   let best: Pose | undefined;
   for (let depth = 0; depth < 4; depth++) {
     const next: Pose[] = [];
+    let arrival: Pose | undefined;
     for (const pose of frontier)
       for (const control of controls) {
         const predicted = { ...pose.motion };
@@ -74,8 +79,13 @@ export function chooseDriveControl(
           z = pose.z,
           traveled = 0,
           safe = true,
-          arrived = false;
-        for (let tick = 0; tick < 45; tick++) {
+          arrived = false,
+          direction =
+            Math.abs(predicted.speed) > 0.1
+              ? Math.sign(predicted.speed)
+              : (pose.last?.direction ?? 0),
+          switches = 0;
+        for (let tick = 0; tick < DRIVE_PLAN_TICKS; tick++) {
           const remaining = Math.hypot(goal.x - x, goal.z - z);
           const limit = goal.faceTarget ? speed : approachSpeed(speed, remaining, traction);
           const [dx, dz] = driveVehicle(
@@ -90,6 +100,13 @@ export function chooseDriveControl(
             safe = false;
             break;
           }
+          // Automatic steering (null control) can also reverse. Charge every actual
+          // direction change, including changes within a single predicted arc.
+          const nextDirection = Math.abs(predicted.speed) > 0.1 ? Math.sign(predicted.speed) : 0;
+          if (nextDirection) {
+            if (direction && nextDirection !== direction) switches++;
+            direction = nextDirection;
+          }
           x += dx;
           z += dz;
           traveled += Math.hypot(dx, dz);
@@ -97,6 +114,7 @@ export function chooseDriveControl(
             ? Math.hypot(goal.x - x, goal.z - z) <= goal.faceTarget.range - 0.1 &&
               Math.abs(angleDifference(Math.atan2(goal.x - x, goal.z - z), predicted.angle)) <= 0.5
             : Math.hypot(goal.x - x, goal.z - z) < 0.005 &&
+              Math.abs(predicted.speed) < 0.05 &&
               (!goal.faceDirection ||
                 Math.abs(
                   angleDifference(
@@ -107,8 +125,8 @@ export function chooseDriveControl(
           if (arrived) break;
         }
         if (!safe) continue;
-        const switching = pose.last && control && pose.last.direction !== control.direction;
-        const cost = pose.cost + traveled * 0.08 + (switching ? 0.18 : 0) + 0.015;
+        // A gear change must save meaningful travel to justify braking and restarting.
+        const cost = pose.cost + traveled * 0.08 + switches * 1.5 + 0.015;
         const candidate: Pose = {
           motion: predicted,
           x,
@@ -119,9 +137,11 @@ export function chooseDriveControl(
           score: cost + (arrived ? 0 : heuristic(x, z, predicted)),
         };
         if (!best || candidate.score < best.score) best = candidate;
-        if (arrived) return candidate.first;
+        if (arrived && (!arrival || candidate.score < arrival.score)) arrival = candidate;
         next.push(candidate);
       }
+    // Compare successful maneuvers too, instead of accepting the first control order.
+    if (arrival) return arrival.first;
     next.sort((a, b) => a.score - b.score);
     // Keep distinct positions/headings so one promising turn cannot erase its alternatives.
     const seen = new Set<string>();

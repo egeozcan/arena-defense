@@ -11,8 +11,14 @@ import {
   wheelSteering,
   type VehicleMotion,
 } from '../src/sim/vehicle-motion';
-import type { Arena, VehicleKind } from '../src/sim/data';
-import { chooseDriveControl } from '../src/sim/vehicle-driving';
+import { VEHICLES, type Arena, type VehicleKind } from '../src/sim/data';
+import {
+  approachSpeed,
+  chooseDriveControl,
+  DRIVE_PLAN_TICKS,
+  HEADER_PLAN_TICKS,
+} from '../src/sim/vehicle-driving';
+import { canTravel } from '../src/sim/traffic';
 
 function tick(
   v: VehicleMotion,
@@ -88,8 +94,9 @@ test('Ackermann steering turns the inner tire further and rear steering uses opp
 test('a moderate bend can use partial steering instead of full lock', () => {
   const arena: Arena = { kind: 'yard', width: 64, depth: 48, ceiling: 14, obstacles: [] };
   const body = { id: 1, x: 20, z: 20, radius: 1.12 };
+  const motion = motionAt(0);
   const control = chooseDriveControl(
-    motionAt(0),
+    motion,
     'harvester',
     arena,
     body,
@@ -98,9 +105,91 @@ test('a moderate bend can use partial steering instead of full lock', () => {
     7.8,
     1,
   );
-  assert.equal(control?.direction, 1);
-  assert.equal(control?.steer, MAX_STEER / 2);
+  // Automatic pursuit is also a valid partial-steering solution.
+  for (let i = 0; i < DRIVE_PLAN_TICKS; i++) {
+    const [dx, dz] = driveVehicle(
+      motion,
+      'harvester',
+      [26 - body.x, 35 - body.z],
+      7.8,
+      1,
+      control ?? undefined,
+    );
+    body.x += dx;
+    body.z += dz;
+  }
+  assert.ok(motion.speed > 0);
+  assert.ok(motion.steer > 0 && motion.steer < MAX_STEER);
 });
+
+for (const kind of ['harvester', 'sprayer', 'baler', 'blower'] as const)
+  test(`${kind} completes open-space turns without repeated forward/reverse shuffling`, () => {
+    const arena: Arena = { kind: 'yard', width: 64, depth: 48, ceiling: 14, obstacles: [] };
+    for (const [x, z, angle] of [
+      [21, 20, 0],
+      [22, 20, 0],
+      [21, 19, 0],
+      [20, 19, 0],
+      [24, 20, 0],
+      [24, 22, Math.PI],
+      [32, 28, -Math.PI / 2],
+    ]) {
+      const body = { id: 1, x: 20, z: 20, radius: 1.12 };
+      const motion = motionAt(angle);
+      const facing = kind === 'harvester';
+      const speed = VEHICLES[kind].speed;
+      let control: ReturnType<typeof chooseDriveControl> = null;
+      let direction = 0,
+        reversals = 0,
+        reached = false;
+      for (let tick = 0; tick < 900; tick++) {
+        const distance = Math.hypot(x - body.x, z - body.z);
+        if (
+          facing
+            ? distance <= 2.2 &&
+              Math.abs(angleDifference(Math.atan2(x - body.x, z - body.z), motion.angle)) <= 0.85
+            : distance < 0.1
+        ) {
+          reached = true;
+          break;
+        }
+        if (tick % (facing ? HEADER_PLAN_TICKS : DRIVE_PLAN_TICKS) === 0)
+          control = chooseDriveControl(
+            motion,
+            kind,
+            arena,
+            body,
+            [],
+            {
+              x,
+              z,
+              faceTarget: facing ? { x, z, range: 2.2 } : undefined,
+            },
+            speed,
+            1,
+            control,
+          );
+        const [dx, dz] = driveVehicle(
+          motion,
+          kind,
+          [x - body.x, z - body.z],
+          facing ? speed : approachSpeed(speed, distance, 1),
+          1,
+          control ?? undefined,
+        );
+        assert.ok(canTravel(arena, body, body.x + dx, body.z + dz, []));
+        body.x += dx;
+        body.z += dz;
+        const nextDirection = Math.abs(motion.speed) > 0.1 ? Math.sign(motion.speed) : 0;
+        if (nextDirection) {
+          if (direction && nextDirection !== direction) reversals++;
+          direction = nextDirection;
+        }
+      }
+      assert.ok(reached, `did not reach ${x},${z} from heading ${angle}`);
+      assert.ok(reversals <= 3, `made ${reversals} direction changes approaching ${x},${z}`);
+    }
+  });
 
 test('outer wheels roll farther than inner wheels through a turn', () => {
   const v = motionAt(0);
