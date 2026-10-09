@@ -23,16 +23,16 @@ import {
 import {
   PATHS,
   SHARED_EFFECTS,
-  TIER_COSTS,
+  upgradePrice,
   UNIQUE_EFFECTS,
   VEHICLES,
-  price,
   upgradeAllowed,
   type OwnedVehicle,
   type PathName,
   type Run,
   type VehicleKind,
 } from '../sim/data';
+import { UPGRADE_DIRECTIONS } from './vehicle-guide';
 
 const PATH_INFO = {
   attack: {
@@ -66,12 +66,28 @@ const SHARED_ICONS: Record<Exclude<PathName, 'unique'>, LucideIcon[]> = {
   traction: [Tractor, Tractor, Waves, ArrowRight, Shield],
 };
 const UNIQUE_ICONS: Record<VehicleKind, LucideIcon[]> = {
+  baler: [MoveUpRight, ArrowRight, Zap, Shield, Sparkles],
+  blower: [MoveUpRight, Radar, Waves, MoveUpRight, Magnet],
   harvester: [Scissors, MoveUpRight, Zap, MoveUpRight, Magnet],
   sprayer: [Droplets, Radar, Waves, Shield, Radar],
   excavator: [MoveUpRight, Waves, Zap, Waves, Sparkles],
   crane: [MoveUpRight, Gauge, Waves, Magnet, Radar],
 };
 const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
+  baler: [
+    'Extends horizontal shot range from 7 m to 9 m. Height coverage stays at 0–4 m.',
+    'Each travelling bale can hit 8 balloons instead of 4. Each balloon is hit once per bale.',
+    'Runs the press 25% faster. Unlocks Bale Barrage: three piercing shots in a widening fan (26 s cooldown).',
+    'Wider bales catch scattered targets and pierce up to 12 balloons per shot.',
+    'Bales burst into straw at their endpoint, dealing half shot damage within a 2 m sphere. Obstacles stop bales.',
+  ],
+  blower: [
+    'Extends horizontal air range from 6 m to 7 m. Height coverage stays at 1.5–12 m.',
+    'Widens the gust cone from 40° to 72° to herd and damage more balloons.',
+    'Strengthens herding wind. Unlocks Downburst: lowers nearby balloons to 1.2 m for 5 seconds, including armored balloons (30 s cooldown).',
+    'Extends horizontal air range from 7 m to 9 m and raises height coverage from 12 m to 14 m. Wider reach helps herding and Downburst even below the ceiling.',
+    'Each gust first gathers balloons into a pack, then releases them toward a teammate. Pair with a baler for piercing shots.',
+  ],
   harvester: [
     'Adds 0.5 m of horizontal range to catch more low balloons in each sweep.',
     'Raises the cutting height from 1.5 m to 2 m.',
@@ -91,22 +107,24 @@ const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
     'Each strike also hits eligible balloons within 1 m of the target.',
     'Extends horizontal range to 7 m. Unlocks Ground slam: 3 damage that bypasses armor within 4 m, below 2 m high (36 s cooldown).',
     'Each attack also damages balloons below 1 m high within 3 m of the chassis.',
-    'Pops a layered balloon completely, preventing its remaining layers from splitting out.',
+    "Destroys all remaining layers at once, preventing child balloons. Earns only the outer pop's cash and Pop Rush charge.",
   ],
   crane: [
     'Extends horizontal boom range from 6 m to 8 m. Height coverage stays at 3–12 m.',
     'Swings the hook 25% faster for more frequent attacks.',
     'Adds splash damage within 1.5 m of the target. Unlocks Hook yank: lowers a nearby balloon to 2 m for 5 seconds, letting low tools help (28 s cooldown).',
-    'Lowers hay carriers to 4 m so sprayers and excavators can reach them.',
-    'Anchors the crane in place, hits two targets per swing, and raises height coverage to 14 m. Place it carefully: it can no longer chase balloons.',
+    'Slows carriers within boom reach by 60% and lowers those above 3 m to 3 m, where raised harvester headers can help. Lower carriers stay low; the crane can still hit those at 3 m.',
+    'Reaches 12 m horizontally and 14 m high. Two hooks each retain wrecking-ball splash; overlapping blasts hit each balloon once. Travels at half speed with the tower fitted.',
   ],
 };
 const SIGNATURES: Record<VehicleKind, string> = {
+  baler: 'Triples bale damage, stacking with earlier Attack upgrades.',
+  blower: 'Triples air-burst damage, stacking with earlier Attack upgrades.',
   harvester: 'Doubles cutting damage again, stacking with earlier Attack upgrades.',
   sprayer: 'Triples spray damage, stacking with earlier Attack upgrades.',
   excavator: 'Triples crushing damage, stacking with earlier Attack upgrades.',
   crane:
-    'This tier currently adds no effect to cranes. Damage and range remain at tier 4 values; the reinforced hook assembly gets a visual refit.',
+    'Adds a second hook: strikes two balloons per swing within boom range. Earlier damage bonuses still apply.',
 };
 function detail(kind: VehicleKind, path: PathName, index: number) {
   if (path === 'unique') return UNIQUE_DETAILS[kind][index];
@@ -114,7 +132,9 @@ function detail(kind: VehicleKind, path: PathName, index: number) {
     return [
       'Multiplies damage per hit by 1.25. Especially useful against durable targets.',
       'Cuts the time between attacks by 20%, for 25% more attacks per second.',
-      'Bypasses half of armor resistance. Harvesters and cranes can now target armored balloons.',
+      kind === 'excavator'
+        ? 'Deals 50% bonus damage to armored balloons. Keeps full damage against other balloons.'
+        : 'Bypasses half of armor resistance. Tools that could not damage armor can now target it.',
       'Doubles damage per hit, stacking with the tier 1 damage bonus.',
       SIGNATURES[kind],
     ][index];
@@ -124,22 +144,23 @@ function detail(kind: VehicleKind, path: PathName, index: number) {
       'Runs the tool 15% faster. This stacks with Attack path improvements.',
       'Adds another 30% movement speed, stacking with tier 1.',
       'Each pop grants 5 seconds of double tool speed. Further pops refresh the timer.',
-      'Keeps double tool speed active continuously, even before the first pop.',
+      'Keeps double tool speed active continuously and adds 15% movement speed. Faster pursuit still helps when every shot already pops a balloon and refreshes tier 4 overdrive.',
     ][index];
   return [
     'Adds 0.1 traction to reduce terrain slowdown and improve route choices.',
     'Adds another 0.1 traction, up to a maximum grip rating of 1.',
     'Improves mud grip by 0.2 so muddy routes cost less movement time.',
     'Checks blocked routes and requests traffic clearance twice as often.',
-    'Removes movement slowdown from terrain and hay. Chassis still need a clear route.',
+    'Removes terrain and hay slowdown and adds 20% movement speed on every surface. Chassis still need a clear route.',
   ][index];
 }
 
 function effectTitle(kind: VehicleKind, path: PathName, index: number) {
   if (path === 'traction' && index === 2) return 'Better mud grip';
   if (path === 'speed' && index === 3) return '5 s tool overdrive after a pop';
-  if (path === 'speed' && index === 4) return 'Permanent tool overdrive';
-  if (path === 'attack' && index === 4 && kind === 'crane') return 'No additional crane benefit';
+  if (path === 'speed' && index === 4) return 'Permanent overdrive + 15% drive speed';
+  if (path === 'attack' && index === 2 && kind === 'excavator') return '50% bonus damage to armor';
+  if (path === 'attack' && index === 4 && kind === 'crane') return 'Twin hooks';
   return path === 'unique' ? UNIQUE_EFFECTS[kind][index] : SHARED_EFFECTS[path][index];
 }
 
@@ -162,7 +183,7 @@ function UpgradePath({
   const name = path === 'unique' ? VEHICLES[vehicle.kind].unique : info.name;
   const PathIcon = path === 'unique' ? UNIQUE_ICONS[vehicle.kind][0] : info.icon;
   const effectIcons = path === 'unique' ? UNIQUE_ICONS[vehicle.kind] : SHARED_ICONS[path];
-  const cost = price(run, VEHICLES[vehicle.kind].cost * TIER_COSTS[index]);
+  const cost = upgradePrice(run, vehicle, path, index + 1);
   const allowed = upgradeAllowed(vehicle, path);
   const used = PATHS.filter((p) => vehicle.upgrades[p] > 0);
   const purchased = index < tier;
@@ -192,7 +213,7 @@ function UpgradePath({
         </span>
         <div>
           <h3>{name}</h3>
-          <p>{info.description}</p>
+          <p>{UPGRADE_DIRECTIONS[vehicle.kind][path]}</p>
         </div>
         <span className="upgrade-progress">
           {tier}

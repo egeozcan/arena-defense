@@ -9,6 +9,7 @@ export function findPath(
   occupied: Set<number> = new Set(),
   reach = 0,
   radius = 0.45,
+  firingPosition?: (x: number, z: number) => boolean,
 ): [number, number][] {
   const w = arena.width,
     d = arena.depth,
@@ -33,7 +34,10 @@ export function findPath(
     if (closed[id]) continue;
     closed[id] = 1;
     if (h(id) < h(closest)) closest = id;
-    if (reach > 0 ? h(id) === 0 : id === goal) {
+    if (
+      (reach > 0 ? h(id) === 0 : id === goal) &&
+      (!firingPosition || firingPosition((id % w) + 0.5, Math.floor(id / w) + 0.5))
+    ) {
       reached = id;
       break;
     }
@@ -64,7 +68,11 @@ export function findPath(
   }
   const result: [number, number][] = [];
   // The vehicle may be near a cell edge while that cell's center is in tool range.
-  if (reached === start && reach > 0 && Math.hypot(sx - tx, sz - tz) > reach)
+  if (
+    reached === start &&
+    reach > 0 &&
+    (Math.hypot(sx - tx, sz - tz) > reach || (firingPosition && !firingPosition(sx, sz)))
+  )
     return [[(start % w) + 0.5, Math.floor(start / w) + 0.5]];
   let id = reached >= 0 ? reached : closest;
   while (id !== start && id >= 0) {

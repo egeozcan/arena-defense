@@ -5,3 +5,5 @@ dist/
 *.tsbuildinfo
 artifacts/*.png
 artifacts/*.jpg
+.playwright-cli/
+output/playwright/

@@ -1,7 +1,7 @@
 import {
   MODES,
   VEHICLES,
-  TIER_COSTS,
+  upgradePrice,
   newRun,
   price,
   canPlace,
@@ -27,12 +27,12 @@ const seed = Number(args.seed ?? 73429);
 if (
   modes.some((mode) => !MODES[mode]) ||
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
-  !['balanced', 'basic'].includes(plan) ||
+  !['balanced', 'basic', 'expanded'].includes(plan) ||
   !Number.isSafeInteger(seed) ||
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic --seed=integer --rounds=positive-integer',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer',
   );
 }
 await initPhysics();
@@ -80,7 +80,7 @@ for (const mode of modes)
     }
     function upgrade(v: OwnedVehicle, path: PathName) {
       if (!upgradeAllowed(v, path)) return false;
-      const cost = price(run, VEHICLES[v.kind].cost * TIER_COSTS[v.upgrades[path]]);
+      const cost = upgradePrice(run, v, path);
       if (cost > run.cash) return false;
       run.cash -= cost;
       v.spent += cost;
@@ -94,26 +94,42 @@ for (const mode of modes)
         ['sprayer', 2],
         ['excavator', 5],
         ['crane', 7],
+        ...(plan === 'expanded'
+          ? ([
+              ['baler', 4],
+              ['blower', 9],
+            ] as const)
+          : []),
       ] as const)
         if (round >= intro && !run.fleet.some((v) => v.kind === kind)) buy(kind);
-      if (plan === 'balanced') {
+      if (plan !== 'basic') {
         const extras = ['excavator', 'sprayer', 'crane', 'harvester'] as const;
+        const rosterSize = plan === 'expanded' ? 6 : 4;
         const targetFleet =
           round >= 32 ? 8 : round >= 24 ? 7 : round >= 16 ? 6 : round >= 12 ? 5 : 4;
-        while (run.fleet.length >= 4 && run.fleet.length < targetFleet)
-          if (!buy(extras[run.fleet.length - 4])) break;
+        while (run.fleet.length >= rosterSize && run.fleet.length < targetFleet)
+          if (!buy(extras[run.fleet.length - rosterSize])) break;
       }
       // Spread affordable tiers before saving for a costly signature transformation.
-      for (const tier of [1, 2, 3, 4, 5])
-        for (const v of run.fleet) {
-          const primary = v.kind === 'crane' ? 'attack' : 'unique';
-          const secondary = v.kind === 'crane' ? 'unique' : 'attack';
+      for (const tier of [1, 2, 3, 4, 5]) {
+        // Layer removal cuts splitting work; acid supplies wide armor coverage.
+        // Buy those before crowd pull, straw bursts or support vortexes.
+        const priority = ['excavator', 'sprayer', 'crane', 'baler', 'harvester', 'blower'];
+        const investments =
+          tier >= 4
+            ? [...run.fleet].sort((a, b) => priority.indexOf(a.kind) - priority.indexOf(b.kind))
+            : run.fleet;
+        for (const v of investments) {
+          const airDamage = v.kind === 'crane' || v.kind === 'blower';
+          const primary = airDamage ? 'attack' : 'unique';
+          const secondary = airDamage ? 'unique' : 'attack';
           const goal =
             plan === 'basic' ? 2 : round >= 25 ? 5 : round >= 16 ? 4 : round >= 8 ? 3 : 2;
           if (round >= 8 && tier <= goal && v.upgrades[primary] < tier) upgrade(v, primary);
           if (round >= 8 && tier <= 2 && v.upgrades[secondary] < tier) upgrade(v, secondary);
         }
-      if (plan === 'balanced' && round >= 10 && run.fleet.length >= 4) {
+      }
+      if (plan !== 'basic' && round >= 10 && run.fleet.length >= 4) {
         for (const ability of ['boost', 'gust', 'pitchfork'] as const)
           if (run.abilities[ability] === undefined || (round >= 20 && run.abilities[ability]! < 2))
             run = purchaseAbility(run, ability);
@@ -121,7 +137,7 @@ for (const mode of modes)
       const sim = new Simulation(run);
       let peak = 0;
       while (!sim.summary) {
-        if (plan === 'balanced' && sim.tick % 900 === 0) {
+        if (plan !== 'basic' && sim.tick % 900 === 0) {
           for (const v of sim.vehicles)
             if (v.upgrades.unique >= 3) sim.enqueue({ ability: 'vehicle', vehicleId: v.id });
           const high = sim.balloons.filter((b) => b.kind === 'high').length;
@@ -150,6 +166,14 @@ for (const mode of modes)
         fleet: run.fleet.length,
         seconds: +s.seconds.toFixed(1),
         peak,
+        pending: sim.pending,
+        remaining: Object.fromEntries(
+          (['basic', 'layered', 'armored', 'high', 'carrier'] as const).map((kind) => [
+            kind,
+            sim.balloons.filter((b) => b.kind === kind).length,
+          ]),
+        ),
+        remainingArmored: sim.balloons.filter((b) => b.armor).length,
       });
       sim.dispose();
       if (!run.lives) break;
@@ -176,7 +200,7 @@ for (const mode of modes)
         args.verbose ? report : { ...report, fleet: run.fleet.length, results: undefined },
       ),
     );
-    if (plan === 'balanced' && !report.survived) process.exitCode = 1;
+    if (plan !== 'basic' && !report.survived) process.exitCode = 1;
   }
 mkdirSync('artifacts', { recursive: true });
 writeFileSync(

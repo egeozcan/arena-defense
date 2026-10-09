@@ -281,13 +281,22 @@ export function VehicleModel({
     reel = useRef<Group>(null),
     beacon = useRef<Group>(null),
     chassis = useRef<Group>(null),
-    upper = useRef<Group>(null);
+    upper = useRef<Group>(null),
+    outriggers = useRef<Group>(null);
   useFrame(({ clock }) => {
     const alpha = interpolation?.current ?? 1;
     const t = sim ? (sim.tick - 1 + alpha) / 60 : clock.elapsedTime;
     const attacking = vehicle ? vehicle.state === 'attacking' : working;
     const travel = vehicle ? vehicle.ptravel + (vehicle.travel - vehicle.ptravel) * alpha : 0;
-    if (reel.current) reel.current.rotation.x = attacking ? t * 18 : travel * 3;
+    if (outriggers.current) {
+      const deployed = !vehicle || vehicle.state === 'attacking';
+      outriggers.current.scale.x = deployed ? 1 : 0.55;
+      outriggers.current.position.y = deployed ? 0 : 0.45;
+    }
+    if (reel.current) {
+      if (kind === 'blower') reel.current.rotation.z = t * (attacking ? 28 : 5);
+      else reel.current.rotation.x = attacking ? t * 18 : travel * 3;
+    }
     if (tool.current)
       tool.current.rotation.x = attacking ? Math.sin(t * (kind === 'excavator' ? 7 : 9)) * 0.18 : 0;
     if (beacon.current) beacon.current.rotation.y = t * 4;
@@ -313,7 +322,7 @@ export function VehicleModel({
   const appearance = vehicleAppearance(kind, u);
   const tiers = u ?? { attack: 0, speed: 0, traction: 0, unique: 0 };
   const c = appearance.paint,
-    farm = kind === 'harvester' || kind === 'sprayer',
+    farm = kind !== 'excavator' && kind !== 'crane',
     cabX = kind === 'excavator' ? -0.35 : 0;
   return (
     <group>
@@ -326,7 +335,7 @@ export function VehicleModel({
                 big
                 tireScale={appearance.tireScale}
                 traction={tiers.traction}
-                steering={kind === 'sprayer'}
+                steering={kind !== 'harvester'}
                 vehicle={vehicle}
                 interpolation={interpolation}
               />
@@ -353,7 +362,7 @@ export function VehicleModel({
           ))}
       <TractionUpgrades kind={kind} tier={tiers.traction} />
       {kind === 'crane' && tiers.unique >= 5 && (
-        <group name="specialist-tower-outriggers">
+        <group ref={outriggers} name="specialist-tower-outriggers">
           {[-1, 1].map((side) => (
             <group key={side}>
               <Paint position={[side * 1.3, 0.55, 0]} size={[1.4, 0.2, 0.25]} color="#56cadd" />
@@ -558,6 +567,138 @@ export function VehicleModel({
                 </group>
               ))}
             </group>
+          )}
+          {kind === 'baler' && (
+            <>
+              <Paint position={[0, 1.07, 0.68]} size={[1.5, 0.65, 1.02]} color={c} />
+              <Paint position={[0, 1.48, 0.7]} size={[1.25, 0.13, 0.9]} color="#f4e0b2" />
+              {[-1, 1].map((side) => (
+                <group key={side}>
+                  <Box
+                    position={[side * 0.77, 1.16, 0.6]}
+                    size={[0.03, 0.3, 0.55]}
+                    color="#49374f"
+                  />
+                  {[0, 1, 2].map((i) => (
+                    <Box
+                      key={i}
+                      position={[side * 0.79, 1.06 + i * 0.1, 0.6]}
+                      size={[0.02, 0.035, 0.48]}
+                      color="#eacb81"
+                    />
+                  ))}
+                </group>
+              ))}
+              <group ref={upper} position={[0, 1.65, 0.7]}>
+                <group ref={tool} scale={[appearance.toolWidth, 1, appearance.reach]}>
+                  <ToolUpgrades kind={kind} upgrades={tiers} />
+                  <Paint position={[0, 0.15, 0.32]} size={[1.1, 0.8, 1.05]} color={c} />
+                  <Paint position={[0, 0.15, 0.9]} size={[1.2, 0.9, 0.18]} color="#f4d886" />
+                  <Box position={[0, 0.15, 1]} size={[0.87, 0.56, 0.05]} color="#2a303b" />
+                  <Paint position={[0, 0.12, 1.07]} size={[0.64, 0.4, 0.15]} color="#d5ac53" />
+                  {[-0.2, 0.2].map((x) => (
+                    <Box
+                      key={x}
+                      position={[x, 0.12, 1.16]}
+                      size={[0.025, 0.42, 0.025]}
+                      color="#72522d"
+                    />
+                  ))}
+                  <mesh position={[0, -0.38, 0]} castShadow>
+                    <cylinderGeometry args={[0.52, 0.52, 0.16, 20]} />
+                    <meshStandardMaterial color="#53606a" metalness={0.7} />
+                  </mesh>
+                </group>
+              </group>
+              <group ref={reel} position={[0, 0.6, 1.36]}>
+                <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
+                  <cylinderGeometry args={[0.14, 0.14, 1.45, 16]} />
+                  <meshStandardMaterial color="#edc861" />
+                </mesh>
+                {[0, 1, 2, 3].map((i) => (
+                  <Box
+                    key={i}
+                    position={[
+                      0,
+                      Math.cos((i * Math.PI) / 2) * 0.22,
+                      Math.sin((i * Math.PI) / 2) * 0.22,
+                    ]}
+                    size={[1.4, 0.06, 0.07]}
+                    color="#efe1b0"
+                  />
+                ))}
+              </group>
+              <Paint position={[0, 0.42, 1.33]} size={[1.72, 0.14, 0.5]} color={c} />
+            </>
+          )}
+          {kind === 'blower' && (
+            <>
+              <Paint position={[0, 1.1, 0.65]} size={[1.45, 0.55, 0.9]} color={c} />
+              {[-1, 1].map((side) => (
+                <Box
+                  key={side}
+                  position={[side * 0.77, 1.15, 0.65]}
+                  size={[0.04, 0.25, 0.6]}
+                  color="#eff0cf"
+                />
+              ))}
+              <group ref={upper} position={[0, 1.65, 0.65]}>
+                <Paint position={[0, 0, 0]} size={[0.5, 0.4, 0.5]} color="#3e5665" />
+                <group ref={tool}>
+                  <ToolUpgrades kind={kind} upgrades={tiers} />
+                  <mesh position={[0, 0.55, 0.12]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                    <cylinderGeometry args={[0.82, 0.68, 0.66, 32, 1, true]} />
+                    <meshStandardMaterial color={c} side={2} metalness={0.35} roughness={0.3} />
+                  </mesh>
+                  <mesh position={[0, 0.55, 0.47]} castShadow>
+                    <torusGeometry args={[0.8, 0.1, 10, 32]} />
+                    <meshStandardMaterial color="#f1dfb5" metalness={0.35} />
+                  </mesh>
+                  <group ref={reel} position={[0, 0.55, 0.44]}>
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <group key={i} rotation={[0, 0, (i * Math.PI * 2) / 5]}>
+                        <Paint
+                          position={[0, 0.36, 0]}
+                          rotation={[0, 0.25, -0.28]}
+                          size={[0.26, 0.62, 0.08]}
+                          color="#eceddd"
+                        />
+                      </group>
+                    ))}
+                    <mesh>
+                      <sphereGeometry args={[0.18, 16, 12]} />
+                      <meshStandardMaterial color="#3d5461" metalness={0.8} />
+                    </mesh>
+                  </group>
+                  {[-0.45, 0, 0.45].map((x) => (
+                    <Box
+                      key={x}
+                      position={[x, 0.55, 0.59]}
+                      size={[0.025, Math.sqrt(0.64 - x * x) * 2, 0.025]}
+                      color="#738d93"
+                    />
+                  ))}
+                  {[-1, 1].map((side) => (
+                    <Paint
+                      key={side}
+                      position={[side * 0.77, 0.1, 0]}
+                      rotation={[0, 0, side * 0.2]}
+                      size={[0.13, 0.58, 0.22]}
+                      color="#546d78"
+                    />
+                  ))}
+                  {[0, 1, 2].map((i) => (
+                    <Box
+                      key={i}
+                      position={[0.87, 0.7 + i * 0.1, 0.35]}
+                      size={[0.3, 0.045, 0.03]}
+                      rotation={[0, 0.15, -0.25]}
+                      color={i % 2 ? '#f3d681' : '#e9fbf4'}
+                    />
+                  ))}
+                </group>
+              </group>
+            </>
           )}
           {kind === 'excavator' && (
             <group

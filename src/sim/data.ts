@@ -1,4 +1,4 @@
-export type VehicleKind = 'harvester' | 'sprayer' | 'excavator' | 'crane';
+export type VehicleKind = 'harvester' | 'sprayer' | 'excavator' | 'crane' | 'baler' | 'blower';
 export type BalloonKind = 'basic' | 'layered' | 'armored' | 'high' | 'carrier';
 export type Mode = 'easy' | 'medium' | 'hard';
 export type ArenaKind = 'barn' | 'yard';
@@ -125,6 +125,42 @@ export const VEHICLES = {
     tool: 'PIERCE',
     description: 'Reaches high balloons; cannot hit below 3 m. Boom upgrades add splash damage.',
   },
+  baler: {
+    name: 'Hay baler',
+    short: 'Baler',
+    role: 'Piercing ranged damage',
+    cost: 500,
+    color: '#bb73dc',
+    speed: 6.8,
+    traction: 0.55,
+    min: 0,
+    max: 4,
+    range: 7,
+    damage: 2,
+    interval: 0.75,
+    footprint: [2, 3],
+    unique: 'Bale Press',
+    tool: 'BALE',
+    description: 'Launches travelling bales through lined-up balloons. Weak against armor.',
+  },
+  blower: {
+    name: 'Blower truck',
+    short: 'Blower',
+    role: 'Balloon herding & support',
+    cost: 600,
+    color: '#39b8c9',
+    speed: 7.2,
+    traction: 0.45,
+    min: 1.5,
+    max: 12,
+    range: 6,
+    damage: 0.5,
+    interval: 0.4,
+    footprint: [2, 2],
+    unique: 'Airflow',
+    tool: 'GUST',
+    description: 'Air bursts herd packs toward teammates. Cannot damage armor without upgrades.',
+  },
 } satisfies Record<
   VehicleKind,
   {
@@ -180,7 +216,22 @@ export const BALLOONS = {
 export const LAYER_COLORS = ['#ffd339', '#73cf44', '#3e99f5', '#9753ed'];
 export const TARGETS: TargetMode[] = ['Nearest', 'Strongest', 'Highest', 'Oldest', 'Most lives'];
 export const PATHS: PathName[] = ['attack', 'speed', 'traction', 'unique'];
-export const TIER_COSTS = [0.3, 0.5, 1.2, 3, 8];
+// Mobility and terrain upgrades compete with buying another tool. Price them
+// for their utility, rather than charging a damage-capstone price for grip.
+export const PATH_COSTS: Record<PathName, number[]> = {
+  attack: [0.3, 0.5, 0.9, 2, 4],
+  speed: [0.2, 0.35, 0.7, 1.4, 2.5],
+  traction: [0.15, 0.25, 0.5, 0.9, 1.6],
+  unique: [0.3, 0.5, 1.2, 2.4, 4.5],
+};
+export function upgradePrice(
+  run: Run,
+  v: OwnedVehicle,
+  path: PathName,
+  tier = v.upgrades[path] + 1,
+) {
+  return price(run, VEHICLES[v.kind].cost * PATH_COSTS[path][tier - 1]);
+}
 export const SHARED_EFFECTS = {
   attack: [
     '25% more damage',
@@ -194,17 +245,31 @@ export const SHARED_EFFECTS = {
     '15% faster tool',
     '30% faster movement',
     '5 s overdrive after a pop',
-    'Permanent overdrive',
+    'Permanent overdrive + 15% drive speed',
   ],
   traction: [
     '+0.1 traction',
     '+0.1 traction',
     'Climbs ramps; +0.2 mud grip',
     'Faster traffic recovery',
-    'Full grip on all terrain',
+    'Full grip + 20% drive speed',
   ],
 };
 export const UNIQUE_EFFECTS: Record<VehicleKind, string[]> = {
+  baler: [
+    'Shots reach 9 m',
+    'Pierces 8 balloons',
+    'Faster press + Bale Barrage',
+    'Wide bales pierce 12 balloons',
+    'Straw-burst mega bales',
+  ],
+  blower: [
+    'Air reaches 7 m',
+    'Wider gust cone',
+    'Stronger push + Downburst',
+    '9 m air range + 14 m height',
+    'Gathering vortex',
+  ],
   harvester: [
     'Wider header',
     'Reaches 2 m',
@@ -224,15 +289,23 @@ export const UNIQUE_EFFECTS: Record<VehicleKind, string[]> = {
     'Splash damage within 1 m',
     'Arm reaches 7 m + Ground slam',
     'Ground shockwave',
-    'Demolisher pops every layer',
+    'Demolisher removes every layer',
   ],
   crane: [
     '+2 m boom reach',
     'Faster hook swing',
     'Wrecking ball + Hook yank',
-    'Magnet lowers hay carriers',
-    'Tower crane: 2 targets',
+    'Magnet slows and lowers carriers',
+    'Mobile tower: 2 splash hooks',
   ],
+};
+export const VEHICLE_ABILITIES: Record<VehicleKind, { name: string; cooldown: number }> = {
+  harvester: { name: 'Full throttle', cooldown: 24 },
+  sprayer: { name: 'Sticky cloud', cooldown: 30 },
+  excavator: { name: 'Ground slam', cooldown: 36 },
+  crane: { name: 'Hook yank', cooldown: 28 },
+  baler: { name: 'Bale Barrage', cooldown: 26 },
+  blower: { name: 'Downburst', cooldown: 30 },
 };
 export const ABILITIES = {
   gust: {
@@ -369,7 +442,7 @@ export function grip(a: Arena, x: number, z: number) {
   return x > a.width * 0.38 && x < a.width * 0.62 && z > a.depth * 0.58 ? 0.4 : z < 9 ? 1 : 0.75;
 }
 export function vehicleRadius(v: Pick<OwnedVehicle, 'kind'>) {
-  return v.kind === 'harvester' || v.kind === 'crane' ? 1.12 : 0.95;
+  return v.kind === 'harvester' || v.kind === 'crane' || v.kind === 'baler' ? 1.12 : 0.95;
 }
 export function clearPosition(a: Arena, x: number, z: number, radius: number) {
   if (

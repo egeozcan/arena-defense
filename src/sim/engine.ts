@@ -4,6 +4,7 @@ import {
   BALLOONS,
   MODES,
   VEHICLES,
+  VEHICLE_ABILITIES,
   TARGETS,
   Random,
   arenaFor,
@@ -38,7 +39,15 @@ import {
 import { approachSpeed, chooseDriveControl } from './vehicle-driving';
 import { chooseBalloonHeading } from './balloon-motion';
 import { PopRhythm, POP_RUSH } from './pop-rush';
-import { armorDamageFactor, canTargetBalloon, vehicleStats } from './capabilities';
+import {
+  armorDamageFactor,
+  canTargetBalloon,
+  vehicleStats,
+  vehicleTool,
+  toolIntervalTicks,
+  terrainSpeedFactor,
+} from './capabilities';
+import { balePathClear, inWindCone, segmentDistance, toolVictims } from './vehicle-tools';
 let initialization: Promise<void> | undefined;
 export function initPhysics() {
   return (initialization ??= RAPIER.init());
@@ -119,6 +128,42 @@ export interface AttackEvent {
   from: [number, number, number];
   to: [number, number, number];
 }
+export interface BaleShot {
+  id: number;
+  vehicleId: number;
+  x: number;
+  y: number;
+  z: number;
+  px: number;
+  py: number;
+  pz: number;
+  dx: number;
+  dz: number;
+  targetY: number;
+  rise: number;
+  travelled: number;
+  range: number;
+  damage: number;
+  radius: number;
+  pierce: number;
+  burst: boolean;
+  hitIds: number[];
+}
+export interface AirBurst {
+  x: number;
+  z: number;
+  angle: number;
+  range: number;
+  halfAngle: number;
+  min: number;
+  max: number;
+  rallyX: number;
+  rallyZ: number;
+  strength: number;
+  started: number;
+  until: number;
+  vortex: boolean;
+}
 export type Command = {
   ability: AbilityKind | 'vehicle' | 'finish' | 'targeting';
   targeting?: TargetMode;
@@ -160,6 +205,8 @@ export class Simulation {
   bales: Bale[] = [];
   events: PopEvent[] = [];
   attacks: AttackEvent[] = [];
+  shots: BaleShot[] = [];
+  winds: AirBurst[] = [];
   summary: Summary | null = null;
   pops = 0;
   popCash = 0;
@@ -343,15 +390,14 @@ export class Simulation {
     this.bodies.set(b.id, body);
   }
   private eligible(v: SimVehicle, b: Balloon, checkBlacklist = true) {
-    const s = vehicleStats(v);
     return (
-      canTargetBalloon(v, b.y, b.armor) &&
-      !(
-        v.kind === 'crane' &&
-        v.upgrades.unique === 5 &&
-        Math.hypot(b.x - v.x, b.z - v.z) > s.range
-      ) &&
-      (!checkBlacklist || !(v.blacklist[b.id] > this.tick))
+      canTargetBalloon(v, b.y, b.armor) && (!checkBlacklist || !(v.blacklist[b.id] > this.tick))
+    );
+  }
+  private clearToolPosition(v: SimVehicle, b: Balloon, x = v.x, z = v.z) {
+    return (
+      v.kind !== 'baler' ||
+      balePathClear(this.arena, x, z, b.x, b.y, b.z, v.upgrades.unique >= 4 ? 0.65 : 0.35)
     );
   }
   get canFinishEarly() {
@@ -399,8 +445,7 @@ export class Simulation {
     }
     if (c.ability === 'vehicle') {
       if (!v || v.upgrades.unique < 3 || v.cooldown > this.tick) return;
-      const cds = { harvester: 24, sprayer: 30, excavator: 36, crane: 28 };
-      v.cooldown = this.tick + cds[v.kind] * 60;
+      v.cooldown = this.tick + VEHICLE_ABILITIES[v.kind].cooldown * 60;
       if (v.kind === 'harvester') {
         v.activeUntil = this.tick + 180;
         const eligible = this.balloons.filter((b) => this.eligible(v, b));
@@ -428,6 +473,32 @@ export class Simulation {
           b.lowerUntil = this.tick + 300;
           b.float = 2;
         }
+      }
+      if (v.kind === 'baler') {
+        const target =
+          this.balloons.find((b) => b.id === v.target) ??
+          this.balloons
+            .filter((b) => this.eligible(v, b, false))
+            .sort(
+              (a, b) =>
+                Math.hypot(a.x - v.x, a.z - v.z) - Math.hypot(b.x - v.x, b.z - v.z) || a.id - b.id,
+            )[0];
+        if (target) for (const offset of [-0.22, 0, 0.22]) this.launchBale(v, target, offset);
+      }
+      if (v.kind === 'blower') {
+        const s = vehicleStats(v);
+        for (const b of this.balloons)
+          if (b.y >= s.min && b.y <= s.max && Math.hypot(b.x - v.x, b.z - v.z) <= s.range) {
+            b.float = Math.min(b.float, 1.2);
+            b.lowerUntil = this.tick + 300;
+          }
+        this.attacks.push({
+          kind: v.kind,
+          vehicleId: v.id,
+          tick: this.tick,
+          from: [v.x, s.max, v.z],
+          to: [v.x, 1.2, v.z],
+        });
       }
       return;
     }
@@ -523,35 +594,150 @@ export class Simulation {
           { x: b.x + (i - 1) * 0.5, y: 0.8, z: b.z },
         );
   }
-  private attack(v: SimVehicle, target: Balloon) {
-    const s = vehicleStats(v),
-      u = v.upgrades;
-    let victims: Balloon[] = [target];
-    if (v.kind === 'harvester' || v.kind === 'sprayer') {
-      const cone = v.kind === 'harvester' ? 1.2 : u.unique >= 2 ? Math.PI / 6 : Math.PI / 9;
-      victims = this.balloons.filter((b) => {
-        const angle = Math.atan2(b.x - v.x, b.z - v.z),
-          direction = v.kind === 'harvester' ? v.angle : v.aimAngle,
-          dif = Math.abs(angleDifference(angle, direction));
-        return (
-          this.eligible(v, b) &&
-          Math.hypot(b.x - v.x, b.z - v.z) < s.range &&
-          ((v.kind === 'sprayer' && u.unique === 5) ||
-            dif < cone ||
-            (v.kind === 'harvester' && u.unique >= 3 && dif > Math.PI - cone))
+  private launchBale(v: SimVehicle, target: Balloon, offset = 0) {
+    const s = vehicleStats(v);
+    const angle = Math.atan2(target.x - v.x, target.z - v.z) + offset;
+    this.shots.push({
+      id: this.nextId++,
+      vehicleId: v.id,
+      x: v.x,
+      y: 1.3,
+      z: v.z,
+      px: v.x,
+      py: 1.3,
+      pz: v.z,
+      dx: Math.sin(angle),
+      dz: Math.cos(angle),
+      targetY: target.y,
+      rise: Math.max(0.3, Math.min(2, Math.hypot(target.x - v.x, target.z - v.z))),
+      travelled: 0,
+      range: s.range,
+      damage: s.damage,
+      radius: vehicleTool(v).baleRadius,
+      pierce: vehicleTool(v).pierce,
+      burst: vehicleTool(v).burst > 0,
+      hitIds: [],
+    });
+    this.attacks.push({
+      kind: v.kind,
+      vehicleId: v.id,
+      tick: this.tick,
+      from: [v.x, 1.3, v.z],
+      to: [v.x + Math.sin(angle) * s.range, target.y, v.z + Math.cos(angle) * s.range],
+    });
+  }
+  private burstBale(shot: BaleShot, v: SimVehicle) {
+    if (!shot.burst) return;
+    for (const b of [...this.balloons])
+      if (
+        canTargetBalloon(v, b.y, b.armor) &&
+        Math.hypot(b.x - shot.x, b.y - shot.y, b.z - shot.z) <= 2
+      )
+        this.hit(b, shot.damage * 0.5, v);
+    this.attacks.push({
+      kind: 'baler',
+      vehicleId: v.id,
+      tick: this.tick,
+      from: [shot.x, shot.y, shot.z],
+      to: [shot.x, shot.y, shot.z],
+    });
+  }
+  private advanceBales() {
+    this.shots = this.shots.filter((shot) => {
+      const v = this.vehicles.find((v) => v.id === shot.vehicleId);
+      if (!v) return false;
+      shot.px = shot.x;
+      shot.py = shot.y;
+      shot.pz = shot.z;
+      const distance = Math.min(18 / 60, shot.range - shot.travelled);
+      shot.x += shot.dx * distance;
+      shot.z += shot.dz * distance;
+      shot.travelled += distance;
+      shot.y = 1.3 + (shot.targetY - 1.3) * Math.min(1, shot.travelled / shot.rise);
+      if (
+        shot.x < 0 ||
+        shot.z < 0 ||
+        shot.x > this.arena.width ||
+        shot.z > this.arena.depth ||
+        this.arena.obstacles.some(
+          (o) =>
+            shot.y < o.h + shot.radius &&
+            Math.abs(shot.x - o.x) < o.w / 2 + shot.radius &&
+            Math.abs(shot.z - o.z) < o.d / 2 + shot.radius,
+        )
+      ) {
+        this.burstBale(shot, v);
+        return false;
+      }
+      const victims = this.balloons
+        .filter(
+          (b) =>
+            !shot.hitIds.includes(b.id) &&
+            canTargetBalloon(v, b.y, b.armor) &&
+            segmentDistance(b.x, b.y, b.z, [shot.px, shot.py, shot.pz], [shot.x, shot.y, shot.z]) <=
+              shot.radius + BALLOONS[b.kind].radius,
+        )
+        .sort(
+          (a, b) =>
+            (a.x - shot.px) * shot.dx +
+              (a.z - shot.pz) * shot.dz -
+              ((b.x - shot.px) * shot.dx + (b.z - shot.pz) * shot.dz) || a.id - b.id,
         );
-      });
-    }
-    if ((v.kind === 'excavator' && u.unique >= 2) || (v.kind === 'crane' && u.unique >= 3)) {
-      const radius = v.kind === 'excavator' ? 1 : 1.5;
-      victims = this.balloons.filter(
-        (b) => this.eligible(v, b) && Math.hypot(b.x - target.x, b.z - target.z) < radius,
+      for (const b of victims) {
+        shot.hitIds.push(b.id);
+        this.hit(b, shot.damage, v);
+        if (--shot.pierce === 0) break;
+      }
+      const alive = shot.pierce > 0 && shot.travelled < shot.range - 0.0001;
+      if (!alive) this.burstBale(shot, v);
+      return alive;
+    });
+  }
+  private blow(v: SimVehicle, target: Balloon) {
+    const s = vehicleStats(v);
+    const halfAngle = vehicleTool(v).cone;
+    const partner = this.vehicles
+      .filter((other) => other.id !== v.id && other.kind !== 'blower')
+      .sort(
+        (a, b) =>
+          Number(b.kind === 'baler') - Number(a.kind === 'baler') ||
+          Math.hypot(a.x - v.x, a.z - v.z) - Math.hypot(b.x - v.x, b.z - v.z) ||
+          a.id - b.id,
+      )
+      .find(
+        (other) =>
+          Math.hypot(other.x - target.x, other.z - target.z) <= vehicleStats(other).range + s.range,
       );
-    }
-    if (v.kind === 'crane' && u.unique === 5)
-      victims = [target, ...this.balloons.filter((b) => b.id !== target.id)]
-        .filter((b) => this.eligible(v, b) && Math.hypot(b.x - v.x, b.z - v.z) <= s.range)
-        .slice(0, 2);
+    const reach = partner ? vehicleStats(partner).range * 0.65 : s.range + 2;
+    const angle = partner?.aimAngle ?? v.aimAngle;
+    this.winds.push({
+      x: v.x,
+      z: v.z,
+      angle: v.aimAngle,
+      range: s.range,
+      halfAngle,
+      min: s.min,
+      max: s.max,
+      rallyX: (partner?.x ?? v.x) + Math.sin(angle) * reach,
+      rallyZ: (partner?.z ?? v.z) + Math.cos(angle) * reach,
+      strength: vehicleTool(v).wind,
+      started: this.tick,
+      until: this.tick + 24,
+      vortex: vehicleTool(v).vortex,
+    });
+  }
+  private attack(v: SimVehicle, target: Balloon) {
+    const s = vehicleStats(v);
+    const victims = toolVictims(
+      v,
+      target,
+      this.balloons.filter((b) => this.eligible(v, b)),
+      v.x,
+      v.z,
+      v.kind === 'harvester' ? v.angle : v.aimAngle,
+    );
+    if (v.kind === 'baler') this.launchBale(v, target);
+    if (v.kind === 'blower') this.blow(v, target);
     if (victims.length)
       this.attacks.push({
         kind: v.kind,
@@ -566,15 +752,11 @@ export class Simulation {
       });
     for (const b of victims.sort((a, b) => a.id - b.id))
       this.hit(b, s.damage * (v.activeUntil > this.tick ? 2 : 1), v);
-    if (v.kind === 'excavator' && u.unique >= 4)
-      for (const b of [...this.balloons])
-        if (b.y < 1 && Math.hypot(b.x - v.x, b.z - v.z) < 3 && !victims.includes(b))
-          this.hit(b, s.damage, v);
-    const toolRate = Math.min(
-      2.6,
-      (this.boosted(v) ? 2 : 1) * (this.rhythm.active(this.tick) ? POP_RUSH.tool : 1),
-    );
-    v.attackTick = this.tick + Math.max(1, Math.round((s.interval * 60) / toolRate));
+    // Carry a sub-tick remainder across consecutive attacks. Rounding every
+    // cooldown made fast tools lose entire upgrades (e.g. 4.4 vs 3.5 ticks).
+    // After travelling or turning, start a fresh cooldown instead of banking shots.
+    const start = v.attackTick > this.tick - 1 ? v.attackTick : this.tick;
+    v.attackTick = start + toolIntervalTicks(v, this.boosted(v), this.rhythm.active(this.tick));
   }
   private boosted(v: SimVehicle) {
     return (
@@ -632,6 +814,27 @@ export class Simulation {
         dx += this.gust.dx * 2;
         dz += this.gust.dz * 2;
       }
+      let windX = 0,
+        windZ = 0;
+      for (const wind of this.winds) {
+        if (
+          wind.until <= this.tick ||
+          b.y < wind.min - 0.15 ||
+          b.y > wind.max + 0.2 ||
+          !inWindCone(b.x - wind.x, b.z - wind.z, wind.angle, wind.range, wind.halfAngle)
+        )
+          continue;
+        const gathering = wind.vortex && this.tick - wind.started < 12;
+        const rallyX = gathering ? wind.x + Math.sin(wind.angle) * wind.range * 0.65 : wind.rallyX;
+        const rallyZ = gathering ? wind.z + Math.cos(wind.angle) * wind.range * 0.65 : wind.rallyZ;
+        const gap = Math.max(1, Math.hypot(rallyX - b.x, rallyZ - b.z));
+        windX += ((rallyX - b.x) / gap) * wind.strength;
+        windZ += ((rallyZ - b.z) / gap) * wind.strength;
+      }
+      // Stacked blowers cannot pin a pack against a wall with unbounded wind speed.
+      const windScale = Math.min(1, 6 / Math.max(0.01, Math.hypot(windX, windZ)));
+      dx += windX * windScale;
+      dz += windZ * windScale;
       for (const v of this.vehicles) {
         if (
           v.kind === 'harvester' &&
@@ -641,9 +844,17 @@ export class Simulation {
           dx += (v.x - b.x) * 0.5;
           dz += (v.z - b.z) * 0.5;
         }
-        if (v.kind === 'crane' && v.upgrades.unique >= 4 && b.kind === 'carrier') {
-          b.baseFloat = 4;
-          if (b.lowerUntil <= this.tick) b.float = b.baseFloat;
+        if (
+          v.kind === 'crane' &&
+          v.upgrades.unique >= 4 &&
+          b.kind === 'carrier' &&
+          Math.hypot(b.x - v.x, b.z - v.z) <= vehicleStats(v).range
+        ) {
+          b.slowUntil = Math.max(b.slowUntil, this.tick + 60);
+          if (b.baseFloat > 3) {
+            b.baseFloat = 3;
+            if (b.lowerUntil <= this.tick) b.float = Math.min(b.float, b.baseFloat);
+          }
         }
       }
       const vel = body.linvel();
@@ -706,7 +917,8 @@ export class Simulation {
         // Vehicles need a reachable firing position, not a path onto the balloon's cell.
         const approach = new Map(
           candidates.map((b) => {
-            if (!costs || distances.get(b.id)! <= s.range) return [b.id, 0];
+            if (!costs || (distances.get(b.id)! <= s.range && this.clearToolPosition(v, b)))
+              return [b.id, 0];
             let best = Infinity;
             for (
               let z = Math.max(1, Math.floor(b.z - s.range));
@@ -718,7 +930,11 @@ export class Simulation {
                 x < Math.min(this.arena.width - 1, Math.ceil(b.x + s.range));
                 x++
               )
-                if (Math.hypot(x + 0.5 - b.x, z + 0.5 - b.z) <= s.range - 0.15)
+                if (
+                  costs[z * this.arena.width + x] < best &&
+                  Math.hypot(x + 0.5 - b.x, z + 0.5 - b.z) <= s.range - 0.15 &&
+                  this.clearToolPosition(v, b, x + 0.5, z + 0.5)
+                )
                   best = Math.min(best, costs[z * this.arena.width + x]);
             return [b.id, best];
           }),
@@ -761,11 +977,10 @@ export class Simulation {
       }
       const target = this.balloons.find((b) => b.id === v.target);
       const body = traffic.find((body) => body.id === v.id)!;
-      const anchored = v.kind === 'crane' && v.upgrades.unique === 5;
       const request = this.yieldRequests.get(v.id);
       if (request) {
         const requester = this.vehicles.find((other) => other.id === request.requester);
-        if (request.until <= this.tick || !requester || anchored) {
+        if (request.until <= this.tick || !requester) {
           this.yieldRequests.delete(v.id);
         } else if (v.yieldUntil <= this.tick) {
           const destination = this.balloons.find((b) => b.id === requester.target);
@@ -810,7 +1025,15 @@ export class Simulation {
       const dist = target ? Math.hypot(target.x - v.x, target.z - v.z) : Infinity;
       const headerFacing =
         v.kind !== 'harvester' || Math.abs(angleDifference(v.aimAngle, v.angle)) <= 0.85;
-      if (target && dist <= s.range && this.eligible(v, target) && headerFacing && !yielding) {
+      const clearShot = !target || this.clearToolPosition(v, target);
+      if (
+        target &&
+        dist <= s.range &&
+        this.eligible(v, target) &&
+        headerFacing &&
+        clearShot &&
+        !yielding
+      ) {
         v.state = 'attacking';
         v.nextDrivePlan = 0;
         v.driveControl = null;
@@ -823,7 +1046,7 @@ export class Simulation {
             Math.abs(angleDifference(Math.atan2(target.x - v.x, target.z - v.z), v.angle)) <= 0.85)
         )
           this.attack(v, target);
-      } else if (!anchored) {
+      } else {
         v.state = 'moving';
         if (target && (this.tick >= v.nextPath || !v.path.length) && !yielding) {
           v.path = findPath(
@@ -836,6 +1059,7 @@ export class Simulation {
             trafficCells(this.arena, body, traffic),
             s.range - 0.15,
             vehicleRadius(v),
+            v.kind === 'baler' ? (x, z) => this.clearToolPosition(v, target, x, z) : undefined,
           );
           v.nextPath = this.tick + 45;
           const end = v.path.at(-1);
@@ -865,8 +1089,7 @@ export class Simulation {
         if (point) {
           let terrain = grip(this.arena, v.x, v.z);
           if (this.bales.some((b) => Math.hypot(b.x - v.x, b.z - v.z) < 1)) terrain = 0.6;
-          if (v.upgrades.traction >= 3 && terrain === 0.4) terrain += 0.2;
-          const traction = v.upgrades.traction === 5 ? 1 : Math.min(1, terrain + 0.5 * s.traction);
+          const traction = terrainSpeedFactor(v, terrain);
           const speed =
             s.speed *
             Math.min(
@@ -875,7 +1098,7 @@ export class Simulation {
                 (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
             ) *
             traction;
-          const wheeled = v.kind === 'harvester' || v.kind === 'sprayer';
+          const wheeled = v.kind !== 'excavator' && v.kind !== 'crane';
           if (
             wheeled &&
             (v.driveFacing !== !!aligningHeader ||
@@ -966,13 +1189,11 @@ export class Simulation {
             this.yieldRequests.delete(v.id);
           } else this.recoverTraffic(v, body, traffic);
         }
-      } else {
-        stopAtCollision(v);
-        finishMotionTick(v, 0, 0);
-        this.aimTool(v);
       }
       this.vbodies.get(v.id)!.setNextKinematicTranslation({ x: v.x, y: 0.6, z: v.z });
     }
+    this.advanceBales();
+    this.winds = this.winds.filter((wind) => wind.until > this.tick);
     this.world.step();
     for (const bale of this.bales) {
       const p = this.baleBodies.get(bale.id)!.translation();
@@ -1014,7 +1235,7 @@ export class Simulation {
       body.z = v.z;
     } else {
       // A sweep rejected the proposed movement: tires cannot turn through the obstruction.
-      if (v.kind === 'harvester' || v.kind === 'sprayer') v.angle = v.pangle;
+      if (v.kind !== 'excavator' && v.kind !== 'crane') v.angle = v.pangle;
       stopAtCollision(v);
       v.nextDrivePlan = 0;
     }

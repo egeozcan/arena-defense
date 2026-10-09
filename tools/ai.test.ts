@@ -4,7 +4,7 @@ import { arenaFor, newRun, TARGETS, type OwnedVehicle, type VehicleKind } from '
 import { Simulation, initPhysics } from '../src/sim/engine';
 import { findPath } from '../src/sim/pathfinding';
 await initPhysics();
-test('anchored cranes apply every strategy only to balloons in boom range', () => {
+test('mobile towers reposition for distant balloons with every targeting strategy', () => {
   for (const targeting of TARGETS) {
     const run = newRun();
     run.round = 8;
@@ -23,11 +23,10 @@ test('anchored cranes apply every strategy only to balloons in boom range', () =
         gate,
         lane: 0.5,
       }));
-      for (let i = 0; i < 1200; i++) sim.step();
-      assert.equal(sim.pops, 1, `${targeting}: distant target blocked a reachable balloon`);
-      assert.equal(sim.vehicles[0].x, 43);
-      assert.equal(sim.vehicles[0].z, 18);
-      assert.equal(sim.canFinishEarly, true);
+      for (let i = 0; i < 3600 && !sim.summary; i++) sim.step();
+      assert.equal(sim.pops, 2, `${targeting}: tower must reach both gates`);
+      assert.ok(Math.hypot(sim.vehicles[0].x - 43, sim.vehicles[0].z - 18) > 1);
+      assert.equal(sim.summary?.cleared, true);
     } finally {
       sim.dispose();
     }

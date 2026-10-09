@@ -24,7 +24,9 @@ export function VehicleProfile({ vehicle }: { vehicle: OwnedVehicle }) {
         <h3>{v.name}</h3>
         <p>
           {armorLabel(vehicle)} · {stats.range} m tool reach
-          {vehicle.kind === 'crane' && vehicle.upgrades.unique === 5 ? ' · Stationary tower' : ''}
+          {vehicle.kind === 'crane' && vehicle.upgrades.unique === 5
+            ? ' · Tower travels at half speed'
+            : ''}
         </p>
         <div
           className="height-coverage"

@@ -40,8 +40,9 @@ import {
   BALLOONS,
   MODES,
   TARGETS,
-  TIER_COSTS,
+  upgradePrice,
   VEHICLES,
+  VEHICLE_ABILITIES,
   arenaFor,
   canPlace,
   fitFleet,
@@ -299,7 +300,7 @@ export default function App() {
   }
   function upgrade(path: PathName) {
     if (!owned || phase !== 'garage' || !upgradeAllowed(owned, path)) return;
-    const cost = price(run, VEHICLES[owned.kind].cost * TIER_COSTS[owned.upgrades[path]]);
+    const cost = upgradePrice(run, owned, path);
     if (run.cash < cost) return;
     setRun((r) => ({
       ...r,
@@ -618,11 +619,8 @@ export default function App() {
         if (['1', '2', '3'].includes(e.key)) setSpeed(Number(e.key));
         const i = ['q', 'w', 'e'].indexOf(letter);
         if (i >= 0) useAbility((['gust', 'boost', 'pitchfork'] as AbilityKind[])[i]);
-      } else if (phase === 'setup' && ['1', '2', '3', '4'].includes(e.key))
-        buy(
-          (['harvester', 'sprayer', 'excavator', 'crane'] as VehicleKind[])[Number(e.key) - 1],
-          true,
-        );
+      } else if (phase === 'setup' && ['1', '2', '3', '4', '5', '6'].includes(e.key))
+        buy((Object.keys(VEHICLES) as VehicleKind[])[Number(e.key) - 1], true);
     }
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);
@@ -884,7 +882,7 @@ export default function App() {
               disabled={paused || liveVehicle.cooldown > sim.tick}
               onClick={() => sim.enqueue({ ability: 'vehicle', vehicleId: selected! })}
             >
-              Use vehicle ability <Zap size={15} />
+              {VEHICLE_ABILITIES[owned.kind].name} <Zap size={15} />
             </button>
           )}
         </div>
@@ -1295,14 +1293,16 @@ export default function App() {
                             <VehicleMatchup run={run} kind={kind} />
                             <div className="shop-card-bottom">
                               <span>
-                                {kind === 'harvester' || kind === 'sprayer' ? (
+                                {kind === 'harvester' || kind === 'sprayer' || kind === 'baler' ? (
                                   <Leaf size={12} />
                                 ) : (
                                   <Wrench size={12} />
                                 )}{' '}
-                                {kind === 'harvester' || kind === 'sprayer'
+                                {kind === 'harvester' || kind === 'sprayer' || kind === 'baler'
                                   ? 'FARM'
-                                  : 'CONSTRUCTION'}
+                                  : kind === 'blower'
+                                    ? 'UTILITY'
+                                    : 'CONSTRUCTION'}
                                 <small>{v.footprint.join(' × ')} CELLS</small>
                               </span>
                               <button
@@ -1779,8 +1779,8 @@ export default function App() {
                 <p className="help-note">
                   Pop everything within 3 minutes for a cash bonus. Leftover balloons cost lives.
                   Excavators deal full armor damage; sprayers deal half. Attack tier 3 unlocks armor
-                  damage for harvesters and cranes. High-flyers need a crane; cranes cannot hit low
-                  balloons.
+                  damage for harvesters, cranes, and blowers. Balers deal quarter damage to armor.
+                  Cranes and blowers reach high-flyers; pair them with low tools.
                 </p>
                 <button className="primary full-width" onClick={() => setModal(null)}>
                   Close <Check size={17} />

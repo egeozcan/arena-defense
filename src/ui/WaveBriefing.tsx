@@ -216,17 +216,19 @@ export function WaveBriefing({
               })}
               {info.gaps.some((t) => t.min >= 6 && t.armored) && (
                 <p className="threat-detail">
-                  Armored high-flyers require a crane with Attack tier 3. A stock crane cannot
-                  damage them. Keep the Attack path available.
+                  Armored high-flyers need a crane or blower with Attack tier 3. Stock cranes and
+                  blowers cannot damage them. Keep the Attack path available.
                 </p>
               )}
               {info.gaps.some((t) => t.armored) &&
                 run.fleet.some(
-                  (v) => (v.kind === 'harvester' || v.kind === 'crane') && v.upgrades.attack < 3,
+                  (v) =>
+                    (v.kind === 'harvester' || v.kind === 'crane' || v.kind === 'blower') &&
+                    v.upgrades.attack < 3,
                 ) && (
                   <p className="threat-detail">
-                    Alternative: Attack tier 3 lets harvesters and cranes damage armor within their
-                    height range. Two-path limits apply.
+                    Alternative: Attack tier 3 lets harvesters, cranes, and blowers damage armor
+                    within their height range. Two-path limits apply.
                   </p>
                 )}
             </div>

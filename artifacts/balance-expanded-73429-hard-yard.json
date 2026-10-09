@@ -1,0 +1,890 @@
+[
+  {
+    "mode": "hard",
+    "arena": "yard",
+    "plan": "expanded",
+    "seed": 73429,
+    "survived": false,
+    "round": 42,
+    "lives": 0,
+    "cash": 19974,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      },
+      {
+        "kind": "baler",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 5,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "blower",
+        "upgrades": {
+          "attack": 5,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 5
+        }
+      }
+    ],
+    "totalLost": 50,
+    "averageSeconds": 119.6,
+    "slowest": 180,
+    "peak": 300,
+    "results": [
+      {
+        "round": 1,
+        "pops": 41,
+        "lost": 0,
+        "lives": 50,
+        "cash": 491,
+        "fleet": 1,
+        "seconds": 39.2,
+        "peak": 41,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 2,
+        "pops": 54,
+        "lost": 0,
+        "lives": 50,
+        "cash": 291,
+        "fleet": 2,
+        "seconds": 74.9,
+        "peak": 52,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 3,
+        "pops": 73,
+        "lost": 0,
+        "lives": 50,
+        "cash": 600,
+        "fleet": 2,
+        "seconds": 49.3,
+        "peak": 72,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 4,
+        "pops": 99,
+        "lost": 0,
+        "lives": 50,
+        "cash": 388,
+        "fleet": 3,
+        "seconds": 85,
+        "peak": 56,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 5,
+        "pops": 139,
+        "lost": 0,
+        "lives": 50,
+        "cash": 749,
+        "fleet": 3,
+        "seconds": 99.3,
+        "peak": 82,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 6,
+        "pops": 74,
+        "lost": 0,
+        "lives": 50,
+        "cash": 510,
+        "fleet": 4,
+        "seconds": 60.4,
+        "peak": 66,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 7,
+        "pops": 129,
+        "lost": 0,
+        "lives": 50,
+        "cash": 946,
+        "fleet": 4,
+        "seconds": 51.1,
+        "peak": 56,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 8,
+        "pops": 94,
+        "lost": 0,
+        "lives": 50,
+        "cash": 377,
+        "fleet": 5,
+        "seconds": 171.7,
+        "peak": 84,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 9,
+        "pops": 157,
+        "lost": 16,
+        "lives": 34,
+        "cash": 480,
+        "fleet": 5,
+        "seconds": 180,
+        "peak": 67,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 8,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 10,
+        "pops": 129,
+        "lost": 0,
+        "lives": 34,
+        "cash": 508,
+        "fleet": 5,
+        "seconds": 54.9,
+        "peak": 92,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 11,
+        "pops": 428,
+        "lost": 0,
+        "lives": 34,
+        "cash": 912,
+        "fleet": 5,
+        "seconds": 118.4,
+        "peak": 86,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 12,
+        "pops": 398,
+        "lost": 0,
+        "lives": 34,
+        "cash": 769,
+        "fleet": 6,
+        "seconds": 86.3,
+        "peak": 154,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 13,
+        "pops": 494,
+        "lost": 0,
+        "lives": 34,
+        "cash": 1050,
+        "fleet": 6,
+        "seconds": 98.7,
+        "peak": 124,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 14,
+        "pops": 500,
+        "lost": 0,
+        "lives": 34,
+        "cash": 968,
+        "fleet": 6,
+        "seconds": 80.2,
+        "peak": 128,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 15,
+        "pops": 586,
+        "lost": 0,
+        "lives": 34,
+        "cash": 1141,
+        "fleet": 6,
+        "seconds": 95.7,
+        "peak": 144,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 16,
+        "pops": 646,
+        "lost": 0,
+        "lives": 34,
+        "cash": 1090,
+        "fleet": 6,
+        "seconds": 80.4,
+        "peak": 171,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 17,
+        "pops": 614,
+        "lost": 0,
+        "lives": 34,
+        "cash": 1199,
+        "fleet": 6,
+        "seconds": 152.2,
+        "peak": 172,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 18,
+        "pops": 783,
+        "lost": 0,
+        "lives": 34,
+        "cash": 1253,
+        "fleet": 6,
+        "seconds": 93.5,
+        "peak": 201,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 19,
+        "pops": 726,
+        "lost": 8,
+        "lives": 26,
+        "cash": 1220,
+        "fleet": 6,
+        "seconds": 180,
+        "peak": 201,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 4,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 20,
+        "pops": 1641,
+        "lost": 0,
+        "lives": 26,
+        "cash": 2370,
+        "fleet": 6,
+        "seconds": 140.7,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 21,
+        "pops": 1777,
+        "lost": 0,
+        "lives": 26,
+        "cash": 2515,
+        "fleet": 6,
+        "seconds": 139.7,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 22,
+        "pops": 1819,
+        "lost": 0,
+        "lives": 26,
+        "cash": 2444,
+        "fleet": 6,
+        "seconds": 169.2,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 23,
+        "pops": 1905,
+        "lost": 0,
+        "lives": 26,
+        "cash": 2880,
+        "fleet": 6,
+        "seconds": 179.7,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 24,
+        "pops": 1959,
+        "lost": 0,
+        "lives": 26,
+        "cash": 2705,
+        "fleet": 7,
+        "seconds": 165.7,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 25,
+        "pops": 1984,
+        "lost": 18,
+        "lives": 8,
+        "cash": 2810,
+        "fleet": 7,
+        "seconds": 180,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 9,
+          "carrier": 0
+        },
+        "remainingArmored": 2
+      },
+      {
+        "round": 26,
+        "pops": 2039,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3958,
+        "fleet": 7,
+        "seconds": 131.8,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 27,
+        "pops": 1522,
+        "lost": 0,
+        "lives": 8,
+        "cash": 2973,
+        "fleet": 7,
+        "seconds": 152.1,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 28,
+        "pops": 1312,
+        "lost": 0,
+        "lives": 8,
+        "cash": 2283,
+        "fleet": 7,
+        "seconds": 148.9,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 29,
+        "pops": 1200,
+        "lost": 0,
+        "lives": 8,
+        "cash": 2012,
+        "fleet": 7,
+        "seconds": 93.9,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 30,
+        "pops": 1525,
+        "lost": 0,
+        "lives": 8,
+        "cash": 2296,
+        "fleet": 7,
+        "seconds": 133.2,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 31,
+        "pops": 1309,
+        "lost": 0,
+        "lives": 8,
+        "cash": 4324,
+        "fleet": 7,
+        "seconds": 134.4,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 32,
+        "pops": 1471,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3542,
+        "fleet": 8,
+        "seconds": 74.5,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 33,
+        "pops": 1749,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3834,
+        "fleet": 8,
+        "seconds": 150,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 34,
+        "pops": 1706,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3273,
+        "fleet": 8,
+        "seconds": 134.9,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 35,
+        "pops": 1441,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3041,
+        "fleet": 8,
+        "seconds": 137.1,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 36,
+        "pops": 1810,
+        "lost": 0,
+        "lives": 8,
+        "cash": 3054,
+        "fleet": 8,
+        "seconds": 104.8,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 37,
+        "pops": 2027,
+        "lost": 0,
+        "lives": 8,
+        "cash": 5896,
+        "fleet": 8,
+        "seconds": 111.8,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 38,
+        "pops": 2269,
+        "lost": 0,
+        "lives": 8,
+        "cash": 8980,
+        "fleet": 8,
+        "seconds": 113.9,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 39,
+        "pops": 2087,
+        "lost": 0,
+        "lives": 8,
+        "cash": 11883,
+        "fleet": 8,
+        "seconds": 139.8,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 40,
+        "pops": 1743,
+        "lost": 0,
+        "lives": 8,
+        "cash": 14468,
+        "fleet": 8,
+        "seconds": 135.6,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 41,
+        "pops": 1857,
+        "lost": 0,
+        "lives": 8,
+        "cash": 17180,
+        "fleet": 8,
+        "seconds": 119.2,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 42,
+        "pops": 1974,
+        "lost": 8,
+        "lives": 0,
+        "cash": 19974,
+        "fleet": 8,
+        "seconds": 180,
+        "peak": 300,
+        "pending": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 4,
+          "carrier": 0
+        },
+        "remainingArmored": 2
+      }
+    ]
+  }
+]

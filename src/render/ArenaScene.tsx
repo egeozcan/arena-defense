@@ -21,6 +21,7 @@ import { Box, Hay, Tree, VehicleModel } from './models';
 import { Scenery } from './Scenery';
 import { ArenaDetails } from './ArenaDetails';
 import { CombatEffects } from './CombatEffects';
+import { BaleProjectiles } from './BaleProjectiles';
 import { ImpactWords } from './ImpactWords';
 interface Props {
   run: Run;
@@ -779,6 +780,7 @@ function Scene(props: Props) {
           <>
             <BalloonInstances sim={sim} interpolation={props.interpolation} />
             <CombatEffects sim={sim} />
+            <BaleProjectiles sim={sim} interpolation={props.interpolation} />
             <ImpactWords sim={sim} />
             {sim.vehicles.map((v) => (
               <ActiveVehicle

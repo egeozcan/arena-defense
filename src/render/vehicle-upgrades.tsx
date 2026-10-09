@@ -158,7 +158,7 @@ export function ChassisUpgrades({
 
 export function TractionUpgrades({ kind, tier }: { kind: VehicleKind; tier: number }) {
   const color = UPGRADE_COLORS.traction;
-  const farm = kind === 'harvester' || kind === 'sprayer';
+  const farm = kind !== 'excavator' && kind !== 'crane';
   return (
     <>
       {tier >= 1 && (
@@ -237,6 +237,48 @@ export function ToolUpgrades({
     spray = kind === 'sprayer',
     crane = kind === 'crane';
   // Tool-local mounting points follow the existing boom recoil and slewing.
+  if (kind === 'baler' || kind === 'blower')
+    return (
+      <>
+        {[1, 2, 3, 4, 5]
+          .filter((tier) => u.attack >= tier)
+          .map((tier) => (
+            <group key={tier} name={`attack-tool-stage-${tier}`}>
+              <Paint
+                position={[0, 0.35 + tier * 0.18, 0.3]}
+                size={[0.85 + tier * 0.08, 0.12, 0.2]}
+                color={attack}
+              />
+              {[-1, 1].map((side) => (
+                <Box
+                  key={side}
+                  position={[side * (0.45 + tier * 0.03), 0.35 + tier * 0.18, 0.45]}
+                  size={[0.1, 0.18, 0.3]}
+                  color={attack}
+                />
+              ))}
+            </group>
+          ))}
+        {[1, 2, 3, 4, 5]
+          .filter((tier) => u.unique >= tier)
+          .map((tier) => (
+            <group key={tier} name={`specialist-${kind}-stage-${tier}`}>
+              <Ring
+                position={[0, 0.3, 0.15 + tier * 0.16]}
+                radius={kind === 'blower' ? 0.76 + tier * 0.04 : 0.5 + tier * 0.025}
+                color={special}
+              />
+              <Cylinder
+                position={[0.66, -0.3 + tier * 0.18, -0.35]}
+                radius={0.09}
+                length={0.4}
+                color={special}
+                rotation={[Math.PI / 2, 0, 0]}
+              />
+            </group>
+          ))}
+      </>
+    );
   const head: Vec = cutter
     ? [0, 0, 0.6]
     : spray
@@ -331,20 +373,22 @@ export function ToolUpgrades({
         {u.attack >= 5 && (
           <group name="attack-signature-tool">
             {crane ? (
-              <>
+              <group name="attack-twin-hooks">
                 <Cylinder position={[0, 0.35, 0]} radius={0.38} length={0.35} color="#352b3d" />
-                {[0, 1, 2].map((i) => (
-                  <group key={i} rotation={[0, (i * Math.PI * 2) / 3, 0]}>
+                <Box position={[0, 0.35, 0]} size={[1.15, 0.2, 0.25]} color={attack} />
+                {[-1, 1].map((side) => (
+                  <group key={side} position={[side * 0.45, 0, 0]}>
+                    <Box position={[0, 0.18, 0]} size={[0.07, 0.5, 0.07]} color="#304553" />
                     <Paint
-                      position={[0, -0.13, 0.4]}
-                      size={[0.2, 0.85, 0.2]}
-                      rotation={[0.35, 0, 0]}
+                      position={[0, -0.13, 0.18]}
+                      size={[0.2, 0.6, 0.2]}
+                      rotation={[0.3, 0, 0]}
                       color={attack}
                     />
                     <Box position={[0, -0.48, 0.18]} size={[0.18, 0.18, 0.38]} color="#e6eef2" />
                   </group>
                 ))}
-              </>
+              </group>
             ) : spray ? (
               [-1, 1].map((side) => (
                 <group key={side}>

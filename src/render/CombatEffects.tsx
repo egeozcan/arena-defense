@@ -78,9 +78,34 @@ export function CombatEffects({ sim }: { sim: Simulation }) {
     for (const hit of sim.attacks) {
       const age = (sim.tick - hit.tick) / 60;
       if (age > 0.42) continue;
+      if (hit.kind === 'baler') {
+        glow(...hit.from, Math.max(0, 1 - age / 0.15) * 0.55, '#f2d184');
+        if (hit.from.every((n, i) => n === hit.to[i])) {
+          burst(...hit.to, age, '#eaca77', hit.tick, 1.3);
+          ring(...hit.to, (0.5 + age * 4) * (1 - age / 0.42), '#edda9b', true);
+        }
+        continue;
+      }
+      if (hit.kind === 'blower') {
+        const t = age / 0.42;
+        ring(
+          hit.from[0] + (hit.to[0] - hit.from[0]) * t,
+          hit.from[1] + (hit.to[1] - hit.from[1]) * t,
+          hit.from[2] + (hit.to[2] - hit.from[2]) * t,
+          (0.35 + t * 1.4) * (1 - t),
+          '#a8f2ef',
+          true,
+        );
+      }
       const spray = hit.kind === 'sprayer',
         amount = spray ? 18 : hit.kind === 'harvester' ? 9 : 5;
-      const hue = spray ? '#6fffe8' : hit.kind === 'crane' ? '#a1e8ff' : '#ffe28b';
+      const hue = spray
+        ? '#6fffe8'
+        : hit.kind === 'blower'
+          ? '#b6f6ef'
+          : hit.kind === 'crane'
+            ? '#a1e8ff'
+            : '#ffe28b';
       for (let i = 0; i < amount && d < 900; i++) {
         const t = Math.min(1, age / (spray ? 0.22 : 0.1)),
           spread = spray ? 0.55 : 0.22;
@@ -184,6 +209,25 @@ export function CombatEffects({ sim }: { sim: Simulation }) {
       if (cloud.until > sim.tick) {
         ring(cloud.x, 0.1, cloud.z, 4 + Math.sin(sim.tick / 12) * 0.35, '#a3f78d');
       }
+    for (const wind of sim.winds) {
+      if (wind.until <= sim.tick) continue;
+      const fade = (wind.until - sim.tick) / 24;
+      for (let i = 0; i < 8 && d < 900; i++) {
+        const t = ((sim.tick - wind.started) / 24 + i / 8) % 1;
+        const angle = wind.angle + Math.sin(i * 2.1) * wind.halfAngle;
+        obj.position.set(
+          wind.x + Math.sin(angle) * t * wind.range,
+          1.8 + (i % 3) * 0.3,
+          wind.z + Math.cos(angle) * t * wind.range,
+        );
+        obj.rotation.set(0, angle, 0);
+        obj.scale.set(0.035, 0.035, 0.65 * fade);
+        obj.updateMatrix();
+        drops.current.setMatrixAt(d, obj.matrix);
+        color.set('#b6f6ef');
+        drops.current.setColorAt(d++, color);
+      }
+    }
     for (const [mesh, count] of [
       [drops.current, d],
       [rings.current, r],
