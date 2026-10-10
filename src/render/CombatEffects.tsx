@@ -98,14 +98,18 @@ export function CombatEffects({ sim }: { sim: Simulation }) {
         );
       }
       const spray = hit.kind === 'sprayer',
-        amount = spray ? 18 : hit.kind === 'harvester' ? 9 : 5;
+        amount = spray ? 18 : hit.kind === 'harvester' ? 9 : hit.kind === 'mixer' ? 10 : 5;
       const hue = spray
         ? '#6fffe8'
         : hit.kind === 'blower'
           ? '#b6f6ef'
           : hit.kind === 'crane'
             ? '#a1e8ff'
-            : '#ffe28b';
+            : hit.kind === 'mixer'
+              ? '#dce5e2'
+              : hit.kind === 'bulldozer'
+                ? '#ffba55'
+                : '#ffe28b';
       for (let i = 0; i < amount && d < 900; i++) {
         const t = Math.min(1, age / (spray ? 0.22 : 0.1)),
           spread = spray ? 0.55 : 0.22;
@@ -129,6 +133,12 @@ export function CombatEffects({ sim }: { sim: Simulation }) {
       if (hit.kind === 'crane') {
         ring(...hit.to, (0.3 + age * 3) * (1 - age / 0.42), '#d4fbff', true);
         burst(...hit.to, age - 0.08, '#97e6ff', hit.tick, 0.7);
+      }
+      if (hit.kind === 'bulldozer')
+        ring(hit.to[0], 0.18, hit.to[2], (0.45 + age * 4) * (1 - age / 0.42), '#ffca64');
+      if (hit.kind === 'mixer') {
+        ring(...hit.to, (0.35 + age * 4) * (1 - age / 0.42), '#e2e8de', true);
+        burst(...hit.to, age - 0.07, '#cbd9d2', hit.tick, 0.75);
       }
     }
     for (const e of sim.events) {

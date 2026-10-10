@@ -97,16 +97,32 @@ for (const mode of modes)
         ...(plan === 'expanded'
           ? ([
               ['baler', 4],
+              ['bulldozer', 6],
               ['blower', 9],
+              ['mixer', 10],
             ] as const)
           : []),
       ] as const)
         if (round >= intro && !run.fleet.some((v) => v.kind === kind)) buy(kind);
       if (plan !== 'basic') {
         const extras = ['excavator', 'sprayer', 'crane', 'harvester'] as const;
-        const rosterSize = plan === 'expanded' ? 6 : 4;
+        const rosterSize = plan === 'expanded' ? 8 : 4;
         const targetFleet =
-          round >= 32 ? 8 : round >= 24 ? 7 : round >= 16 ? 6 : round >= 12 ? 5 : 4;
+          plan === 'expanded'
+            ? round >= 32
+              ? 10
+              : round >= 24
+                ? 9
+                : 8
+            : round >= 32
+              ? 8
+              : round >= 24
+                ? 7
+                : round >= 16
+                  ? 6
+                  : round >= 12
+                    ? 5
+                    : 4;
         while (run.fleet.length >= rosterSize && run.fleet.length < targetFleet)
           if (!buy(extras[run.fleet.length - rosterSize])) break;
       }
@@ -114,7 +130,16 @@ for (const mode of modes)
       for (const tier of [1, 2, 3, 4, 5]) {
         // Layer removal cuts splitting work; acid supplies wide armor coverage.
         // Buy those before crowd pull, straw bursts or support vortexes.
-        const priority = ['excavator', 'sprayer', 'crane', 'baler', 'harvester', 'blower'];
+        const priority = [
+          'excavator',
+          'sprayer',
+          'bulldozer',
+          'mixer',
+          'crane',
+          'baler',
+          'harvester',
+          'blower',
+        ];
         const investments =
           tier >= 4
             ? [...run.fleet].sort((a, b) => priority.indexOf(a.kind) - priority.indexOf(b.kind))

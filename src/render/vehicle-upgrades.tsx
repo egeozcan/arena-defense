@@ -158,7 +158,7 @@ export function ChassisUpgrades({
 
 export function TractionUpgrades({ kind, tier }: { kind: VehicleKind; tier: number }) {
   const color = UPGRADE_COLORS.traction;
-  const farm = kind !== 'excavator' && kind !== 'crane';
+  const farm = kind !== 'excavator' && kind !== 'crane' && kind !== 'bulldozer';
   return (
     <>
       {tier >= 1 && (
@@ -236,6 +236,33 @@ export function ToolUpgrades({
   const cutter = kind === 'harvester',
     spray = kind === 'sprayer',
     crane = kind === 'crane';
+  if (kind === 'bulldozer' || kind === 'mixer')
+    return (
+      <>
+        {[1, 2, 3, 4, 5]
+          .filter((tier) => u.attack >= tier)
+          .map((tier) => (
+            <group key={tier} name={`attack-tool-stage-${tier}`}>
+              <Paint
+                position={[0, 0.12 + tier * 0.12, 0.3]}
+                size={[kind === 'bulldozer' ? 2.1 : 0.8, 0.07, 0.12]}
+                color={attack}
+              />
+            </group>
+          ))}
+        {[1, 2, 3, 4, 5]
+          .filter((tier) => u.unique >= tier)
+          .map((tier) => (
+            <group key={tier} name={`specialist-${kind}-stage-${tier}`}>
+              <Paint
+                position={[0, 0.18 + tier * 0.12, 0.14]}
+                size={[kind === 'bulldozer' ? 1.8 : 0.7, 0.06, 0.1]}
+                color={special}
+              />
+            </group>
+          ))}
+      </>
+    );
   // Tool-local mounting points follow the existing boom recoil and slewing.
   if (kind === 'baler' || kind === 'blower')
     return (

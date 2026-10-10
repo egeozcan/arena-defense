@@ -299,6 +299,7 @@ export function VehicleModel({
     }
     if (reel.current) {
       if (kind === 'blower') reel.current.rotation.z = t * (attacking ? 28 : 5);
+      else if (kind === 'mixer') reel.current.rotation.z = travel * 2 + t * (attacking ? 1.5 : 0.4);
       else reel.current.rotation.x = attacking ? t * 18 : travel * 3;
     }
     if (tool.current)
@@ -326,7 +327,7 @@ export function VehicleModel({
   const appearance = vehicleAppearance(kind, u);
   const tiers = u ?? { attack: 0, speed: 0, traction: 0, unique: 0 };
   const c = appearance.paint,
-    farm = kind !== 'excavator' && kind !== 'crane',
+    farm = kind !== 'excavator' && kind !== 'crane' && kind !== 'bulldozer',
     cabX = kind === 'excavator' ? -0.35 : 0;
   return (
     <group>
@@ -395,7 +396,7 @@ export function VehicleModel({
             <meshStandardMaterial color="#4d5a5c" metalness={0.7} roughness={0.4} />
           </mesh>
         )}
-        <group ref={farm ? undefined : upper}>
+        <group ref={kind === 'excavator' || kind === 'crane' ? upper : undefined}>
           <ChassisUpgrades kind={kind} upgrades={tiers} />
           <Paint position={[0, 0.94, -0.35]} size={[1.48, 0.6, 1.5]} color={c} />
           <Paint position={[0, 1.22, -0.7]} size={[1.25, 0.28, 0.95]} color={c} />
@@ -789,6 +790,184 @@ export function VehicleModel({
                   color="#283e48"
                 />
               ))}
+            </group>
+          )}
+          {kind === 'bulldozer' && (
+            <group
+              name="bulldozer-blade"
+              position={[0, tiers.unique >= 4 ? 1.08 : 0.78, 1.42]}
+              scale={[appearance.toolWidth, 1, 1]}
+            >
+              <ToolUpgrades kind={kind} upgrades={tiers} />
+              {[-1, 1].map((side) => (
+                <group key={side}>
+                  <Paint
+                    position={[side * 0.72, -0.18, -0.45]}
+                    size={[0.19, 0.22, 1.32]}
+                    color="#536168"
+                  />
+                  <Box
+                    position={[side * 0.75, -0.22, -0.08]}
+                    size={[0.08, 0.09, 0.65]}
+                    color="#b8c4c4"
+                  />
+                </group>
+              ))}
+              <Paint
+                position={[0, 0, 0.16]}
+                size={[2.42, 0.84, 0.3]}
+                rotation={[-0.22, 0, 0]}
+                color={c}
+              />
+              <Paint position={[0, -0.45, 0.3]} size={[2.6, 0.17, 0.29]} color="#46545b" />
+              {tiers.unique >= 1 &&
+                [-1, 1].map((side) => (
+                  <Paint
+                    key={side}
+                    position={[side * 1.31, 0, 0.16]}
+                    size={[0.35, 0.84, 0.3]}
+                    color={UPGRADE_COLORS.unique}
+                  />
+                ))}
+              {tiers.unique >= 2 && (
+                <Paint
+                  position={[0, 0.32, 0.19]}
+                  size={[2.85, 0.16, 0.28]}
+                  color={UPGRADE_COLORS.unique}
+                />
+              )}
+              {tiers.unique >= 3 &&
+                [-0.9, 0, 0.9].map((x) => (
+                  <Box
+                    key={x}
+                    position={[x, -0.48, 0.48]}
+                    size={[0.36, 0.25, 0.44]}
+                    color="#a6d9df"
+                  />
+                ))}
+              {tiers.unique >= 4 &&
+                [-1.02, 1.02].map((x) => (
+                  <Paint
+                    key={x}
+                    position={[x, -0.05, -0.35]}
+                    size={[0.16, 1.2, 0.14]}
+                    color={UPGRADE_COLORS.unique}
+                  />
+                ))}
+              {tiers.unique >= 5 &&
+                [-1, 1].map((side) => (
+                  <Paint
+                    key={side}
+                    position={[side * 1.63, 0, 0.25]}
+                    size={[0.55, 0.98, 0.34]}
+                    color={UPGRADE_COLORS.unique}
+                  />
+                ))}
+              {tiers.attack >= 1 && (
+                <Paint
+                  position={[0, -0.52, 0.5]}
+                  size={[2.65, 0.16, 0.2]}
+                  color={UPGRADE_COLORS.attack}
+                />
+              )}
+              {tiers.attack >= 3 &&
+                Array.from({ length: 7 }, (_, i) => (
+                  <Box
+                    key={i}
+                    position={[(i - 3) * 0.39, -0.59, 0.58]}
+                    size={[0.14, 0.2, 0.27]}
+                    color="#e5ebec"
+                  />
+                ))}
+              {tiers.attack >= 5 && (
+                <Paint
+                  position={[0, 0.02, 0.52]}
+                  size={[2.9, 0.33, 0.24]}
+                  color={UPGRADE_COLORS.attack}
+                />
+              )}
+            </group>
+          )}
+          {kind === 'mixer' && (
+            <group name="concrete-mixer" position={[0, 2.2, -0.45]}>
+              <ToolUpgrades kind={kind} upgrades={tiers} />
+              <group ref={reel}>
+                <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
+                  <cylinderGeometry args={[0.64, 0.86, 1.65, 16]} />
+                  <meshStandardMaterial color="#e5e1d2" metalness={0.3} roughness={0.52} />
+                </mesh>
+                {[-0.48, 0.02, 0.52].map((z) => (
+                  <mesh key={z} position={[0, 0, z]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                    <torusGeometry args={[z > 0 ? 0.75 : 0.65, 0.07, 8, 20]} />
+                    <meshStandardMaterial
+                      color={tiers.unique >= 2 ? UPGRADE_COLORS.unique : c}
+                      metalness={0.45}
+                    />
+                  </mesh>
+                ))}
+                {tiers.unique >= 5 && (
+                  <Paint
+                    position={[0, 0, 0.82]}
+                    size={[1.65, 0.14, 0.15]}
+                    color={UPGRADE_COLORS.unique}
+                  />
+                )}
+              </group>
+              <Paint position={[0, -0.75, 0]} size={[1.65, 0.2, 1.9]} color="#52636a" />
+              <Paint position={[0, -0.62, 1.55]} size={[1.28, 0.9, 0.98]} color={c} />
+              <Glass position={[0, -0.48, 2.06]} size={[1.03, 0.54, 0.06]} />
+              {[-1, 1].map((side) => (
+                <Glass key={side} position={[side * 0.65, -0.46, 1.55]} size={[0.04, 0.52, 0.68]} />
+              ))}
+              <Paint position={[0, -0.1, 1.55]} size={[1.4, 0.14, 1.05]} color="#fff1ce" />
+              <Paint
+                position={[0, -0.3, 1.08]}
+                size={[0.56, 0.25, 0.88]}
+                rotation={[-0.36, 0, 0]}
+                color={c}
+              />
+              {tiers.unique >= 1 && (
+                <Paint
+                  position={[0, -0.48, 1.5]}
+                  size={[0.75, 0.16, 0.4]}
+                  color={UPGRADE_COLORS.unique}
+                />
+              )}
+              {tiers.unique >= 3 && (
+                <Paint
+                  position={[0, 0.9, 0]}
+                  size={[0.36, 0.2, 0.46]}
+                  color={UPGRADE_COLORS.unique}
+                />
+              )}
+              {tiers.unique >= 4 && (
+                <Paint
+                  position={[0, -0.58, 1.24]}
+                  size={[0.9, 0.12, 0.3]}
+                  color={UPGRADE_COLORS.unique}
+                />
+              )}
+              {tiers.attack >= 1 && (
+                <Paint
+                  position={[0, -0.4, 1.5]}
+                  size={[0.55, 0.16, 0.22]}
+                  color={UPGRADE_COLORS.attack}
+                />
+              )}
+              {tiers.attack >= 3 && (
+                <Paint
+                  position={[0, -0.4, 1.75]}
+                  size={[0.7, 0.2, 0.22]}
+                  color={UPGRADE_COLORS.attack}
+                />
+              )}
+              {tiers.attack >= 5 && (
+                <Paint
+                  position={[0, -0.35, 1.98]}
+                  size={[0.86, 0.28, 0.24]}
+                  color={UPGRADE_COLORS.attack}
+                />
+              )}
             </group>
           )}
         </group>

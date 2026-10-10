@@ -1,4 +1,5 @@
-export type VehicleKind = 'harvester' | 'sprayer' | 'excavator' | 'crane' | 'baler' | 'blower';
+export type VehicleKind =
+  'harvester' | 'sprayer' | 'excavator' | 'crane' | 'baler' | 'blower' | 'bulldozer' | 'mixer';
 export type BalloonKind = 'basic' | 'layered' | 'armored' | 'high' | 'carrier';
 export type Mode = 'easy' | 'medium' | 'hard';
 export type ArenaKind = 'barn' | 'yard';
@@ -161,6 +162,43 @@ export const VEHICLES = {
     tool: 'GUST',
     description: 'Air bursts herd packs toward teammates. Cannot damage armor without upgrades.',
   },
+  bulldozer: {
+    name: 'Bulldozer',
+    short: 'Dozer',
+    role: 'Armored ground swarms',
+    cost: 575,
+    color: '#edaa29',
+    speed: 5.8,
+    traction: 0.75,
+    min: 0,
+    max: 1.8,
+    range: 2.8,
+    damage: 1.5,
+    interval: 0.35,
+    footprint: [2, 3],
+    unique: 'Blade',
+    tool: 'PLOW',
+    description:
+      'Sweeps low packs with a broad blade. Deals 75% damage to armor, but has short reach.',
+  },
+  mixer: {
+    name: 'Concrete mixer',
+    short: 'Mixer',
+    role: 'Mid-height area damage',
+    cost: 675,
+    color: '#f29a51',
+    speed: 6.2,
+    traction: 0.55,
+    min: 0,
+    max: 5,
+    range: 7,
+    damage: 2,
+    interval: 0.9,
+    footprint: [2, 3],
+    unique: 'Drum',
+    tool: 'SPLAT',
+    description: 'Lobs concrete into a small area. Slow firing and half damage to armor.',
+  },
 } satisfies Record<
   VehicleKind,
   {
@@ -298,6 +336,20 @@ export const UNIQUE_EFFECTS: Record<VehicleKind, string[]> = {
     'Magnet slows and lowers carriers',
     'Mobile tower: 2 splash hooks',
   ],
+  bulldozer: [
+    'Blade reaches 3.3 m',
+    'Wider blade sweep',
+    'Sticky rubble + Blade sweep',
+    'Raised blade reaches 2.8 m high',
+    'Wide 4 m demolition blade',
+  ],
+  mixer: [
+    'Concrete reaches 8 m',
+    'Splash grows to 1.75 m',
+    'Wet concrete + Slab drop',
+    'Reinforced mix damages armor fully',
+    'Splash grows to 2.5 m',
+  ],
 };
 export const VEHICLE_ABILITIES: Record<VehicleKind, { name: string; cooldown: number }> = {
   harvester: { name: 'Full throttle', cooldown: 24 },
@@ -306,6 +358,8 @@ export const VEHICLE_ABILITIES: Record<VehicleKind, { name: string; cooldown: nu
   crane: { name: 'Hook yank', cooldown: 28 },
   baler: { name: 'Bale Barrage', cooldown: 26 },
   blower: { name: 'Downburst', cooldown: 30 },
+  bulldozer: { name: 'Blade sweep', cooldown: 30 },
+  mixer: { name: 'Slab drop', cooldown: 34 },
 };
 export const ABILITIES = {
   gust: {
@@ -442,7 +496,13 @@ export function grip(a: Arena, x: number, z: number) {
   return x > a.width * 0.38 && x < a.width * 0.62 && z > a.depth * 0.58 ? 0.4 : z < 9 ? 1 : 0.75;
 }
 export function vehicleRadius(v: Pick<OwnedVehicle, 'kind'>) {
-  return v.kind === 'harvester' || v.kind === 'crane' || v.kind === 'baler' ? 1.12 : 0.95;
+  return v.kind === 'harvester' ||
+    v.kind === 'crane' ||
+    v.kind === 'baler' ||
+    v.kind === 'bulldozer' ||
+    v.kind === 'mixer'
+    ? 1.12
+    : 0.95;
 }
 export function clearPosition(a: Arena, x: number, z: number, radius: number) {
   if (

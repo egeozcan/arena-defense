@@ -37,6 +37,16 @@ export const VEHICLE_GUIDES: Record<
     weakness: 'Slowest chassis. Cannot hit below 3 m or hurt armor until Attack tier 3.',
     partner: 'Pair with a harvester for low balloons and an excavator for armor.',
   },
+  bulldozer: {
+    strength: 'A broad front blade sweeps low packs and deals 75% damage to armor.',
+    weakness: 'Short 2.8 m reach and only 1.8 m height. Must turn its chassis toward targets.',
+    partner: 'A crane or blower handles high-flyers; a mixer reaches scattered mid-height groups.',
+  },
+  mixer: {
+    strength: 'Each concrete splat damages a 1.25 m area from 7 m away.',
+    weakness: 'Slow 0.9 s firing, half damage to armor, and no reach above 5 m.',
+    partner: 'A bulldozer or excavator crushes armor; a crane handles high-flyers.',
+  },
 };
 
 // Describe each path as a primary commitment: a specialist chosen at tier 3
@@ -77,5 +87,19 @@ export const UPGRADE_DIRECTIONS: Record<VehicleKind, Record<PathName, string>> =
     speed: 'Chase and keep herding packs; armor still needs a teammate.',
     traction: 'Herd across muddy routes and traffic; armor needs a teammate.',
     unique: 'Herd from 9 m, gather high packs and lower them; needs armor support.',
+  },
+  bulldozer: {
+    attack: 'Cut through armored ground packs with faster, stronger sweeps; Blade stops at tier 2.',
+    speed: 'Reach low swarms sooner and sweep more often; Blade stays short and low.',
+    traction: 'Push through muddy lanes and traffic; Blade stays short and low.',
+    unique:
+      'Widen and raise the blade, slow packs, and unlock Blade sweep; high-flyers need support.',
+  },
+  mixer: {
+    attack: 'Heavy concrete blasts with 75% armor damage; Drum stops at tier 2.',
+    speed: 'Keep splash damage moving between packs; armor damage stays at 50%.',
+    traction: 'Reach firing spots on rough terrain; armor damage stays at 50%.',
+    unique:
+      'Grow the splash, slow groups, and eventually damage armor fully; high-flyers need support.',
   },
 };

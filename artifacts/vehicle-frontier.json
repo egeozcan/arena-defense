@@ -1,22 +1,22 @@
 [
   {
     "mode": "easy",
-    "builds": 702,
-    "frontier": 702,
+    "builds": 936,
+    "frontier": 936,
     "dominated": [],
     "deadUpgrades": []
   },
   {
     "mode": "medium",
-    "builds": 702,
-    "frontier": 702,
+    "builds": 936,
+    "frontier": 936,
     "dominated": [],
     "deadUpgrades": []
   },
   {
     "mode": "hard",
-    "builds": 702,
-    "frontier": 702,
+    "builds": 936,
+    "frontier": 936,
     "dominated": [],
     "deadUpgrades": []
   }

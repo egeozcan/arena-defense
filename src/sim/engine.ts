@@ -505,6 +505,43 @@ export class Simulation {
           to: [v.x, 1.2, v.z],
         });
       }
+      if (v.kind === 'bulldozer') {
+        const s = vehicleStats(v);
+        const victims = this.balloons.filter(
+          (b) =>
+            this.eligible(v, b, false) &&
+            inWindCone(b.x - v.x, b.z - v.z, v.angle, s.range + 0.5, vehicleTool(v).cone),
+        );
+        for (const b of victims) this.hit(b, 3, v);
+        this.attacks.push({
+          kind: v.kind,
+          vehicleId: v.id,
+          tick: this.tick,
+          from: [v.x, 1, v.z],
+          to: [v.x + Math.sin(v.angle) * s.range, 1, v.z + Math.cos(v.angle) * s.range],
+        });
+      }
+      if (v.kind === 'mixer') {
+        const s = vehicleStats(v);
+        const target = this.balloons
+          .filter((b) => this.eligible(v, b, false) && Math.hypot(b.x - v.x, b.z - v.z) <= s.range)
+          .sort(
+            (a, b) =>
+              Math.hypot(a.x - v.x, a.z - v.z) - Math.hypot(b.x - v.x, b.z - v.z) || a.id - b.id,
+          )[0];
+        if (target) {
+          for (const b of [...this.balloons])
+            if (this.eligible(v, b, false) && Math.hypot(b.x - target.x, b.z - target.z) < 2.5)
+              this.hit(b, 2.5, v);
+          this.attacks.push({
+            kind: v.kind,
+            vehicleId: v.id,
+            tick: this.tick,
+            from: [v.x, 2.4, v.z],
+            to: [target.x, target.y, target.z],
+          });
+        }
+      }
       return;
     }
     const charges = this.abilityReady[c.ability],
@@ -548,6 +585,8 @@ export class Simulation {
     b.hp -= amount * factor;
     b.hitTick = this.tick;
     if (v?.kind === 'sprayer' && v.upgrades.unique >= 3) b.slowUntil = this.tick + 180;
+    if ((v?.kind === 'bulldozer' || v?.kind === 'mixer') && v.upgrades.unique >= 3)
+      b.slowUntil = this.tick + 120;
     if (b.hp > 0) return;
     this.pops++;
     if (this.rhythm.pop(this.tick)) {
@@ -739,7 +778,7 @@ export class Simulation {
       this.balloons.filter((b) => this.eligible(v, b)),
       v.x,
       v.z,
-      v.kind === 'harvester' ? v.angle : v.aimAngle,
+      v.kind === 'harvester' || v.kind === 'bulldozer' ? v.angle : v.aimAngle,
     );
     if (v.kind === 'baler') this.launchBale(v, target);
     if (v.kind === 'blower') this.blow(v, target);
@@ -749,9 +788,11 @@ export class Simulation {
         vehicleId: v.id,
         tick: this.tick,
         from: [
-          v.x + Math.sin(v.kind === 'harvester' ? v.angle : v.aimAngle) * 1.2,
+          v.x +
+            Math.sin(v.kind === 'harvester' || v.kind === 'bulldozer' ? v.angle : v.aimAngle) * 1.2,
           v.kind === 'crane' ? 5 : 1,
-          v.z + Math.cos(v.kind === 'harvester' ? v.angle : v.aimAngle) * 1.2,
+          v.z +
+            Math.cos(v.kind === 'harvester' || v.kind === 'bulldozer' ? v.angle : v.aimAngle) * 1.2,
         ],
         to: [target.x, target.y, target.z],
       });
@@ -1028,8 +1069,10 @@ export class Simulation {
         continue;
       }
       const dist = target ? Math.hypot(target.x - v.x, target.z - v.z) : Infinity;
+      const frontTool = v.kind === 'harvester' || v.kind === 'bulldozer';
+      const facingTolerance = v.kind === 'harvester' ? 0.85 : 0.7;
       const headerFacing =
-        v.kind !== 'harvester' || Math.abs(angleDifference(v.aimAngle, v.angle)) <= 0.85;
+        !frontTool || Math.abs(angleDifference(v.aimAngle, v.angle)) <= facingTolerance;
       const clearShot = !target || this.clearToolPosition(v, target);
       if (
         target &&
@@ -1047,8 +1090,9 @@ export class Simulation {
         this.moveVehicle(v, body, traffic, null, 0, s.traction);
         if (
           this.tick >= v.attackTick &&
-          (v.kind !== 'harvester' ||
-            Math.abs(angleDifference(Math.atan2(target.x - v.x, target.z - v.z), v.angle)) <= 0.85)
+          (!frontTool ||
+            Math.abs(angleDifference(Math.atan2(target.x - v.x, target.z - v.z), v.angle)) <=
+              facingTolerance)
         )
           this.attack(v, target);
       } else {
@@ -1089,7 +1133,7 @@ export class Simulation {
           v.path.splice(0, i);
           i = 0;
         }
-        const aligningHeader = target && v.kind === 'harvester' && !yielding && dist <= s.range + 1;
+        const aligningHeader = target && frontTool && !yielding && dist <= s.range + 1;
         if (aligningHeader) point = [target.x, target.z];
         if (point) {
           let terrain = grip(this.arena, v.x, v.z);
@@ -1103,7 +1147,7 @@ export class Simulation {
                 (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
             ) *
             traction;
-          const wheeled = v.kind !== 'excavator' && v.kind !== 'crane';
+          const wheeled = v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer';
           if (
             wheeled &&
             (v.driveFacing !== !!aligningHeader ||
@@ -1241,7 +1285,8 @@ export class Simulation {
       body.z = v.z;
     } else {
       // A sweep rejected the proposed movement: tires cannot turn through the obstruction.
-      if (v.kind !== 'excavator' && v.kind !== 'crane') v.angle = v.pangle;
+      if (v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer')
+        v.angle = v.pangle;
       stopAtCollision(v);
       v.nextDrivePlan = 0;
     }

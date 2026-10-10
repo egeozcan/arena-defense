@@ -72,6 +72,8 @@ const UNIQUE_ICONS: Record<VehicleKind, LucideIcon[]> = {
   sprayer: [Droplets, Radar, Waves, Shield, Radar],
   excavator: [MoveUpRight, Waves, Zap, Waves, Sparkles],
   crane: [MoveUpRight, Gauge, Waves, Magnet, Radar],
+  bulldozer: [MoveUpRight, Radar, Waves, MoveUpRight, Shield],
+  mixer: [MoveUpRight, Waves, Droplets, Shield, Radar],
 };
 const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
   baler: [
@@ -116,6 +118,20 @@ const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
     'Slows carriers within boom reach by 60% and lowers those above 3 m to 3 m, where raised harvester headers can help. Lower carriers stay low; the crane can still hit those at 3 m.',
     'Reaches 12 m horizontally and 14 m high. Two hooks each retain wrecking-ball splash; overlapping blasts hit each balloon once. Travels at half speed with the tower fitted.',
   ],
+  bulldozer: [
+    'Extends horizontal blade range from 2.8 m to 3.3 m. Height coverage stays at 0–1.8 m.',
+    'Widens the front sweep from about 92° to 128° so it catches more low balloons per hit.',
+    'Sweeps slow hit balloons for 2 seconds. Unlocks Blade sweep: an immediate 3-damage front sweep out to 3.8 m (30 s cooldown).',
+    'Raises blade height from 1.8 m to 2.8 m, covering more layered and carrier balloons.',
+    'Extends horizontal reach to 4 m and widens the sweep to about 155°. Still cannot reach high-flyers.',
+  ],
+  mixer: [
+    'Extends horizontal concrete range from 7 m to 8 m. Height coverage stays at 0–5 m.',
+    'Grows splash radius from 1.25 m to 1.75 m, hitting more of a cluster.',
+    'Splat slows hit balloons for 2 seconds. Unlocks Slab drop: 2.5 damage within 2.5 m of a nearby eligible target (34 s cooldown).',
+    'Reinforced concrete deals full damage to armored balloons instead of half.',
+    'Grows splash radius to 2.5 m. Each balloon is damaged once per blast.',
+  ],
 };
 const SIGNATURES: Record<VehicleKind, string> = {
   baler: 'Triples bale damage, stacking with earlier Attack upgrades.',
@@ -125,6 +141,8 @@ const SIGNATURES: Record<VehicleKind, string> = {
   excavator: 'Triples crushing damage, stacking with earlier Attack upgrades.',
   crane:
     'Adds a second hook: strikes two balloons per swing within boom range. Earlier damage bonuses still apply.',
+  bulldozer: 'Triples blade damage, stacking with earlier Attack upgrades.',
+  mixer: 'Triples concrete damage, stacking with earlier Attack upgrades.',
 };
 function detail(kind: VehicleKind, path: PathName, index: number) {
   if (path === 'unique') return UNIQUE_DETAILS[kind][index];

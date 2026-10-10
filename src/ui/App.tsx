@@ -619,7 +619,7 @@ export default function App() {
         if (['1', '2', '3'].includes(e.key)) setSpeed(Number(e.key));
         const i = ['q', 'w', 'e'].indexOf(letter);
         if (i >= 0) useAbility((['gust', 'boost', 'pitchfork'] as AbilityKind[])[i]);
-      } else if (phase === 'setup' && ['1', '2', '3', '4', '5', '6'].includes(e.key))
+      } else if (phase === 'setup' && ['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key))
         buy((Object.keys(VEHICLES) as VehicleKind[])[Number(e.key) - 1], true);
     }
     window.addEventListener('keydown', key);
@@ -1778,9 +1778,9 @@ export default function App() {
                 </div>
                 <p className="help-note">
                   Pop everything within 3 minutes for a cash bonus. Leftover balloons cost lives.
-                  Excavators deal full armor damage; sprayers deal half. Attack tier 3 unlocks armor
-                  damage for harvesters, cranes, and blowers. Balers deal quarter damage to armor.
-                  Cranes and blowers reach high-flyers; pair them with low tools.
+                  Excavators deal full armor damage; bulldozers deal 75%, sprayers and mixers half,
+                  and balers a quarter. Attack tier 3 unlocks armor damage for harvesters, cranes,
+                  and blowers. Cranes and blowers reach high-flyers; pair them with low tools.
                 </p>
                 <button className="primary full-width" onClick={() => setModal(null)}>
                   Close <Check size={17} />

@@ -18,9 +18,9 @@ import {
 } from './vehicle-frontier';
 
 for (const mode of ['easy', 'medium', 'hard'] as const)
-  test(`${mode}: all 702 legal builds have a cost/capability tradeoff and no dead upgrades`, () => {
+  test(`${mode}: all legal builds have a cost/capability tradeoff and no dead upgrades`, () => {
     const report = frontierAudit(mode);
-    assert.equal(report.builds, 702);
+    assert.equal(report.builds, Object.keys(VEHICLES).length * 117);
     assert.deepEqual(report.dominated, []);
     assert.deepEqual(report.deadUpgrades, []);
   });
@@ -55,7 +55,7 @@ test('primary choices retain their armor and altitude blind spots under the 5+2 
     v.upgrades = { attack: 5, speed: 0, traction: 0, unique: 2 };
     assert.equal(armorDamageFactor(v), 0.5);
   }
-  for (const kind of ['sprayer', 'baler', 'excavator'] as const) {
+  for (const kind of ['sprayer', 'baler', 'excavator', 'bulldozer', 'mixer'] as const) {
     const v = stockVehicle(kind);
     v.upgrades.unique = 5;
     assert.equal(canTargetBalloon(v, 6, false), false, `${kind} needs high-altitude support`);

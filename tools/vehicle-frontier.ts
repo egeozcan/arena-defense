@@ -134,6 +134,8 @@ export function capabilityProfile(v: OwnedVehicle): Record<string, number> {
   profile.singleTargetYank = v.kind === 'crane' && unlocked ? 1 : 0;
   profile.barrageShots = v.kind === 'baler' && unlocked ? 3 : 0;
   profile.groupDownburstSeconds = v.kind === 'blower' && unlocked ? 5 : 0;
+  profile.bladeSweep = v.kind === 'bulldozer' && unlocked ? 3 : 0;
+  profile.slabDrop = v.kind === 'mixer' && unlocked ? 2.5 : 0;
   return profile;
 }
 

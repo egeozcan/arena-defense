@@ -84,7 +84,7 @@ export function driveVehicle(
   traction: number,
   control?: DriveControl,
 ): [number, number] {
-  const tracked = kind === 'excavator' || kind === 'crane';
+  const tracked = kind === 'excavator' || kind === 'crane' || kind === 'bulldozer';
   const grip = Math.max(0.35, Math.min(1, traction));
   const boost = Math.max(1, maxSpeed / VEHICLES[kind].speed);
   const acceleration = boost * (kind === 'sprayer' ? 10 : kind === 'harvester' ? 8 : 6) * grip;
