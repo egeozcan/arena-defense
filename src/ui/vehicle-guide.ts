@@ -66,50 +66,52 @@ export const UPGRADE_DIRECTIONS: Record<VehicleKind, Record<PathName, string>> =
   harvester: {
     attack: 'Cut armor and hit harder; Header stops at tier 2 (2 m high).',
     speed: 'Chase and sustain rapid cuts; armor still needs a teammate.',
-    traction: 'Clear hay faster and handle muddy routes; armor still needs a teammate.',
+    traction: 'Clear hay faster and handle rough and oily routes; armor still needs a teammate.',
     unique: 'Reach 3 m, cut behind and gather crowds; armor still needs a teammate.',
   },
   sprayer: {
     attack: 'Burst damage with 75% armor damage; Chemicals stops at tier 2.',
     speed: 'Chase fast packs and spray faster; no sticky spray or acid.',
-    traction: 'Push hay and cover muddy lanes reliably; no sticky spray or acid.',
+    traction: 'Push hay and cover rough and oily lanes reliably; no sticky spray or acid.',
     unique: 'Slow packs, strip armor and spray all around; stays below 4 m.',
   },
   excavator: {
     attack: 'Shatter armor with heavy hits; Hydraulics can still add small splash.',
     speed: 'Reach scattered armor and crush faster; no advanced shockwaves.',
-    traction: 'Clear hay faster and recover through mud; no advanced shockwaves.',
+    traction: 'Clear hay faster and recover through rough ground and oil; no advanced shockwaves.',
     unique: 'Splash, ground shock and remove layers; stays below 5 m.',
   },
   crane: {
     attack: 'Twin armor-breaking hooks; Boom stops at tier 2 (12 m high).',
     speed: 'Chase and sustain rapid hooks; armor still needs a teammate.',
-    traction: 'Push hay and cross muddy lanes; armor still needs a teammate.',
+    traction: 'Push hay and cross rough and oily lanes; armor still needs a teammate.',
     unique: 'Carrier control and a splash tower at half speed; needs armor support.',
   },
   baler: {
     attack: 'Heavy armor-piercing shots; Bale Press stops at 8 targets per bale.',
     speed: 'Reposition and fire continuously; armor damage stays at 25%.',
-    traction: 'Push hay with more grip to open firing lanes; armor damage stays at 25%.',
+    traction:
+      'Push hay with more grip to open firing lanes and handle oil; armor damage stays at 25%.',
     unique: 'Wide 12-target bales and straw bursts; weak armor, no high reach.',
   },
   blower: {
     attack: 'Damage armored air packs; Airflow stops at tier 2 (12 m high).',
     speed: 'Chase and keep herding packs; armor still needs a teammate.',
-    traction: 'Push hay and herd across muddy routes; armor needs a teammate.',
+    traction: 'Push hay and herd across rough and oily routes; armor needs a teammate.',
     unique: 'Herd from 9 m, gather high packs and lower them; needs armor support.',
   },
   bulldozer: {
     attack: 'Cut through armored ground packs with faster, stronger sweeps; Blade stops at tier 2.',
     speed: 'Reach low swarms sooner and sweep more often; Blade stays short and low.',
-    traction: 'Push hay faster and recover through mud; Blade stays short and low.',
+    traction:
+      'Push hay faster and recover through rough ground and oil; Blade stays short and low.',
     unique:
       'Crush hay, widen and raise the blade, slow packs, and unlock Blade sweep; high-flyers need support.',
   },
   mixer: {
     attack: 'Heavy concrete blasts with 75% armor damage; Drum stops at tier 2.',
     speed: 'Keep splash damage moving between packs; armor damage stays at 50%.',
-    traction: 'Push hay faster to reach rough firing spots; armor damage stays at 50%.',
+    traction: 'Push hay faster to reach rough and oily firing spots; armor damage stays at 50%.',
     unique:
       'Grow the splash, slow groups, and eventually damage armor fully; high-flyers need support.',
   },

@@ -78,6 +78,8 @@ export function forecast(run: Run, fleet = run.fleet.filter((v) => v.placed)) {
     }));
   return {
     threats,
+    oil: arena.surfaces?.filter((p) => p.kind === 'oil').length ?? 0,
+    rough: arena.surfaces?.filter((p) => p.kind === 'rough').length ?? 0,
     total: wave.length,
     livesAtRisk: wave.reduce(
       (sum, s) => sum + (s.kind === 'layered' ? s.layer : BALLOONS[s.kind].lives),
@@ -119,6 +121,12 @@ export function futureChanges(run: Run) {
   const current = forecast(run);
   const next = forecast({ ...run, round: run.round + 1 });
   const changes: string[] = [];
+  if (next.oil && !current.oil)
+    changes.push(
+      'Oil slicks ahead · weaker steering and braking; invest in Traction or use dry lanes.',
+    );
+  if (next.rough && !current.rough)
+    changes.push('Rough ground ahead · slower travel; Traction tier 3 improves rough grip.');
   for (const t of next.gaps) {
     const before = current.threats.find((c) => c.key === t.key);
     const undeployed = run.fleet.filter(

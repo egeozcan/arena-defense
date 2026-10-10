@@ -208,6 +208,97 @@ The paired runner uses the expanded fleet plan, the same seed, the same difficul
 
 Reproduce the checks with `npm test`, `npm run build`, `npm run balance:frontier`, and `npm run balance:hay`. For the paired campaign: `npm run balance -- --plan=expanded --rounds=13 --hay=on` and the same command with `--hay=off`. Reports include hay remaining, distinct bales pushed, and bales crushed for each round. Seeds and layouts reset each wave; changing terrain during a wave does not overwrite the next round's preparation state.
 
+### Oil and rough ground: exhaustive build analysis
+
+Selected rounds now generate visible, seeded driving surfaces in both arenas. Rough ground starts on round **5**, then returns every five rounds; oil starts on **7**, then returns every five rounds. Mixed rounds start on **13**, then return every five rounds. A single-surface round has three patches; a mixed round has two of each. Opening rounds and intervening clear rounds preserve opportunities to favor damage, specialist tools, and speed. The briefing counts patches and warns one round before a new surface type appears.
+
+Each patch is 6–8 m wide and 4–6 m deep. Even the largest mixed layout covers at most 11.1% of the barn or 6.25% of the yard. Patches stay away from gates and fixed scenery, leave dry routes, allow deployment, and can share space with loose hay. They do not block projectiles or affect flying balloons. Preparation and combat regenerate the same layout from arena, round, and seed; older saves need no migration.
+
+Oil and rough ground create different decisions. Oil retains much of straight-line speed while reducing acceleration, braking, corner speed, and crawler pivot rate. Rough ground imposes rolling resistance as well as reduced handling. A* and target distance fields include terrain costs. The steering rollout samples surfaces throughout each predicted arc, and route smoothing checks terrain cost before cutting a corner across a patch. Vehicles also use surface grip while braking to attack or stop.
+
+#### Movement measurements
+
+The rules use the existing chassis traction rating plus 0.1 per Traction tier for the first two tiers, capped at 1. Effective handling is `min(1, surface grip + 0.5 × chassis traction)`. Oil grip is 0.18; rough grip is 0.32. Traction tier 3 adds 0.2 to rough/mud grip, **with no oil bonus**. Oil's straight-line speed factor is `0.65 + 0.35 × handling`; rough's is `0.85 × handling`. Traction tier 5 restores both factors to 1 and retains its existing 20% drive-speed bonus. Tool damage and attack cadence are unaffected by the surface itself.
+
+These stock measurements use the real fixed-step driving model on a uniform surface, without boosts, traffic, targets, or collisions. Braking begins at a common 6 m/s to compare control rather than each chassis' top speed. The columns are speed limits, not guaranteed pursuit averages.
+
+| Chassis | Medium stock cost | Oil handling | Oil speed limit | Rough speed limit | Oil braking distance from 6 m/s | Main surface advantage | Compromise |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| Harvester | $400 | 43% | 6.24 m/s | 3.78 m/s | 2.41 m | Fastest stock rough-ground travel; clears hay | Short frontal tool needs close pursuit and alignment; armor/high targets need support |
+| Sprayer | $450 | 33% | 6.74 m/s | 3.52 m/s | 3.16 m | Highest straight oil speed; compact chassis can take dry gaps | Weakest oil control; long braking, low corner speed, and only half armor damage |
+| Excavator | $550 | 58% | 4.44 m/s | 3.18 m/s | 2.34 m | Best stock oil handling; pivots, clears hay, hits armor fully | Slow travel/attacks; no high coverage; smaller splash needs Specialist investment |
+| Crane | $700 | 48% | 3.76 m/s | 2.42 m/s | 2.84 m | Range and pivoting can avoid entering a patch | Slowest rough travel; large footprint; ground cargo and stock armor remain blind spots |
+| Baler | $500 | 45.5% | 5.50 m/s | 3.44 m/s | 2.28 m | 7 m firing reach and piercing can exploit a dry lane | Hay can block shots; 25% armor damage; no high coverage |
+| Blower | $600 | 40.5% | 5.70 m/s | 3.34 m/s | 2.57 m | Herds air packs toward teammates without crossing every patch | Weak independent damage/control, no ground coverage, stock armor immunity |
+| Dozer | $575 | 55.5% | 4.90 m/s | 3.43 m/s | 2.45 m | Good control, pivot steering, ground armor sweeps | Short frontal reach forces patch crossings; blade height remains limited |
+| Mixer | $675 | 45.5% | 5.02 m/s | 3.14 m/s | 2.28 m | Ranged splash can cover patches from dry firing positions | Slow firing, large chassis, half armor damage, no high coverage |
+
+For wheeled machines, full-lock corner speed on oil is about **2.37 m/s for a stock sprayer**, versus **4.13 m/s at full handling**. Raising straight-line speed cannot remove that bound. Crawlers retain stationary pivoting, but the excavator's stock oil pivot rate is only 1.28 rad/s, versus 2.2 on full grip. Tracks therefore provide useful control without making a slow chassis the best pursuer everywhere.
+
+#### Traction's five tiers
+
+| Tier | Benefit | Opportunity cost or limitation |
+| --- | --- | --- |
+| 1 | Small oil/rough handling gain, better pushing and faster hay clearance | No damage, height, range, or tool-rate gain; dry routes can make the purchase unnecessary |
+| 2 | A second handling increment; remains legal as a secondary path | Occupies the second path; stronger surface specialization remains unavailable after committing another primary |
+| 3 | +0.2 mud/rough grip, stronger pushing, hay pushing unlocked on light chassis | Commits Traction as primary; excludes advanced Attack/Specialist; does not improve oil control over tier 2 |
+| 4 | Faster traffic recovery and further hay handling improvements | Oil/rough movement factors match tier 3 on an empty lane; benefit depends on traffic/hay |
+| 5 | Full oil control, no rough slowdown, +20% drive speed | Expensive and requires the primary path; still no additional damage/altitude coverage or room through narrow gaps |
+
+For example, a sprayer progresses from **3.52 m/s rough travel and 3.16 m oil braking** at stock to **4.26 m/s and 2.41 m** at Traction 2. Traction 3 raises rough travel to **5.76 m/s**, while oil braking stays at **2.41 m**. Traction 5 gives **10.56 m/s** surface speed limits and restores **1.01 m** braking from 6 m/s. Medium purchase totals are $450, $631, $856, and $1,981 respectively, before buying a secondary path. The capstone costs over four stock sprayers, and it gives up sticky spray/acid or advanced Attack. An excavator at Traction 3 already reaches full rough handling, but still travels at only 85% of its speed because stones retain rolling resistance; tier 5 still has a real benefit.
+
+#### All vehicle/upgrade combinations
+
+`npm run balance:terrain` writes `artifacts/terrain-build-balance.json`: **936 individual records**, covering all 117 legal builds on each of eight chassis. Each record includes purchase totals in all difficulties, explicit pros and cons, actual surface acceleration/braking measurements, oil/rough/dry speed and handling, hay interaction, eight navigation probes, and the marginal benefits/costs/losses of each invested path's last tier. Stock, single-path, partial two-path, 2+2, and all legal primary+secondary builds are included; illegal third paths or two primary paths are excluded.
+
+The 12 fully invested pair families have the following terrain implications. Costs below are approximate total chassis-price multiples; each purchase is rounded separately in the garage. Partial builds trade later unlocks for saved cash, and 2+2 builds preserve the choice of which existing path will become primary.
+
+| Primary 5 + secondary 2 | Total cost | Advantage | Remaining compromise |
+| --- | ---: | --- | --- |
+| Attack + Speed | 9.25× | Damage/armor breakpoints, faster tools and pursuit | Stock grip; cornering and rough-ground routes can limit pursuit despite high speed |
+| Attack + Traction | 9.10× | Damage plus affordable oil control and rough handling | No Speed or Specialist; tier 2 cannot unlock rough bonus or light-chassis hay pushing |
+| Attack + Specialist | 9.50× | Strong hits plus early reach, splash, cone, or pierce | Stock mobility/control; careful dry positioning or a clearing teammate matters |
+| Speed + Attack | 7.20× | Sustained tool rate, pursuit, early damage | Stock grip; Attack stops before armor bypass; no signature geometry |
+| Speed + Traction | 6.80× | Pursuit/tool rate plus some oil control | No Attack/Specialist; rough tier 3 and full oil control remain locked out |
+| Speed + Specialist | 6.95× | Rapid tools with early range/geometry for dry-lane firing | Stock grip and no advanced armor/support tools |
+| Traction + Attack | 5.20× | Full control, hay/traffic recovery, some stronger/faster hits | Damage remains modest; no Speed or specialist reach/geometry; armor-immunity chassis still need support |
+| Traction + Speed | 4.95× | Cheapest full pair; full control, pursuit, faster tools | No Attack/Specialist investment; cannot buy armor bypass or crowd-control abilities |
+| Traction + Specialist | 5.20× | Full control plus early ranged/area geometry | No damage/Speed upgrades; signature abilities and advanced height/armor transformations remain locked |
+| Specialist + Attack | 10.70× | Signature tool/support plus stronger hits and faster tools | Stock mobility; harvesters/cranes/blowers still lack independent armor damage |
+| Specialist + Speed | 10.45× | Signature reach/control, pursuit, tool cadence | Stock surface control; oil still bounds corners and braking |
+| Specialist + Traction | 10.30× | Signature tool plus modest oil/rough control | No Attack/Speed; tier 2 cannot buy rough bonus, recovery, or light-chassis pushing |
+
+Chassis identity persists in every family: harvesters/dozers must align a short frontal tool; sprayers trade top speed against the weakest control; excavators trade strong control and armor damage against pursuit/altitude limits; cranes trade high coverage against ground blindness and slow travel; balers trade piercing reach against firing-lane clearance; blowers trade independent damage against team herding; mixers trade ranged splash against firing cadence and altitude. Boom 5 still halves crane travel, wide Bale Press shots still need more projectile clearance, and Hydraulics 5 still sacrifices split-pop income and Pop Rush charge. Terrain does not erase any of those specialist costs.
+
+The updated cost/capability frontier has **936 undominated builds in Easy, Medium, and Hard**, **zero dead legal next upgrades**, and **zero missing pro/con records**. No build independently covers the entire ground/high-and-armor combination. The 2.2 m gap still admits only the three small chassis: 351 builds. This is evidence against a strictly inferior purchase on the modeled capabilities; it is not proof that all builds have equal win rates or are equally popular. Terrain creates useful mobility alternatives without requiring a blanket vehicle-price or damage change.
+
+#### Paired campaign evidence
+
+The expanded purchasing policy was run with surfaces on/off for **two seeds × both arenas × all three difficulties**, through round 13 or defeat: 24 campaigns, 12 pairs. Loose hay and carrier drops remain enabled in both conditions. `artifacts/terrain-campaign-comparison.json` summarizes the pairs; the complete round-by-round runs are saved in the corresponding `balance-expanded-*-surfaces-on/off.json` files.
+
+| Seed | Difficulty | Arena | Lives lost, surfaces on / off | Mean wave seconds, on / off | Outcome |
+| --- | --- | --- | ---: | ---: | --- |
+| 73429 | Easy | Barn | 2 / 2 | 53.3 / 53.5 | Both reach round 13 |
+| 73429 | Easy | Yard | 6 / 6 | 57.5 / 56.5 | Both reach round 13 |
+| 73429 | Medium | Barn | 0 / 0 | 46.0 / 44.7 | Both reach round 13 |
+| 73429 | Medium | Yard | 130 / 6 | 76.6 / 68.9 | On loses on round 11; off reaches 13; averages cover different horizons |
+| 73429 | Hard | Barn | 0 / 0 | 62.9 / 60.8 | Both reach round 13 |
+| 73429 | Hard | Yard | 16 / 16 | 82.8 / 82.9 | Both reach round 13 |
+| 73531 | Easy | Barn | 0 / 0 | 40.8 / 39.9 | Both reach round 13 |
+| 73531 | Easy | Yard | 0 / 0 | 57.6 / 54.2 | Both reach round 13 |
+| 73531 | Medium | Barn | 0 / 0 | 44.5 / 44.7 | Both reach round 13 |
+| 73531 | Medium | Yard | 0 / 0 | 64.9 / 63.9 | Both reach round 13 |
+| 73531 | Hard | Barn | 2 / 2 | 72.0 / 69.2 | Both reach round 13 |
+| 73531 | Hard | Yard | 58 / 58 | 75.9 / 74.1 | Both lose on round 11 |
+
+Eleven pairs preserve the same life-loss outcome; one exposes a purchase-policy threshold. On Medium Yard, seed 73429, rough round 5 takes 65.5 s instead of 40.0 s. The speed-based clear bonus leaves $694 after round 6 instead of $705. The policy misses the $700 crane, buys a $575 dozer, then spends on ground-tool upgrades. Its fleet has **no high-altitude counter**, so rounds 8, 9 and 11 lose 36, 52 and 42 lives to high-flyers. Those defeat rounds have no initial surface patches: the failure is the downstream budget and coverage choice, not an unavoidable oil barrier. A coverage-focused four-role `balanced` plan survives the terrain-on case through 13 with 74 lives and five vehicles; buying every role is not always the right early strategy.
+
+The runner also supports `--reserve-air=on`: once round 7 arrives, it defers other purchases and upgrades until it can buy a crane. In the failed Medium Yard case, this leaves four vehicles on round 7, buys the crane on round 8, and reaches round 13 with **all eight roles, 94 lives, and a 66.9 s mean wave time**. Life loss returns to the six-life terrain-off result without changing chassis stats, damage, prices, or wave composition. The original policy and its failed report remain available; the reserve variant writes a separate `-air-reserve.json` file. Reproduce it with `npm run balance -- --plan=expanded --mode=medium --arena=yard --rounds=13 --seed=73429 --surfaces=on --reserve-air=on`.
+
+The terrain change therefore adds meaningful economic and movement choices, with a real cost for pursuing role variety before necessary coverage. It does not justify making every build win independently: altitude gaps, armor gaps, handling, clearing delays, and cash commitments are intended tradeoffs. The build frontier and marginal checks remain clean, while a brittle purchasing policy can fail. Human playtesting and full 20/40/60-round campaigns are still needed to judge practical build popularity and late-game difficulty. These runs cover the first rough, oil, mixed, armor, high, and carrier rounds, not completed campaigns or measured human win rates.
+
+Reproduce the complete checks with `npm test`, `npm run build`, `npm run balance:frontier`, and `npm run balance:terrain`. For paired campaigns, use `npm run balance -- --plan=expanded --rounds=13 --seed=73429 --surfaces=on`, repeat with `--surfaces=off`, and repeat both with seed 73531. The surface counterfactual retains loose hay, carrier drops, waves, difficulty, and the purchase/ability policy. Reports record patch counts each round and include the surface setting in their filenames.
+
 ## Code
 
 - `src/sim/data.ts`: costs, stats, upgrade descriptions, terrain, arenas, wave scripts and run model.

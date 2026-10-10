@@ -41,6 +41,7 @@ import {
 import {
   approachSpeed,
   chooseDriveControl,
+  terrainTravelCost,
   DRIVE_PLAN_TICKS,
   HEADER_PLAN_TICKS,
 } from './vehicle-driving';
@@ -53,6 +54,7 @@ import {
   vehicleTool,
   toolIntervalTicks,
   terrainSpeedFactor,
+  terrainHandlingFactor,
 } from './capabilities';
 import { balePathClear, inWindCone, segmentDistance, toolVictims } from './vehicle-tools';
 let initialization: Promise<void> | undefined;
@@ -237,13 +239,17 @@ export class Simulation {
   constructor(
     run: Run,
     private readonly looseHay = true,
+    surfaces = true,
   ) {
+    const arena = arenaFor(run.arena, run.round, run.seed);
+    if (!looseHay) arena.obstacles = arena.obstacles.filter((o) => !o.loose);
+    if (!surfaces) arena.surfaces = [];
     run = {
       ...run,
-      fleet: fitFleet(arenaFor(run.arena, looseHay ? run.round : 1, run.seed), run.fleet),
+      fleet: fitFleet(arena, run.fleet),
     };
     this.run = structuredClone(run);
-    this.arena = arenaFor(run.arena, looseHay ? run.round : 1, run.seed);
+    this.arena = arena;
     this.rng = new Random(run.seed + run.round * 331);
     this.wave = waveFor(run.round, run.seed, run.mode);
     this.world = new RAPIER.World({ x: 0, y: -9.81, z: 0 });
@@ -1073,7 +1079,14 @@ export class Simulation {
       if (!target && !yielding) {
         v.state = 'idle';
         v.wait = 0;
-        this.moveVehicle(v, body, traffic, null, 0, s.traction);
+        this.moveVehicle(
+          v,
+          body,
+          traffic,
+          null,
+          0,
+          terrainHandlingFactor(v, grip(this.arena, v.x, v.z)),
+        );
         continue;
       }
       if (target) {
@@ -1114,7 +1127,14 @@ export class Simulation {
         v.driveControl = null;
         v.wait = 0;
         v.blockedTicks = 0;
-        this.moveVehicle(v, body, traffic, null, 0, s.traction);
+        this.moveVehicle(
+          v,
+          body,
+          traffic,
+          null,
+          0,
+          terrainHandlingFactor(v, grip(this.arena, v.x, v.z)),
+        );
         if (
           this.tick >= v.attackTick &&
           (!frontTool ||
@@ -1153,10 +1173,31 @@ export class Simulation {
         // Look through visible waypoints so tires can follow curves instead of every grid corner.
         let point = v.path[0];
         const lookahead = Math.max(3, Math.abs(v.speed) * 0.55);
+        let routeCost =
+          point && this.arena.surfaces?.length
+            ? terrainTravelCost(this.arena, v, v.x, v.z, point[0], point[1])
+            : 0;
         for (let i = 1; i < v.path.length; i++) {
           const candidate = v.path[i];
           if (Math.hypot(candidate[0] - v.x, candidate[1] - v.z) > lookahead) break;
           if (!canTravel(this.arena, body, candidate[0], candidate[1], traffic)) break;
+          if (this.arena.surfaces?.length) {
+            const previous = v.path[i - 1];
+            routeCost += terrainTravelCost(
+              this.arena,
+              v,
+              previous[0],
+              previous[1],
+              candidate[0],
+              candidate[1],
+            );
+            // Smoothing must preserve the cheap dry lane selected by A*.
+            if (
+              terrainTravelCost(this.arena, v, v.x, v.z, candidate[0], candidate[1]) >
+              routeCost * 1.05
+            )
+              break;
+          }
           point = candidate;
           v.path.splice(0, i);
           i = 0;
@@ -1164,8 +1205,8 @@ export class Simulation {
         const aligningHeader = target && frontTool && !yielding && dist <= s.range + 1;
         if (aligningHeader) point = [target.x, target.z];
         if (point) {
-          let terrain = grip(this.arena, v.x, v.z);
-          const traction = terrainSpeedFactor(v, terrain);
+          const terrain = grip(this.arena, v.x, v.z);
+          const traction = terrainHandlingFactor(v, terrain);
           const speed = hayDriveSpeed(
             this.arena,
             body,
@@ -1175,7 +1216,7 @@ export class Simulation {
                 (v.boostUntil > this.tick || v.activeUntil > this.tick ? 2 : 1) *
                   (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
               ) *
-              traction,
+              terrainSpeedFactor(v, terrain),
           );
           const wheeled = v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer';
           if (
@@ -1262,7 +1303,14 @@ export class Simulation {
             this.recoverTraffic(v, body, traffic);
           }
         } else {
-          this.moveVehicle(v, body, traffic, null, 0, s.traction);
+          this.moveVehicle(
+            v,
+            body,
+            traffic,
+            null,
+            0,
+            terrainHandlingFactor(v, grip(this.arena, v.x, v.z)),
+          );
           if (yielding) {
             v.yieldUntil = 0;
             v.nextPath = 0;

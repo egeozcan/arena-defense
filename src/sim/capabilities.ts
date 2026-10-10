@@ -1,4 +1,4 @@
-import { VEHICLES, type OwnedVehicle } from './data';
+import { SURFACE_GRIP, VEHICLES, type OwnedVehicle } from './data';
 import { POP_RUSH } from './pop-rush';
 
 export function vehicleStats(v: OwnedVehicle) {
@@ -94,10 +94,30 @@ export function toolIntervalTicks(v: OwnedVehicle, overdrive = false, rush = fal
   return Math.max(1, (vehicleStats(v).interval * 60) / rate);
 }
 
-export function terrainSpeedFactor(v: OwnedVehicle, terrain: number) {
+type MobileVehicle = Pick<OwnedVehicle, 'kind' | 'upgrades'>;
+export function terrainHandlingFactor(v: MobileVehicle, terrain: number) {
   if (v.upgrades.traction === 5) return 1;
-  if (v.upgrades.traction >= 3 && terrain === 0.4) terrain += 0.2;
-  return Math.min(1, terrain + 0.5 * vehicleStats(v).traction);
+  if (v.upgrades.traction >= 3 && (terrain === 0.4 || terrain === SURFACE_GRIP.rough))
+    terrain += 0.2;
+  const traction = Math.min(1, VEHICLES[v.kind].traction + Math.min(2, v.upgrades.traction) * 0.1);
+  return Math.min(1, terrain + 0.5 * traction);
+}
+
+export function terrainSpeedFactor(v: MobileVehicle, terrain: number) {
+  if (v.upgrades.traction === 5) return 1;
+  const handling = terrainHandlingFactor(v, terrain);
+  // Oil chiefly compromises control; loose stones add rolling resistance.
+  if (terrain === SURFACE_GRIP.oil) return 0.65 + 0.35 * handling;
+  if (terrain === SURFACE_GRIP.rough) return 0.85 * handling;
+  return handling;
+}
+
+export function terrainRouteCost(v: MobileVehicle, terrain: number) {
+  // Turning/braking adds delay on oil even when straight-line travel stays quick.
+  return (
+    1 / terrainSpeedFactor(v, terrain) +
+    (terrain === SURFACE_GRIP.oil ? (1 - terrainHandlingFactor(v, terrain)) * 0.65 : 0)
+  );
 }
 
 // Tool geometry is shared by combat and the balance audit. Angles are half cones.

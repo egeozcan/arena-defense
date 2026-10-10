@@ -6,7 +6,7 @@ import {
   type Obstacle,
   type OwnedVehicle,
 } from './data';
-import { terrainSpeedFactor } from './capabilities';
+import { terrainRouteCost } from './capabilities';
 
 export type HayVehicle = Pick<OwnedVehicle, 'kind' | 'upgrades'>;
 export interface HayBody {
@@ -197,11 +197,11 @@ export function hayDriveSpeed(arena: Arena, self: HayBody, speed: number) {
 
 export function hayRouteCost(arena: Arena, v: OwnedVehicle, x: number, z: number, radius: number) {
   const h = hayHandling(v);
-  const terrain = terrainSpeedFactor(v, grip(arena, x, z));
+  const surface = grip(arena, x, z);
   const contact = arena.obstacles.some((o) => o.loose && touchesHay(o, x, z, radius));
   // Extra time estimates favor an easy detour over clearing an unnecessary bale.
   return (
-    1 / terrain +
+    terrainRouteCost(v, surface) +
     (contact
       ? h.mode === 'crush'
         ? VEHICLES[v.kind].speed / h.crushRate

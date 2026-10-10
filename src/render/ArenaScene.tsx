@@ -20,6 +20,7 @@ import { Simulation, vehicleStats, type Bale } from '../sim/engine';
 import { Box, Hay, Tree, VehicleModel } from './models';
 import { Scenery } from './Scenery';
 import { ArenaDetails } from './ArenaDetails';
+import { SurfacePatches } from './SurfacePatches';
 import { CombatEffects } from './CombatEffects';
 import { BaleProjectiles } from './BaleProjectiles';
 import { ImpactWords } from './ImpactWords';
@@ -94,6 +95,7 @@ function Terrain({ run, grid }: { run: Run; grid: boolean }) {
           ))}
         </>
       )}
+      <SurfacePatches patches={a.surfaces ?? []} />
       {grid && (
         <group>
           {Array.from({ length: a.width + 1 }, (_, i) => (

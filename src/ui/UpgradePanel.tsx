@@ -51,7 +51,7 @@ const PATH_INFO = {
     name: 'Traction',
     icon: Tractor,
     color: '#b9d693',
-    description: 'Keep moving through mud and traffic.',
+    description: 'Control oil, rough ground, mud and traffic.',
   },
   unique: {
     name: 'Specialist',
@@ -167,14 +167,14 @@ function detail(kind: VehicleKind, path: PathName, index: number) {
   return [
     'Adds 0.1 traction to reduce terrain slowdown and improve route choices. Strengthens hay pushing and speeds up clearing.',
     'Adds another 0.1 traction, up to a maximum grip rating of 1. Strengthens hay pushing and speeds up clearing.',
-    'Improves mud grip by 0.2. Enables hay pushing on sprayers, cranes and blowers; improves pushing force and clearing speed on other chassis.',
+    'Improves mud and rough-ground grip by 0.2. Oil control stays at the tier 2 level until tier 5. Enables hay pushing on sprayers, cranes and blowers; improves pushing force and clearing speed on other chassis.',
     'Checks blocked routes and requests traffic clearance twice as often. Crushers also clear hay faster.',
-    'Removes terrain slowdown and adds 20% movement speed. Stronger hay pushing and faster clearing still require contact and room; bales never become passable scenery.',
+    'Restores full control on oil, removes terrain slowdown and adds 20% movement speed. Stronger hay pushing and faster clearing still require contact and room; bales never become passable scenery.',
   ][index];
 }
 
 function effectTitle(kind: VehicleKind, path: PathName, index: number) {
-  if (path === 'traction' && index === 2) return 'Mud grip + hay handling';
+  if (path === 'traction' && index === 2) return 'Mud/rough grip + hay handling';
   if (path === 'speed' && index === 3) return '5 s tool overdrive after a pop';
   if (path === 'speed' && index === 4) return 'Permanent overdrive + 15% drive speed';
   if (path === 'attack' && index === 2 && kind === 'excavator') return '50% bonus damage to armor';

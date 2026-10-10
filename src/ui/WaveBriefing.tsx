@@ -144,9 +144,15 @@ export function WaveBriefing({
               </article>
             ))}
           </div>
-          {(hayCount > 0 || info.fleeing > 0 || info.regen > 0) && (
+          {(hayCount > 0 ||
+            info.oil > 0 ||
+            info.rough > 0 ||
+            info.fleeing > 0 ||
+            info.regen > 0) && (
             <div className="wave-traits">
               {hayCount > 0 && <span>{hayCount} loose hay bales</span>}
+              {info.oil > 0 && <span>{info.oil} oil slicks · low grip</span>}
+              {info.rough > 0 && <span>{info.rough} rough patches · slow travel</span>}
               {info.fleeing > 0 && <span>{info.fleeing} fleeing</span>}
               {info.regen > 0 && <span>{info.regen} regrowing</span>}
             </div>
@@ -274,6 +280,20 @@ export function WaveBriefing({
               </div>
             )}
             <div className="wave-behaviors">
+              {info.oil > 0 && (
+                <p>
+                  <b>Oil:</b> weakens acceleration, braking and turning. Extra drive speed does not
+                  restore grip. Use dry lanes or better Traction; tier 3's mud/rough bonus does not
+                  apply to oil. Tier 5 restores full grip.
+                </p>
+              )}
+              {info.rough > 0 && (
+                <p>
+                  <b>Rough ground:</b> loose stones slow travel and handling. Tracked vehicles cope
+                  better; Traction tier 3 adds rough grip, and tier 5 removes the slowdown. Balloons
+                  fly over both surfaces.
+                </p>
+              )}
               {hayCount > 0 && (
                 <p>
                   <b>Loose hay:</b> {hayCount} bales in the lanes. Harvesters and excavators clear

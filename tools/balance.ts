@@ -25,8 +25,12 @@ const arenas = args.arena ? [args.arena as ArenaKind] : (['barn', 'yard'] as Are
 const plan = args.plan ?? 'balanced';
 const seed = Number(args.seed ?? 73429);
 const hay = args.hay !== 'off';
+const surfaces = args.surfaces !== 'off';
+const reserveAir = args['reserve-air'] === 'on';
 if (
   (args.hay && !['on', 'off'].includes(args.hay)) ||
+  (args.surfaces && !['on', 'off'].includes(args.surfaces)) ||
+  (args['reserve-air'] && !['on', 'off'].includes(args['reserve-air'])) ||
   modes.some((mode) => !MODES[mode]) ||
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
   !['balanced', 'basic', 'expanded'].includes(plan) ||
@@ -34,7 +38,7 @@ if (
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer --hay=on|off',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off',
   );
 }
 await initPhysics();
@@ -46,6 +50,13 @@ for (const mode of modes)
     const results = [];
     const rounds = Math.min(MODES[mode].rounds, Number(args.rounds ?? MODES[mode].rounds));
     function buy(kind: VehicleKind) {
+      if (
+        reserveAir &&
+        run.round >= 7 &&
+        kind !== 'crane' &&
+        !run.fleet.some((v) => v.kind === 'crane')
+      )
+        return false;
       const cost = price(run, VEHICLES[kind].cost);
       if (run.cash < cost) return false;
       const v: OwnedVehicle = {
@@ -59,7 +70,8 @@ for (const mode of modes)
         rotation: 0,
         targeting: kind === 'crane' ? 'Highest' : 'Nearest',
       };
-      const a = arenaFor(arena, hay ? run.round : 1, run.seed);
+      const a = arenaFor(arena, run.round, run.seed);
+      if (!hay) a.obstacles = a.obstacles.filter((o) => !o.loose);
       const preferred = [
         [a.width / 2 - 1, a.depth / 2 - 1],
         [7, 7],
@@ -81,6 +93,7 @@ for (const mode of modes)
       return true;
     }
     function upgrade(v: OwnedVehicle, path: PathName) {
+      if (reserveAir && run.round >= 7 && !run.fleet.some((v) => v.kind === 'crane')) return false;
       if (!upgradeAllowed(v, path)) return false;
       const cost = upgradePrice(run, v, path);
       if (cost > run.cash) return false;
@@ -161,7 +174,7 @@ for (const mode of modes)
           if (run.abilities[ability] === undefined || (round >= 20 && run.abilities[ability]! < 2))
             run = purchaseAbility(run, ability);
       }
-      const sim = new Simulation(run, hay);
+      const sim = new Simulation(run, hay, surfaces);
       let peak = 0;
       while (!sim.summary) {
         if (plan !== 'basic' && sim.tick % 900 === 0) {
@@ -197,6 +210,8 @@ for (const mode of modes)
         hayRemaining: sim.bales.length,
         hayCrushed: sim.hayCrushed,
         hayPushed: sim.hayPushed,
+        oil: sim.arena.surfaces?.filter((p) => p.kind === 'oil').length ?? 0,
+        rough: sim.arena.surfaces?.filter((p) => p.kind === 'rough').length ?? 0,
         remaining: Object.fromEntries(
           (['basic', 'layered', 'armored', 'high', 'carrier'] as const).map((kind) => [
             kind,
@@ -225,6 +240,8 @@ for (const mode of modes)
       mode,
       arena,
       hay,
+      surfaces,
+      reserveAir,
       plan,
       seed,
       survived: run.lives > 0 && run.round === rounds,
@@ -248,6 +265,6 @@ for (const mode of modes)
   }
 mkdirSync('artifacts', { recursive: true });
 writeFileSync(
-  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}.json`,
+  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}.json`,
   JSON.stringify(reports, null, 2),
 );

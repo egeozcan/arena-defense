@@ -1,4 +1,5 @@
-import type { Arena, VehicleKind } from './data';
+import { grip, type Arena, type OwnedVehicle, type VehicleKind } from './data';
+import { terrainHandlingFactor, terrainRouteCost, terrainSpeedFactor } from './capabilities';
 import { canTravel, type TrafficBody } from './traffic';
 import {
   angleDifference,
@@ -32,6 +33,24 @@ export const HEADER_PLAN_TICKS = 18;
 export const approachSpeed = (speed: number, distance: number, traction: number) =>
   Math.min(speed, distance * 8, Math.sqrt(34 * traction * distance));
 
+export function terrainTravelCost(
+  arena: Arena,
+  v: OwnedVehicle,
+  sx: number,
+  sz: number,
+  tx: number,
+  tz: number,
+) {
+  const distance = Math.hypot(tx - sx, tz - sz);
+  const samples = Math.max(1, Math.ceil(distance / 0.25));
+  let cost = 0;
+  for (let i = 0; i < samples; i++) {
+    const t = (i + 0.5) / samples;
+    cost += terrainRouteCost(v, grip(arena, sx + (tx - sx) * t, sz + (tz - sz) * t));
+  }
+  return (distance * cost) / samples;
+}
+
 // Search sequences of steering arcs, including reversing before a forward turn.
 // The rollout uses the real acceleration, steering rate and swept chassis collision.
 export function chooseDriveControl(
@@ -46,6 +65,9 @@ export function chooseDriveControl(
   previous?: DriveControl | null,
 ): DriveControl | null {
   const controls: (DriveControl | null)[] = [null];
+  const initialSpeedFactor = body.vehicle
+    ? terrainSpeedFactor(body.vehicle, grip(arena, body.x, body.z))
+    : 1;
   for (const direction of [1, -1] as const)
     for (const steer of [-MAX_STEER, -MAX_STEER / 2, 0, MAX_STEER / 2, MAX_STEER])
       controls.push({ direction, steer, throttle: 1 });
@@ -87,13 +109,23 @@ export function chooseDriveControl(
           switches = 0;
         for (let tick = 0; tick < DRIVE_PLAN_TICKS; tick++) {
           const remaining = Math.hypot(goal.x - x, goal.z - z);
-          const limit = goal.faceTarget ? speed : approachSpeed(speed, remaining, traction);
+          // Match real surface transitions, including oil entered during an arc.
+          const surface = grip(arena, x, z);
+          const localTraction = body.vehicle
+            ? terrainHandlingFactor(body.vehicle, surface)
+            : traction;
+          const localSpeed = body.vehicle
+            ? (speed * terrainSpeedFactor(body.vehicle, surface)) / initialSpeedFactor
+            : speed;
+          const limit = goal.faceTarget
+            ? localSpeed
+            : approachSpeed(localSpeed, remaining, localTraction);
           const [dx, dz] = driveVehicle(
             predicted,
             kind,
             [goal.x - x, goal.z - z],
             limit,
-            traction,
+            localTraction,
             control ?? undefined,
           );
           if (!canTravel(arena, { ...body, x, z }, x + dx, z + dz, traffic)) {

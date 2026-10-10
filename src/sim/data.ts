@@ -288,7 +288,7 @@ export const SHARED_EFFECTS = {
   traction: [
     '+0.1 traction',
     '+0.1 traction',
-    'Climbs ramps; +0.2 mud grip; pushes hay',
+    '+0.2 mud/rough grip; pushes hay',
     'Faster traffic recovery',
     'Full grip + 20% drive speed',
   ],
@@ -449,7 +449,17 @@ export interface Arena {
   depth: number;
   ceiling: number;
   obstacles: Obstacle[];
+  // Optional for older fixtures/saves; surfaces are regenerated from the round seed.
+  surfaces?: SurfacePatch[];
 }
+export interface SurfacePatch {
+  kind: 'oil' | 'rough';
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+}
+export const SURFACE_GRIP = { oil: 0.18, rough: 0.32 } as const;
 export function arenaFor(kind: ArenaKind, round = 1, seed = 73429): Arena {
   const arena: Arena =
     kind === 'barn'
@@ -503,6 +513,25 @@ export function arenaFor(kind: ArenaKind, round = 1, seed = 73429): Arena {
       });
     }
   }
+  // Teach rough ground before oil. Rounds ending in 1, 4, 6, and 9 stay surface-free;
+  // later mixed rounds ask players to balance routing, handling, and firepower.
+  const rough = round >= 5 && round % 5 === 0;
+  const oil = round >= 7 && round % 5 === 2;
+  const mixed = round >= 12 && round % 5 === 3;
+  arena.surfaces = [];
+  if (rough || oil || mixed) {
+    const rng = new Random(seed + round * 547 + (kind === 'yard' ? 1297 : 0));
+    const count = mixed ? 4 : 3;
+    for (let i = 0; i < count; i++) {
+      arena.surfaces.push({
+        kind: mixed ? (i % 2 ? 'oil' : 'rough') : oil ? 'oil' : 'rough',
+        x: arena.width * (0.27 + (i % 2) * 0.43) + (rng.next() - 0.5) * 2,
+        z: arena.depth * (0.36 + Math.floor(i / 2) * 0.27) + (rng.next() - 0.5) * 2,
+        w: 6 + rng.next() * 2,
+        d: 4 + rng.next() * 2,
+      });
+    }
+  }
   return arena;
 }
 export function blocked(a: Arena, x: number, z: number) {
@@ -517,6 +546,11 @@ export function blocked(a: Arena, x: number, z: number) {
   );
 }
 export function grip(a: Arena, x: number, z: number) {
+  let surface = 1;
+  for (const p of a.surfaces ?? [])
+    if (Math.abs(x - p.x) <= p.w / 2 && Math.abs(z - p.z) <= p.d / 2)
+      surface = Math.min(surface, SURFACE_GRIP[p.kind]);
+  if (surface < 1) return surface;
   if (a.kind === 'barn')
     return z > a.depth - 6 ? 0.6 : x > a.width * 0.34 && x < a.width * 0.57 && z < 5 ? 0.4 : 0.9;
   return x > a.width * 0.38 && x < a.width * 0.62 && z > a.depth * 0.58 ? 0.4 : z < 9 ? 1 : 0.75;

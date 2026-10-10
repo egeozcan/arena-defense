@@ -1,5 +1,6 @@
 import {
   PATHS,
+  SURFACE_GRIP,
   VEHICLES,
   newRun,
   price,
@@ -14,6 +15,7 @@ import {
   armorDamageFactor,
   canTargetBalloon,
   terrainSpeedFactor,
+  terrainHandlingFactor,
   toolIntervalTicks,
   vehicleStats,
   vehicleTool,
@@ -110,11 +112,11 @@ export function capabilityProfile(v: OwnedVehicle): Record<string, number> {
     retarget: 60 / (v.upgrades.speed >= 3 ? 8 : 12),
     trafficRecovery: v.upgrades.traction >= 4 ? 2 : 1,
   };
-  for (const terrain of [0.4, 0.6, 0.75, 0.9, 1]) {
+  for (const terrain of [SURFACE_GRIP.oil, SURFACE_GRIP.rough, 0.4, 0.6, 0.75, 0.9, 1]) {
     profile[`move:${terrain}`] = s.speed * terrainSpeedFactor(v, terrain);
-    profile[`handling:${terrain}`] = terrainSpeedFactor(v, terrain);
+    profile[`handling:${terrain}`] = terrainHandlingFactor(v, terrain);
     profile[`pivotRate:${terrain}`] = tracked
-      ? (v.kind === 'crane' ? 1.6 : 2.2) * terrainSpeedFactor(v, terrain)
+      ? (v.kind === 'crane' ? 1.6 : 2.2) * terrainHandlingFactor(v, terrain)
       : 0;
   }
   // Every coverage boundary appears on both sides, including targeting tolerance.

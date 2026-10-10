@@ -142,7 +142,7 @@ test('upcoming carrier warning includes its separate low cargo gap', () => {
   const run = { ...newRun(), round: 9, fleet: [stockVehicle('crane')] };
   assert.ok(futureChanges(run).some((s) => s.startsWith('Carrier cargo arrive')));
   run.fleet.push(stockVehicle('excavator'));
-  assert.equal(futureChanges(run).length, 0);
+  assert.ok(futureChanges(run).every((s) => s.startsWith('Rough ground ahead')));
 });
 
 test('simulation spawns stay inside the height bands shown in the briefing', async () => {
