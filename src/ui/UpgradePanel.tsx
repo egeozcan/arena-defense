@@ -33,6 +33,7 @@ import {
   type VehicleKind,
 } from '../sim/data';
 import { UPGRADE_DIRECTIONS } from './vehicle-guide';
+import { upgradeChanges, upgradeCommitment } from './upgrade-preview';
 
 const PATH_INFO = {
   attack: {
@@ -93,7 +94,7 @@ const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
   harvester: [
     'Adds 0.5 m of horizontal range to catch more low balloons in each sweep.',
     'Raises the cutting height from 1.5 m to 2 m.',
-    'Cuts behind the chassis too. Unlocks Full throttle: 3 seconds of double movement speed and damage, aimed at a dense crowd (24 s cooldown).',
+    'Cuts behind the chassis without turning around. Unlocks Full throttle: 3 seconds of double movement speed and damage, aimed at a dense crowd (24 s cooldown).',
     'Raises the cutting height to 3 m, covering more mid-height balloons.',
     'Pulls balloons within 4 m toward the header so crowds stay in cutting range.',
   ],
@@ -134,26 +135,26 @@ const UNIQUE_DETAILS: Record<VehicleKind, string[]> = {
   ],
 };
 const SIGNATURES: Record<VehicleKind, string> = {
-  baler: 'Triples bale damage, stacking with earlier Attack upgrades.',
-  blower: 'Triples air-burst damage, stacking with earlier Attack upgrades.',
-  harvester: 'Doubles cutting damage again, stacking with earlier Attack upgrades.',
-  sprayer: 'Triples spray damage, stacking with earlier Attack upgrades.',
-  excavator: 'Triples crushing damage, stacking with earlier Attack upgrades.',
+  baler: 'Triples bale damage and runs the tool another 15% faster.',
+  blower: 'Triples air-burst damage and runs the tool another 15% faster.',
+  harvester: 'Doubles cutting damage again and runs the tool another 15% faster.',
+  sprayer: 'Triples spray damage and runs the tool another 15% faster.',
+  excavator: 'Triples crushing damage and runs the tool another 15% faster.',
   crane:
     'Adds a second hook: strikes two balloons per swing within boom range. Earlier damage bonuses still apply.',
-  bulldozer: 'Triples blade damage, stacking with earlier Attack upgrades.',
-  mixer: 'Triples concrete damage, stacking with earlier Attack upgrades.',
+  bulldozer: 'Triples blade damage and runs the tool another 15% faster.',
+  mixer: 'Triples concrete damage and runs the tool another 15% faster.',
 };
 function detail(kind: VehicleKind, path: PathName, index: number) {
   if (path === 'unique') return UNIQUE_DETAILS[kind][index];
   if (path === 'attack')
     return [
-      'Multiplies damage per hit by 1.25. Especially useful against durable targets.',
+      'Multiplies damage per hit by 1.25 and runs the tool 10% faster. Faster reloads also help against one-hit balloons.',
       'Cuts the time between attacks by 20%, for 25% more attacks per second.',
       kind === 'excavator'
         ? 'Deals 50% bonus damage to armored balloons. Keeps full damage against other balloons.'
         : 'Bypasses half of armor resistance. Tools that could not damage armor can now target it.',
-      'Doubles damage per hit, stacking with the tier 1 damage bonus.',
+      'Doubles damage per hit and runs the tool another 10% faster. Both stack with earlier upgrades.',
       SIGNATURES[kind],
     ][index];
   if (path === 'speed')
@@ -167,8 +168,8 @@ function detail(kind: VehicleKind, path: PathName, index: number) {
   return [
     'Adds 0.1 traction to reduce terrain slowdown and improve route choices. Strengthens hay pushing and speeds up clearing.',
     'Adds another 0.1 traction, up to a maximum grip rating of 1. Strengthens hay pushing and speeds up clearing.',
-    'Improves mud and rough-ground grip by 0.2. Oil control stays at the tier 2 level until tier 5. Enables hay pushing on sprayers, cranes and blowers; improves pushing force and clearing speed on other chassis.',
-    'Checks blocked routes and requests traffic clearance twice as often. Crushers also clear hay faster.',
+    'Improves mud and rough-ground grip by 0.2. Enables hay pushing on sprayers, cranes and blowers; improves pushing force and clearing speed on other chassis.',
+    'Adds 0.1 oil grip for shorter braking and tighter turns, strengthens hay pushing, and checks blocked traffic twice as often. Crushers also clear hay faster.',
     'Restores full control on oil, removes terrain slowdown and adds 20% movement speed. Stronger hay pushing and faster clearing still require contact and room; bales never become passable scenery.',
   ][index];
 }
@@ -283,8 +284,25 @@ function UpgradePath({
               </span>
               <h4>{effectTitle(vehicle.kind, path, previewIndex)}</h4>
               <p>{detail(vehicle.kind, path, previewIndex)}</p>
+              {upgradeChanges(vehicle, path, previewIndex + 1) && (
+                <p className="upgrade-stat-change">
+                  {upgradeChanges(vehicle, path, previewIndex + 1)}
+                </p>
+              )}
             </div>
           </div>
+        ))}
+      </div>
+      <div className="upgrade-commitment-stack">
+        {effectIcons.map((_, previewIndex) => (
+          <p
+            key={previewIndex}
+            className={`upgrade-commitment ${previewIndex === index ? 'is-inspected' : ''}`}
+            aria-hidden={previewIndex !== index}
+          >
+            <Lock size={12} aria-hidden="true" />
+            {upgradeCommitment(vehicle, path, previewIndex + 1)}
+          </p>
         ))}
       </div>
       <button

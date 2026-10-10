@@ -56,7 +56,13 @@ import {
   terrainSpeedFactor,
   terrainHandlingFactor,
 } from './capabilities';
-import { balePathClear, inWindCone, segmentDistance, toolVictims } from './vehicle-tools';
+import {
+  balePathClear,
+  inWindCone,
+  segmentDistance,
+  toolFacing,
+  toolVictims,
+} from './vehicle-tools';
 let initialization: Promise<void> | undefined;
 export function initPhysics() {
   return (initialization ??= RAPIER.init());
@@ -790,6 +796,12 @@ export class Simulation {
   }
   private attack(v: SimVehicle, target: Balloon) {
     const s = vehicleStats(v);
+    const rearAttack =
+      vehicleTool(v).rear && Math.cos(Math.atan2(target.x - v.x, target.z - v.z) - v.angle) < 0;
+    const originAngle =
+      v.kind === 'harvester' || v.kind === 'bulldozer'
+        ? v.angle + (rearAttack ? Math.PI : 0)
+        : v.aimAngle;
     const victims = toolVictims(
       v,
       target,
@@ -806,11 +818,9 @@ export class Simulation {
         vehicleId: v.id,
         tick: this.tick,
         from: [
-          v.x +
-            Math.sin(v.kind === 'harvester' || v.kind === 'bulldozer' ? v.angle : v.aimAngle) * 1.2,
+          v.x + Math.sin(originAngle) * 1.2,
           v.kind === 'crane' ? 5 : 1,
-          v.z +
-            Math.cos(v.kind === 'harvester' || v.kind === 'bulldozer' ? v.angle : v.aimAngle) * 1.2,
+          v.z + Math.cos(originAngle) * 1.2,
         ],
         to: [target.x, target.y, target.z],
       });
@@ -1110,9 +1120,7 @@ export class Simulation {
       }
       const dist = target ? Math.hypot(target.x - v.x, target.z - v.z) : Infinity;
       const frontTool = v.kind === 'harvester' || v.kind === 'bulldozer';
-      const facingTolerance = v.kind === 'harvester' ? 0.85 : 0.7;
-      const headerFacing =
-        !frontTool || Math.abs(angleDifference(v.aimAngle, v.angle)) <= facingTolerance;
+      const headerFacing = toolFacing(v, v.aimAngle, v.angle);
       const clearShot = !target || this.clearToolPosition(v, target);
       if (
         target &&
@@ -1137,9 +1145,7 @@ export class Simulation {
         );
         if (
           this.tick >= v.attackTick &&
-          (!frontTool ||
-            Math.abs(angleDifference(Math.atan2(target.x - v.x, target.z - v.z), v.angle)) <=
-              facingTolerance)
+          toolFacing(v, Math.atan2(target.x - v.x, target.z - v.z), v.angle)
         )
           this.attack(v, target);
       } else {

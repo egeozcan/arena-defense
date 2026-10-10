@@ -272,10 +272,10 @@ export function upgradePrice(
 }
 export const SHARED_EFFECTS = {
   attack: [
-    '25% more damage',
-    '20% faster attacks',
+    '25% more damage + 10% faster tool',
+    '20% shorter attack interval',
     'Ignores half of armor',
-    'Double damage',
+    'Double damage + 10% faster tool',
     'Signature tool transformation',
   ],
   speed: [
@@ -289,7 +289,7 @@ export const SHARED_EFFECTS = {
     '+0.1 traction',
     '+0.1 traction',
     '+0.2 mud/rough grip; pushes hay',
-    'Faster traffic recovery',
+    '+0.1 oil grip, stronger hay pushing + traffic recovery',
     'Full grip + 20% drive speed',
   ],
 };

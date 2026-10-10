@@ -1,0 +1,825 @@
+[
+  {
+    "mode": "medium",
+    "arena": "yard",
+    "hay": true,
+    "surfaces": true,
+    "reserveAir": true,
+    "plan": "expanded",
+    "primaryPath": "traction",
+    "seed": 73429,
+    "survived": true,
+    "round": 30,
+    "lives": 100,
+    "cash": 3186,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "baler",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 5,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "bulldozer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "blower",
+        "upgrades": {
+          "attack": 5,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "mixer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      }
+    ],
+    "totalLost": 0,
+    "averageSeconds": 93.5,
+    "slowest": 154.2,
+    "peak": 300,
+    "results": [
+      {
+        "round": 1,
+        "pops": 35,
+        "lost": 0,
+        "lives": 100,
+        "cash": 532,
+        "fleet": 1,
+        "seconds": 19.8,
+        "peak": 35,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 2,
+        "pops": 46,
+        "lost": 0,
+        "lives": 100,
+        "cash": 377,
+        "fleet": 2,
+        "seconds": 24.8,
+        "peak": 34,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 3,
+        "pops": 63,
+        "lost": 0,
+        "lives": 100,
+        "cash": 691,
+        "fleet": 2,
+        "seconds": 31.6,
+        "peak": 53,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 4,
+        "pops": 85,
+        "lost": 0,
+        "lives": 100,
+        "cash": 529,
+        "fleet": 3,
+        "seconds": 36.4,
+        "peak": 51,
+        "pending": 0,
+        "hayRemaining": 1,
+        "hayCrushed": 3,
+        "hayPushed": 1,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 5,
+        "pops": 118,
+        "lost": 0,
+        "lives": 100,
+        "cash": 891,
+        "fleet": 3,
+        "seconds": 65.5,
+        "peak": 69,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 6,
+        "pops": 63,
+        "lost": 0,
+        "lives": 100,
+        "cash": 694,
+        "fleet": 4,
+        "seconds": 28.8,
+        "peak": 59,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 7,
+        "pops": 108,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1115,
+        "fleet": 4,
+        "seconds": 35.7,
+        "peak": 41,
+        "pending": 0,
+        "hayRemaining": 3,
+        "hayCrushed": 1,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 8,
+        "pops": 81,
+        "lost": 0,
+        "lives": 100,
+        "cash": 361,
+        "fleet": 5,
+        "seconds": 124.1,
+        "peak": 68,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 9,
+        "pops": 140,
+        "lost": 0,
+        "lives": 100,
+        "cash": 440,
+        "fleet": 5,
+        "seconds": 152.3,
+        "peak": 60,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 10,
+        "pops": 112,
+        "lost": 0,
+        "lives": 100,
+        "cash": 539,
+        "fleet": 5,
+        "seconds": 57.3,
+        "peak": 76,
+        "pending": 0,
+        "hayRemaining": 6,
+        "hayCrushed": 0,
+        "hayPushed": 1,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 11,
+        "pops": 367,
+        "lost": 0,
+        "lives": 100,
+        "cash": 717,
+        "fleet": 5,
+        "seconds": 109.8,
+        "peak": 72,
+        "pending": 0,
+        "hayRemaining": 7,
+        "hayCrushed": 1,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 12,
+        "pops": 339,
+        "lost": 0,
+        "lives": 100,
+        "cash": 725,
+        "fleet": 6,
+        "seconds": 74.6,
+        "peak": 131,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 13,
+        "pops": 422,
+        "lost": 0,
+        "lives": 100,
+        "cash": 791,
+        "fleet": 7,
+        "seconds": 134.2,
+        "peak": 113,
+        "pending": 0,
+        "hayRemaining": 4,
+        "hayCrushed": 1,
+        "hayPushed": 3,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 14,
+        "pops": 429,
+        "lost": 0,
+        "lives": 100,
+        "cash": 779,
+        "fleet": 8,
+        "seconds": 63.2,
+        "peak": 116,
+        "pending": 0,
+        "hayRemaining": 1,
+        "hayCrushed": 3,
+        "hayPushed": 1,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 15,
+        "pops": 505,
+        "lost": 0,
+        "lives": 100,
+        "cash": 961,
+        "fleet": 8,
+        "seconds": 73.7,
+        "peak": 126,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 16,
+        "pops": 552,
+        "lost": 0,
+        "lives": 100,
+        "cash": 980,
+        "fleet": 8,
+        "seconds": 66.6,
+        "peak": 158,
+        "pending": 0,
+        "hayRemaining": 13,
+        "hayCrushed": 0,
+        "hayPushed": 6,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 17,
+        "pops": 529,
+        "lost": 0,
+        "lives": 100,
+        "cash": 993,
+        "fleet": 8,
+        "seconds": 106.5,
+        "peak": 151,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 18,
+        "pops": 667,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1151,
+        "fleet": 8,
+        "seconds": 58.3,
+        "peak": 182,
+        "pending": 0,
+        "hayRemaining": 2,
+        "hayCrushed": 1,
+        "hayPushed": 1,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 19,
+        "pops": 622,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1142,
+        "fleet": 8,
+        "seconds": 81.7,
+        "peak": 166,
+        "pending": 0,
+        "hayRemaining": 2,
+        "hayCrushed": 3,
+        "hayPushed": 2,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 20,
+        "pops": 1400,
+        "lost": 0,
+        "lives": 100,
+        "cash": 1970,
+        "fleet": 8,
+        "seconds": 150.4,
+        "peak": 267,
+        "pending": 0,
+        "hayRemaining": 19,
+        "hayCrushed": 2,
+        "hayPushed": 8,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 21,
+        "pops": 1518,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2104,
+        "fleet": 8,
+        "seconds": 141.5,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 16,
+        "hayCrushed": 10,
+        "hayPushed": 6,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 22,
+        "pops": 1544,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2116,
+        "fleet": 8,
+        "seconds": 141.5,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 18,
+        "hayCrushed": 7,
+        "hayPushed": 4,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 23,
+        "pops": 1630,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2305,
+        "fleet": 8,
+        "seconds": 121.2,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 18,
+        "hayCrushed": 3,
+        "hayPushed": 9,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 24,
+        "pops": 1666,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2270,
+        "fleet": 9,
+        "seconds": 122.6,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 9,
+        "hayCrushed": 6,
+        "hayPushed": 2,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 25,
+        "pops": 1699,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2470,
+        "fleet": 9,
+        "seconds": 123.6,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 18,
+        "hayCrushed": 5,
+        "hayPushed": 13,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 26,
+        "pops": 1740,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2399,
+        "fleet": 9,
+        "seconds": 129,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 17,
+        "hayCrushed": 6,
+        "hayPushed": 6,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 27,
+        "pops": 1779,
+        "lost": 0,
+        "lives": 100,
+        "cash": 2567,
+        "fleet": 9,
+        "seconds": 154.2,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 20,
+        "hayCrushed": 4,
+        "hayPushed": 10,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 28,
+        "pops": 1863,
+        "lost": 0,
+        "lives": 100,
+        "cash": 3953,
+        "fleet": 9,
+        "seconds": 136.8,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 13,
+        "hayCrushed": 11,
+        "hayPushed": 9,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 29,
+        "pops": 1903,
+        "lost": 0,
+        "lives": 100,
+        "cash": 3471,
+        "fleet": 9,
+        "seconds": 110.2,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 20,
+        "hayCrushed": 2,
+        "hayPushed": 7,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      },
+      {
+        "round": 30,
+        "pops": 1926,
+        "lost": 0,
+        "lives": 100,
+        "cash": 3186,
+        "fleet": 9,
+        "seconds": 129.9,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 14,
+        "hayCrushed": 14,
+        "hayPushed": 8,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0
+      }
+    ]
+  }
+]

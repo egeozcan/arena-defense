@@ -28,6 +28,7 @@ export function hayHandling(v: HayVehicle) {
     VEHICLES[v.kind].traction +
     Math.min(2, tier) * 0.1 +
     (tier >= 3 ? 0.2 : 0) +
+    (tier >= 4 ? 0.1 : 0) +
     (tier === 5 ? 0.2 : 0);
   return {
     mode: crusher ? ('crush' as const) : pusher ? ('push' as const) : ('detour' as const),

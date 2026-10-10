@@ -12,6 +12,11 @@ export function vehicleStats(v: OwnedVehicle) {
       (u.attack === 5 ? (v.kind === 'harvester' ? 2 : v.kind === 'crane' ? 1 : 3) : 1),
     interval:
       (s.interval * (u.attack >= 2 ? 0.8 : 1)) /
+      // Damage alone is wasted on one-hit targets. Small reload improvements
+      // keep each power tier useful without replacing Speed's pursuit/overdrive.
+      (u.attack >= 1 ? 1.1 : 1) /
+      (u.attack >= 4 ? 1.1 : 1) /
+      (u.attack === 5 && v.kind !== 'crane' ? 1.15 : 1) /
       (u.speed >= 2 ? 1.15 : 1) /
       (v.kind === 'crane' && u.unique >= 2 ? 1.25 : 1) /
       (v.kind === 'baler' && u.unique >= 3 ? 1.25 : 1),
@@ -99,6 +104,7 @@ export function terrainHandlingFactor(v: MobileVehicle, terrain: number) {
   if (v.upgrades.traction === 5) return 1;
   if (v.upgrades.traction >= 3 && (terrain === 0.4 || terrain === SURFACE_GRIP.rough))
     terrain += 0.2;
+  if (v.upgrades.traction >= 4 && terrain === SURFACE_GRIP.oil) terrain += 0.1;
   const traction = Math.min(1, VEHICLES[v.kind].traction + Math.min(2, v.upgrades.traction) * 0.1);
   return Math.min(1, terrain + 0.5 * traction);
 }

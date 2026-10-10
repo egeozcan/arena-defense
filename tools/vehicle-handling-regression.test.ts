@@ -62,7 +62,7 @@ test('a wheeled harvester escapes repeated reversing beside scenery and reaches 
 });
 
 for (const unique of [0, 3])
-  test(`a harvester with unique tier ${unique} faces its front cutter toward a balloon behind it before attacking`, () => {
+  test(`a harvester with unique tier ${unique} ${unique === 3 ? 'uses its rear cutter without turning' : 'turns its front cutter toward a balloon behind it'}`, () => {
     const run = newRun();
     run.fleet = [harvester(28, 11, -Math.PI / 2)];
     run.fleet[0].upgrades.unique = unique;
@@ -83,11 +83,29 @@ for (const unique of [0, 3])
       sim.vehicles[0].attackTick = 1;
       sim.step();
       const balloon = sim.balloons[0];
+      const v = sim.vehicles[0];
+      const x = v.x + 2,
+        y = 0.8,
+        z = v.z;
+      sim.world.forEachRigidBody((body) => {
+        const p = body.translation();
+        if (Math.hypot(p.x - balloon.x, p.y - balloon.y, p.z - balloon.z) < 0.0001) {
+          body.setTranslation({ x, y, z }, true);
+          body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        }
+      });
+      Object.assign(balloon, { x, px: x, y, py: y, float: y, baseFloat: y, z, pz: z });
       balloon.dx = balloon.dz = 0;
       balloon.nextTurn = Infinity;
-      const v = sim.vehicles[0];
+      v.aimAngle = Math.atan2(balloon.x - v.x, balloon.z - v.z);
       assert.ok(Math.abs(angleDifference(v.aimAngle, v.angle)) > Math.PI / 2);
       sim.step();
+      if (unique === 3) {
+        assert.equal(sim.pops, 1, 'the rear header should pop the target immediately');
+        assert.ok(Math.abs(angleDifference(v.angle, run.fleet[0].rotation)) < 0.01);
+        assert.ok(sim.attacks[0].from[0] > v.x, 'the hit effect starts at the rear cutter');
+        return;
+      }
       assert.equal(
         sim.attacks.length,
         0,

@@ -35,6 +35,7 @@ npm run balance     # Full Easy, Medium and Hard campaigns in both arenas
 npm run balance:frontier # Check every legal vehicle build for dominance/dead upgrades
 npm run balance -- --plan=expanded # Exercise the eight-vehicle roster
 npm run balance -- --plan=basic # Compare a modest four-vehicle fleet
+npm run balance -- --plan=expanded --primary=speed --reserve-air=on # Compare a ground-path commitment
 npm run balance -- --mode=hard --arena=yard --seed=73429
 ```
 
@@ -120,6 +121,24 @@ Stock prices are $400 / $450 / $550 / $700 / $500 / $600 / $575 / $675 before di
 
 Speed emphasizes pursuit and sustained tool cadence; tier 5 adds another 15% drive speed so it improves one-hit swarms even when tier 4 already refreshes tool overdrive on every pop. Traction emphasizes handling in mud and traffic; tier 5 also adds 20% drive speed, including on vehicles already at full grip. Both remain useful as secondary investments, but choosing either as the primary path caps Attack and Specialist at tier 2. Harvesters, cranes and blowers then need an armor partner. No legal build independently covers the whole altitude-and-armor combination. The garage explains each primary commitment before purchase.
 
+Attack tiers 1 and 4 each also run the tool 10% faster; tier 5 adds another 15% except on cranes, whose second hook supplies the extra crowd throughput. These modest reload gains make damage steps affect one-hit waves where additional damage alone would be wasted. Damage multipliers and armor access remain unchanged. Speed still wins sustained one-hit streams and pursuit; Attack wins durable armor. Traction tier 4 now adds 0.1 oil grip and 0.1 hay-pushing force alongside faster traffic recovery, so it helps even when a lane has no other vehicles. Header tier 3 can attack a target behind the harvester immediately, with the effect originating at the rear cutter.
+
+The garage previews each tier's damage, attack rate, speed, reach, height, armor efficiency, and oil-control changes directly from combat stats. Before a second-path purchase it names the paths that will lock; before tier 3 it names the secondary cap. Tier inspection keeps the card size stable. Prices, the two-path limit, and the 5+2 cap preserve the cost of choosing power, mobility, terrain access, or specialist coverage.
+
+`tools/upgrade-outcomes.test.ts` checks all **160 chassis/path/tier steps** in controlled counterfactuals: actual kills and clear times, drive/braking distance, extra crowd hits, layer removal, and support control. Attack/Speed and Speed/Traction comparison tests require opposite winners in different matchups. These checks complement the capability frontier; they do not claim every upgrade helps every wave. `--primary=attack|speed|traction|unique` varies the ground fleet's primary in the campaign runner, keeping Attack-primary cranes/blowers for airborne armor coverage; reports retain prices, purchases, and escapes.
+
+With `--reserve-air=on`, the runner reserves a crane before round 8. Adding `--air-counters=2` also prioritizes a second crane from round 11, delaying other purchases and upgrades until it is affordable. This tests the cost of stronger aerial coverage using normal prices and placements.
+
+Current path comparisons used seed 73429, the expanded roster, Medium yard, normal hay/surfaces, and reserved air coverage through round 30:
+
+| Ground primary | Lives remaining | Average wave time | Cash remaining |
+| --- | ---: | ---: | ---: |
+| Attack | 96 | 90.5 s | $2,925 |
+| Speed | 98 | 95.2 s | $3,576 |
+| Traction | 100 | 93.5 s | $3,186 |
+
+All three survived with nine vehicles, with different losses, time, savings, and hay handling. These fixed purchasing/placement policies demonstrate viable alternatives rather than equal performance or optimal play. The Specialist expanded fleet also completed Easy in both arenas, Medium barn, and Hard barn. Its early Medium yard run survived with 86 lives when reserving a crane, versus failing at round 11 without that reserve. The broad Hard yard policies with one or two early cranes failed at round 13 with shallow upgrades; their escapes were all high-flyers. The focused four-role plan with two cranes survived through round 13 with 22 lives and five vehicles, spending more on its core tools instead of widening the roster. That is an early-wave check, not a completed Hard yard campaign. Coverage investment and placement remain consequential. Per-round data and final builds are saved in the `artifacts/balance-*-primary-*.json` reports.
+
 Airflow tier 4 also increases horizontal reach to 9 m: its benefit applies to normal high-flyers, which stay within stock 12 m altitude coverage. Boom tier 4 slows nearby carriers by 60% and lowers those above 3 m to 3 m, within raised-header coverage. Carrier spawn bands are 2.5–3.5 m, so the old 4 m lowering effect could not help. Neither change raises low balloons. Demolisher trades pop income and Pop Rush charge for fewer targets: destroying a layered balloon awards only its outer pop, while leaving the splits to other tools earns their extra rewards.
 
 Upgrade prices are incremental multiples of the chassis price; each purchase is rounded after difficulty scaling. Earlier purchases and 70% resale use the actual amount paid, so existing saves keep their recorded investment.
@@ -154,7 +173,7 @@ A loose bale is 1.4 × 1 × 0.9 m. It blocks driving, low balloon drift, and tra
 
 Costs are before difficulty multipliers. Clearing times assume continuous contact and include the 60 Hz tick rounding. They are a delay rather than balloon damage: Attack upgrades do not clear hay faster. Every Traction tier adds 12% of the chassis' base clearing rate; a tier-5 harvester takes about 0.45 s per bale, an excavator 0.70 s, and a Blade-upgraded dozer 0.57 s. Even maximum traction preserves that delay.
 
-Push speed and force come from chassis grip and Traction upgrades. Stock balers and mixers can push on ordinary surfaces but fail the force threshold on deep mud. Traction tier 1 fixes that specific gap. Traction tier 3 adds extra pushing force and enables pushing on sprayers, cranes, and blowers. Maximum pushing speed is 2.64 m/s for a sprayer, 3.12 for a crane, 3.04 for a baler or mixer, 2.88 for a blower, and 3.36 for a pushing dozer. Boosts, Pop Rush, and Speed upgrades improve pursuit and attacks but cannot exceed these contact speeds or replace missing pushing force. Blade tier 3 trades the ability to reposition a bale for permanent clearance; it does not keep both modeled capabilities.
+Push speed and force come from chassis grip and Traction upgrades. Stock balers and mixers can push on ordinary surfaces but fail the force threshold on deep mud. Traction tier 1 fixes that specific gap. Traction tier 3 adds extra pushing force and enables pushing on sprayers, cranes, and blowers; tier 4 adds another 0.1 force. Maximum pushing speed is 2.80 m/s for a sprayer, 3.28 for a crane, 3.20 for a baler or mixer, 3.04 for a blower, and 3.52 for a pushing dozer. Boosts, Pop Rush, and Speed upgrades improve pursuit and attacks but cannot exceed these contact speeds or replace missing pushing force. Blade tier 3 trades the ability to reposition a bale for permanent clearance; it does not keep both modeled capabilities.
 
 Size and agility affect different choices. The 2.2 m gap probe admits all 117 builds of each small chassis—sprayer, excavator, and blower—and none of the five larger chassis: **351 of 936 builds** pass. Traction cannot make a large vehicle fit a small gap. Crawlers can pivot without rolling; cranes have a lower maximum pivot rate than excavators and dozers. Wheeled vehicles need rolling space and may reverse before turning. Full-lock steering has a nominal 1.89 m centerline turn radius, and lateral grip limits corner speed to about 4.13 m/s on full grip. Increasing straight-line speed therefore does not erase the advantage of a compact tracked vehicle in a tight approach. Actual steering and acceleration remain subject to the movement tests and collision sweeps; route length alone does not measure turn time.
 
@@ -218,7 +237,7 @@ Oil and rough ground create different decisions. Oil retains much of straight-li
 
 #### Movement measurements
 
-The rules use the existing chassis traction rating plus 0.1 per Traction tier for the first two tiers, capped at 1. Effective handling is `min(1, surface grip + 0.5 × chassis traction)`. Oil grip is 0.18; rough grip is 0.32. Traction tier 3 adds 0.2 to rough/mud grip, **with no oil bonus**. Oil's straight-line speed factor is `0.65 + 0.35 × handling`; rough's is `0.85 × handling`. Traction tier 5 restores both factors to 1 and retains its existing 20% drive-speed bonus. Tool damage and attack cadence are unaffected by the surface itself.
+The rules use the existing chassis traction rating plus 0.1 per Traction tier for the first two tiers, capped at 1. Effective handling is `min(1, surface grip + 0.5 × chassis traction)`. Oil grip is 0.18; rough grip is 0.32. Traction tier 3 adds 0.2 to rough/mud grip, with no oil bonus; tier 4 adds 0.1 to oil grip. Oil's straight-line speed factor is `0.65 + 0.35 × handling`; rough's is `0.85 × handling`. Traction tier 5 restores both factors to 1 and retains its existing 20% drive-speed bonus. Tool damage and attack cadence are unaffected by the surface itself.
 
 These stock measurements use the real fixed-step driving model on a uniform surface, without boosts, traffic, targets, or collisions. Braking begins at a common 6 m/s to compare control rather than each chassis' top speed. The columns are speed limits, not guaranteed pursuit averages.
 
@@ -242,7 +261,7 @@ For wheeled machines, full-lock corner speed on oil is about **2.37 m/s for a st
 | 1 | Small oil/rough handling gain, better pushing and faster hay clearance | No damage, height, range, or tool-rate gain; dry routes can make the purchase unnecessary |
 | 2 | A second handling increment; remains legal as a secondary path | Occupies the second path; stronger surface specialization remains unavailable after committing another primary |
 | 3 | +0.2 mud/rough grip, stronger pushing, hay pushing unlocked on light chassis | Commits Traction as primary; excludes advanced Attack/Specialist; does not improve oil control over tier 2 |
-| 4 | Faster traffic recovery and further hay handling improvements | Oil/rough movement factors match tier 3 on an empty lane; benefit depends on traffic/hay |
+| 4 | +0.1 oil grip, stronger hay pushing, faster traffic recovery and clearance | Rough travel still matches tier 3; advanced damage and specialist tools remain unavailable |
 | 5 | Full oil control, no rough slowdown, +20% drive speed | Expensive and requires the primary path; still no additional damage/altitude coverage or room through narrow gaps |
 
 For example, a sprayer progresses from **3.52 m/s rough travel and 3.16 m oil braking** at stock to **4.26 m/s and 2.41 m** at Traction 2. Traction 3 raises rough travel to **5.76 m/s**, while oil braking stays at **2.41 m**. Traction 5 gives **10.56 m/s** surface speed limits and restores **1.01 m** braking from 6 m/s. Medium purchase totals are $450, $631, $856, and $1,981 respectively, before buying a secondary path. The capstone costs over four stock sprayers, and it gives up sticky spray/acid or advanced Attack. An excavator at Traction 3 already reaches full rough handling, but still travels at only 85% of its speed because stones retain rolling resistance; tier 5 still has a real benefit.
@@ -258,8 +277,8 @@ The 12 fully invested pair families have the following terrain implications. Cos
 | Attack + Speed | 9.25× | Damage/armor breakpoints, faster tools and pursuit | Stock grip; cornering and rough-ground routes can limit pursuit despite high speed |
 | Attack + Traction | 9.10× | Damage plus affordable oil control and rough handling | No Speed or Specialist; tier 2 cannot unlock rough bonus or light-chassis hay pushing |
 | Attack + Specialist | 9.50× | Strong hits plus early reach, splash, cone, or pierce | Stock mobility/control; careful dry positioning or a clearing teammate matters |
-| Speed + Attack | 7.20× | Sustained tool rate, pursuit, early damage | Stock grip; Attack stops before armor bypass; no signature geometry |
-| Speed + Traction | 6.80× | Pursuit/tool rate plus some oil control | No Attack/Specialist; rough tier 3 and full oil control remain locked out |
+| Speed + Attack | 6.95× | Sustained tool rate, pursuit, early damage | Stock grip; Attack stops before armor bypass; no signature geometry |
+| Speed + Traction | 6.55× | Pursuit/tool rate plus some oil control | No Attack/Specialist; rough tier 3 and full oil control remain locked out |
 | Speed + Specialist | 6.95× | Rapid tools with early range/geometry for dry-lane firing | Stock grip and no advanced armor/support tools |
 | Traction + Attack | 5.20× | Full control, hay/traffic recovery, some stronger/faster hits | Damage remains modest; no Speed or specialist reach/geometry; armor-immunity chassis still need support |
 | Traction + Speed | 4.95× | Cheapest full pair; full control, pursuit, faster tools | No Attack/Specialist investment; cannot buy armor bypass or crowd-control abilities |

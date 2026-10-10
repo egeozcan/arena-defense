@@ -75,6 +75,15 @@ export function inWindCone(
 
 type ToolTarget = { id: number; x: number; y: number; z: number };
 
+// A rear header is a working tool, including when the only target is behind.
+// Use the same facing rule before braking and immediately before the attack.
+export function toolFacing(v: OwnedVehicle, bearing: number, angle: number) {
+  if (v.kind !== 'harvester' && v.kind !== 'bulldozer') return true;
+  const difference = Math.abs(Math.atan2(Math.sin(bearing - angle), Math.cos(bearing - angle)));
+  const tolerance = v.kind === 'harvester' ? 0.85 : 0.7;
+  return difference <= tolerance || (vehicleTool(v).rear && Math.PI - difference <= tolerance);
+}
+
 // Candidates already satisfy height/armor eligibility. Target splash can extend
 // beyond arm range; a second hook must choose its own center within boom range.
 export function toolVictims<T extends ToolTarget>(

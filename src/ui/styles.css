@@ -3092,6 +3092,37 @@ kbd {
 .upgrade-effect-stack > .upgrade-effect.is-inspected {
   visibility: visible;
 }
+.upgrade-effect p.upgrade-stat-change {
+  margin-top: 6px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.upgrade-commitment {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  min-height: 34px;
+  margin: 0 0 8px;
+  font-size: 10px;
+  line-height: 1.45;
+}
+.upgrade-commitment-stack {
+  display: grid;
+}
+.upgrade-commitment-stack > .upgrade-commitment {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.upgrade-commitment-stack > .upgrade-commitment.is-inspected {
+  visibility: visible;
+}
+.upgrade-commitment svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.garage-panel .upgrade-commitment {
+  color: #76572c;
+}
 .upgrade-effect > div:last-child {
   min-width: 0;
 }

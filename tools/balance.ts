@@ -27,6 +27,8 @@ const seed = Number(args.seed ?? 73429);
 const hay = args.hay !== 'off';
 const surfaces = args.surfaces !== 'off';
 const reserveAir = args['reserve-air'] === 'on';
+const primaryPath = args.primary ?? 'unique';
+const airCounters = Number(args['air-counters'] ?? 1);
 if (
   (args.hay && !['on', 'off'].includes(args.hay)) ||
   (args.surfaces && !['on', 'off'].includes(args.surfaces)) ||
@@ -34,11 +36,14 @@ if (
   modes.some((mode) => !MODES[mode]) ||
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
   !['balanced', 'basic', 'expanded'].includes(plan) ||
+  !['attack', 'speed', 'traction', 'unique'].includes(primaryPath) ||
+  !Number.isSafeInteger(airCounters) ||
+  airCounters < 1 ||
   !Number.isSafeInteger(seed) ||
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --primary=attack|speed|traction|unique --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off --air-counters=positive-integer',
   );
 }
 await initPhysics();
@@ -49,13 +54,10 @@ for (const mode of modes)
     run.seed = seed;
     const results = [];
     const rounds = Math.min(MODES[mode].rounds, Number(args.rounds ?? MODES[mode].rounds));
+    const requiredAir = () =>
+      reserveAir ? (run.round >= 11 ? airCounters : run.round >= 7 ? 1 : 0) : 0;
     function buy(kind: VehicleKind) {
-      if (
-        reserveAir &&
-        run.round >= 7 &&
-        kind !== 'crane' &&
-        !run.fleet.some((v) => v.kind === 'crane')
-      )
+      if (kind !== 'crane' && run.fleet.filter((v) => v.kind === 'crane').length < requiredAir())
         return false;
       const cost = price(run, VEHICLES[kind].cost);
       if (run.cash < cost) return false;
@@ -93,7 +95,7 @@ for (const mode of modes)
       return true;
     }
     function upgrade(v: OwnedVehicle, path: PathName) {
-      if (reserveAir && run.round >= 7 && !run.fleet.some((v) => v.kind === 'crane')) return false;
+      if (run.fleet.filter((v) => v.kind === 'crane').length < requiredAir()) return false;
       if (!upgradeAllowed(v, path)) return false;
       const cost = upgradePrice(run, v, path);
       if (cost > run.cash) return false;
@@ -104,6 +106,8 @@ for (const mode of modes)
     }
     for (let round = 1; round <= rounds; round++) {
       run.round = round;
+      while (run.fleet.filter((v) => v.kind === 'crane').length < requiredAir())
+        if (!buy('crane')) break;
       for (const [kind, intro] of [
         ['harvester', 1],
         ['sprayer', 2],
@@ -161,8 +165,10 @@ for (const mode of modes)
             : run.fleet;
         for (const v of investments) {
           const airDamage = v.kind === 'crane' || v.kind === 'blower';
-          const primary = airDamage ? 'attack' : 'unique';
-          const secondary = airDamage ? 'unique' : 'attack';
+          // Keep an armor-capable air specialist while varying the ground
+          // fleet's commitment. Mobility builds still need role coverage.
+          const primary: PathName = airDamage ? 'attack' : (primaryPath as PathName);
+          const secondary: PathName = airDamage || primary === 'attack' ? 'unique' : 'attack';
           const goal =
             plan === 'basic' ? 2 : round >= 25 ? 5 : round >= 16 ? 4 : round >= 8 ? 3 : 2;
           if (round >= 8 && tier <= goal && v.upgrades[primary] < tier) upgrade(v, primary);
@@ -242,7 +248,9 @@ for (const mode of modes)
       hay,
       surfaces,
       reserveAir,
+      airCounters,
       plan,
+      primaryPath,
       seed,
       survived: run.lives > 0 && run.round === rounds,
       round: run.round,
@@ -265,6 +273,6 @@ for (const mode of modes)
   }
 mkdirSync('artifacts', { recursive: true });
 writeFileSync(
-  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}.json`,
+  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}${args.primary ? `-primary-${primaryPath}` : ''}${args['air-counters'] ? `-air-counters-${airCounters}` : ''}.json`,
   JSON.stringify(reports, null, 2),
 );
