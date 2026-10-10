@@ -15,6 +15,7 @@ import {
 } from '../src/sim/data';
 import { purchaseAbility } from '../src/sim/economy';
 import { initPhysics, Simulation } from '../src/sim/engine';
+import { responsiveCommands } from './balance-tactics';
 import { writeFileSync, mkdirSync } from 'node:fs';
 
 const args = Object.fromEntries(
@@ -28,7 +29,12 @@ const hay = args.hay !== 'off';
 const surfaces = args.surfaces !== 'off';
 const reserveAir = args['reserve-air'] === 'on';
 const primaryPath = args.primary ?? 'unique';
+const primaryScope = args['primary-scope'] ?? 'all';
+const mobilitySecondary = args['mobility-secondary'] ?? 'attack';
 const airCounters = Number(args['air-counters'] ?? 1);
+const airTarget = args['air-target'] ?? 'highest';
+const tactics = args.tactics ?? 'periodic';
+const reinforce = args.reinforce === 'on';
 if (
   (args.hay && !['on', 'off'].includes(args.hay)) ||
   (args.surfaces && !['on', 'off'].includes(args.surfaces)) ||
@@ -37,13 +43,18 @@ if (
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
   !['balanced', 'basic', 'expanded'].includes(plan) ||
   !['attack', 'speed', 'traction', 'unique'].includes(primaryPath) ||
+  !['all', 'harvester'].includes(primaryScope) ||
+  !['attack', 'unique'].includes(mobilitySecondary) ||
+  !['nearest', 'highest'].includes(airTarget) ||
+  !['periodic', 'responsive'].includes(tactics) ||
+  (args.reinforce && !['on', 'off'].includes(args.reinforce)) ||
   !Number.isSafeInteger(airCounters) ||
   airCounters < 1 ||
   !Number.isSafeInteger(seed) ||
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --primary=attack|speed|traction|unique --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off --air-counters=positive-integer',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --primary=attack|speed|traction|unique --primary-scope=all|harvester --mobility-secondary=attack|unique --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off --air-counters=positive-integer --air-target=nearest|highest --tactics=periodic|responsive --reinforce=on|off',
   );
 }
 await initPhysics();
@@ -53,6 +64,7 @@ for (const mode of modes)
     let run = newRun(mode, arena);
     run.seed = seed;
     const results = [];
+    let reinforcementsBought = 0;
     const rounds = Math.min(MODES[mode].rounds, Number(args.rounds ?? MODES[mode].rounds));
     const requiredAir = () =>
       reserveAir ? (run.round >= 11 ? airCounters : run.round >= 7 ? 1 : 0) : 0;
@@ -70,7 +82,7 @@ for (const mode of modes)
         x: 0,
         z: 0,
         rotation: 0,
-        targeting: kind === 'crane' ? 'Highest' : 'Nearest',
+        targeting: kind === 'crane' && airTarget === 'highest' ? 'Highest' : 'Nearest',
       };
       const a = arenaFor(arena, run.round, run.seed);
       if (!hay) a.obstacles = a.obstacles.filter((o) => !o.loose);
@@ -145,6 +157,13 @@ for (const mode of modes)
         while (run.fleet.length >= rosterSize && run.fleet.length < targetFleet)
           if (!buy(extras[run.fleet.length - rosterSize])) break;
       }
+      if (reinforce && plan !== 'basic' && round >= 35) {
+        const reinforcements = ['excavator', 'mixer', 'baler', 'sprayer'] as const;
+        while (reinforcementsBought < reinforcements.length) {
+          if (!buy(reinforcements[reinforcementsBought])) break;
+          reinforcementsBought++;
+        }
+      }
       // Spread affordable tiers before saving for a costly signature transformation.
       for (const tier of [1, 2, 3, 4, 5]) {
         // Layer removal cuts splitting work; acid supplies wide armor coverage.
@@ -167,8 +186,17 @@ for (const mode of modes)
           const airDamage = v.kind === 'crane' || v.kind === 'blower';
           // Keep an armor-capable air specialist while varying the ground
           // fleet's commitment. Mobility builds still need role coverage.
-          const primary: PathName = airDamage ? 'attack' : (primaryPath as PathName);
-          const secondary: PathName = airDamage || primary === 'attack' ? 'unique' : 'attack';
+          const primary: PathName = airDamage
+            ? 'attack'
+            : primaryScope === 'all' || v.kind === 'harvester'
+              ? (primaryPath as PathName)
+              : 'unique';
+          const secondary: PathName =
+            airDamage || primary === 'attack'
+              ? 'unique'
+              : primary === 'speed' || primary === 'traction'
+                ? (mobilitySecondary as PathName)
+                : 'attack';
           const goal =
             plan === 'basic' ? 2 : round >= 25 ? 5 : round >= 16 ? 4 : round >= 8 ? 3 : 2;
           if (round >= 8 && tier <= goal && v.upgrades[primary] < tier) upgrade(v, primary);
@@ -180,10 +208,18 @@ for (const mode of modes)
           if (run.abilities[ability] === undefined || (round >= 20 && run.abilities[ability]! < 2))
             run = purchaseAbility(run, ability);
       }
+      const preparation = {
+        cash: run.cash,
+        abilities: { ...run.abilities },
+        fleet: structuredClone(run.fleet),
+      };
       const sim = new Simulation(run, hay, surfaces);
       let peak = 0;
       while (!sim.summary) {
-        if (plan !== 'basic' && sim.tick % 900 === 0) {
+        if (plan !== 'basic' && tactics === 'responsive' && sim.tick % 60 === 0) {
+          for (const command of responsiveCommands(sim)) sim.enqueue(command);
+        }
+        if (plan !== 'basic' && tactics === 'periodic' && sim.tick % 900 === 0) {
           for (const v of sim.vehicles)
             if (v.upgrades.unique >= 3) sim.enqueue({ ability: 'vehicle', vehicleId: v.id });
           const high = sim.balloons.filter((b) => b.kind === 'high').length;
@@ -225,6 +261,15 @@ for (const mode of modes)
           ]),
         ),
         remainingArmored: sim.balloons.filter((b) => b.armor).length,
+        preparation,
+        vehicleResults: sim.vehicles.map((v) => ({
+          id: v.id,
+          kind: v.kind,
+          pops: v.pops,
+          state: v.state,
+          x: v.x,
+          z: v.z,
+        })),
       });
       if (args.progress)
         console.error(
@@ -249,10 +294,17 @@ for (const mode of modes)
       surfaces,
       reserveAir,
       airCounters,
+      airTarget,
+      tactics,
+      reinforce,
       plan,
       primaryPath,
+      primaryScope,
+      mobilitySecondary,
       seed,
+      requestedRounds: rounds,
       survived: run.lives > 0 && run.round === rounds,
+      campaignCompleted: run.lives > 0 && run.round === MODES[mode].rounds,
       round: run.round,
       lives: run.lives,
       cash: run.cash,
@@ -273,6 +325,6 @@ for (const mode of modes)
   }
 mkdirSync('artifacts', { recursive: true });
 writeFileSync(
-  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}${args.primary ? `-primary-${primaryPath}` : ''}${args['air-counters'] ? `-air-counters-${airCounters}` : ''}.json`,
+  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}${args.primary ? `-primary-${primaryPath}` : ''}${args['primary-scope'] ? `-primary-scope-${primaryScope}` : ''}${args['mobility-secondary'] ? `-mobility-secondary-${mobilitySecondary}` : ''}${args['air-counters'] ? `-air-counters-${airCounters}` : ''}${args['air-target'] ? `-air-target-${airTarget}` : ''}${args.tactics ? `-tactics-${tactics}` : ''}${reinforce ? '-reinforced' : ''}${args.rounds ? `-through-${args.rounds}` : ''}.json`,
   JSON.stringify(reports, null, 2),
 );

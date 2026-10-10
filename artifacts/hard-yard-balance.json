@@ -1,0 +1,2448 @@
+{
+  "rulesCommit": "0cba01f",
+  "mode": "hard",
+  "arena": "yard",
+  "requestedRounds": 60,
+  "startingCash": 650,
+  "startingLives": 50,
+  "hay": true,
+  "surfaces": true,
+  "attempts": 18,
+  "completed": 6,
+  "simulatedRounds": 730,
+  "auditedPurchaseRounds": 626,
+  "checks": [
+    "Sequential rounds and full-campaign completion",
+    "50-life accounting",
+    "180-second timeout and 300-body limit",
+    "Legal two-path builds and tier caps",
+    "Exact vehicle/upgrade/ability prices",
+    "Every recorded preparation budget reconciles with prior income"
+  ],
+  "limitations": "Deterministic purchasing and static deployment policies, not human win rates or proof that every composition wins. Air tools use Attack primary to cover armored high-flyers. Five legacy-policy attempts predate per-round purchase snapshots; budget checks apply to the 13 newer attempts.",
+  "cases": [
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-attack-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "attack",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 57,
+      "lives": 0,
+      "lost": 174,
+      "averageSeconds": 117.8,
+      "slowestSeconds": 180,
+      "cash": 99780,
+      "fleetSize": 8,
+      "paidTotal": 47198,
+      "pops": 109366,
+      "hayCrushed": 216,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 56,
+          "lost": 1,
+          "remaining": {
+            "basic": 1,
+            "layered": 0,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 173,
+          "remaining": {
+            "basic": 15,
+            "layered": 48,
+            "armored": 5,
+            "high": 0,
+            "carrier": 4
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-attack-air-counters-2.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "attack",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "highest",
+      "tactics": "periodic",
+      "reinforce": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "lost": 79,
+      "averageSeconds": 107,
+      "slowestSeconds": 180,
+      "cash": 2596,
+      "fleetSize": 6,
+      "paidTotal": null,
+      "pops": 13276,
+      "hayCrushed": 52,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 9,
+          "lost": 28,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 14,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 22,
+          "lost": 20,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 10,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 31,
+          "remaining": {
+            "basic": 2,
+            "layered": 0,
+            "armored": 0,
+            "high": 12,
+            "carrier": 1
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-speed-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "speed",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 26,
+      "lives": 0,
+      "lost": 60,
+      "averageSeconds": 102.4,
+      "slowestSeconds": 180,
+      "cash": 3568,
+      "fleetSize": 7,
+      "paidTotal": 26629,
+      "pops": 19192,
+      "hayCrushed": 66,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 20,
+          "lost": 26,
+          "remaining": {
+            "basic": 4,
+            "layered": 6,
+            "armored": 2,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 3,
+          "remaining": {
+            "basic": 1,
+            "layered": 2,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 26,
+          "lost": 27,
+          "remaining": {
+            "basic": 3,
+            "layered": 3,
+            "armored": 3,
+            "high": 0,
+            "carrier": 1
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-speed-air-counters-2.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "speed",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "highest",
+      "tactics": "periodic",
+      "reinforce": false,
+      "completed": false,
+      "round": 22,
+      "lives": 0,
+      "lost": 54,
+      "averageSeconds": 112.1,
+      "slowestSeconds": 180,
+      "cash": 2612,
+      "fleetSize": 6,
+      "paidTotal": null,
+      "pops": 11384,
+      "hayCrushed": 56,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 9,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 19,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 20,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 21,
+          "lost": 8,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 4,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 22,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 4,
+            "traction": 0,
+            "unique": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-speed-primary-scope-harvester-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "speed",
+      "primaryScope": "harvester",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 42,
+      "lives": 0,
+      "lost": 50,
+      "averageSeconds": 111.1,
+      "slowestSeconds": 180,
+      "cash": 23059,
+      "fleetSize": 8,
+      "paidTotal": 46871,
+      "pops": 46647,
+      "hayCrushed": 135,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 42,
+          "lost": 50,
+          "remaining": {
+            "basic": 10,
+            "layered": 10,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "traction",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 25,
+      "lives": 0,
+      "lost": 82,
+      "averageSeconds": 96.9,
+      "slowestSeconds": 180,
+      "cash": 2764,
+      "fleetSize": 7,
+      "paidTotal": 24740,
+      "pops": 17086,
+      "hayCrushed": 51,
+      "hayPushed": 17,
+      "losses": [
+        {
+          "round": 21,
+          "lost": 4,
+          "remaining": {
+            "basic": 1,
+            "layered": 1,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 22,
+          "lost": 8,
+          "remaining": {
+            "basic": 2,
+            "layered": 2,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 19,
+          "remaining": {
+            "basic": 3,
+            "layered": 4,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 15,
+          "remaining": {
+            "basic": 1,
+            "layered": 6,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 25,
+          "lost": 36,
+          "remaining": {
+            "basic": 9,
+            "layered": 5,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 4,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-air-counters-2.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "traction",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "highest",
+      "tactics": "periodic",
+      "reinforce": false,
+      "completed": false,
+      "round": 15,
+      "lives": 0,
+      "lost": 66,
+      "averageSeconds": 94.5,
+      "slowestSeconds": 180,
+      "cash": 1053,
+      "fleetSize": 5,
+      "paidTotal": null,
+      "pops": 3370,
+      "hayCrushed": 10,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 9,
+          "lost": 10,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 5,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 13,
+          "lost": 16,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 8,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 15,
+          "lost": 40,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 20,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 2,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 2,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 2,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 1
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-primary-scope-harvester-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "traction",
+      "primaryScope": "harvester",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 25,
+      "lives": 0,
+      "lost": 116,
+      "averageSeconds": 91.8,
+      "slowestSeconds": 180,
+      "cash": 2535,
+      "fleetSize": 7,
+      "paidTotal": 24997,
+      "pops": 17025,
+      "hayCrushed": 45,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 25,
+          "lost": 116,
+          "remaining": {
+            "basic": 12,
+            "layered": 30,
+            "armored": 7,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-unique-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "unique",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": true,
+      "round": 60,
+      "lives": 43,
+      "lost": 7,
+      "averageSeconds": 114.8,
+      "slowestSeconds": 180,
+      "cash": 88441,
+      "fleetSize": 8,
+      "paidTotal": 50113,
+      "pops": 97583,
+      "hayCrushed": 195,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 42,
+          "lost": 4,
+          "remaining": {
+            "basic": 1,
+            "layered": 1,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 47,
+          "lost": 3,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73429-hard-yard-hay-surfaces-on-air-reserve-primary-unique-air-counters-2.json",
+      "seed": 73429,
+      "plan": "balanced",
+      "primary": "unique",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "highest",
+      "tactics": "periodic",
+      "reinforce": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "lost": 136,
+      "averageSeconds": 106.7,
+      "slowestSeconds": 180,
+      "cash": 2338,
+      "fleetSize": 6,
+      "paidTotal": null,
+      "pops": 13176,
+      "hayCrushed": 65,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 9,
+          "lost": 28,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 14,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 20,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 22,
+          "lost": 10,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 5,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 92,
+          "remaining": {
+            "basic": 4,
+            "layered": 16,
+            "armored": 13,
+            "high": 3,
+            "carrier": 1
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73531-hard-yard-hay-surfaces-on-air-reserve-primary-unique-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73531,
+      "plan": "balanced",
+      "primary": "unique",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": true,
+      "round": 60,
+      "lives": 20,
+      "lost": 30,
+      "averageSeconds": 117.3,
+      "slowestSeconds": 180,
+      "cash": 87684,
+      "fleetSize": 8,
+      "paidTotal": 50113,
+      "pops": 96890,
+      "hayCrushed": 204,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 23,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 54,
+          "lost": 10,
+          "remaining": {
+            "basic": 1,
+            "layered": 2,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 60,
+          "lost": 18,
+          "remaining": {
+            "basic": 2,
+            "layered": 3,
+            "armored": 2,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-balanced-73531-hard-yard-hay-surfaces-on-air-reserve-primary-unique-air-counters-2.json",
+      "seed": 73531,
+      "plan": "balanced",
+      "primary": "unique",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "highest",
+      "tactics": "periodic",
+      "reinforce": false,
+      "completed": false,
+      "round": 21,
+      "lives": 0,
+      "lost": 70,
+      "averageSeconds": 107.3,
+      "slowestSeconds": 180,
+      "cash": 2294,
+      "fleetSize": 6,
+      "paidTotal": null,
+      "pops": 9559,
+      "hayCrushed": 32,
+      "hayPushed": 0,
+      "losses": [
+        {
+          "round": 8,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 11,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 20,
+          "lost": 14,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 7,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 21,
+          "lost": 46,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 23,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-attack-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "attack",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": true,
+      "round": 60,
+      "lives": 50,
+      "lost": 0,
+      "averageSeconds": 88.8,
+      "slowestSeconds": 171.9,
+      "cash": 103210,
+      "fleetSize": 10,
+      "paidTotal": 60023,
+      "pops": 121284,
+      "hayCrushed": 141,
+      "hayPushed": 102,
+      "losses": [],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-speed-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "speed",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": true,
+      "round": 60,
+      "lives": 1,
+      "lost": 49,
+      "averageSeconds": 111.7,
+      "slowestSeconds": 180,
+      "cash": 112159,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "pops": 121192,
+      "hayCrushed": 231,
+      "hayPushed": 152,
+      "losses": [
+        {
+          "round": 44,
+          "lost": 11,
+          "remaining": {
+            "basic": 1,
+            "layered": 2,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 38,
+          "remaining": {
+            "basic": 2,
+            "layered": 7,
+            "armored": 5,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 5,
+            "traction": 0,
+            "unique": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-speed-mobility-secondary-unique-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "speed",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": true,
+      "round": 60,
+      "lives": 25,
+      "lost": 25,
+      "averageSeconds": 109.6,
+      "slowestSeconds": 180,
+      "cash": 112268,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "pops": 121243,
+      "hayCrushed": 201,
+      "hayPushed": 136,
+      "losses": [
+        {
+          "round": 51,
+          "lost": 10,
+          "remaining": {
+            "basic": 0,
+            "layered": 2,
+            "armored": 0,
+            "high": 0,
+            "carrier": 1
+          },
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 2,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 58,
+          "lost": 9,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 3,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "traction",
+      "primaryScope": "all",
+      "secondary": "attack",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 40,
+      "lives": 0,
+      "lost": 69,
+      "averageSeconds": 101.5,
+      "slowestSeconds": 180,
+      "cash": 32051,
+      "fleetSize": 10,
+      "paidTotal": 43305,
+      "pops": 53639,
+      "hayCrushed": 106,
+      "hayPushed": 104,
+      "losses": [
+        {
+          "round": 40,
+          "lost": 69,
+          "remaining": {
+            "basic": 5,
+            "layered": 15,
+            "armored": 11,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 5,
+            "unique": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-mobility-secondary-unique-air-counters-2-air-target-nearest-tactics-responsive-reinforced.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "traction",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": true,
+      "completed": true,
+      "round": 60,
+      "lives": 32,
+      "lost": 18,
+      "averageSeconds": 111.4,
+      "slowestSeconds": 180,
+      "cash": 106819,
+      "fleetSize": 14,
+      "paidTotal": 55521,
+      "pops": 121260,
+      "hayCrushed": 281,
+      "hayPushed": 239,
+      "losses": [
+        {
+          "round": 57,
+          "lost": 7,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 58,
+          "lost": 1,
+          "remaining": {
+            "basic": 1,
+            "layered": 0,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 60,
+          "lost": 10,
+          "remaining": {
+            "basic": 0,
+            "layered": 3,
+            "armored": 2,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        }
+      ]
+    },
+    {
+      "source": "artifacts/balance-expanded-73429-hard-yard-hay-surfaces-on-air-reserve-primary-traction-mobility-secondary-unique-air-counters-2-air-target-nearest-tactics-responsive.json",
+      "seed": 73429,
+      "plan": "expanded",
+      "primary": "traction",
+      "primaryScope": "all",
+      "secondary": "unique",
+      "airTarget": "nearest",
+      "tactics": "responsive",
+      "reinforce": false,
+      "completed": false,
+      "round": 51,
+      "lives": 0,
+      "lost": 56,
+      "averageSeconds": 113.8,
+      "slowestSeconds": 180,
+      "cash": 76353,
+      "fleetSize": 10,
+      "paidTotal": 43305,
+      "pops": 88143,
+      "hayCrushed": 185,
+      "hayPushed": 156,
+      "losses": [
+        {
+          "round": 40,
+          "lost": 3,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 43,
+          "lost": 14,
+          "remaining": {
+            "basic": 0,
+            "layered": 2,
+            "armored": 3,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 44,
+          "lost": 22,
+          "remaining": {
+            "basic": 1,
+            "layered": 3,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 47,
+          "lost": 3,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 48,
+          "lost": 3,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        },
+        {
+          "round": 51,
+          "lost": 11,
+          "remaining": {
+            "basic": 1,
+            "layered": 1,
+            "armored": 2,
+            "high": 0,
+            "carrier": 0
+          },
+          "pending": 0
+        }
+      ],
+      "finalBuilds": [
+        {
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "baler",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "crane",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "blower",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        },
+        {
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          }
+        }
+      ]
+    }
+  ]
+}

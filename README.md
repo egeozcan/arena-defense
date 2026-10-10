@@ -37,6 +37,7 @@ npm run balance -- --plan=expanded # Exercise the eight-vehicle roster
 npm run balance -- --plan=basic # Compare a modest four-vehicle fleet
 npm run balance -- --plan=expanded --primary=speed --reserve-air=on # Compare a ground-path commitment
 npm run balance -- --mode=hard --arena=yard --seed=73429
+npm run balance -- --plan=balanced --mode=hard --arena=yard --primary=unique --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
 ```
 
 ## GitHub Pages deployment
@@ -129,7 +130,17 @@ The garage previews each tier's damage, attack rate, speed, reach, height, armor
 
 With `--reserve-air=on`, the runner reserves a crane before round 8. Adding `--air-counters=2` also prioritizes a second crane from round 11, delaying other purchases and upgrades until it is affordable. This tests the cost of stronger aerial coverage using normal prices and placements.
 
-Current path comparisons used seed 73429, the expanded roster, Medium yard, normal hay/surfaces, and reserved air coverage through round 30:
+`--air-target=nearest|highest` controls crane targeting. Nearest matches the shop's default and considers reachable firing positions; Highest deliberately prioritizes altitude even when another target is closer. `--tactics=responsive` reacts once per second: it waits for targets before using abilities, boosts eligible tools according to nearby threats and available coverage, and aims pitchforks at clusters. The simulation still enforces all bought charges and cooldowns. The original Highest/15-second periodic policy remains the runner's default and can be selected explicitly with `--air-target=highest --tactics=periodic` for counterfactual checks.
+
+`--primary-scope=harvester` applies the selected primary to harvesters while other ground chassis take Specialist and air tools take Attack. This exercises a mixed fleet with mobility on headers and crowd/armor control on its supporting tools. The default scope, `all`, applies the selected primary to every ground chassis.
+
+For Speed/Traction primaries, `--mobility-secondary=unique` selects Specialist tier 2 instead of Attack tier 2. Both secondaries cost the same, but geometry/height/piercing compete with reload and damage. Air tools retain Attack-primary/Specialist-secondary coverage in either case. The default mobility secondary remains Attack for comparison with earlier reports.
+
+`--reinforce=on` buys another excavator, mixer, baler, and sprayer from round 35 as cash and legal placement permit. They pay normal chassis and upgrade prices and use the selected ground paths. This grows the expanded fleet from ten to fourteen vehicles, trading more occupied space and purchases for additional crowd coverage.
+
+New reports distinguish surviving the requested number of rounds from `campaignCompleted`, which requires the mode's final round. Limited runs include `-through-N` in their filenames so they cannot overwrite a full campaign. Each round records its starting cash, full deployment/upgrades, ability ranks, remaining balloon types, queued spawns, and individual vehicle pop counts.
+
+The earlier Medium yard path comparisons used seed 73429, the expanded roster, normal hay/surfaces, and reserved air coverage through round 30:
 
 | Ground primary | Lives remaining | Average wave time | Cash remaining |
 | --- | ---: | ---: | ---: |
@@ -137,7 +148,35 @@ Current path comparisons used seed 73429, the expanded roster, Medium yard, norm
 | Speed | 98 | 95.2 s | $3,576 |
 | Traction | 100 | 93.5 s | $3,186 |
 
-All three survived with nine vehicles, with different losses, time, savings, and hay handling. These fixed purchasing/placement policies demonstrate viable alternatives rather than equal performance or optimal play. The Specialist expanded fleet also completed Easy in both arenas, Medium barn, and Hard barn. Its early Medium yard run survived with 86 lives when reserving a crane, versus failing at round 11 without that reserve. The broad Hard yard policies with one or two early cranes failed at round 13 with shallow upgrades; their escapes were all high-flyers. The focused four-role plan with two cranes survived through round 13 with 22 lives and five vehicles, spending more on its core tools instead of widening the roster. That is an early-wave check, not a completed Hard yard campaign. Coverage investment and placement remain consequential. Per-round data and final builds are saved in the `artifacts/balance-*-primary-*.json` reports.
+All three survived with nine vehicles, with different losses, time, savings, and hay handling. These fixed purchasing/placement policies demonstrate viable alternatives rather than equal performance or optimal play. The Specialist expanded fleet also completed Easy in both arenas, Medium barn, and Hard barn. Its early Medium yard run survived with 86 lives when reserving a crane, versus failing at round 11 without that reserve. Earlier broad Hard yard policies with one or two early cranes failed at round 13 with shallow upgrades; their escapes were all high-flyers. The focused four-role plan's original 13-round report is preserved with a `-through-13` suffix. Extending that Highest/periodic policy to the full Hard yard campaign failed on round 23 for seed 73429 and round 21 for seed 73531. Coverage investment, targeting, and placement remain consequential. Per-round data and final builds are saved in the `artifacts/balance-*-primary-*.json` reports.
+
+A full **60-round Hard yard audit** now covers eighteen attempts and 730 simulated rounds against gameplay rules at commit `0cba01f`. All attempts start with $650 and 50 lives, normal hay and surfaces, and the normal prices, two-path/5+2 cap, ability charges, 180-second timer, and 300-body limit. Six attempts completed the campaign, including a successful fleet for every ground primary. These successful cases use Nearest cranes, two reserved air counters, and the responsive ability policy; air tools take Attack 5 / Specialist 2 for armored high-flyers.
+
+| Ground build | Plan / final vehicles | Seed | Lives after round 60 | Mean wave time | Total paid |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Specialist 5 + Attack 2 | Balanced / 8 | 73429 | 43 | 114.8 s | $50,113 |
+| Specialist 5 + Attack 2 | Balanced / 8 | 73531 | 20 | 117.3 s | $50,113 |
+| Attack 5 + Specialist 2 | Expanded / 10 | 73429 | 50 | 88.8 s | $60,023 |
+| Speed 5 + Attack 2 | Expanded / 10 | 73429 | 1 | 111.7 s | $50,106 |
+| Speed 5 + Specialist 2 | Expanded / 10 | 73429 | 25 | 109.6 s | $50,106 |
+| Traction 5 + Specialist 2 | Expanded, reinforced / 14 | 73429 | 32 | 111.4 s | $55,521 |
+
+Total paid includes all vehicles, upgrades, and global abilities. Completion means lives remain after round 60; timed-out waves still incur their full weighted losses. The Attack fleet cleared every wave, while the other completed runs accepted some losses. These results demonstrate different workable commitments: Specialist's advanced tools supported a smaller roster; Speed used cheaper pursuit/cadence builds with broader tool geometry; Traction funded more tools and handled more hay while giving up advanced damage and signature abilities. The two Speed secondaries cost exactly the same, but changing from Attack to Specialist increased the surviving lives from 1 to 25 in this scenario.
+
+The failed cases are retained in [the complete audit](artifacts/hard-yard-balance.json). With the responsive policy, the focused Attack, Speed, and Traction fleets failed at rounds 57, 26, and 25. The ten-vehicle Traction fleet failed at round 40 with Attack secondary and round 51 with Specialist secondary; four paid reinforcements produced the successful fourteen-vehicle case. Mixed fleets with Speed or Traction only on harvesters failed at rounds 42 and 25. The five older Highest/periodic attempts all failed by round 23. Fleet roles, placement, targeting, and ability timing therefore matter alongside the selected upgrade path. This audit checks fixed strategies; it does not measure human win rates or guarantee every composition.
+
+The audit reconciles all **626 recorded preparation budgets** across the thirteen newer attempts against prior earnings and exact chassis, upgrade, and ability prices. It also verifies sequential rounds, life accounting, legal upgrade caps, timeouts, and the body limit. The five older attempts predate purchase snapshots and have no reconstructed spending totals. Per-round source reports preserve deployments, purchases, escapes, and individual vehicle contributions.
+
+Reproduce the successful strategies with:
+
+```sh
+npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=balanced --primary=unique --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
+npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=expanded --primary=attack --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
+npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=expanded --primary=speed --mobility-secondary=unique --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
+npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=expanded --primary=traction --mobility-secondary=unique --reinforce=on --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
+```
+
+Use seed `73531` on the first command for the second Specialist campaign. Use `--mobility-secondary=attack` on the Speed command for the one-life counterfactual. Gameplay stats did not need further changes for these campaign strategies to complete.
 
 Airflow tier 4 also increases horizontal reach to 9 m: its benefit applies to normal high-flyers, which stay within stock 12 m altitude coverage. Boom tier 4 slows nearby carriers by 60% and lowers those above 3 m to 3 m, within raised-header coverage. Carrier spawn bands are 2.5–3.5 m, so the old 4 m lowering effect could not help. Neither change raises low balloons. Demolisher trades pop income and Pop Rush charge for fewer targets: destroying a layered balloon awards only its outer pop, while leaving the splits to other tools earns their extra rewards.
 
@@ -221,7 +260,7 @@ The supplemental [coverage-focused Medium-yard run](artifacts/balance-balanced-7
 
 [Hay campaign data](artifacts/balance-expanded-73429-easy-medium-hard-barn-yard-hay.json) and [clear-floor counterfactual](artifacts/balance-expanded-73429-easy-medium-hard-barn-yard-clear.json) retain all per-round results and final upgrades.
 
-Hay did not call for a blanket damage or price change in these checks: individual builds retain modeled advantages, campaign life outcomes stayed similar in the paired conditions, and the failed policy can survive by changing its purchases. Existing Traction prices remain lower than damage/specialist prices, while the primary-path requirement prevents cheap secondary grip from erasing light vehicles' terrain weakness. Full campaign and additional-seed playtesting remain necessary to judge practical build popularity.
+Hay did not call for a blanket damage or price change in these checks: individual builds retain modeled advantages, campaign life outcomes stayed similar in the paired conditions, and the failed policy can survive by changing its purchases. Existing Traction prices remain lower than damage/specialist prices, while the primary-path requirement prevents cheap secondary grip from erasing light vehicles' terrain weakness. Additional seeds, fleet policies, and playtesting remain necessary to judge practical build popularity.
 
 The paired runner uses the expanded fleet plan, the same seed, the same difficulty, the same arenas, and the same purchase/ability policy. `--hay=off` removes loose terrain and carrier drops for the counterfactual; it retains the final vehicle and routing rules. Differences include the resulting balloon movement, firing lanes, clear rewards, deployment fits, and later affordable purchases. A faster hay run can therefore arise from altered clustering or routing; hay is not required to make every wave slower. The evidence covers the early game through the fifth initial bale and the first armor/high/carrier introductions, rather than claiming a completed Medium or Hard campaign or human win rates.
 

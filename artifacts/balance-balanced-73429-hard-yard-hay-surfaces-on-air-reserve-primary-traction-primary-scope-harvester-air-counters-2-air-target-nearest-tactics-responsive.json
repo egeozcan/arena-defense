@@ -1,0 +1,3701 @@
+[
+  {
+    "mode": "hard",
+    "arena": "yard",
+    "hay": true,
+    "surfaces": true,
+    "reserveAir": true,
+    "airCounters": 2,
+    "airTarget": "nearest",
+    "tactics": "responsive",
+    "plan": "balanced",
+    "primaryPath": "traction",
+    "primaryScope": "harvester",
+    "seed": 73429,
+    "requestedRounds": 60,
+    "survived": false,
+    "campaignCompleted": false,
+    "round": 25,
+    "lives": 0,
+    "cash": 2535,
+    "fleet": [
+      {
+        "kind": "harvester",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 5,
+          "unique": 0
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 4
+        }
+      },
+      {
+        "kind": "excavator",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 4
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 4,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 4,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      },
+      {
+        "kind": "sprayer",
+        "upgrades": {
+          "attack": 2,
+          "speed": 0,
+          "traction": 0,
+          "unique": 4
+        }
+      },
+      {
+        "kind": "crane",
+        "upgrades": {
+          "attack": 3,
+          "speed": 0,
+          "traction": 0,
+          "unique": 2
+        }
+      }
+    ],
+    "totalLost": 116,
+    "averageSeconds": 91.8,
+    "slowest": 180,
+    "peak": 300,
+    "results": [
+      {
+        "round": 1,
+        "pops": 41,
+        "lost": 0,
+        "lives": 50,
+        "cash": 491,
+        "fleet": 1,
+        "seconds": 19.2,
+        "peak": 41,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 218,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 41,
+            "state": "attacking",
+            "x": 15.743841575345249,
+            "z": 2.0048588590840453
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "pops": 54,
+        "lost": 0,
+        "lives": 50,
+        "cash": 293,
+        "fleet": 2,
+        "seconds": 37,
+        "peak": 47,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 5,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 21,
+            "state": "moving",
+            "x": 45.37005487577117,
+            "z": 39.67354420105163
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 33,
+            "state": "attacking",
+            "x": 34.08669701913499,
+            "z": 34.662433368856526
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "pops": 73,
+        "lost": 0,
+        "lives": 50,
+        "cash": 602,
+        "fleet": 2,
+        "seconds": 37,
+        "peak": 65,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 293,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 19,
+            "state": "attacking",
+            "x": 50.76823363367432,
+            "z": 3.5140923525804033
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 54,
+            "state": "idle",
+            "x": 40.477649562052804,
+            "z": 18.04914297332975
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "pops": 99,
+        "lost": 0,
+        "lives": 50,
+        "cash": 939,
+        "fleet": 2,
+        "seconds": 71.7,
+        "peak": 61,
+        "pending": 0,
+        "hayRemaining": 2,
+        "hayCrushed": 2,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 602,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 25,
+            "state": "idle",
+            "x": 39.08658018925236,
+            "z": 24.399612074368676
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 74,
+            "state": "attacking",
+            "x": 58.67753872496509,
+            "z": 44.6874706972382
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "pops": 139,
+        "lost": 0,
+        "lives": 50,
+        "cash": 724,
+        "fleet": 3,
+        "seconds": 46.8,
+        "peak": 80,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 345,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 594,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 30,
+            "state": "idle",
+            "x": 28.181330877021427,
+            "z": 10.123498543439243
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 69,
+            "state": "moving",
+            "x": 49.87933447702551,
+            "z": 26.42584023233422
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 40,
+            "state": "attacking",
+            "x": 41.60608023386513,
+            "z": 38.31753498227442
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "pops": 74,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1079,
+        "fleet": 3,
+        "seconds": 44.2,
+        "peak": 65,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 724,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 594,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 14,
+            "state": "idle",
+            "x": 32.39449091159876,
+            "z": 14.72004646499223
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 23,
+            "state": "idle",
+            "x": 43.34640497050202,
+            "z": 10.591415692891841
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 37,
+            "state": "attacking",
+            "x": 51.24262938291267,
+            "z": 23.174210003509945
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "pops": 129,
+        "lost": 0,
+        "lives": 50,
+        "cash": 759,
+        "fleet": 4,
+        "seconds": 69.6,
+        "peak": 55,
+        "pending": 0,
+        "hayRemaining": 2,
+        "hayCrushed": 2,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 323,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 432,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 486,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 594,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 756,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 29,
+            "state": "idle",
+            "x": 35.411878082770656,
+            "z": 10.811661920990817
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 32,
+            "state": "idle",
+            "x": 43.55867792476172,
+            "z": 23.44426276892039
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 68,
+            "state": "attacking",
+            "x": 42.45789564858463,
+            "z": 28.46519737996218
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 0,
+            "state": "idle",
+            "x": 40.009289264224044,
+            "z": 42.21738337956677
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "pops": 94,
+        "lost": 0,
+        "lives": 50,
+        "cash": 476,
+        "fleet": 4,
+        "seconds": 59.4,
+        "peak": 79,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 94,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 1,
+                "unique": 0
+              },
+              "spent": 627,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 772,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 756,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 25,
+            "state": "idle",
+            "x": 33.82517228076576,
+            "z": 37.037219445830914
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 24,
+            "state": "idle",
+            "x": 31.399846304275776,
+            "z": 23.219938687695787
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 24,
+            "state": "idle",
+            "x": 43.5321863861621,
+            "z": 42.09799776001888
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 21,
+            "state": "attacking",
+            "x": 57.05922915321844,
+            "z": 2.7478864337235853
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "pops": 165,
+        "lost": 0,
+        "lives": 50,
+        "cash": 544,
+        "fleet": 4,
+        "seconds": 29.1,
+        "peak": 70,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 71,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 1,
+                "unique": 0
+              },
+              "spent": 627,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 950,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 983,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 25,
+            "state": "idle",
+            "x": 53.06531639537543,
+            "z": 32.28580761847636
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 73,
+            "state": "idle",
+            "x": 50.23582256184232,
+            "z": 33.737547448185296
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 37,
+            "state": "idle",
+            "x": 45.906420659827674,
+            "z": 32.76908900161687
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 30,
+            "state": "attacking",
+            "x": 47.24318307987231,
+            "z": 14.565507218645067
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "pops": 129,
+        "lost": 0,
+        "lives": 50,
+        "cash": 690,
+        "fleet": 4,
+        "seconds": 97,
+        "peak": 84,
+        "pending": 0,
+        "hayRemaining": 6,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 209,
+          "abilities": {},
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 2,
+                "unique": 0
+              },
+              "spent": 735,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 950,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 20,
+            "state": "idle",
+            "x": 48.077034971741156,
+            "z": 11.160890411010625
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 33,
+            "state": "moving",
+            "x": 24.32053349891431,
+            "z": 43.503633183450354
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 69,
+            "state": "attacking",
+            "x": 9.208681468600245,
+            "z": 31.757061796142963
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 7,
+            "state": "idle",
+            "x": 48.846860469276194,
+            "z": 23.476217670676153
+          }
+        ]
+      },
+      {
+        "round": 11,
+        "pops": 428,
+        "lost": 0,
+        "lives": 50,
+        "cash": 940,
+        "fleet": 4,
+        "seconds": 62.4,
+        "peak": 100,
+        "pending": 0,
+        "hayRemaining": 7,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 150,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 2,
+                "unique": 0
+              },
+              "spent": 735,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 950,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 87,
+            "state": "idle",
+            "x": 22.259119961542254,
+            "z": 31.22793581571963
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 211,
+            "state": "moving",
+            "x": 26.882210496304396,
+            "z": 7.7429869184509545
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 89,
+            "state": "attacking",
+            "x": 22.661503959986334,
+            "z": 37.50122996329659
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 41,
+            "state": "idle",
+            "x": 46.55087766086035,
+            "z": 24.430767603966174
+          }
+        ]
+      },
+      {
+        "round": 12,
+        "pops": 398,
+        "lost": 0,
+        "lives": 50,
+        "cash": 910,
+        "fleet": 5,
+        "seconds": 96.7,
+        "peak": 138,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 184,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 2,
+                "unique": 0
+              },
+              "spent": 735,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 950,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 0,
+                "unique": 0
+              },
+              "spent": 756,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 83,
+            "state": "idle",
+            "x": 29.36900013121912,
+            "z": 34.06126309197135
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 178,
+            "state": "moving",
+            "x": 25.956372370402693,
+            "z": 38.16065547120314
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 128,
+            "state": "attacking",
+            "x": 28.159562993909585,
+            "z": 39.992023326748416
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 1,
+            "state": "idle",
+            "x": 43.28251469957578,
+            "z": 25.27437460585599
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 8,
+            "state": "idle",
+            "x": 50.1048961030721,
+            "z": 21.67210545271556
+          }
+        ]
+      },
+      {
+        "round": 13,
+        "pops": 494,
+        "lost": 0,
+        "lives": 50,
+        "cash": 912,
+        "fleet": 5,
+        "seconds": 112.2,
+        "peak": 123,
+        "pending": 0,
+        "hayRemaining": 3,
+        "hayCrushed": 2,
+        "hayPushed": 0,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 24,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 3,
+                "unique": 0
+              },
+              "spent": 1167,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 950,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 140,
+            "state": "idle",
+            "x": 39.26025745133115,
+            "z": 7.68150514628702
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 120,
+            "state": "attacking",
+            "x": 10.961344668052803,
+            "z": 33.49384275761514
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 191,
+            "state": "idle",
+            "x": 9.127532458106948,
+            "z": 37.21716482078151
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 10,
+            "state": "idle",
+            "x": 42.55219311712629,
+            "z": 8.212815576997757
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 33,
+            "state": "idle",
+            "x": 29.799954698073773,
+            "z": 6.226859413384065
+          }
+        ]
+      },
+      {
+        "round": 14,
+        "pops": 500,
+        "lost": 0,
+        "lives": 50,
+        "cash": 971,
+        "fleet": 5,
+        "seconds": 71.7,
+        "peak": 121,
+        "pending": 0,
+        "hayRemaining": 4,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 129,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 3,
+                "unique": 0
+              },
+              "spent": 1167,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1247,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 109,
+            "state": "idle",
+            "x": 19.66351561198304,
+            "z": 23.219444194175956
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 207,
+            "state": "attacking",
+            "x": 58.8728220979679,
+            "z": 22.3827699247082
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 172,
+            "state": "moving",
+            "x": 51.42944884401907,
+            "z": 29.563119953697008
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 3,
+            "state": "idle",
+            "x": 11.75015040690839,
+            "z": 27.49952683264938
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 9,
+            "state": "idle",
+            "x": 56.05572906901479,
+            "z": 17.062659893033295
+          }
+        ]
+      },
+      {
+        "round": 15,
+        "pops": 586,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1282,
+        "fleet": 5,
+        "seconds": 133.2,
+        "peak": 141,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 296,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 3,
+                "unique": 0
+              },
+              "spent": 1167,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1544,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1588,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 124,
+            "state": "idle",
+            "x": 41.69986633723318,
+            "z": 14.238012605357058
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 155,
+            "state": "moving",
+            "x": 9.928186559823134,
+            "z": 29.613592861773146
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 229,
+            "state": "attacking",
+            "x": 7.263664253583143,
+            "z": 30.105690680348996
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 33,
+            "state": "idle",
+            "x": 27.46030909384851,
+            "z": 20.501743808102496
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 45,
+            "state": "idle",
+            "x": 36.5282717670738,
+            "z": 22.477143127914847
+          }
+        ]
+      },
+      {
+        "round": 16,
+        "pops": 646,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1123,
+        "fleet": 6,
+        "seconds": 88.8,
+        "peak": 179,
+        "pending": 0,
+        "hayRemaining": 10,
+        "hayCrushed": 3,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 126,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 3,
+                "unique": 0
+              },
+              "spent": 1167,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1544,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 1210,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 1
+              },
+              "spent": 778,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 79,
+            "state": "idle",
+            "x": 1.526517132735662,
+            "z": 6.739628171532988
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 126,
+            "state": "moving",
+            "x": 28.714365438284332,
+            "z": 19.337533025421486
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 254,
+            "state": "attacking",
+            "x": 3.0099804049475383,
+            "z": 26.41473362005527
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 2,
+            "state": "idle",
+            "x": 24.437069484778142,
+            "z": 40.317675946146025
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 19,
+            "state": "idle",
+            "x": 42.334558298291995,
+            "z": 25.500714207839945
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 166,
+            "state": "moving",
+            "x": 4.57916722208237,
+            "z": 17.641702310298676
+          }
+        ]
+      },
+      {
+        "round": 17,
+        "pops": 614,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1241,
+        "fleet": 6,
+        "seconds": 95.9,
+        "peak": 159,
+        "pending": 0,
+        "hayRemaining": 0,
+        "hayCrushed": 0,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 124,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 3,
+                "unique": 0
+              },
+              "spent": 1167,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1544,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 1,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1021,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 158,
+            "state": "idle",
+            "x": 18.879873659364797,
+            "z": 22.149058173882004
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 155,
+            "state": "idle",
+            "x": 56.74930325357519,
+            "z": 17.718646754120247
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 157,
+            "state": "idle",
+            "x": 60.12976131763125,
+            "z": 17.397421543564256
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 34,
+            "state": "idle",
+            "x": 16.20628403890998,
+            "z": 15.93295847770314
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 26,
+            "state": "idle",
+            "x": 50.84175534397268,
+            "z": 33.73188062691252
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 84,
+            "state": "attacking",
+            "x": 62.47324969573212,
+            "z": 17.432518971466113
+          }
+        ]
+      },
+      {
+        "round": 18,
+        "pops": 783,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1191,
+        "fleet": 6,
+        "seconds": 78,
+        "peak": 204,
+        "pending": 0,
+        "hayRemaining": 6,
+        "hayCrushed": 1,
+        "hayPushed": 0,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 26,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 1847,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1544,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 146,
+            "state": "idle",
+            "x": 4.846804337070283,
+            "z": 35.85917127980362
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 276,
+            "state": "idle",
+            "x": 8.183861673854983,
+            "z": 11.55947089154492
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 203,
+            "state": "idle",
+            "x": 61.71909664832621,
+            "z": 16.09382711962497
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 2,
+            "state": "idle",
+            "x": 44.311475584165464,
+            "z": 32.72256018534534
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 16,
+            "state": "idle",
+            "x": 37.258251280477126,
+            "z": 20.04010416770101
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 140,
+            "state": "attacking",
+            "x": 59.00233125657074,
+            "z": 30.58798804764213
+          }
+        ]
+      },
+      {
+        "round": 19,
+        "pops": 730,
+        "lost": 0,
+        "lives": 50,
+        "cash": 1741,
+        "fleet": 6,
+        "seconds": 97.8,
+        "peak": 188,
+        "pending": 0,
+        "hayRemaining": 1,
+        "hayCrushed": 4,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 478,
+          "abilities": {
+            "boost": 0,
+            "gust": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 1847,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 2257,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1966,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 136,
+            "state": "idle",
+            "x": 3.4527289098582483,
+            "z": 22.6010569215107
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 130,
+            "state": "moving",
+            "x": 6.895059299780845,
+            "z": 12.717416689558991
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 206,
+            "state": "attacking",
+            "x": 6.375162366458702,
+            "z": 21.48937512314408
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 47,
+            "state": "idle",
+            "x": 29.610049273124467,
+            "z": 22.495277808324637
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 32,
+            "state": "idle",
+            "x": 30.47278420742925,
+            "z": 16.492504381219064
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 179,
+            "state": "moving",
+            "x": 9.089549142489595,
+            "z": 20.582020470309843
+          }
+        ]
+      },
+      {
+        "round": 20,
+        "pops": 1641,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2352,
+        "fleet": 6,
+        "seconds": 141.4,
+        "peak": 291,
+        "pending": 0,
+        "hayRemaining": 4,
+        "hayCrushed": 2,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 111,
+          "abilities": {
+            "boost": 1,
+            "gust": 1
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 1847,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 2257,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 1264,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 206,
+            "state": "idle",
+            "x": 12.034683503735632,
+            "z": 43.21728015229021
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 564,
+            "state": "attacking",
+            "x": 47.22807603038702,
+            "z": 23.831520878702126
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 374,
+            "state": "idle",
+            "x": 36.69252923010222,
+            "z": 27.547617174231224
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 39,
+            "state": "idle",
+            "x": 30.372016451015615,
+            "z": 12.830591470235758
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 114,
+            "state": "idle",
+            "x": 17.492378043001935,
+            "z": 12.58854292507553
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 344,
+            "state": "moving",
+            "x": 26.96112127808445,
+            "z": 25.965913323651623
+          }
+        ]
+      },
+      {
+        "round": 21,
+        "pops": 1777,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2368,
+        "fleet": 6,
+        "seconds": 155.4,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 10,
+        "hayCrushed": 7,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 19,
+          "abilities": {
+            "boost": 2,
+            "gust": 1
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 1847,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3683,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 3
+              },
+              "spent": 1847,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 228,
+            "state": "moving",
+            "x": 57.638416413222956,
+            "z": 43.38234017603722
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 683,
+            "state": "moving",
+            "x": 49.347038969735635,
+            "z": 26.049922002025472
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 399,
+            "state": "yielding",
+            "x": 55.70845717584415,
+            "z": 41.988405761213436
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 14,
+            "state": "idle",
+            "x": 29.79993231586985,
+            "z": 7.623215939491799
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 101,
+            "state": "idle",
+            "x": 50.17592629581867,
+            "z": 14.76106457003199
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 352,
+            "state": "attacking",
+            "x": 59.324773480101264,
+            "z": 24.596328298174633
+          }
+        ]
+      },
+      {
+        "round": 22,
+        "pops": 1819,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2439,
+        "fleet": 6,
+        "seconds": 152.3,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 14,
+        "hayCrushed": 5,
+        "hayPushed": 0,
+        "oil": 3,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 36,
+          "abilities": {
+            "boost": 2,
+            "gust": 1
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3683,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 209,
+            "state": "moving",
+            "x": 14.213807390326702,
+            "z": 6.31554066218884
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 532,
+            "state": "moving",
+            "x": 19.91154058239598,
+            "z": 21.716219277026696
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 500,
+            "state": "attacking",
+            "x": 14.524642825632665,
+            "z": 14.693149068220164
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 31,
+            "state": "idle",
+            "x": 22.10752191728549,
+            "z": 18.39434375398962
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 89,
+            "state": "idle",
+            "x": 30.00849822294587,
+            "z": 24.785111230034904
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 458,
+            "state": "moving",
+            "x": 9.599329069537921,
+            "z": 12.005920390816819
+          }
+        ]
+      },
+      {
+        "round": 23,
+        "pops": 1905,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2734,
+        "fleet": 6,
+        "seconds": 147.1,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 4,
+        "hayCrushed": 2,
+        "hayPushed": 0,
+        "oil": 2,
+        "rough": 2,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 225,
+          "abilities": {
+            "boost": 2,
+            "gust": 2,
+            "pitchfork": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3683,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 4,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 4158,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 284,
+            "state": "idle",
+            "x": 22.301794128604474,
+            "z": 4.836833439694118
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 451,
+            "state": "idle",
+            "x": 20.895606755872908,
+            "z": 9.597015178613248
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 478,
+            "state": "attacking",
+            "x": 15.06397545489046,
+            "z": 6.0484490281541605
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 58,
+            "state": "idle",
+            "x": 34.299996993193545,
+            "z": 40.082520170396926
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 72,
+            "state": "idle",
+            "x": 34.882087741609055,
+            "z": 24.794466388756696
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 551,
+            "state": "idle",
+            "x": 16.00314269521273,
+            "z": 2.8163848473574453
+          }
+        ]
+      },
+      {
+        "round": 24,
+        "pops": 1959,
+        "lost": 0,
+        "lives": 50,
+        "cash": 2652,
+        "fleet": 7,
+        "seconds": 171.9,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 15,
+        "hayCrushed": 3,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 0,
+        "remaining": {
+          "basic": 0,
+          "layered": 0,
+          "armored": 0,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 0,
+        "preparation": {
+          "cash": 88,
+          "abilities": {
+            "boost": 2,
+            "gust": 2,
+            "pitchfork": 0
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 4,
+                "unique": 0
+              },
+              "spent": 1556,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3683,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 4,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 4158,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 7,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 7,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 254,
+            "state": "idle",
+            "x": 45.6878696358643,
+            "z": 42.48695131927294
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 614,
+            "state": "idle",
+            "x": 40.777692943632836,
+            "z": 1.738183523999845
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 446,
+            "state": "yielding",
+            "x": 38.69221503272203,
+            "z": 25.513575873911947
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 13,
+            "state": "moving",
+            "x": 40.59534515636119,
+            "z": 24.648939764893758
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 90,
+            "state": "idle",
+            "x": 46.25538121048,
+            "z": 19.625522330156542
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 471,
+            "state": "attacking",
+            "x": 53.091939037847325,
+            "z": 41.87019438300788
+          },
+          {
+            "id": 7,
+            "kind": "crane",
+            "pops": 64,
+            "state": "idle",
+            "x": 33.12685382378711,
+            "z": 20.900300737947642
+          }
+        ]
+      },
+      {
+        "round": 25,
+        "pops": 1748,
+        "lost": 116,
+        "lives": 0,
+        "cash": 2535,
+        "fleet": 7,
+        "seconds": 180,
+        "peak": 300,
+        "pending": 0,
+        "hayRemaining": 18,
+        "hayCrushed": 12,
+        "hayPushed": 0,
+        "oil": 0,
+        "rough": 3,
+        "remaining": {
+          "basic": 12,
+          "layered": 30,
+          "armored": 7,
+          "high": 0,
+          "carrier": 0
+        },
+        "remainingArmored": 19,
+        "preparation": {
+          "cash": 206,
+          "abilities": {
+            "boost": 2,
+            "gust": 2,
+            "pitchfork": 1
+          },
+          "fleet": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 5,
+                "unique": 0
+              },
+              "spent": 2247,
+              "placed": true,
+              "x": 31,
+              "z": 23,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 7,
+              "z": 7,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 3,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3683,
+              "placed": true,
+              "x": 10,
+              "z": 3,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 4,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 4,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 4158,
+              "placed": true,
+              "x": 32,
+              "z": 42,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 4,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 4158,
+              "placed": true,
+              "x": 36,
+              "z": 27,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 6,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 4
+              },
+              "spent": 3013,
+              "placed": true,
+              "x": 2,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            },
+            {
+              "id": 7,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 3,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "spent": 2646,
+              "placed": true,
+              "x": 7,
+              "z": 2,
+              "rotation": 0,
+              "targeting": "Nearest"
+            }
+          ]
+        },
+        "vehicleResults": [
+          {
+            "id": 1,
+            "kind": "harvester",
+            "pops": 225,
+            "state": "moving",
+            "x": 42.757776781592305,
+            "z": 13.666140580678428
+          },
+          {
+            "id": 2,
+            "kind": "sprayer",
+            "pops": 811,
+            "state": "moving",
+            "x": 36.47525474357674,
+            "z": 9.681588410556854
+          },
+          {
+            "id": 3,
+            "kind": "excavator",
+            "pops": 481,
+            "state": "attacking",
+            "x": 40.174615613022475,
+            "z": 36.527117518489774
+          },
+          {
+            "id": 4,
+            "kind": "crane",
+            "pops": 81,
+            "state": "idle",
+            "x": 38.50634618053621,
+            "z": 25.565859380611435
+          },
+          {
+            "id": 5,
+            "kind": "crane",
+            "pops": 60,
+            "state": "idle",
+            "x": 40.73710736406623,
+            "z": 28.484350482421476
+          },
+          {
+            "id": 6,
+            "kind": "sprayer",
+            "pops": 19,
+            "state": "moving",
+            "x": 3.0052801882516555,
+            "z": 2.6819569211488354
+          },
+          {
+            "id": 7,
+            "kind": "crane",
+            "pops": 54,
+            "state": "idle",
+            "x": 25.795603853991267,
+            "z": 26.691794892991105
+          }
+        ]
+      }
+    ]
+  }
+]
