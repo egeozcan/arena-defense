@@ -17,7 +17,8 @@
     "balance": "tsx tools/balance.ts",
     "balance:frontier": "tsx tools/frontier.ts",
     "preview": "vite preview --host 127.0.0.1",
-    "format": "prettier --write src tools vite.config.ts"
+    "format": "prettier --write src tools vite.config.ts",
+    "balance:hay": "tsx tools/hay-balance.ts"
   },
   "dependencies": {
     "@dimforge/rapier3d-deterministic-compat": "^0.21.0",

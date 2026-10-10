@@ -1,10 +1,12 @@
 import { clearPosition, type Arena } from './data';
+import { hayContacts, hayOnSweep, type HayVehicle } from './hay';
 
 export interface TrafficBody {
   id: number;
   x: number;
   z: number;
   radius: number;
+  vehicle?: HayVehicle;
 }
 
 // Inflate parked and moving vehicles by the querying vehicle's chassis radius.
@@ -41,11 +43,14 @@ export function canTravel(
     dz = z - self.z,
     length2 = dx * dx + dz * dz;
   const samples = Math.max(1, Math.ceil(Math.sqrt(length2) / 0.2));
-  for (let i = 1; i <= samples; i++)
-    if (
-      !clearPosition(arena, self.x + (dx * i) / samples, self.z + (dz * i) / samples, self.radius)
-    )
-      return false;
+  if (hayOnSweep(arena, self, x, z)) {
+    if (!hayContacts(arena, self, x, z, bodies)) return false;
+  } else
+    for (let i = 1; i <= samples; i++)
+      if (
+        !clearPosition(arena, self.x + (dx * i) / samples, self.z + (dz * i) / samples, self.radius)
+      )
+        return false;
   return bodies.every((other) => {
     if (other.id === self.id) return true;
     const t = length2

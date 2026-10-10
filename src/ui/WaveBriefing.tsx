@@ -8,7 +8,15 @@ import {
   Shield,
   Wrench,
 } from 'lucide-react';
-import { BALLOONS, MODES, VEHICLES, price, type Run, type VehicleKind } from '../sim/data';
+import {
+  BALLOONS,
+  MODES,
+  VEHICLES,
+  arenaFor,
+  price,
+  type Run,
+  type VehicleKind,
+} from '../sim/data';
 import { armorLabel, vehicleStats } from '../sim/capabilities';
 import {
   coverageFor,
@@ -39,6 +47,7 @@ export function WaveBriefing({
   const info = useMemo(() => forecast(run), [run]);
   const changes = useMemo(() => futureChanges(run), [run]);
   const next = useMemo(() => forecast({ ...run, round: run.round + 1 }), [run]);
+  const hayCount = arenaFor(run.arena, run.round, run.seed).obstacles.filter((o) => o.loose).length;
   const hasNextRound = run.freeplay || run.round < MODES[run.mode].rounds;
   const unplaced = run.fleet.filter((v) => !v.placed);
   const purchaseKinds = [
@@ -135,8 +144,9 @@ export function WaveBriefing({
               </article>
             ))}
           </div>
-          {(info.fleeing > 0 || info.regen > 0) && (
+          {(hayCount > 0 || info.fleeing > 0 || info.regen > 0) && (
             <div className="wave-traits">
+              {hayCount > 0 && <span>{hayCount} loose hay bales</span>}
               {info.fleeing > 0 && <span>{info.fleeing} fleeing</span>}
               {info.regen > 0 && <span>{info.regen} regrowing</span>}
             </div>
@@ -264,6 +274,13 @@ export function WaveBriefing({
               </div>
             )}
             <div className="wave-behaviors">
+              {hayCount > 0 && (
+                <p>
+                  <b>Loose hay:</b> {hayCount} bales in the lanes. Harvesters and excavators clear
+                  them; dozers, balers and mixers push when there is room. Other chassis detour
+                  until Traction tier 3. Blade tier 3 lets dozers crush them.
+                </p>
+              )}
               {info.layers > 0 && (
                 <p>
                   <b>Layered:</b> each outer layer splits into two smaller balloons.

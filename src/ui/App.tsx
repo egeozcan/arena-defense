@@ -91,7 +91,7 @@ function loadRun(): Run {
       Array.isArray(r.fleet) &&
       r.lives > 0
     )
-      return { ...r, fleet: fitFleet(arenaFor(r.arena), r.fleet) };
+      return { ...r, fleet: fitFleet(arenaFor(r.arena, r.round, r.seed), r.fleet) };
   } catch {}
   return newRun();
 }
@@ -158,7 +158,7 @@ export default function App() {
   const interpolation = useRef(1);
   const owned = run.fleet.find((v) => v.id === selected);
   const liveVehicle = sim?.vehicles.find((v) => v.id === selected);
-  const arena = arenaFor(run.arena);
+  const arena = arenaFor(run.arena, run.round, run.seed);
   const placed = run.fleet.filter((v) => v.placed).length;
   const types = useMemo(
     () => waveTypes(run.round, run.seed, run.mode),
@@ -246,6 +246,7 @@ export default function App() {
             cash: r.cash + s.earned,
             lives: Math.max(0, r.lives - s.livesLost),
             round: terminal ? r.round : r.round + 1,
+            fleet: terminal ? r.fleet : fitFleet(arenaFor(r.arena, r.round + 1, r.seed), r.fleet),
           }));
           setPhase(terminal ? 'summary' : 'garage');
           latest.current.phase = terminal ? 'summary' : 'garage';
@@ -492,7 +493,11 @@ export default function App() {
     simRef.current?.dispose();
     simRef.current = null;
     setSim(null);
-    setRun((r) => ({ ...r, round: r.round + 1 }));
+    setRun((r) => ({
+      ...r,
+      round: r.round + 1,
+      fleet: fitFleet(arenaFor(r.arena, r.round + 1, r.seed), r.fleet),
+    }));
     setPhase('garage');
     setSelected(run.fleet[0]?.id ?? null);
     setPlacing(null);
@@ -1568,7 +1573,12 @@ export default function App() {
                 <button
                   className="primary full-width"
                   onClick={() => {
-                    setRun((r) => ({ ...r, freeplay: true, round: r.round + 1 }));
+                    setRun((r) => ({
+                      ...r,
+                      freeplay: true,
+                      round: r.round + 1,
+                      fleet: fitFleet(arenaFor(r.arena, r.round + 1, r.seed), r.fleet),
+                    }));
                     setPhase('setup');
                     simRef.current?.dispose();
                     simRef.current = null;

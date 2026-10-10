@@ -19,11 +19,13 @@ import {
   type Arena,
   type BalloonKind,
   type OwnedVehicle,
+  type Obstacle,
   type VehicleKind,
   type Run,
   type Spawn,
   type TargetMode,
 } from './data';
+import { hayContacts, hayDriveSpeed, hayHandling, hayOnSweep, touchesHay } from './hay';
 import { findPath, pathCosts } from './pathfinding';
 import { canTravel, trafficCells, yieldPath, type TrafficBody } from './traffic';
 import {
@@ -101,7 +103,7 @@ export interface SimVehicle extends OwnedVehicle, VehicleMotion {
   overdriveUntil: number;
   activeUntil: number;
   cooldown: number;
-  state: 'idle' | 'moving' | 'turning' | 'yielding' | 'attacking' | 'stuck';
+  state: 'idle' | 'moving' | 'turning' | 'yielding' | 'attacking' | 'stuck' | 'clearing';
   wait: number;
   blockedTicks: number;
   nextDrivePlan: number;
@@ -111,11 +113,8 @@ export interface SimVehicle extends OwnedVehicle, VehicleMotion {
   yieldUntil: number;
   blacklist: Record<number, number>;
 }
-export interface Bale {
+export interface Bale extends Obstacle {
   id: number;
-  x: number;
-  y: number;
-  z: number;
 }
 export interface PopEvent {
   id: number;
@@ -208,6 +207,9 @@ export class Simulation {
   balloons: Balloon[] = [];
   vehicles: SimVehicle[] = [];
   bales: Bale[] = [];
+  hayCrushed = 0;
+  hayPushed = 0;
+  private pushedHay = new Set<number>();
   events: PopEvent[] = [];
   attacks: AttackEvent[] = [];
   shots: BaleShot[] = [];
@@ -232,10 +234,16 @@ export class Simulation {
   private vbodies = new Map<number, RAPIER.RigidBody>();
   private yieldRequests = new Map<number, { requester: number; until: number }>();
   private movementProgress = new Map<number, { x: number; z: number; tick: number }>();
-  constructor(run: Run) {
-    run = { ...run, fleet: fitFleet(arenaFor(run.arena), run.fleet) };
+  constructor(
+    run: Run,
+    private readonly looseHay = true,
+  ) {
+    run = {
+      ...run,
+      fleet: fitFleet(arenaFor(run.arena, looseHay ? run.round : 1, run.seed), run.fleet),
+    };
     this.run = structuredClone(run);
-    this.arena = arenaFor(run.arena);
+    this.arena = arenaFor(run.arena, looseHay ? run.round : 1, run.seed);
     this.rng = new Random(run.seed + run.round * 331);
     this.wave = waveFor(run.round, run.seed, run.mode);
     this.world = new RAPIER.World({ x: 0, y: -9.81, z: 0 });
@@ -252,7 +260,10 @@ export class Simulation {
     fixed(a.width / 2, a.ceiling / 2, -0.5, a.width, a.ceiling, 1);
     fixed(a.width / 2, a.ceiling / 2, a.depth + 0.5, a.width, a.ceiling, 1);
     fixed(a.width / 2, a.ceiling + 0.5, a.depth / 2, a.width, 1, a.depth);
-    for (const o of a.obstacles) fixed(o.x, o.h / 2, o.z, o.w, o.h, o.d);
+    for (const o of a.obstacles) {
+      if (o.loose) this.addHay(o as Bale);
+      else fixed(o.x, o.h / 2, o.z, o.w, o.h, o.d);
+    }
     for (const owned of run.fleet.filter((v) => v.placed)) {
       const [w, d] = footprint(owned);
       const v: SimVehicle = {
@@ -414,6 +425,7 @@ export class Simulation {
     );
   }
   vehicleStatus(v: SimVehicle) {
+    if (v.state === 'clearing') return 'Clearing hay';
     if (v.yieldUntil > this.tick || v.state === 'yielding') return 'Yielding to traffic';
     if (v.state === 'turning') return 'Turning into position';
     if (v.wait > 0) return 'Waiting for traffic';
@@ -917,19 +929,33 @@ export class Simulation {
         else b.hp = Math.min(b.maxHp, b.hp + 1);
       }
       if (
+        this.looseHay &&
         b.kind === 'carrier' &&
         this.tick > b.spawned &&
         (this.tick - b.spawned) % 1200 === 0 &&
         this.bales.length < 20
       ) {
         const id = this.nextId++;
-        const bale = { id, x: b.x, y: 0.45, z: b.z };
-        this.bales.push(bale);
-        const body = this.world.createRigidBody(
-          RAPIER.RigidBodyDesc.dynamic().setTranslation(b.x, 0.5, b.z),
-        );
-        this.world.createCollider(RAPIER.ColliderDesc.cuboid(0.65, 0.45, 0.45).setDensity(4), body);
-        this.baleBodies.set(id, body);
+        const bale: Bale = {
+          id,
+          x: b.x,
+          z: b.z,
+          w: 1.4,
+          d: 1,
+          h: 0.9,
+          kind: 'hay',
+          loose: true,
+          integrity: 1,
+        };
+        // A carrier cannot drop a bale inside scenery, traffic, or existing hay.
+        if (
+          clearPosition(this.arena, bale.x, bale.z, 0.9) &&
+          !this.vehicles.some((v) => touchesHay(bale, v.x, v.z, vehicleRadius(v)))
+        ) {
+          this.arena.obstacles.push(bale);
+          this.addHay(bale);
+          this.invalidateHayRoutes();
+        }
       }
     }
     const traffic = this.vehicles.map((v) => ({
@@ -937,6 +963,7 @@ export class Simulation {
       x: v.x,
       z: v.z,
       radius: vehicleRadius(v),
+      vehicle: v,
     }));
     const claimed = new Set<number>();
     // Rotate right of way so insertion order cannot starve the same vehicle forever.
@@ -957,7 +984,7 @@ export class Simulation {
         let candidates = this.balloons.filter((b) => this.eligible(v, b));
         const costs =
           v.targeting === 'Nearest'
-            ? pathCosts(this.arena, v.x, v.z, s.traction, vehicleRadius(v))
+            ? pathCosts(this.arena, v.x, v.z, s.traction, vehicleRadius(v), v)
             : null;
         const distances = new Map(candidates.map((b) => [b.id, Math.hypot(b.x - v.x, b.z - v.z)]));
         // Vehicles need a reachable firing position, not a path onto the balloon's cell.
@@ -1109,6 +1136,7 @@ export class Simulation {
             s.range - 0.15,
             vehicleRadius(v),
             v.kind === 'baler' ? (x, z) => this.clearToolPosition(v, target, x, z) : undefined,
+            v,
           );
           v.nextPath = this.tick + 45;
           const end = v.path.at(-1);
@@ -1137,16 +1165,18 @@ export class Simulation {
         if (aligningHeader) point = [target.x, target.z];
         if (point) {
           let terrain = grip(this.arena, v.x, v.z);
-          if (this.bales.some((b) => Math.hypot(b.x - v.x, b.z - v.z) < 1)) terrain = 0.6;
           const traction = terrainSpeedFactor(v, terrain);
-          const speed =
+          const speed = hayDriveSpeed(
+            this.arena,
+            body,
             s.speed *
-            Math.min(
-              2.5,
-              (v.boostUntil > this.tick || v.activeUntil > this.tick ? 2 : 1) *
-                (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
-            ) *
-            traction;
+              Math.min(
+                2.5,
+                (v.boostUntil > this.tick || v.activeUntil > this.tick ? 2 : 1) *
+                  (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
+              ) *
+              traction,
+          );
           const wheeled = v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer';
           if (
             wheeled &&
@@ -1245,12 +1275,6 @@ export class Simulation {
     this.advanceBales();
     this.winds = this.winds.filter((wind) => wind.until > this.tick);
     this.world.step();
-    for (const bale of this.bales) {
-      const p = this.baleBodies.get(bale.id)!.translation();
-      bale.x = p.x;
-      bale.y = p.y;
-      bale.z = p.z;
-    }
     for (const b of this.balloons) {
       const p = this.bodies.get(b.id)!.translation();
       b.x = p.x;
@@ -1267,6 +1291,28 @@ export class Simulation {
       this.finish(this.balloons.length === 0 && this.pending === 0 ? 'cleared' : 'timeout');
     }
   }
+  private addHay(bale: Bale) {
+    this.bales.push(bale);
+    const body = this.world.createRigidBody(
+      RAPIER.RigidBodyDesc.fixed().setTranslation(bale.x, bale.h / 2, bale.z),
+    );
+    this.world.createCollider(RAPIER.ColliderDesc.cuboid(bale.w / 2, bale.h / 2, bale.d / 2), body);
+    this.baleBodies.set(bale.id, body);
+  }
+  private removeHay(bale: Bale) {
+    const body = this.baleBodies.get(bale.id);
+    if (body) this.world.removeRigidBody(body);
+    this.baleBodies.delete(bale.id);
+    this.bales = this.bales.filter((b) => b.id !== bale.id);
+    this.arena.obstacles = this.arena.obstacles.filter((o) => o !== bale);
+    this.hayCrushed++;
+    this.invalidateHayRoutes();
+  }
+  private invalidateHayRoutes() {
+    for (const vehicle of this.vehicles) {
+      vehicle.nextPath = vehicle.nextSelect = vehicle.nextDrivePlan = 0;
+    }
+  }
   private moveVehicle(
     v: SimVehicle,
     body: TrafficBody,
@@ -1276,9 +1322,53 @@ export class Simulation {
     traction: number,
     control?: DriveControl,
   ) {
-    const [dx, dz] = driveVehicle(v, v.kind, goal, speed, traction, control);
-    const clear = canTravel(this.arena, body, v.x + dx, v.z + dz, traffic);
-    if (clear) {
+    let [dx, dz] = driveVehicle(v, v.kind, goal, speed, traction, control);
+    const handling = hayHandling(v);
+    if (
+      handling.mode === 'push' &&
+      this.bales.some((b) => touchesHay(b, v.x + dx, v.z + dz, body.radius))
+    ) {
+      const scale = Math.min(1, handling.pushSpeed / 60 / Math.max(1e-9, Math.hypot(dx, dz)));
+      dx *= scale;
+      dz *= scale;
+      v.speed *= scale;
+      v.vx *= scale;
+      v.vz *= scale;
+    }
+    let clear = canTravel(this.arena, body, v.x + dx, v.z + dz, traffic);
+    const contacts = !clear
+      ? null
+      : hayOnSweep(this.arena, body, v.x + dx, v.z + dz)
+        ? hayContacts(this.arena, body, v.x + dx, v.z + dz, traffic, Math.hypot(dx, dz))
+        : [];
+    if (contacts === null) clear = false;
+    let clearing = false;
+    if (contacts?.length) {
+      for (const contact of contacts) {
+        const bale = contact.bale as Bale;
+        if (handling.mode === 'crush') {
+          bale.integrity = Math.max(0, (bale.integrity ?? 1) - handling.crushRate / 60);
+          if (bale.integrity <= 0) this.removeHay(bale);
+          else clearing = true;
+        } else {
+          bale.x = contact.x;
+          bale.z = contact.z;
+          this.baleBodies
+            .get(bale.id)
+            ?.setTranslation({ x: bale.x, y: bale.h / 2, z: bale.z }, true);
+          this.pushedHay.add(bale.id);
+          this.hayPushed = this.pushedHay.size;
+          // Moving obstacles invalidate other vehicles' route and firing decisions.
+          if (this.tick % 15 === 0) this.invalidateHayRoutes();
+        }
+      }
+    }
+    if (clearing) {
+      if (v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer')
+        v.angle = v.pangle;
+      stopAtCollision(v);
+      v.state = 'clearing';
+    } else if (clear) {
       v.x += dx;
       v.z += dz;
       body.x = v.x;
@@ -1317,6 +1407,8 @@ export class Simulation {
         new Set(),
         s.range - 0.15,
         body.radius,
+        undefined,
+        v,
       );
       let from = body;
       for (const [x, z] of route) {

@@ -1,4 +1,44 @@
-import { blocked, clearPosition, grip, type Arena } from './data';
+import { blocked, clearPosition, grip, type OwnedVehicle, type Arena } from './data';
+import { hayContacts, hayHandling, hayRouteCost, touchesHay } from './hay';
+
+// Cache cell clearance and terrain costs within a search. Exact push validation
+// is needed only at hay contact cells; open floor keeps the cheap grid query.
+function routeProbe(arena: Arena, traction: number, radius: number, vehicle?: OwnedVehicle) {
+  const loose = arena.obstacles.filter((o) => o.loose);
+  const fixed = loose.length
+    ? { ...arena, obstacles: arena.obstacles.filter((o) => !o.loose) }
+    : arena;
+  const cells = new Int8Array(arena.width * arena.depth);
+  const costs = new Float64Array(cells.length);
+  const handling = vehicle && hayHandling(vehicle);
+  return {
+    clear(sx: number, sz: number, x: number, z: number) {
+      if (x < 0.5 || z < 0.5 || x >= arena.width || z >= arena.depth) return false;
+      const id = Math.floor(z) * arena.width + Math.floor(x);
+      if (!cells[id]) {
+        const safe =
+          radius === 0.45 ? !blocked(fixed, x - 0.5, z - 0.5) : clearPosition(fixed, x, z, radius);
+        cells[id] = !safe ? -1 : loose.some((o) => touchesHay(o, x, z, radius)) ? 2 : 1;
+      }
+      if (cells[id] === -1) return false;
+      if (cells[id] === 1) return true;
+      if (!vehicle || handling?.mode === 'detour') return false;
+      if (handling?.mode === 'crush') return true;
+      return (
+        hayContacts(arena, { id: vehicle.id, x: sx, z: sz, radius, vehicle }, x, z, []) !== null
+      );
+    },
+    cost(x: number, z: number) {
+      const id = z * arena.width + x;
+      if (!costs[id])
+        costs[id] = vehicle
+          ? hayRouteCost(arena, vehicle, x + 0.5, z + 0.5, radius)
+          : 1 / Math.min(1, grip(arena, x, z) + 0.5 * traction);
+      return costs[id];
+    },
+  };
+}
+
 export function findPath(
   arena: Arena,
   sx: number,
@@ -10,7 +50,9 @@ export function findPath(
   reach = 0,
   radius = 0.45,
   firingPosition?: (x: number, z: number) => boolean,
+  vehicle?: OwnedVehicle,
 ): [number, number][] {
+  const probe = routeProbe(arena, traction, radius, vehicle);
   const w = arena.width,
     d = arena.depth,
     start = Math.floor(sz) * w + Math.floor(sx),
@@ -51,14 +93,12 @@ export function findPath(
         z = Math.floor(id / w) + dz,
         n = z * w + x;
       if (
-        (radius === 0.45
-          ? blocked(arena, x, z)
-          : !clearPosition(arena, x + 0.5, z + 0.5, radius)) ||
+        !probe.clear((id % w) + 0.5, Math.floor(id / w) + 0.5, x + 0.5, z + 0.5) ||
         closed[n] ||
         occupied.has(n)
       )
         continue;
-      const cost = score[id] + 1 / Math.min(1, grip(arena, x, z) + 0.5 * traction);
+      const cost = score[id] + probe.cost(x, z);
       if (cost < score[n]) {
         score[n] = cost;
         parent[n] = id;
@@ -88,7 +128,9 @@ export function pathCosts(
   sz: number,
   traction: number,
   radius = 0.45,
+  vehicle?: OwnedVehicle,
 ): Float64Array {
+  const probe = routeProbe(arena, traction, radius, vehicle);
   const w = arena.width,
     dist = new Float64Array(w * arena.depth).fill(Infinity),
     heap: [number, number][] = [];
@@ -136,9 +178,8 @@ export function pathCosts(
       const x = (id % w) + dx,
         z = Math.floor(id / w) + dz,
         n = z * w + x;
-      if (radius === 0.45 ? blocked(arena, x, z) : !clearPosition(arena, x + 0.5, z + 0.5, radius))
-        continue;
-      const next = cost + 1 / Math.min(1, grip(arena, x, z) + 0.5 * traction);
+      if (!probe.clear((id % w) + 0.5, Math.floor(id / w) + 0.5, x + 0.5, z + 0.5)) continue;
+      const next = cost + probe.cost(x, z);
       if (next < dist[n]) {
         dist[n] = next;
         push(n, next);

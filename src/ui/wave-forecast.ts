@@ -45,7 +45,7 @@ export function coverageFor(
 }
 export function forecast(run: Run, fleet = run.fleet.filter((v) => v.placed)) {
   const wave = waveFor(run.round, run.seed, run.mode);
-  const arena = arenaFor(run.arena);
+  const arena = arenaFor(run.arena, run.round, run.seed);
   const groups = new Map<string, Omit<Threat, 'coverage' | 'responders'>>();
   for (const spawn of wave) {
     const armored = spawn.armor || spawn.kind === 'armored';

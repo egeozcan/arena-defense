@@ -288,7 +288,7 @@ export const SHARED_EFFECTS = {
   traction: [
     '+0.1 traction',
     '+0.1 traction',
-    'Climbs ramps; +0.2 mud grip',
+    'Climbs ramps; +0.2 mud grip; pushes hay',
     'Faster traffic recovery',
     'Full grip + 20% drive speed',
   ],
@@ -339,7 +339,7 @@ export const UNIQUE_EFFECTS: Record<VehicleKind, string[]> = {
   bulldozer: [
     'Blade reaches 3.3 m',
     'Wider blade sweep',
-    'Sticky rubble + Blade sweep',
+    'Sticky rubble + Blade sweep; crushes hay',
     'Raised blade reaches 2.8 m high',
     'Wide 4 m demolition blade',
   ],
@@ -438,6 +438,10 @@ export interface Obstacle {
   d: number;
   h: number;
   kind: 'hay' | 'stall' | 'pile' | 'platform';
+  // Loose bales are round terrain; stacked scenery remains fixed.
+  loose?: boolean;
+  id?: number;
+  integrity?: number;
 }
 export interface Arena {
   kind: ArenaKind;
@@ -446,38 +450,60 @@ export interface Arena {
   ceiling: number;
   obstacles: Obstacle[];
 }
-export function arenaFor(kind: ArenaKind): Arena {
-  return kind === 'barn'
-    ? {
-        kind,
-        width: 48,
-        depth: 36,
-        ceiling: 9,
-        obstacles: [
-          { x: 3, z: 4, w: 3, d: 2, h: 1.5, kind: 'hay' },
-          { x: 3, z: 11, w: 3, d: 2, h: 2, kind: 'hay' },
-          { x: 3, z: 21, w: 3, d: 2, h: 2, kind: 'hay' },
-          { x: 3, z: 29, w: 3, d: 2, h: 2, kind: 'hay' },
-          { x: 45, z: 6, w: 3, d: 3, h: 1.5, kind: 'hay' },
-          { x: 45, z: 29, w: 3, d: 3, h: 2, kind: 'hay' },
-          { x: 16, z: 31, w: 5, d: 2, h: 2, kind: 'stall' },
-          { x: 34, z: 31, w: 4, d: 2, h: 1.5, kind: 'hay' },
-        ],
-      }
-    : {
-        kind,
-        width: 64,
-        depth: 48,
-        ceiling: 14,
-        obstacles: [
-          { x: 5, z: 6, w: 4, d: 3, h: 1.4, kind: 'pile' },
-          { x: 58, z: 7, w: 4, d: 3, h: 2, kind: 'pile' },
-          { x: 58, z: 39, w: 4, d: 4, h: 2, kind: 'platform' },
-          { x: 6, z: 40, w: 3, d: 3, h: 1.5, kind: 'pile' },
-          { x: 33, z: 7, w: 4, d: 3, h: 1.2, kind: 'platform' },
-          { x: 38, z: 40, w: 5, d: 2, h: 1.5, kind: 'pile' },
-        ],
-      };
+export function arenaFor(kind: ArenaKind, round = 1, seed = 73429): Arena {
+  const arena: Arena =
+    kind === 'barn'
+      ? {
+          kind,
+          width: 48,
+          depth: 36,
+          ceiling: 9,
+          obstacles: [
+            { x: 3, z: 4, w: 3, d: 2, h: 1.5, kind: 'hay' },
+            { x: 3, z: 11, w: 3, d: 2, h: 2, kind: 'hay' },
+            { x: 3, z: 21, w: 3, d: 2, h: 2, kind: 'hay' },
+            { x: 3, z: 29, w: 3, d: 2, h: 2, kind: 'hay' },
+            { x: 45, z: 6, w: 3, d: 3, h: 1.5, kind: 'hay' },
+            { x: 45, z: 29, w: 3, d: 3, h: 2, kind: 'hay' },
+            { x: 16, z: 31, w: 5, d: 2, h: 2, kind: 'stall' },
+            { x: 34, z: 31, w: 4, d: 2, h: 1.5, kind: 'hay' },
+          ],
+        }
+      : {
+          kind,
+          width: 64,
+          depth: 48,
+          ceiling: 14,
+          obstacles: [
+            { x: 5, z: 6, w: 4, d: 3, h: 1.4, kind: 'pile' },
+            { x: 58, z: 7, w: 4, d: 3, h: 2, kind: 'pile' },
+            { x: 58, z: 39, w: 4, d: 4, h: 2, kind: 'platform' },
+            { x: 6, z: 40, w: 3, d: 3, h: 1.5, kind: 'pile' },
+            { x: 33, z: 7, w: 4, d: 3, h: 1.2, kind: 'platform' },
+            { x: 38, z: 40, w: 5, d: 2, h: 1.5, kind: 'pile' },
+          ],
+        };
+  // A clear opening, then alternating clear and hay rounds. Keep both gates open.
+  if (round >= 4 && (round - 4) % 3 === 0) {
+    const rng = new Random(seed + round * 271 + (kind === 'yard' ? 811 : 0));
+    const count = Math.min(8, 4 + Math.floor(round / 12));
+    for (let i = 0; i < count; i++) {
+      const x = arena.width * (0.22 + (i % 3) * 0.26) + (rng.next() - 0.5) * 2;
+      const z = arena.depth * (0.4 + Math.floor(i / 3) * 0.18) + (rng.next() - 0.5) * 2;
+      arena.obstacles.push({
+        x,
+        z,
+        w: 1.4,
+        d: 1,
+        h: 0.9,
+        kind: 'hay',
+        loose: true,
+        id: -i - 1,
+        integrity: 1,
+      });
+    }
+  }
+  return arena;
 }
 export function blocked(a: Arena, x: number, z: number) {
   return (

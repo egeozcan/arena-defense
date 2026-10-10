@@ -19,6 +19,9 @@ import {
   vehicleTool,
 } from '../src/sim/capabilities';
 
+import { hayHandling } from '../src/sim/hay';
+import { WHEELBASE, MAX_STEER } from '../src/sim/vehicle-motion';
+
 export function legalBuilds(): OwnedVehicle[] {
   const builds: OwnedVehicle[] = [];
   for (const kind of Object.keys(VEHICLES) as VehicleKind[])
@@ -78,7 +81,14 @@ export function buildCost(v: OwnedVehicle, mode: Mode) {
 export function capabilityProfile(v: OwnedVehicle): Record<string, number> {
   const s = vehicleStats(v),
     t = vehicleTool(v);
+  const hay = hayHandling(v);
+  const tracked = v.kind === 'excavator' || v.kind === 'bulldozer' || v.kind === 'crane';
   const profile: Record<string, number> = {
+    hayCrushing: hay.mode === 'crush' ? hay.crushRate : 0,
+    hayPushing: hay.mode === 'push' ? hay.pushSpeed : 0,
+    hayForce: hay.mode === 'push' ? hay.force : 0,
+    pivotSteering: Number(tracked),
+    turnCurvature: tracked ? 0 : Math.tan(MAX_STEER) / WHEELBASE,
     clearance: -vehicleRadius(v),
     reach: s.range,
     cone: t.cone,
@@ -87,6 +97,7 @@ export function capabilityProfile(v: OwnedVehicle): Record<string, number> {
     hooks: t.targets,
     balePierce: t.pierce,
     baleWidth: t.baleRadius,
+    baleLaneClearance: -t.baleRadius,
     strawBurst: t.burst,
     groundShock: t.shockwave,
     crowdPull: t.pull,
@@ -102,6 +113,9 @@ export function capabilityProfile(v: OwnedVehicle): Record<string, number> {
   for (const terrain of [0.4, 0.6, 0.75, 0.9, 1]) {
     profile[`move:${terrain}`] = s.speed * terrainSpeedFactor(v, terrain);
     profile[`handling:${terrain}`] = terrainSpeedFactor(v, terrain);
+    profile[`pivotRate:${terrain}`] = tracked
+      ? (v.kind === 'crane' ? 1.6 : 2.2) * terrainSpeedFactor(v, terrain)
+      : 0;
   }
   // Every coverage boundary appears on both sides, including targeting tolerance.
   for (const height of [

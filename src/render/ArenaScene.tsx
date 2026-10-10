@@ -16,7 +16,7 @@ import {
   type VehicleKind,
 } from '../sim/data';
 import { angleDifference } from '../sim/vehicle-motion';
-import { Simulation, vehicleStats } from '../sim/engine';
+import { Simulation, vehicleStats, type Bale } from '../sim/engine';
 import { Box, Hay, Tree, VehicleModel } from './models';
 import { Scenery } from './Scenery';
 import { ArenaDetails } from './ArenaDetails';
@@ -42,7 +42,10 @@ interface Props {
   interpolation: { current: number };
 }
 function Terrain({ run, grid }: { run: Run; grid: boolean }) {
-  const a = useMemo(() => arenaFor(run.arena), [run.arena]);
+  const a = useMemo(
+    () => arenaFor(run.arena, run.round, run.seed),
+    [run.arena, run.round, run.seed],
+  );
   const barn = a.kind === 'barn';
   return (
     <group>
@@ -111,58 +114,60 @@ function Terrain({ run, grid }: { run: Run; grid: boolean }) {
           ))}
         </group>
       )}
-      {a.obstacles.map((o, i) => (
-        <group key={i}>
-          {o.kind === 'hay' ? (
-            <>
-              <Hay x={o.x} z={o.z} w={o.w} d={o.d} h={o.h * 0.5} />
-              <group position={[0.2, o.h * 0.5, 0]}>
-                <Hay x={o.x} z={o.z} w={o.w * 0.8} d={o.d * 0.9} h={o.h * 0.5} />
-              </group>
-            </>
-          ) : o.kind === 'stall' ? (
-            <>
-              <Box
-                position={[o.x, 0.55, o.z]}
-                size={[o.w, 0.2, o.d]}
-                color="#aa7744"
-                surface="wood"
-              />
-              {[-o.w / 2, o.w / 2].map((x) => (
+      {a.obstacles
+        .filter((o) => !o.loose)
+        .map((o, i) => (
+          <group key={i}>
+            {o.kind === 'hay' ? (
+              <>
+                <Hay x={o.x} z={o.z} w={o.w} d={o.d} h={o.h * 0.5} />
+                <group position={[0.2, o.h * 0.5, 0]}>
+                  <Hay x={o.x} z={o.z} w={o.w * 0.8} d={o.d * 0.9} h={o.h * 0.5} />
+                </group>
+              </>
+            ) : o.kind === 'stall' ? (
+              <>
                 <Box
-                  key={x}
-                  position={[o.x + x, 1.3, o.z]}
-                  size={[0.2, 2.6, o.d]}
-                  color="#976334"
+                  position={[o.x, 0.55, o.z]}
+                  size={[o.w, 0.2, o.d]}
+                  color="#aa7744"
                   surface="wood"
                 />
-              ))}
-              <Box
-                position={[o.x, 2.6, o.z]}
-                size={[o.w, 0.2, o.d]}
-                color="#c8934a"
-                surface="wood"
-              />
-            </>
-          ) : (
-            <>
-              <Box
-                position={[o.x, o.h / 2, o.z]}
-                size={[o.w, o.h, o.d]}
-                color={o.kind === 'platform' ? '#8f998f' : '#b4b0a0'}
-              />
-              {Array.from({ length: 3 }, (_, j) => (
+                {[-o.w / 2, o.w / 2].map((x) => (
+                  <Box
+                    key={x}
+                    position={[o.x + x, 1.3, o.z]}
+                    size={[0.2, 2.6, o.d]}
+                    color="#976334"
+                    surface="wood"
+                  />
+                ))}
                 <Box
-                  key={j}
-                  position={[o.x, o.h + 0.1 + j * 0.2, o.z]}
-                  size={[o.w * 0.9, 0.16, o.d * 0.5]}
-                  color="#aa8561"
+                  position={[o.x, 2.6, o.z]}
+                  size={[o.w, 0.2, o.d]}
+                  color="#c8934a"
+                  surface="wood"
                 />
-              ))}
-            </>
-          )}
-        </group>
-      ))}
+              </>
+            ) : (
+              <>
+                <Box
+                  position={[o.x, o.h / 2, o.z]}
+                  size={[o.w, o.h, o.d]}
+                  color={o.kind === 'platform' ? '#8f998f' : '#b4b0a0'}
+                />
+                {Array.from({ length: 3 }, (_, j) => (
+                  <Box
+                    key={j}
+                    position={[o.x, o.h + 0.1 + j * 0.2, o.z]}
+                    size={[o.w * 0.9, 0.16, o.d * 0.5]}
+                    color="#aa8561"
+                  />
+                ))}
+              </>
+            )}
+          </group>
+        ))}
       {barn ? (
         <>
           <Box
@@ -565,6 +570,19 @@ function ActiveVehicle({
     </group>
   );
 }
+function LiveHay({ bale }: { bale: Bale }) {
+  const ref = useRef<Group>(null);
+  useFrame(() => {
+    if (!ref.current) return;
+    ref.current.position.set(bale.x, 0, bale.z);
+    ref.current.scale.y = 0.6 + 0.4 * (bale.integrity ?? 1);
+  });
+  return (
+    <group ref={ref}>
+      <Hay x={0} z={0} w={bale.w} d={bale.d} h={bale.h} />
+    </group>
+  );
+}
 function Selection({ range = 3, color = '#eff4c2' }: { range?: number; color?: string }) {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
@@ -632,7 +650,7 @@ function PlacementGhost({ vehicle }: { vehicle: OwnedVehicle }) {
 }
 function StagingBalloons({ run }: { run: Run }) {
   const group = useRef<Group>(null),
-    a = arenaFor(run.arena);
+    a = arenaFor(run.arena, run.round, run.seed);
   const types = waveTypes(run.round, run.seed, run.mode);
   useFrame(({ clock }) => {
     group.current?.children.forEach((child, i) => {
@@ -677,7 +695,7 @@ function StagingBalloons({ run }: { run: Run }) {
 }
 function Scene(props: Props) {
   const { run, sim, phase, selected, shopKind, grid, armed } = props;
-  const a = arenaFor(run.arena);
+  const a = arenaFor(run.arena, run.round, run.seed);
   const [hover, setHover] = useState<[number, number] | null>(null);
   const start = useRef<[number, number] | null>(null);
   const vehicle = run.fleet.find((v) => v.id === props.placementId);
@@ -719,6 +737,10 @@ function Scene(props: Props) {
       <group position={[-a.width / 2, 0, -a.depth / 2]}>
         <Terrain run={run} grid={grid && phase === 'setup'} />
         <Scenery kind={run.arena} />
+        {!(phase === 'round' || phase === 'summary') &&
+          a.obstacles
+            .filter((o) => o.loose)
+            .map((o) => <Hay key={o.id} x={o.x} z={o.z} w={o.w} d={o.d} h={o.h} />)}
         <ArenaDetails arena={a} />
         {(phase === 'setup' || phase === 'countdown') && <StagingBalloons run={run} />}
         {phase === 'garage' && !run.fleet.some((v) => v.placed) && (
@@ -794,7 +816,7 @@ function Scene(props: Props) {
               />
             ))}
             {sim.bales.map((b) => (
-              <Hay key={b.id} x={b.x} z={b.z} />
+              <LiveHay key={b.id} bale={b} />
             ))}
             <Confetti sim={sim} />
           </>

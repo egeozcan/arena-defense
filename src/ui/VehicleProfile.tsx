@@ -1,6 +1,7 @@
 import { Crosshair, Gauge, Shield, MoveUpRight } from 'lucide-react';
 import { VEHICLES, type OwnedVehicle } from '../sim/data';
 import { armorLabel, vehicleStats } from '../sim/capabilities';
+import { hayLabel } from '../sim/hay';
 import { VehicleThumb } from './VehicleThumb';
 import { VehiclePreview } from './VehiclePreview';
 
@@ -23,7 +24,7 @@ export function VehicleProfile({ vehicle }: { vehicle: OwnedVehicle }) {
         </span>
         <h3>{v.name}</h3>
         <p>
-          {armorLabel(vehicle)} · {stats.range} m tool reach
+          {armorLabel(vehicle)} · {stats.range} m tool reach · {hayLabel(vehicle)}
           {vehicle.kind === 'crane' && vehicle.upgrades.unique === 5
             ? ' · Tower travels at half speed'
             : ''}

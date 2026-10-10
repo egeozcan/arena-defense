@@ -24,7 +24,9 @@ const modes = args.mode ? [args.mode as Mode] : (Object.keys(MODES) as Mode[]);
 const arenas = args.arena ? [args.arena as ArenaKind] : (['barn', 'yard'] as ArenaKind[]);
 const plan = args.plan ?? 'balanced';
 const seed = Number(args.seed ?? 73429);
+const hay = args.hay !== 'off';
 if (
+  (args.hay && !['on', 'off'].includes(args.hay)) ||
   modes.some((mode) => !MODES[mode]) ||
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
   !['balanced', 'basic', 'expanded'].includes(plan) ||
@@ -32,7 +34,7 @@ if (
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --seed=integer --rounds=positive-integer --hay=on|off',
   );
 }
 await initPhysics();
@@ -57,7 +59,7 @@ for (const mode of modes)
         rotation: 0,
         targeting: kind === 'crane' ? 'Highest' : 'Nearest',
       };
-      const a = arenaFor(arena);
+      const a = arenaFor(arena, hay ? run.round : 1, run.seed);
       const preferred = [
         [a.width / 2 - 1, a.depth / 2 - 1],
         [7, 7],
@@ -159,7 +161,7 @@ for (const mode of modes)
           if (run.abilities[ability] === undefined || (round >= 20 && run.abilities[ability]! < 2))
             run = purchaseAbility(run, ability);
       }
-      const sim = new Simulation(run);
+      const sim = new Simulation(run, hay);
       let peak = 0;
       while (!sim.summary) {
         if (plan !== 'basic' && sim.tick % 900 === 0) {
@@ -192,6 +194,9 @@ for (const mode of modes)
         seconds: +s.seconds.toFixed(1),
         peak,
         pending: sim.pending,
+        hayRemaining: sim.bales.length,
+        hayCrushed: sim.hayCrushed,
+        hayPushed: sim.hayPushed,
         remaining: Object.fromEntries(
           (['basic', 'layered', 'armored', 'high', 'carrier'] as const).map((kind) => [
             kind,
@@ -200,12 +205,26 @@ for (const mode of modes)
         ),
         remainingArmored: sim.balloons.filter((b) => b.armor).length,
       });
+      if (args.progress)
+        console.error(
+          JSON.stringify({
+            mode,
+            arena,
+            hay,
+            round,
+            lost: s.livesLost,
+            seconds: +s.seconds.toFixed(1),
+            hayCrushed: sim.hayCrushed,
+            hayPushed: sim.hayPushed,
+          }),
+        );
       sim.dispose();
       if (!run.lives) break;
     }
     const report = {
       mode,
       arena,
+      hay,
       plan,
       seed,
       survived: run.lives > 0 && run.round === rounds,
@@ -229,6 +248,6 @@ for (const mode of modes)
   }
 mkdirSync('artifacts', { recursive: true });
 writeFileSync(
-  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}.json`,
+  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}.json`,
   JSON.stringify(reports, null, 2),
 );

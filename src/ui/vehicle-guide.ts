@@ -1,4 +1,5 @@
 import type { PathName, VehicleKind } from '../sim/data';
+import { hayLabel } from '../sim/hay';
 
 // These describe the stock chassis; upgrades can change its limits.
 export const VEHICLE_GUIDES: Record<
@@ -48,6 +49,16 @@ export const VEHICLE_GUIDES: Record<
     partner: 'A bulldozer or excavator crushes armor; a crane handles high-flyers.',
   },
 };
+for (const kind of Object.keys(VEHICLE_GUIDES) as VehicleKind[]) {
+  const stock = { kind, upgrades: { attack: 0, speed: 0, traction: 0, unique: 0 } };
+  if (kind === 'sprayer' || kind === 'crane' || kind === 'blower')
+    VEHICLE_GUIDES[kind].weakness += ' Routes around hay until Traction tier 3.';
+  else VEHICLE_GUIDES[kind].strength += ` ${hayLabel(stock)}.`;
+  VEHICLE_GUIDES[kind].weakness +=
+    kind === 'harvester' || kind === 'excavator'
+      ? ' Clearing hay takes time.'
+      : ' Bales can block tight approaches.';
+}
 
 // Describe each path as a primary commitment: a specialist chosen at tier 3
 // leaves only two tiers for coverage/damage/mobility on the secondary path.
@@ -55,50 +66,50 @@ export const UPGRADE_DIRECTIONS: Record<VehicleKind, Record<PathName, string>> =
   harvester: {
     attack: 'Cut armor and hit harder; Header stops at tier 2 (2 m high).',
     speed: 'Chase and sustain rapid cuts; armor still needs a teammate.',
-    traction: 'Cut through muddy routes and traffic; armor still needs a teammate.',
+    traction: 'Clear hay faster and handle muddy routes; armor still needs a teammate.',
     unique: 'Reach 3 m, cut behind and gather crowds; armor still needs a teammate.',
   },
   sprayer: {
     attack: 'Burst damage with 75% armor damage; Chemicals stops at tier 2.',
     speed: 'Chase fast packs and spray faster; no sticky spray or acid.',
-    traction: 'Cover muddy lanes reliably; no sticky spray or acid.',
+    traction: 'Push hay and cover muddy lanes reliably; no sticky spray or acid.',
     unique: 'Slow packs, strip armor and spray all around; stays below 4 m.',
   },
   excavator: {
     attack: 'Shatter armor with heavy hits; Hydraulics can still add small splash.',
     speed: 'Reach scattered armor and crush faster; no advanced shockwaves.',
-    traction: 'Recover through mud and traffic; no advanced shockwaves.',
+    traction: 'Clear hay faster and recover through mud; no advanced shockwaves.',
     unique: 'Splash, ground shock and remove layers; stays below 5 m.',
   },
   crane: {
     attack: 'Twin armor-breaking hooks; Boom stops at tier 2 (12 m high).',
     speed: 'Chase and sustain rapid hooks; armor still needs a teammate.',
-    traction: 'Reach high targets across muddy lanes; armor still needs a teammate.',
+    traction: 'Push hay and cross muddy lanes; armor still needs a teammate.',
     unique: 'Carrier control and a splash tower at half speed; needs armor support.',
   },
   baler: {
     attack: 'Heavy armor-piercing shots; Bale Press stops at 8 targets per bale.',
     speed: 'Reposition and fire continuously; armor damage stays at 25%.',
-    traction: 'Keep firing lanes accessible in mud; armor damage stays at 25%.',
+    traction: 'Push hay with more grip to open firing lanes; armor damage stays at 25%.',
     unique: 'Wide 12-target bales and straw bursts; weak armor, no high reach.',
   },
   blower: {
     attack: 'Damage armored air packs; Airflow stops at tier 2 (12 m high).',
     speed: 'Chase and keep herding packs; armor still needs a teammate.',
-    traction: 'Herd across muddy routes and traffic; armor needs a teammate.',
+    traction: 'Push hay and herd across muddy routes; armor needs a teammate.',
     unique: 'Herd from 9 m, gather high packs and lower them; needs armor support.',
   },
   bulldozer: {
     attack: 'Cut through armored ground packs with faster, stronger sweeps; Blade stops at tier 2.',
     speed: 'Reach low swarms sooner and sweep more often; Blade stays short and low.',
-    traction: 'Push through muddy lanes and traffic; Blade stays short and low.',
+    traction: 'Push hay faster and recover through mud; Blade stays short and low.',
     unique:
-      'Widen and raise the blade, slow packs, and unlock Blade sweep; high-flyers need support.',
+      'Crush hay, widen and raise the blade, slow packs, and unlock Blade sweep; high-flyers need support.',
   },
   mixer: {
     attack: 'Heavy concrete blasts with 75% armor damage; Drum stops at tier 2.',
     speed: 'Keep splash damage moving between packs; armor damage stays at 50%.',
-    traction: 'Reach firing spots on rough terrain; armor damage stays at 50%.',
+    traction: 'Push hay faster to reach rough firing spots; armor damage stays at 50%.',
     unique:
       'Grow the splash, slow groups, and eventually damage armor fully; high-flyers need support.',
   },
