@@ -24,6 +24,9 @@ export function responsiveCommands(sim: Simulation): Command[] {
       if (v.kind === 'harvester') return canTargetBalloon(v, b.y, b.armor);
       if (v.kind === 'excavator') return b.y < 2 && distance < 4;
       if (v.kind === 'crane') return b.y > 2 && distance < s.range;
+      // Downburst lowers armored targets even when the blower's normal tool
+      // cannot damage them. Its useful targets follow the ability's bounds.
+      if (v.kind === 'blower') return b.y >= s.min && b.y <= s.max && distance <= s.range;
       if (v.kind === 'sprayer') return distance < 3;
       return canTargetBalloon(v, b.y, b.armor) && distance <= s.range;
     });

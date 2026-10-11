@@ -33,6 +33,8 @@ npm run build       # TypeScript checks and production bundle
 npm test            # Determinism and gameplay regression tests
 npm run balance     # Full Easy, Medium and Hard campaigns in both arenas
 npm run balance:frontier # Check every legal vehicle build for dominance/dead upgrades
+npm run balance:hard-yard # Full Hard yard campaigns for all ground paths on six seeds
+npm run balance:hard-yard-air # Compare crane, blower, and combined air commitments on six seeds
 npm run balance -- --plan=expanded # Exercise the eight-vehicle roster
 npm run balance -- --plan=basic # Compare a modest four-vehicle fleet
 npm run balance -- --plan=expanded --primary=speed --reserve-air=on # Compare a ground-path commitment
@@ -150,7 +152,7 @@ The earlier Medium yard path comparisons used seed 73429, the expanded roster, n
 
 All three survived with nine vehicles, with different losses, time, savings, and hay handling. These fixed purchasing/placement policies demonstrate viable alternatives rather than equal performance or optimal play. The Specialist expanded fleet also completed Easy in both arenas, Medium barn, and Hard barn. Its early Medium yard run survived with 86 lives when reserving a crane, versus failing at round 11 without that reserve. Earlier broad Hard yard policies with one or two early cranes failed at round 13 with shallow upgrades; their escapes were all high-flyers. The focused four-role plan's original 13-round report is preserved with a `-through-13` suffix. Extending that Highest/periodic policy to the full Hard yard campaign failed on round 23 for seed 73429 and round 21 for seed 73531. Coverage investment, targeting, and placement remain consequential. Per-round data and final builds are saved in the `artifacts/balance-*-primary-*.json` reports.
 
-A full **60-round Hard yard audit** now covers eighteen attempts and 730 simulated rounds against gameplay rules at commit `0cba01f`. All attempts start with $650 and 50 lives, normal hay and surfaces, and the normal prices, two-path/5+2 cap, ability charges, 180-second timer, and 300-body limit. Six attempts completed the campaign, including a successful fleet for every ground primary. These successful cases use Nearest cranes, two reserved air counters, and the responsive ability policy; air tools take Attack 5 / Specialist 2 for armored high-flyers.
+An earlier **60-round Hard yard audit** covered eighteen attempts and 730 simulated rounds against gameplay rules at commit `0cba01f`. All attempts start with $650 and 50 lives, normal hay and surfaces, and the normal prices, two-path/5+2 cap, ability charges, 180-second timer, and 300-body limit. Six attempts completed the campaign, including a successful fleet for every ground primary. These successful cases use Nearest cranes, two reserved air counters, and the responsive ability policy; air tools take Attack 5 / Specialist 2 for armored high-flyers.
 
 | Ground build | Plan / final vehicles | Seed | Lives after round 60 | Mean wave time | Total paid |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -167,7 +169,7 @@ The failed cases are retained in [the complete audit](artifacts/hard-yard-balanc
 
 The audit reconciles all **626 recorded preparation budgets** across the thirteen newer attempts against prior earnings and exact chassis, upgrade, and ability prices. It also verifies sequential rounds, life accounting, legal upgrade caps, timeouts, and the body limit. The five older attempts predate purchase snapshots and have no reconstructed spending totals. Per-round source reports preserve deployments, purchases, escapes, and individual vehicle contributions.
 
-Reproduce the successful strategies with:
+Reproduce those earlier single-seed strategies with:
 
 ```sh
 npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=balanced --primary=unique --reserve-air=on --air-counters=2 --air-target=nearest --tactics=responsive
@@ -177,6 +179,62 @@ npm run balance -- --mode=hard --arena=yard --seed=73429 --plan=expanded --prima
 ```
 
 Use seed `73531` on the first command for the second Specialist campaign. Use `--mobility-secondary=attack` on the Speed command for the one-life counterfactual. Gameplay stats did not need further changes for these campaign strategies to complete.
+
+The expanded seed audit ran **48 full-campaign attempts and 2,858 rounds** on seeds `73429,73531,101,2027,900001,20261010`, keeping the same gameplay rules and auditing every preparation budget. The initial 24 attempts showed why one successful seed was insufficient: Specialist won five of six, Speed one of six, and Traction six of six but once survived with only one life. Attack won all six with all 50 lives. Eighteen attempts tested earlier paid coverage, followed by six Traction attempts with another excavator. All failures and intermediate results remain in [the expanded audit](artifacts/hard-yard-seed-balance.json).
+
+Each final strategy uses one fixed purchase, upgrade, deployment, and responsive ability policy across all six seeds. All ground vehicles finish the listed 5+2 commitment; air tools retain Attack 5 / Specialist 2, including two reserved Nearest cranes.
+
+| Ground build | Campaign wins | Lives after round 60 | Final vehicles | Mean wave time | Total paid |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Attack 5 + Specialist 2 | 6/6 | 50–50 | 10 | 90.1 s | $60,023 |
+| Speed 5 + Specialist 2 | 6/6 | 50–50 | 11 | 100.2 s | $55,926 |
+| Traction 5 + Specialist 2 | 6/6 | 46–50 | 14 | 102.4 s | $56,082 |
+| Specialist 5 + Attack 2 | 6/6 | 33–50 | 9 | 99.1 s | $59,649 |
+
+Attack paid the most for the fastest campaign. Specialist's expensive signature tools supported the smallest fleet, with early losses on two seeds. Speed's cheaper cadence and pursuit needed additional armor coverage. Traction funded the largest fleet to compensate for lower damage and missing advanced tool geometry. Four earlier reinforcements produced a thirteen-vehicle Traction fleet with a minimum of 16 lives for $52,993; a fifth paid excavator raised the minimum to 46 for $56,082. These are tested viable commitments with distinct costs and weaknesses, not equal performance or measured human win rates.
+
+The default `reliable` preset repeats the final strategies as 24 full 60-round attempts:
+
+```sh
+npm run balance:hard-yard -- --tag=recheck --jobs=8
+```
+
+Specialist and Speed begin buying two paid reinforcements from round 28; Traction begins buying five. Attack keeps its original policy. Purchases happen only when affordable, in the order excavator, mixer, baler, sprayer, excavator, sprayer (up to six). Earlier additions count toward normal roster growth targets, so they can replace a later harvester or sprayer purchase. All vehicles, upgrades, and abilities pay normal prices; no extra cash is supplied. The single-campaign runner exposes `--reinforce=on --reinforce-round=28 --reinforce-count=2`, and the seed runner accepts reinforcement round/count overrides for selected paths.
+
+Use `--profile=initial --tag=initial-check` to repeat the original recipes or `--profile=coverage --tag=coverage-check` to compare four earlier Traction reinforcements. Reports and audited summaries are saved under `artifacts/hard-yard-seeds/<tag>/` (default tag `reliable`). The command fails if any path fails any seed or an audit fails. It checks sequential rounds, exact prices and cash, life accounting, legal caps, full final commitments, timeouts, and the body limit. Use `--seeds=...` for another fixed seed set and `--paths=...` for a subset of ground paths. `--resume=on` reuses completed reports with matching game and policy fingerprints; `--audit-only=on` revalidates existing reports without starting simulations. The original policy source is archived with the baseline reports. `--output=path` on the single-campaign runner keeps separately named experiments from replacing earlier reports. Consistency applies to these seeds and policies; it does not guarantee every composition.
+
+#### Air tool commitments
+
+Crane and blower primaries can be tested independently with `--crane-primary=...` and `--blower-primary=...` on the single-campaign runner. Their secondaries have separate `--crane-secondary=...` and `--blower-secondary=...` controls. The defaults remain Attack 5 / Specialist 2. Mobility comparisons use Specialist 2 for tool reach and geometry; Specialist comparisons use Attack 2 for damage and reload. Each still obeys the normal two-path/5+2 cap.
+
+| Air primary | Hard crane cost, including chassis and secondary | Hard blower cost, including chassis and secondary | Benefit | Commitment cost |
+| --- | ---: | ---: | --- | --- |
+| Attack 5 + Specialist 2 | $7,182 | $6,155 | Direct armored-air damage; twin crane hooks or heavy cone damage | No advanced carrier control, splash hooks, Downburst, or vortex |
+| Speed 5 + Specialist 2 | $5,254 | $4,504 | Faster pursuit and sustained hooks or herding | No direct armor damage, advanced Boom/Airflow tools, or crane twin hooks |
+| Traction 5 + Specialist 2 | $3,931 | $3,369 | Cheapest coverage, hay pushing and reliable rough/oil travel | No direct armor damage, advanced tool control, or Speed's sustained cadence |
+| Specialist 5 + Attack 2 | $8,089 | $6,933 | Crane splash twin hooks, carrier control and 12 m reach; blower 9 m herding, vortex and Downburst | Most expensive; crane drives at half speed; neither directly damages armor |
+
+Attack tier 3 is the armor unlock on both chassis. Another primary caps Attack at tier 2, so buying Attack as its secondary cannot remove that limitation. Specialist Hook yank and Downburst can lower armored air targets for ground tools. Downburst follows height/range bounds rather than normal damage eligibility; the responsive policy activates it for armor-only crowds and still pays all cooldowns.
+
+The six-seed air gate commits **both reserved cranes and the blower** to each selected primary, with Attack 5 / Specialist 2 ground tools. One additional paid Attack crane begins normal purchases from round 16; its Attack tier 3 armor unlock is funded before optional upgrades. It later finishes Attack 5 / Specialist 2. The tested cranes and blower retain their chosen 5+2 builds and make substantial recorded contributions. This is one fixed purchase, deployment, targeting and ability policy per primary across seeds `73429,73531,101,2027,900001,20261010`, using the normal $650 cash, 50 lives, hay, surfaces, prices, cooldowns, 180-second wave timer and 300-body limit.
+
+| Air commitment on both cranes and blower | Campaign wins | Lives after round 60 | Final vehicles | Mean wave time | Total paid |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Speed 5 + Specialist 2 | 6/6 | 41–50 | 10 | 104.0 s | $57,081 |
+| Traction 5 + Specialist 2 | 6/6 | 39–50 | 10 | 103.1 s | $53,300 |
+| Specialist 5 + Attack 2 | 6/6 | 46–50 | 10 | 99.8 s | $65,180 |
+
+The air audit retains **45 new full-campaign attempts and 2,320 simulated rounds**, including failed recipes and preliminary independent-chassis comparisons on two seeds. The final gate contains 18 victories. The existing six-seed Attack-air control is reused separately from the ground audit under the same gameplay rules and is excluded from the new attempt count. Results, every normal-budget reconciliation, individual tool contributions, and exact tested policy/tactics source archives are preserved in [the air audit](artifacts/hard-yard-air-balance.json). These results establish viability for the tested supported fleets; they do not guarantee every composition or measure human win rates.
+
+Repeat the final 18-campaign gate with:
+
+```sh
+npm run balance:hard-yard-air -- --tag=air-recheck --jobs=8
+```
+
+Use `--air-tools=crane|blower|both` or a comma-separated subset to choose the tested roles, `--paths=speed,traction,unique` for a subset of paths, and `--seeds=...` for another fixed seed set. `--profile=initial` omits the additional armor crane for unsupported comparisons. The single-campaign runner exposes `--armor-air-counters=0..4` and `--armor-air-round=16`; support cranes pay normal chassis and upgrade prices, have separately recorded IDs, and do not replace the two reserved cranes under test. `--reserve-gust=on` is available for experiments and is off in the final recipe.
+
+Reports go to `artifacts/hard-yard-air-seeds/<tag>/`. Detailed campaign JSON and cohort summaries in both seed-report directories are generated locally and ignored by Git; aggregate audits and archived replay policies remain available for review. The runner fails if any selected commitment fails any seed or an audit fails. `--resume=on` requires matching game, policy and strategy fingerprints. `--audit-only=on` revalidates the saved matrix, including its original seeds and strategies, rather than replacing it with current defaults. Historical cohorts must use their archived policy source through `--runner=tools/<replay-file>.ts` and the matching tactics source. `npm run balance:hard-yard-air:report` rebuilds the combined report only after the complete final gate and all recorded cohort audits pass.
 
 Airflow tier 4 also increases horizontal reach to 9 m: its benefit applies to normal high-flyers, which stay within stock 12 m altitude coverage. Boom tier 4 slows nearby carriers by 60% and lowers those above 3 m to 3 m, within raised-header coverage. Carrier spawn bands are 2.5–3.5 m, so the old 4 m lowering effect could not help. Neither change raises low balloons. Demolisher trades pop income and Pop Rush charge for fewer targets: destroying a layered balloon awards only its outer pop, while leaving the splits to other tools earns their extra rewards.
 

@@ -7,3 +7,8 @@ artifacts/*.png
 artifacts/*.jpg
 .playwright-cli/
 output/playwright/
+
+# Detailed balance traces are local generated output. Aggregate audits and
+# archived replay policy sources remain reviewable.
+/artifacts/hard-yard-seeds/**/*.json
+/artifacts/hard-yard-air-seeds/**/*.json

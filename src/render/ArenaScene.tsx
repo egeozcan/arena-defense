@@ -703,7 +703,11 @@ function Scene(props: Props) {
   const vehicle = run.fleet.find((v) => v.id === props.placementId);
   const valid = vehicle && hover && canPlace(a, run.fleet, vehicle, hover[0], hover[1]);
   function point(e: ThreeEvent<PointerEvent | MouseEvent>) {
-    return [Math.floor(e.point.x + a.width / 2), Math.floor(e.point.z + a.depth / 2)] as [
+    const x = e.point.x + a.width / 2,
+      z = e.point.z + a.depth / 2;
+    // The target marker and command add the cell-center offset. Preserve exact
+    // cursor aim for pitchforks while placement and gust drags use grid cells.
+    return (armed === 'pitchfork' ? [x - 0.5, z - 0.5] : [Math.floor(x), Math.floor(z)]) as [
       number,
       number,
     ];

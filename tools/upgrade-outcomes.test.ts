@@ -448,3 +448,92 @@ test('Attack and Specialist sprayers win different crowd/armor matchups', () => 
     clearStream('sprayer', 'attack', 5, true) < clearStream('sprayer', 'unique', 5, true) * 0.7,
   );
 });
+
+test('Specialist crane clears clustered air targets that Attack leaves behind, while Attack alone hits armor', () => {
+  const outcomes = [false, true].map((specialist) => {
+    const sim = setup('crane', specialist ? { unique: 5, attack: 2 } : { attack: 5, unique: 2 }, [
+      [18, 6, 11.5],
+      [18.4, 6, 11.5],
+      [18.8, 6, 11.5],
+      [19.2, 6, 11.5],
+    ]);
+    try {
+      fire(sim);
+      return sim.pops;
+    } finally {
+      sim.dispose();
+    }
+  });
+  assert(
+    outcomes[1] > outcomes[0],
+    `cluster pops: Attack ${outcomes[0]}, Specialist ${outcomes[1]}`,
+  );
+  for (const specialist of [false, true]) {
+    const sim = setup('crane', specialist ? { unique: 5, attack: 2 } : { attack: 5, unique: 2 }, [
+      [18, 6, 11.5],
+    ]);
+    try {
+      const b = sim.balloons[0];
+      b.armor = true;
+      b.hp = b.maxHp = 20;
+      fire(sim);
+      assert.equal(b.hp < 20, !specialist, 'splash reach does not replace armor access');
+    } finally {
+      sim.dispose();
+    }
+  }
+});
+
+test('Speed air tools clear isolated one-hit arrivals faster than Attack air tools', () => {
+  for (const kind of ['crane', 'blower'] as const) {
+    function stream(speed: boolean) {
+      const sim = setup(kind, speed ? { speed: 5, unique: 2 } : { attack: 5, unique: 2 }, []);
+      const point: Point = [18, 7, 11.5];
+      try {
+        while (sim.tick < 1800 && sim.pops < 20) {
+          if (!sim.balloons.length) {
+            const attackTick = sim.vehicles[0].attackTick;
+            sim.vehicles[0].attackTick = Infinity;
+            sim.wave.splice(sim.spawnIndex, 0, { ...spawn, tick: sim.tick });
+            sim.step();
+            sim.balloons[0].hp = sim.balloons[0].maxHp = 0.5;
+            sim.vehicles[0].attackTick = Number.isFinite(attackTick) ? attackTick : sim.tick;
+          }
+          pin(sim, sim.balloons[0], point);
+          sim.step();
+        }
+        assert.equal(sim.pops, 20);
+        return sim.tick;
+      } finally {
+        sim.dispose();
+      }
+    }
+    const attack = stream(false),
+      speed = stream(true);
+    assert(speed < attack * 0.85, `${kind}: Attack ${attack}, Speed ${speed} ticks`);
+  }
+});
+
+test('Traction air chassis cross rough terrain sooner while Speed wins clear-floor travel', () => {
+  for (const kind of ['crane', 'blower'] as const) {
+    function travel(path: 'speed' | 'traction', terrain: number) {
+      const v = stockVehicle(kind);
+      v.upgrades[path] = 5;
+      v.upgrades.unique = 2;
+      const stats = vehicleStats(v),
+        motion = motionAt(0);
+      let distance = 0;
+      for (let i = 0; i < 180; i++)
+        distance += driveVehicle(
+          motion,
+          kind,
+          [0, 100],
+          stats.speed * terrainSpeedFactor(v, terrain),
+          terrainHandlingFactor(v, terrain),
+        )[1];
+      return distance;
+    }
+    assert(travel('speed', 1) > travel('traction', 1));
+    assert(travel('traction', SURFACE_GRIP.rough) > travel('speed', SURFACE_GRIP.rough));
+  }
+});

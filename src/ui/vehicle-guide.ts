@@ -83,9 +83,11 @@ export const UPGRADE_DIRECTIONS: Record<VehicleKind, Record<PathName, string>> =
   },
   crane: {
     attack: 'Twin armor-breaking hooks; Boom stops at tier 2 (12 m high).',
-    speed: 'Chase and sustain rapid hooks; armor still needs a teammate.',
-    traction: 'Push hay and cross rough and oily lanes; armor still needs a teammate.',
-    unique: 'Carrier control and a splash tower at half speed; needs armor support.',
+    speed: 'Chase and sustain rapid hooks; gives up armor damage, twin hooks and Hook yank.',
+    traction:
+      'Push hay and cross rough and oily lanes; gives up armor damage and advanced Boom tools.',
+    unique:
+      'Splash twin hooks, carrier control and 12 m reach at half speed; armor needs an Attack teammate or lowering support.',
   },
   baler: {
     attack: 'Heavy armor-piercing shots; Bale Press stops at 8 targets per bale.',
@@ -96,9 +98,11 @@ export const UPGRADE_DIRECTIONS: Record<VehicleKind, Record<PathName, string>> =
   },
   blower: {
     attack: 'Damage armored air packs; Airflow stops at tier 2 (12 m high).',
-    speed: 'Chase and keep herding packs; armor still needs a teammate.',
-    traction: 'Push hay and herd across rough and oily routes; armor needs a teammate.',
-    unique: 'Herd from 9 m, gather high packs and lower them; needs armor support.',
+    speed: 'Chase and herd faster; gives up armor damage, Downburst and the gathering vortex.',
+    traction:
+      'Push hay and herd across rough and oily routes; gives up armor damage, Downburst and the gathering vortex.',
+    unique:
+      'Herd from 9 m, gather high packs and lower even armored targets for ground tools; cannot damage armor directly.',
   },
   bulldozer: {
     attack: 'Cut through armored ground packs with faster, stronger sweeps; Blade stops at tier 2.',

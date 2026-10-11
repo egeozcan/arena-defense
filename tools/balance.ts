@@ -17,6 +17,7 @@ import { purchaseAbility } from '../src/sim/economy';
 import { initPhysics, Simulation } from '../src/sim/engine';
 import { responsiveCommands } from './balance-tactics';
 import { writeFileSync, mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((arg) => arg.replace(/^--/, '').split('=')),
@@ -31,30 +32,57 @@ const reserveAir = args['reserve-air'] === 'on';
 const primaryPath = args.primary ?? 'unique';
 const primaryScope = args['primary-scope'] ?? 'all';
 const mobilitySecondary = args['mobility-secondary'] ?? 'attack';
+const cranePrimary = (args['crane-primary'] ?? 'attack') as PathName;
+const blowerPrimary = (args['blower-primary'] ?? 'attack') as PathName;
+const craneSecondary = (args['crane-secondary'] ??
+  (cranePrimary === 'attack' ? 'unique' : 'attack')) as PathName;
+const blowerSecondary = (args['blower-secondary'] ??
+  (blowerPrimary === 'attack' ? 'unique' : 'attack')) as PathName;
+const armorAirCounters = Number(args['armor-air-counters'] ?? 0);
+const armorAirRound = Number(args['armor-air-round'] ?? 21);
+const reserveGust = args['reserve-gust'] === 'on';
 const airCounters = Number(args['air-counters'] ?? 1);
 const airTarget = args['air-target'] ?? 'highest';
 const tactics = args.tactics ?? 'periodic';
 const reinforce = args.reinforce === 'on';
+const reinforcementRound = Number(args['reinforce-round'] ?? 35);
+const reinforcementCount = Number(args['reinforce-count'] ?? 4);
 if (
   (args.hay && !['on', 'off'].includes(args.hay)) ||
   (args.surfaces && !['on', 'off'].includes(args.surfaces)) ||
   (args['reserve-air'] && !['on', 'off'].includes(args['reserve-air'])) ||
+  (args['reserve-gust'] && !['on', 'off'].includes(args['reserve-gust'])) ||
   modes.some((mode) => !MODES[mode]) ||
   arenas.some((arena) => !['barn', 'yard'].includes(arena)) ||
   !['balanced', 'basic', 'expanded'].includes(plan) ||
   !['attack', 'speed', 'traction', 'unique'].includes(primaryPath) ||
   !['all', 'harvester'].includes(primaryScope) ||
   !['attack', 'unique'].includes(mobilitySecondary) ||
+  ![cranePrimary, blowerPrimary, craneSecondary, blowerSecondary].every((p) =>
+    ['attack', 'speed', 'traction', 'unique'].includes(p),
+  ) ||
+  cranePrimary === craneSecondary ||
+  blowerPrimary === blowerSecondary ||
+  !Number.isInteger(armorAirCounters) ||
+  armorAirCounters < 0 ||
+  armorAirCounters > 4 ||
+  !Number.isInteger(armorAirRound) ||
+  armorAirRound < 1 ||
   !['nearest', 'highest'].includes(airTarget) ||
   !['periodic', 'responsive'].includes(tactics) ||
   (args.reinforce && !['on', 'off'].includes(args.reinforce)) ||
+  !Number.isInteger(reinforcementRound) ||
+  reinforcementRound < 1 ||
+  !Number.isInteger(reinforcementCount) ||
+  reinforcementCount < 1 ||
+  reinforcementCount > 6 ||
   !Number.isSafeInteger(airCounters) ||
   airCounters < 1 ||
   !Number.isSafeInteger(seed) ||
   (args.rounds && (!Number.isInteger(Number(args.rounds)) || Number(args.rounds) < 1))
 ) {
   throw new Error(
-    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --primary=attack|speed|traction|unique --primary-scope=all|harvester --mobility-secondary=attack|unique --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off --air-counters=positive-integer --air-target=nearest|highest --tactics=periodic|responsive --reinforce=on|off',
+    'Use --mode=easy|medium|hard --arena=barn|yard --plan=balanced|basic|expanded --primary=attack|speed|traction|unique --primary-scope=all|harvester --mobility-secondary=attack|unique --seed=integer --rounds=positive-integer --hay=on|off --surfaces=on|off --reserve-air=on|off --air-counters=positive-integer --air-target=nearest|highest --crane-primary=attack|speed|traction|unique --crane-secondary=attack|speed|traction|unique --blower-primary=attack|speed|traction|unique --blower-secondary=attack|speed|traction|unique --armor-air-counters=0..4 --armor-air-round=positive-integer --reserve-gust=on|off --tactics=periodic|responsive --reinforce=on|off --reinforce-round=positive-integer --reinforce-count=1..6 --output=path',
   );
 }
 await initPhysics();
@@ -65,10 +93,11 @@ for (const mode of modes)
     run.seed = seed;
     const results = [];
     let reinforcementsBought = 0;
+    const armorAirIds = new Set<number>();
     const rounds = Math.min(MODES[mode].rounds, Number(args.rounds ?? MODES[mode].rounds));
     const requiredAir = () =>
       reserveAir ? (run.round >= 11 ? airCounters : run.round >= 7 ? 1 : 0) : 0;
-    function buy(kind: VehicleKind) {
+    function buy(kind: VehicleKind, armorCounter = false) {
       if (kind !== 'crane' && run.fleet.filter((v) => v.kind === 'crane').length < requiredAir())
         return false;
       const cost = price(run, VEHICLES[kind].cost);
@@ -104,6 +133,7 @@ for (const mode of modes)
       run.nextId++;
       run.cash -= cost;
       run.fleet.push(v);
+      if (armorCounter) armorAirIds.add(v.id);
       return true;
     }
     function upgrade(v: OwnedVehicle, path: PathName) {
@@ -135,6 +165,10 @@ for (const mode of modes)
           : []),
       ] as const)
         if (round >= intro && !run.fleet.some((v) => v.kind === kind)) buy(kind);
+      // Explicitly paid Attack cranes cover armor without replacing the two
+      // cranes whose chosen primary is being tested.
+      if (round >= armorAirRound)
+        while (armorAirIds.size < armorAirCounters) if (!buy('crane', true)) break;
       if (plan !== 'basic') {
         const extras = ['excavator', 'sprayer', 'crane', 'harvester'] as const;
         const rosterSize = plan === 'expanded' ? 8 : 4;
@@ -157,13 +191,31 @@ for (const mode of modes)
         while (run.fleet.length >= rosterSize && run.fleet.length < targetFleet)
           if (!buy(extras[run.fleet.length - rosterSize])) break;
       }
-      if (reinforce && plan !== 'basic' && round >= 35) {
-        const reinforcements = ['excavator', 'mixer', 'baler', 'sprayer'] as const;
-        while (reinforcementsBought < reinforcements.length) {
+      if (reinforce && plan !== 'basic' && round >= reinforcementRound) {
+        const reinforcements = [
+          'excavator',
+          'mixer',
+          'baler',
+          'sprayer',
+          'excavator',
+          'sprayer',
+        ] as const;
+        while (reinforcementsBought < reinforcementCount) {
           if (!buy(reinforcements[reinforcementsBought])) break;
           reinforcementsBought++;
         }
       }
+      // Fund the armor unlock before optional power upgrades. A stock support
+      // crane cannot fulfill its role until its paid Attack tier 3 is installed.
+      for (const v of run.fleet.filter((v) => armorAirIds.has(v.id)))
+        while (v.upgrades.attack < 3) if (!upgrade(v, 'attack')) break;
+      // Optionally fund early lowering support at normal prices.
+      if (reserveGust && round >= 20)
+        while ((run.abilities.gust ?? -1) < 2) {
+          const previous = run.abilities.gust;
+          run = purchaseAbility(run, 'gust');
+          if (run.abilities.gust === previous) break;
+        }
       // Spread affordable tiers before saving for a costly signature transformation.
       for (const tier of [1, 2, 3, 4, 5]) {
         // Layer removal cuts splitting work; acid supplies wide armor coverage.
@@ -183,20 +235,27 @@ for (const mode of modes)
             ? [...run.fleet].sort((a, b) => priority.indexOf(a.kind) - priority.indexOf(b.kind))
             : run.fleet;
         for (const v of investments) {
-          const airDamage = v.kind === 'crane' || v.kind === 'blower';
-          // Keep an armor-capable air specialist while varying the ground
-          // fleet's commitment. Mobility builds still need role coverage.
-          const primary: PathName = airDamage
+          const armorCounter = armorAirIds.has(v.id);
+          const primary: PathName = armorCounter
             ? 'attack'
-            : primaryScope === 'all' || v.kind === 'harvester'
-              ? (primaryPath as PathName)
-              : 'unique';
-          const secondary: PathName =
-            airDamage || primary === 'attack'
-              ? 'unique'
-              : primary === 'speed' || primary === 'traction'
-                ? (mobilitySecondary as PathName)
-                : 'attack';
+            : v.kind === 'crane'
+              ? cranePrimary
+              : v.kind === 'blower'
+                ? blowerPrimary
+                : primaryScope === 'all' || v.kind === 'harvester'
+                  ? (primaryPath as PathName)
+                  : 'unique';
+          const secondary: PathName = armorCounter
+            ? 'unique'
+            : v.kind === 'crane'
+              ? craneSecondary
+              : v.kind === 'blower'
+                ? blowerSecondary
+                : primary === 'attack'
+                  ? 'unique'
+                  : primary === 'speed' || primary === 'traction'
+                    ? (mobilitySecondary as PathName)
+                    : 'attack';
           const goal =
             plan === 'basic' ? 2 : round >= 25 ? 5 : round >= 16 ? 4 : round >= 8 ? 3 : 2;
           if (round >= 8 && tier <= goal && v.upgrades[primary] < tier) upgrade(v, primary);
@@ -297,10 +356,20 @@ for (const mode of modes)
       airTarget,
       tactics,
       reinforce,
+      reinforcementRound,
+      reinforcementCount,
       plan,
       primaryPath,
       primaryScope,
       mobilitySecondary,
+      cranePrimary,
+      craneSecondary,
+      blowerPrimary,
+      blowerSecondary,
+      armorAirCounters,
+      armorAirRound,
+      reserveGust,
+      armorAirIds: [...armorAirIds],
       seed,
       requestedRounds: rounds,
       survived: run.lives > 0 && run.round === rounds,
@@ -323,8 +392,8 @@ for (const mode of modes)
     );
     if (plan !== 'basic' && !report.survived) process.exitCode = 1;
   }
-mkdirSync('artifacts', { recursive: true });
-writeFileSync(
-  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}${args.primary ? `-primary-${primaryPath}` : ''}${args['primary-scope'] ? `-primary-scope-${primaryScope}` : ''}${args['mobility-secondary'] ? `-mobility-secondary-${mobilitySecondary}` : ''}${args['air-counters'] ? `-air-counters-${airCounters}` : ''}${args['air-target'] ? `-air-target-${airTarget}` : ''}${args.tactics ? `-tactics-${tactics}` : ''}${reinforce ? '-reinforced' : ''}${args.rounds ? `-through-${args.rounds}` : ''}.json`,
-  JSON.stringify(reports, null, 2),
-);
+const output =
+  args.output ??
+  `artifacts/balance-${plan}-${seed}-${modes.join('-')}-${arenas.join('-')}-${hay ? 'hay' : 'clear'}-surfaces-${surfaces ? 'on' : 'off'}${reserveAir ? '-air-reserve' : ''}${args.primary ? `-primary-${primaryPath}` : ''}${args['primary-scope'] ? `-primary-scope-${primaryScope}` : ''}${args['mobility-secondary'] ? `-mobility-secondary-${mobilitySecondary}` : ''}${args['air-counters'] ? `-air-counters-${airCounters}` : ''}${args['air-target'] ? `-air-target-${airTarget}` : ''}${args.tactics ? `-tactics-${tactics}` : ''}${args['crane-primary'] || args['crane-secondary'] ? `-crane-${cranePrimary}-${craneSecondary}` : ''}${args['blower-primary'] || args['blower-secondary'] ? `-blower-${blowerPrimary}-${blowerSecondary}` : ''}${args['armor-air-counters'] ? `-armor-air-${armorAirCounters}` : ''}${args['armor-air-round'] ? `-armor-air-from-${armorAirRound}` : ''}${reserveGust ? '-reserved-gust' : ''}${reinforce ? '-reinforced' : ''}${args['reinforce-round'] ? `-reinforce-from-${reinforcementRound}` : ''}${args['reinforce-count'] ? `-reinforce-count-${reinforcementCount}` : ''}${args.rounds ? `-through-${args.rounds}` : ''}.json`;
+mkdirSync(dirname(output), { recursive: true });
+writeFileSync(output, JSON.stringify(reports, null, 2));

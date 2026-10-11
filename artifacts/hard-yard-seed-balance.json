@@ -1,0 +1,985 @@
+{
+  "mode": "hard",
+  "arena": "yard",
+  "requestedRounds": 60,
+  "seeds": [
+    73429,
+    73531,
+    101,
+    2027,
+    900001,
+    20261010
+  ],
+  "startingCash": 650,
+  "startingLives": 50,
+  "hay": true,
+  "surfaces": true,
+  "rulesHash": "17b15cd8ff41d1e121cd8277069b28c8388bdb976f9078e299587ec822798072",
+  "cohorts": [
+    "artifacts/hard-yard-seeds/baseline/summary.json",
+    "artifacts/hard-yard-seeds/coverage/summary.json",
+    "artifacts/hard-yard-seeds/traction-margin/summary.json"
+  ],
+  "policyHashes": {
+    "initial": "f83c13cb4b88c2acbd7355626eb12bb97d77ac89d0011c0a53964b8ddbe1f820",
+    "coverage": "17cfa5a49717ba55b164d179dd64e9c7f5b590980a2225273bf6b8851255f68c",
+    "tractionMargin": "17cfa5a49717ba55b164d179dd64e9c7f5b590980a2225273bf6b8851255f68c"
+  },
+  "totalAttempts": 48,
+  "simulatedRounds": 2858,
+  "auditedPreparationBudgets": 2858,
+  "verifiedCampaigns": 24,
+  "allSeedsViable": true,
+  "paths": [
+    {
+      "primary": "attack",
+      "strategy": {
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false
+      },
+      "initialCompleted": 6,
+      "completed": 6,
+      "minimumLives": 50,
+      "maximumLives": 50,
+      "fleetSizes": [
+        10
+      ],
+      "paidTotals": [
+        60023
+      ],
+      "meanWaveSeconds": 90.1,
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-73429.json",
+          "seed": 73429,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 88.8,
+          "slowest": 171.9,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-73531.json",
+          "seed": 73531,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 89.9,
+          "slowest": 163.9,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-101.json",
+          "seed": 101,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 89.1,
+          "slowest": 129.6,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-2027.json",
+          "seed": 2027,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 92.2,
+          "slowest": 167.6,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-900001.json",
+          "seed": 900001,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 89.1,
+          "slowest": 156.5,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/baseline/attack-20261010.json",
+          "seed": 20261010,
+          "primary": "attack",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "paidTotal": 60023,
+          "averageSeconds": 91.4,
+          "slowest": 154.3,
+          "losses": []
+        }
+      ]
+    },
+    {
+      "primary": "speed",
+      "strategy": {
+        "primary": "speed",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": true,
+        "reinforcementRound": 28,
+        "reinforcementCount": 2
+      },
+      "initialCompleted": 1,
+      "completed": 6,
+      "minimumLives": 50,
+      "maximumLives": 50,
+      "fleetSizes": [
+        11
+      ],
+      "paidTotals": [
+        55926
+      ],
+      "meanWaveSeconds": 100.2,
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-73429.json",
+          "seed": 73429,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 99.7,
+          "slowest": 160.8,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-73531.json",
+          "seed": 73531,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 99.3,
+          "slowest": 159.4,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-101.json",
+          "seed": 101,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 102.3,
+          "slowest": 157.2,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-2027.json",
+          "seed": 2027,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 98.1,
+          "slowest": 170.4,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-900001.json",
+          "seed": 900001,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 102.7,
+          "slowest": 161.9,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/speed-20261010.json",
+          "seed": 20261010,
+          "primary": "speed",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 11,
+          "paidTotal": 55926,
+          "averageSeconds": 99.3,
+          "slowest": 160.6,
+          "losses": []
+        }
+      ]
+    },
+    {
+      "primary": "traction",
+      "strategy": {
+        "primary": "traction",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": true,
+        "reinforcementRound": 28,
+        "reinforcementCount": 5
+      },
+      "initialCompleted": 6,
+      "completed": 6,
+      "minimumLives": 46,
+      "maximumLives": 50,
+      "fleetSizes": [
+        14
+      ],
+      "paidTotals": [
+        56082
+      ],
+      "meanWaveSeconds": 102.4,
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-73429.json",
+          "seed": 73429,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 101.7,
+          "slowest": 153.6,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-73531.json",
+          "seed": 73531,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 47,
+          "totalLost": 3,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 103.5,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 59,
+              "lost": 3,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 1,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-101.json",
+          "seed": 101,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 102.2,
+          "slowest": 174,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-2027.json",
+          "seed": 2027,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 104.4,
+          "slowest": 162,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-900001.json",
+          "seed": 900001,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 46,
+          "totalLost": 4,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 101.8,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 60,
+              "lost": 4,
+              "remaining": {
+                "basic": 1,
+                "layered": 0,
+                "armored": 1,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/traction-margin/traction-20261010.json",
+          "seed": 20261010,
+          "primary": "traction",
+          "plan": "expanded",
+          "secondary": "unique",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 5,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 14,
+          "paidTotal": 56082,
+          "averageSeconds": 101.1,
+          "slowest": 164.2,
+          "losses": []
+        }
+      ]
+    },
+    {
+      "primary": "unique",
+      "strategy": {
+        "primary": "unique",
+        "plan": "balanced",
+        "secondary": "attack",
+        "reinforce": true,
+        "reinforcementRound": 28,
+        "reinforcementCount": 2
+      },
+      "initialCompleted": 5,
+      "completed": 6,
+      "minimumLives": 33,
+      "maximumLives": 50,
+      "fleetSizes": [
+        9
+      ],
+      "paidTotals": [
+        59649
+      ],
+      "meanWaveSeconds": 99.1,
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-73429.json",
+          "seed": 73429,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 98.1,
+          "slowest": 153.3,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-73531.json",
+          "seed": 73531,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 48,
+          "totalLost": 2,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 101.6,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 23,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 1,
+                "armored": 0,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 0,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-101.json",
+          "seed": 101,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 33,
+          "totalLost": 17,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 101.1,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 21,
+              "lost": 7,
+              "remaining": {
+                "basic": 0,
+                "layered": 2,
+                "armored": 0,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 0,
+              "pending": 0
+            },
+            {
+              "round": 26,
+              "lost": 10,
+              "remaining": {
+                "basic": 1,
+                "layered": 0,
+                "armored": 3,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 3,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-2027.json",
+          "seed": 2027,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 99.5,
+          "slowest": 165.7,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-900001.json",
+          "seed": 900001,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 98,
+          "slowest": 152.2,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-seeds/coverage/unique-20261010.json",
+          "seed": 20261010,
+          "primary": "unique",
+          "plan": "balanced",
+          "secondary": "attack",
+          "reinforce": true,
+          "reinforcementRound": 28,
+          "reinforcementCount": 2,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 9,
+          "paidTotal": 59649,
+          "averageSeconds": 96.6,
+          "slowest": 172.1,
+          "losses": []
+        }
+      ]
+    }
+  ],
+  "initialFailures": [
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/unique-2027.json",
+      "seed": 2027,
+      "primary": "unique",
+      "plan": "balanced",
+      "secondary": "attack",
+      "reinforce": false,
+      "completed": false,
+      "round": 59,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 8,
+      "paidTotal": 50113,
+      "averageSeconds": 117.1,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 56,
+          "lost": 7,
+          "remaining": {
+            "basic": 0,
+            "layered": 2,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 37,
+          "remaining": {
+            "basic": 1,
+            "layered": 0,
+            "armored": 12,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 58,
+          "lost": 2,
+          "remaining": {
+            "basic": 2,
+            "layered": 0,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 59,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/speed-73531.json",
+      "seed": 73531,
+      "primary": "speed",
+      "plan": "expanded",
+      "secondary": "unique",
+      "reinforce": false,
+      "completed": false,
+      "round": 57,
+      "lives": 0,
+      "totalLost": 155,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "averageSeconds": 107.5,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 47,
+          "lost": 12,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 4,
+          "pending": 0
+        },
+        {
+          "round": 55,
+          "lost": 1,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 0,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 0,
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 142,
+          "remaining": {
+            "basic": 9,
+            "layered": 18,
+            "armored": 28,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 35,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/speed-101.json",
+      "seed": 101,
+      "primary": "speed",
+      "plan": "expanded",
+      "secondary": "unique",
+      "reinforce": false,
+      "completed": false,
+      "round": 56,
+      "lives": 0,
+      "totalLost": 77,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "averageSeconds": 106,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 47,
+          "lost": 14,
+          "remaining": {
+            "basic": 0,
+            "layered": 1,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 4,
+          "pending": 0
+        },
+        {
+          "round": 56,
+          "lost": 63,
+          "remaining": {
+            "basic": 2,
+            "layered": 16,
+            "armored": 9,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 18,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/speed-2027.json",
+      "seed": 2027,
+      "primary": "speed",
+      "plan": "expanded",
+      "secondary": "unique",
+      "reinforce": false,
+      "completed": false,
+      "round": 57,
+      "lives": 0,
+      "totalLost": 120,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "averageSeconds": 109,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 56,
+          "lost": 3,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 1,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 117,
+          "remaining": {
+            "basic": 7,
+            "layered": 28,
+            "armored": 17,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 25,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/speed-900001.json",
+      "seed": 900001,
+      "primary": "speed",
+      "plan": "expanded",
+      "secondary": "unique",
+      "reinforce": false,
+      "completed": false,
+      "round": 57,
+      "lives": 0,
+      "totalLost": 68,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "averageSeconds": 109.5,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 54,
+          "lost": 14,
+          "remaining": {
+            "basic": 0,
+            "layered": 2,
+            "armored": 4,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 5,
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 54,
+          "remaining": {
+            "basic": 9,
+            "layered": 9,
+            "armored": 6,
+            "high": 0,
+            "carrier": 1
+          },
+          "armored": 7,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/baseline/speed-20261010.json",
+      "seed": 20261010,
+      "primary": "speed",
+      "plan": "expanded",
+      "secondary": "unique",
+      "reinforce": false,
+      "completed": false,
+      "round": 52,
+      "lives": 0,
+      "totalLost": 65,
+      "fleetSize": 10,
+      "paidTotal": 50106,
+      "averageSeconds": 103.5,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 51,
+          "lost": 6,
+          "remaining": {
+            "basic": 1,
+            "layered": 0,
+            "armored": 0,
+            "high": 0,
+            "carrier": 1
+          },
+          "armored": 0,
+          "pending": 0
+        },
+        {
+          "round": 52,
+          "lost": 59,
+          "remaining": {
+            "basic": 5,
+            "layered": 14,
+            "armored": 5,
+            "high": 0,
+            "carrier": 0
+          },
+          "armored": 15,
+          "pending": 0
+        }
+      ]
+    }
+  ],
+  "revisedFailures": [],
+  "tractionComparisons": [
+    {
+      "source": "artifacts/hard-yard-seeds/traction-margin/summary.json",
+      "completed": 6,
+      "minimumLives": 46,
+      "lateMaximumSeconds": 180,
+      "fleetSizes": [
+        14
+      ],
+      "paidTotals": [
+        56082
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-seeds/coverage/summary.json",
+      "completed": 6,
+      "minimumLives": 16,
+      "lateMaximumSeconds": 180,
+      "fleetSizes": [
+        13
+      ],
+      "paidTotals": [
+        52993
+      ]
+    }
+  ],
+  "checks": [
+    "60-round completion and life accounting",
+    "Exact normal purchase/upgrade/ability prices",
+    "Every preparation budget reconciles with previous income",
+    "Two-path and 5+2 caps",
+    "Winning fleets actually finish their selected primary and secondary paths",
+    "180-second timeout and 300-body limit"
+  ],
+  "limitations": "Fixed purchasing, deployment, and responsive ability policies; air tools use Attack primary. Consistency applies to this seed set and these strategies, not every fleet composition or human win rates.",
+  "profile": "reliable",
+  "reproduce": "npm run balance:hard-yard -- --tag=recheck --jobs=8"
+}

@@ -1,0 +1,7097 @@
+{
+  "mode": "hard",
+  "arena": "yard",
+  "requestedRounds": 60,
+  "seeds": [
+    73429,
+    73531,
+    101,
+    2027,
+    900001,
+    20261010
+  ],
+  "startingCash": 650,
+  "startingLives": 50,
+  "hay": true,
+  "surfaces": true,
+  "rulesHash": "17b15cd8ff41d1e121cd8277069b28c8388bdb976f9078e299587ec822798072",
+  "newAttempts": 45,
+  "simulatedRounds": 2320,
+  "auditedPreparationBudgets": 2320,
+  "verifiedNewCampaigns": 18,
+  "allSeedsViable": true,
+  "paths": [
+    {
+      "primary": "speed",
+      "strategy": {
+        "id": "both-speed",
+        "airTools": "both",
+        "primary": "attack",
+        "secondary": "unique",
+        "plan": "expanded",
+        "reinforce": false,
+        "cranePrimary": "speed",
+        "craneSecondary": "unique",
+        "blowerPrimary": "speed",
+        "blowerSecondary": "unique",
+        "armorAirCounters": 1,
+        "armorAirRound": 16,
+        "reserveGust": false
+      },
+      "wins": 6,
+      "lives": [
+        41,
+        50
+      ],
+      "fleetSize": [
+        10,
+        10
+      ],
+      "totalPaid": [
+        57081,
+        57081
+      ],
+      "meanWaveSeconds": 104,
+      "individualHardBuildCosts": {
+        "crane": 5254,
+        "blower": 4504
+      },
+      "testedAirPops": [
+        13044,
+        14308
+      ],
+      "armorSupportPops": [
+        3840,
+        4220
+      ],
+      "contributions": [
+        {
+          "seed": 73429,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4120
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1557
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 7688
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4099
+            }
+          ]
+        },
+        {
+          "seed": 73531,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4089
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1475
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 7480
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4110
+            }
+          ]
+        },
+        {
+          "seed": 101,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4170
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1234
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8687
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3840
+            }
+          ]
+        },
+        {
+          "seed": 2027,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3897
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1184
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8202
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3986
+            }
+          ]
+        },
+        {
+          "seed": 900001,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4335
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1048
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8925
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4065
+            }
+          ]
+        },
+        {
+          "seed": 20261010,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4385
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1343
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8401
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4220
+            }
+          ]
+        }
+      ],
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-73429.json",
+          "seed": 73429,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 44,
+          "totalLost": 6,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14866
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28207
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15222
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17844
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4120
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1557
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8702
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 7688
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18226
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4099
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 104.6,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 26,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            },
+            {
+              "round": 55,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-73531.json",
+          "seed": 73531,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 41,
+          "totalLost": 9,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14573
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28141
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15937
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18084
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4089
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1475
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8600
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 7480
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17977
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4110
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 106.7,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 27,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 50,
+              "lost": 1,
+              "remaining": {
+                "basic": 1,
+                "layered": 0,
+                "armored": 0,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 0,
+              "pending": 0
+            },
+            {
+              "round": 55,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 57,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-101.json",
+          "seed": 101,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 46,
+          "totalLost": 4,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14352
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27530
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16256
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17240
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4170
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1234
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 9246
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8687
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17902
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3840
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 105.1,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 25,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 49,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-2027.json",
+          "seed": 2027,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 46,
+          "totalLost": 4,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14235
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 29392
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15600
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17514
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3897
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1184
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8449
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8202
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18127
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3986
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 102,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 29,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-900001.json",
+          "seed": 900001,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14279
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27750
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14279
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18757
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4335
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1048
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8835
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8925
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18285
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4065
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 101.5,
+          "slowest": 176,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-speed-20261010.json",
+          "seed": 20261010,
+          "id": "both-speed",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "speed",
+          "craneSecondary": "unique",
+          "blowerPrimary": "speed",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 44,
+          "totalLost": 6,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14709
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27000
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15245
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17969
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 4385
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1343
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8936
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 5,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8401
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18304
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4220
+            }
+          ],
+          "paidTotal": 57081,
+          "averageSeconds": 104,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 26,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 52,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 57,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "primary": "traction",
+      "strategy": {
+        "id": "both-traction",
+        "airTools": "both",
+        "primary": "attack",
+        "secondary": "unique",
+        "plan": "expanded",
+        "reinforce": false,
+        "cranePrimary": "traction",
+        "craneSecondary": "unique",
+        "blowerPrimary": "traction",
+        "blowerSecondary": "unique",
+        "armorAirCounters": 1,
+        "armorAirRound": 16,
+        "reserveGust": false
+      },
+      "wins": 6,
+      "lives": [
+        39,
+        50
+      ],
+      "fleetSize": [
+        10,
+        10
+      ],
+      "totalPaid": [
+        53300,
+        53300
+      ],
+      "meanWaveSeconds": 103.1,
+      "individualHardBuildCosts": {
+        "crane": 3931,
+        "blower": 3369
+      },
+      "testedAirPops": [
+        10359,
+        11304
+      ],
+      "armorSupportPops": [
+        4026,
+        4503
+      ],
+      "contributions": [
+        {
+          "seed": 73429,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3760
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1367
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5232
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4109
+            }
+          ]
+        },
+        {
+          "seed": 73531,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3979
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1559
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5735
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4232
+            }
+          ]
+        },
+        {
+          "seed": 101,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3629
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1579
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5541
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4430
+            }
+          ]
+        },
+        {
+          "seed": 2027,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3833
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1589
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5882
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4026
+            }
+          ]
+        },
+        {
+          "seed": 900001,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3717
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1533
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5653
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4503
+            }
+          ]
+        },
+        {
+          "seed": 20261010,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3770
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1575
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5429
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4238
+            }
+          ]
+        }
+      ],
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-73429.json",
+          "seed": 73429,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 48,
+          "totalLost": 2,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14318
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 29216
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16900
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17648
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3760
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1367
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8937
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5232
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 19037
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4109
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 103.2,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 51,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-73531.json",
+          "seed": 73531,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 39,
+          "totalLost": 11,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 13905
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27876
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16248
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18094
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3979
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1559
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 9592
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5735
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 19251
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4232
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 105.3,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 50,
+              "lost": 1,
+              "remaining": {
+                "basic": 1,
+                "layered": 0,
+                "armored": 0,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 0,
+              "pending": 0
+            },
+            {
+              "round": 55,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 56,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            },
+            {
+              "round": 57,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-101.json",
+          "seed": 101,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 46,
+          "totalLost": 4,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14563
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28447
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16868
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17642
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3629
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1579
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8757
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5541
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 19062
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4430
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 103.7,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 53,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-2027.json",
+          "seed": 2027,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 42,
+          "totalLost": 8,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 13760
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 29362
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15771
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18940
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3833
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1589
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8633
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5882
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18693
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4026
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 102.9,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 23,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            },
+            {
+              "round": 52,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 60,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-900001.json",
+          "seed": 900001,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 44,
+          "totalLost": 6,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14246
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 29115
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15107
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 19350
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3717
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1533
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8526
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5653
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18708
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4503
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 102.1,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 53,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            },
+            {
+              "round": 58,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-traction-20261010.json",
+          "seed": 20261010,
+          "id": "both-traction",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "traction",
+          "craneSecondary": "unique",
+          "blowerPrimary": "traction",
+          "blowerSecondary": "unique",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 13969
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28489
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15617
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18687
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 3770
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 1575
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 9426
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 0,
+                "speed": 0,
+                "traction": 5,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 5429
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 19319
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 4238
+            }
+          ],
+          "paidTotal": 53300,
+          "averageSeconds": 101.5,
+          "slowest": 160.4,
+          "losses": []
+        }
+      ]
+    },
+    {
+      "primary": "unique",
+      "strategy": {
+        "id": "both-unique",
+        "airTools": "both",
+        "primary": "attack",
+        "secondary": "unique",
+        "plan": "expanded",
+        "reinforce": false,
+        "cranePrimary": "unique",
+        "craneSecondary": "attack",
+        "blowerPrimary": "unique",
+        "blowerSecondary": "attack",
+        "armorAirCounters": 1,
+        "armorAirRound": 16,
+        "reserveGust": false
+      },
+      "wins": 6,
+      "lives": [
+        46,
+        50
+      ],
+      "fleetSize": [
+        10,
+        10
+      ],
+      "totalPaid": [
+        65180,
+        65180
+      ],
+      "meanWaveSeconds": 99.8,
+      "individualHardBuildCosts": {
+        "crane": 8089,
+        "blower": 6933
+      },
+      "testedAirPops": [
+        14103,
+        15248
+      ],
+      "armorSupportPops": [
+        3320,
+        3816
+      ],
+      "contributions": [
+        {
+          "seed": 73429,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4833
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1822
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8130
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3681
+            }
+          ]
+        },
+        {
+          "seed": 73531,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4859
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1766
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8366
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3320
+            }
+          ]
+        },
+        {
+          "seed": 101,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4717
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1450
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8927
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3451
+            }
+          ]
+        },
+        {
+          "seed": 2027,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4726
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1488
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 7889
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3702
+            }
+          ]
+        },
+        {
+          "seed": 900001,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 5148
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1616
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8352
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3782
+            }
+          ]
+        },
+        {
+          "seed": 20261010,
+          "testedAirTools": [
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4943
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1796
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8509
+            }
+          ],
+          "armorSupport": [
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3816
+            }
+          ]
+        }
+      ],
+      "cases": [
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-73429.json",
+          "seed": 73429,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 13887
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27874
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15331
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17766
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4833
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1822
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8614
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8130
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18460
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3681
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 99.7,
+          "slowest": 161.7,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-73531.json",
+          "seed": 73531,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14101
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27876
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15727
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16735
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4859
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1766
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 9055
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8366
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18613
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3320
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 100.2,
+          "slowest": 162.1,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-101.json",
+          "seed": 101,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 49,
+          "totalLost": 1,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14118
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28191
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15950
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 16992
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4717
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1450
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8660
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8927
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18019
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3451
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 100.1,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 60,
+              "lost": 1,
+              "remaining": {
+                "basic": 1,
+                "layered": 0,
+                "armored": 0,
+                "high": 0,
+                "carrier": 0
+              },
+              "armored": 0,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-2027.json",
+          "seed": 2027,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 50,
+          "totalLost": 0,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14250
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28134
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15778
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18051
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4726
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1488
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8071
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 7889
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18314
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3702
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 99.7,
+          "slowest": 169.6,
+          "losses": []
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-900001.json",
+          "seed": 900001,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 46,
+          "totalLost": 4,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 13730
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 27956
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 15105
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17530
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 5148
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1616
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8938
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8352
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 18325
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3782
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 99.2,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 56,
+              "lost": 4,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 2,
+                "carrier": 0
+              },
+              "armored": 2,
+              "pending": 0
+            }
+          ]
+        },
+        {
+          "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/both-unique-20261010.json",
+          "seed": 20261010,
+          "id": "both-unique",
+          "airTools": "both",
+          "primary": "attack",
+          "secondary": "unique",
+          "plan": "expanded",
+          "reinforce": false,
+          "cranePrimary": "unique",
+          "craneSecondary": "attack",
+          "blowerPrimary": "unique",
+          "blowerSecondary": "attack",
+          "armorAirCounters": 1,
+          "armorAirRound": 16,
+          "reserveGust": false,
+          "completed": true,
+          "round": 60,
+          "lives": 48,
+          "totalLost": 2,
+          "fleetSize": 10,
+          "vehicleContributions": [
+            {
+              "id": 1,
+              "kind": "harvester",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14388
+            },
+            {
+              "id": 2,
+              "kind": "sprayer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 28260
+            },
+            {
+              "id": 3,
+              "kind": "baler",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 14490
+            },
+            {
+              "id": 4,
+              "kind": "excavator",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17378
+            },
+            {
+              "id": 5,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 4943
+            },
+            {
+              "id": 6,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 1796
+            },
+            {
+              "id": 7,
+              "kind": "bulldozer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 8958
+            },
+            {
+              "id": 8,
+              "kind": "blower",
+              "upgrades": {
+                "attack": 2,
+                "speed": 0,
+                "traction": 0,
+                "unique": 5
+              },
+              "armorCounter": false,
+              "pops": 8509
+            },
+            {
+              "id": 9,
+              "kind": "mixer",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": false,
+              "pops": 17902
+            },
+            {
+              "id": 10,
+              "kind": "crane",
+              "upgrades": {
+                "attack": 5,
+                "speed": 0,
+                "traction": 0,
+                "unique": 2
+              },
+              "armorCounter": true,
+              "pops": 3816
+            }
+          ],
+          "paidTotal": 65180,
+          "averageSeconds": 99.7,
+          "slowest": 180,
+          "losses": [
+            {
+              "round": 60,
+              "lost": 2,
+              "remaining": {
+                "basic": 0,
+                "layered": 0,
+                "armored": 0,
+                "high": 1,
+                "carrier": 0
+              },
+              "armored": 1,
+              "pending": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "attackReference": {
+    "source": "artifacts/hard-yard-seed-balance.json",
+    "reusedCampaigns": 6,
+    "description": "Existing Attack 5 / Specialist 2 air tools with Attack-primary ground tools; same simulation rules. The Downburst policy correction does not affect these tier-2 Specialist builds.",
+    "lives": [
+      50,
+      50
+    ],
+    "fleetSizes": [
+      10
+    ],
+    "paidTotals": [
+      60023
+    ],
+    "meanWaveSeconds": 90.1,
+    "cases": [
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-73429.json",
+        "seed": 73429,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 88.8,
+        "slowest": 171.9,
+        "losses": []
+      },
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-73531.json",
+        "seed": 73531,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 89.9,
+        "slowest": 163.9,
+        "losses": []
+      },
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-101.json",
+        "seed": 101,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 89.1,
+        "slowest": 129.6,
+        "losses": []
+      },
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-2027.json",
+        "seed": 2027,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 92.2,
+        "slowest": 167.6,
+        "losses": []
+      },
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-900001.json",
+        "seed": 900001,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 89.1,
+        "slowest": 156.5,
+        "losses": []
+      },
+      {
+        "source": "artifacts/hard-yard-seeds/baseline/attack-20261010.json",
+        "seed": 20261010,
+        "primary": "attack",
+        "plan": "expanded",
+        "secondary": "unique",
+        "reinforce": false,
+        "completed": true,
+        "round": 60,
+        "lives": 50,
+        "totalLost": 0,
+        "fleetSize": 10,
+        "paidTotal": 60023,
+        "averageSeconds": 91.4,
+        "slowest": 154.3,
+        "losses": []
+      }
+    ]
+  },
+  "cohorts": [
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/summary.json",
+      "policyHash": "adefada0576fdd520a99b4292930d181461e55dafe0a701b56878637a8f885f7",
+      "finishedCampaigns": 18,
+      "requestedCampaigns": 18,
+      "stoppedAfterPilot": false,
+      "plannedButNotRun": 0,
+      "simulatedRounds": 915,
+      "allSeedsViable": false,
+      "policySource": "artifacts/hard-yard-air-seeds/air-baseline-pilot/policy-source.txt",
+      "tacticsSource": "artifacts/hard-yard-air-seeds/air-baseline-pilot/tactics-source.txt"
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/summary.json",
+      "policyHash": "adefada0576fdd520a99b4292930d181461e55dafe0a701b56878637a8f885f7",
+      "finishedCampaigns": 4,
+      "requestedCampaigns": 4,
+      "stoppedAfterPilot": false,
+      "plannedButNotRun": 0,
+      "simulatedRounds": 129,
+      "allSeedsViable": false,
+      "policySource": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/policy-source.txt",
+      "tacticsSource": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/tactics-source.txt"
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-gust-coverage-pilot/summary.json",
+      "policyHash": "96ca46bbc213da8b24aaa2b8a4f307a6d51e605082323aa5a290f970baffa1e9",
+      "finishedCampaigns": 2,
+      "requestedCampaigns": 4,
+      "stoppedAfterPilot": true,
+      "plannedButNotRun": 2,
+      "simulatedRounds": 90,
+      "allSeedsViable": false,
+      "policySource": "artifacts/hard-yard-air-seeds/air-gust-coverage-pilot/policy-source.txt",
+      "tacticsSource": "artifacts/hard-yard-air-seeds/air-gust-coverage-pilot/tactics-source.txt"
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-early-armor-pilot/summary.json",
+      "policyHash": "e34b89b3d78ea74fbf116b085ecbc0ed8a6d4d4b577de3b552ecb23bf2d8492f",
+      "finishedCampaigns": 3,
+      "requestedCampaigns": 4,
+      "stoppedAfterPilot": true,
+      "plannedButNotRun": 1,
+      "simulatedRounds": 106,
+      "allSeedsViable": false,
+      "policySource": "artifacts/hard-yard-air-seeds/air-early-armor-pilot/policy-source.txt",
+      "tacticsSource": "artifacts/hard-yard-air-seeds/air-early-armor-pilot/tactics-source.txt"
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/summary.json",
+      "policyHash": "c34cc6d64e4f7c3edc49217d4bf5f5e6e09b956e2002cfdd991639b94dc0db77",
+      "finishedCampaigns": 18,
+      "requestedCampaigns": 18,
+      "stoppedAfterPilot": false,
+      "plannedButNotRun": 0,
+      "simulatedRounds": 1080,
+      "allSeedsViable": true,
+      "policySource": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/policy-source.txt",
+      "tacticsSource": "artifacts/hard-yard-air-seeds/air-priority-armor-pilot/tactics-source.txt"
+    }
+  ],
+  "failures": [
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-speed-73429.json",
+      "seed": 73429,
+      "id": "both-speed",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "speed",
+      "craneSecondary": "unique",
+      "blowerPrimary": "speed",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 60,
+      "fleetSize": 9,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2059
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2835
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2086
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1955
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 628
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 229
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1159
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 626
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1711
+        }
+      ],
+      "paidTotal": 20173,
+      "averageSeconds": 68,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 26,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 13,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-speed-73531.json",
+      "seed": 73531,
+      "id": "both-speed",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "speed",
+      "craneSecondary": "unique",
+      "blowerPrimary": "speed",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 39,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 6856
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 11473
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 6499
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 7202
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2225
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1113
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 4236
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1999
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 6897
+        },
+        {
+          "id": 10,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2063
+        }
+      ],
+      "paidTotal": 54516,
+      "averageSeconds": 96.9,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 24,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 12,
+            "carrier": 0
+          },
+          "armored": 12,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 18,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 9,
+            "carrier": 0
+          },
+          "armored": 9,
+          "pending": 0
+        },
+        {
+          "round": 25,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 27,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 39,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-traction-73429.json",
+      "seed": 73429,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 24,
+      "lives": 0,
+      "totalLost": 68,
+      "fleetSize": 9,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2637
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3804
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2279
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2421
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 691
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 223
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 973
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 569
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1646
+        }
+      ],
+      "paidTotal": 22277,
+      "averageSeconds": 74.4,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 26,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 13,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 18,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 9,
+            "carrier": 0
+          },
+          "armored": 9,
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 24,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 12,
+            "carrier": 0
+          },
+          "armored": 12,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-traction-73531.json",
+      "seed": 73531,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 24,
+      "lives": 0,
+      "totalLost": 64,
+      "fleetSize": 9,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2599
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3733
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2045
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2234
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 609
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 283
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1269
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 4,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 651
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1822
+        }
+      ],
+      "paidTotal": 22536,
+      "averageSeconds": 75.2,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 22,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 11,
+            "carrier": 0
+          },
+          "armored": 11,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 26,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 13,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 16,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 8,
+            "carrier": 0
+          },
+          "armored": 8,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-unique-73429.json",
+      "seed": 73429,
+      "id": "both-unique",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "unique",
+      "craneSecondary": "attack",
+      "blowerPrimary": "unique",
+      "blowerSecondary": "attack",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 58,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 13406
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 26918
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 13221
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 15118
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          },
+          "armorCounter": false,
+          "pops": 4890
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          },
+          "armorCounter": false,
+          "pops": 2496
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 8866
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 5
+          },
+          "armorCounter": false,
+          "pops": 5049
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 17037
+        },
+        {
+          "id": 10,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 5803
+        }
+      ],
+      "paidTotal": 62615,
+      "averageSeconds": 113.9,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 12,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 6,
+            "carrier": 0
+          },
+          "armored": 6,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 8,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 4,
+            "carrier": 0
+          },
+          "armored": 4,
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 42,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 47,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 49,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 53,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 54,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 55,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 56,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 57,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 58,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-baseline-pilot/both-unique-73531.json",
+      "seed": 73531,
+      "id": "both-unique",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "unique",
+      "craneSecondary": "attack",
+      "blowerPrimary": "unique",
+      "blowerSecondary": "attack",
+      "armorAirCounters": 0,
+      "reserveGust": false,
+      "completed": false,
+      "round": 27,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 9,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3233
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 5096
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2971
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3009
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 4
+          },
+          "armorCounter": false,
+          "pops": 969
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          },
+          "armorCounter": false,
+          "pops": 409
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1802
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 3
+          },
+          "armorCounter": false,
+          "pops": 1010
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 4,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2879
+        }
+      ],
+      "paidTotal": 30086,
+      "averageSeconds": 84.8,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 24,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 12,
+            "carrier": 0
+          },
+          "armored": 12,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 8,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 4,
+            "carrier": 0
+          },
+          "armored": 4,
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 12,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 6,
+            "carrier": 0
+          },
+          "armored": 6,
+          "pending": 0
+        },
+        {
+          "round": 25,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 26,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 27,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/both-speed-73531.json",
+      "seed": 73531,
+      "id": "both-speed",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "speed",
+      "craneSecondary": "unique",
+      "blowerPrimary": "speed",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 1,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 64,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2611
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2671
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1891
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2043
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 569
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 182
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1043
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 2,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 569
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1540
+        },
+        {
+          "id": 10,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": true,
+          "pops": 167
+        }
+      ],
+      "paidTotal": 20165,
+      "averageSeconds": 70.3,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 30,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 15,
+            "carrier": 0
+          },
+          "armored": 15,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/both-traction-73429.json",
+      "seed": 73429,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 1,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 60,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2350
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2828
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2069
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1978
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 618
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 191
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1093
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 521
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1469
+        },
+        {
+          "id": 10,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": true,
+          "pops": 171
+        }
+      ],
+      "paidTotal": 20193,
+      "averageSeconds": 70.1,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 26,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 13,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-armor-coverage-pilot/both-traction-73531.json",
+      "seed": 73531,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 1,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 64,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2338
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3162
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1620
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2084
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 604
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 144
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1032
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 528
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1562
+        },
+        {
+          "id": 10,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": true,
+          "pops": 212
+        }
+      ],
+      "paidTotal": 20193,
+      "averageSeconds": 70.6,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 30,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 15,
+            "carrier": 0
+          },
+          "armored": 15,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-gust-coverage-pilot/both-speed-73429.json",
+      "seed": 73429,
+      "id": "both-speed",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "speed",
+      "craneSecondary": "unique",
+      "blowerPrimary": "speed",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": true,
+      "completed": false,
+      "round": 48,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 9543
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 18707
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 9715
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 11305
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2978
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1419
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 6488
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 5,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2447
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 11996
+        },
+        {
+          "id": 10,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 3022
+        }
+      ],
+      "paidTotal": 54516,
+      "averageSeconds": 107.8,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 26,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 36,
+          "lost": 10,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 5,
+            "carrier": 0
+          },
+          "armored": 5,
+          "pending": 0
+        },
+        {
+          "round": 41,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 42,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 43,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 44,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 45,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 46,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 48,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-gust-coverage-pilot/both-traction-73429.json",
+      "seed": 73429,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 0,
+      "reserveGust": true,
+      "completed": false,
+      "round": 42,
+      "lives": 0,
+      "totalLost": 50,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 7796
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 13998
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 7824
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 8607
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2354
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1011
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 4832
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 5,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1675
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 8417
+        },
+        {
+          "id": 10,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 5,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2714
+        }
+      ],
+      "paidTotal": 50735,
+      "averageSeconds": 109.7,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 24,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 25,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 26,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 27,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 28,
+          "lost": 4,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 2,
+            "carrier": 0
+          },
+          "armored": 2,
+          "pending": 0
+        },
+        {
+          "round": 29,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 30,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 36,
+          "lost": 6,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 3,
+            "carrier": 0
+          },
+          "armored": 3,
+          "pending": 0
+        },
+        {
+          "round": 39,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        },
+        {
+          "round": 41,
+          "lost": 8,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 4,
+            "carrier": 0
+          },
+          "armored": 4,
+          "pending": 0
+        },
+        {
+          "round": 42,
+          "lost": 2,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 1,
+            "carrier": 0
+          },
+          "armored": 1,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-early-armor-pilot/both-speed-73531.json",
+      "seed": 73531,
+      "id": "both-speed",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "speed",
+      "craneSecondary": "unique",
+      "blowerPrimary": "speed",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 1,
+      "armorAirRound": 16,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 64,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2603
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2766
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1713
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2064
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 584
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 3,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 124
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1022
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 2,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 602
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1493
+        },
+        {
+          "id": 10,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": true,
+          "pops": 315
+        }
+      ],
+      "paidTotal": 20165,
+      "averageSeconds": 69.6,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 30,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 15,
+            "carrier": 0
+          },
+          "armored": 15,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    },
+    {
+      "source": "artifacts/hard-yard-air-seeds/air-early-armor-pilot/both-traction-73429.json",
+      "seed": 73429,
+      "id": "both-traction",
+      "airTools": "both",
+      "primary": "attack",
+      "secondary": "unique",
+      "plan": "expanded",
+      "reinforce": false,
+      "cranePrimary": "traction",
+      "craneSecondary": "unique",
+      "blowerPrimary": "traction",
+      "blowerSecondary": "unique",
+      "armorAirCounters": 1,
+      "armorAirRound": 16,
+      "reserveGust": false,
+      "completed": false,
+      "round": 23,
+      "lives": 0,
+      "totalLost": 60,
+      "fleetSize": 10,
+      "vehicleContributions": [
+        {
+          "id": 1,
+          "kind": "harvester",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2262
+        },
+        {
+          "id": 2,
+          "kind": "sprayer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2632
+        },
+        {
+          "id": 3,
+          "kind": "baler",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2016
+        },
+        {
+          "id": 4,
+          "kind": "excavator",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 2010
+        },
+        {
+          "id": 5,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 556
+        },
+        {
+          "id": 6,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 156
+        },
+        {
+          "id": 7,
+          "kind": "bulldozer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1174
+        },
+        {
+          "id": 8,
+          "kind": "blower",
+          "upgrades": {
+            "attack": 0,
+            "speed": 0,
+            "traction": 3,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 579
+        },
+        {
+          "id": 9,
+          "kind": "mixer",
+          "upgrades": {
+            "attack": 3,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": false,
+          "pops": 1570
+        },
+        {
+          "id": 10,
+          "kind": "crane",
+          "upgrades": {
+            "attack": 2,
+            "speed": 0,
+            "traction": 0,
+            "unique": 2
+          },
+          "armorCounter": true,
+          "pops": 333
+        }
+      ],
+      "paidTotal": 20193,
+      "averageSeconds": 70.8,
+      "slowest": 180,
+      "losses": [
+        {
+          "round": 22,
+          "lost": 26,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 13,
+            "carrier": 0
+          },
+          "armored": 13,
+          "pending": 0
+        },
+        {
+          "round": 23,
+          "lost": 34,
+          "remaining": {
+            "basic": 0,
+            "layered": 0,
+            "armored": 0,
+            "high": 17,
+            "carrier": 0
+          },
+          "armored": 17,
+          "pending": 0
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "60-round completion and life accounting",
+    "Exact normal purchase/upgrade/ability prices",
+    "Every preparation budget reconciles with previous income",
+    "Two-path and 5+2 caps",
+    "Winning fleets actually finish their selected primary and secondary paths",
+    "180-second timeout and 300-body limit"
+  ],
+  "tradeoffWitnesses": [
+    "Speed crane and blower builds clear isolated one-hit arrivals sooner than Attack builds.",
+    "Traction crane and blower builds cross rough terrain sooner; Speed wins clear-floor travel.",
+    "Specialist crane splash clears denser clusters; Attack retains direct armor damage.",
+    "Downburst lowers armored targets for ground tools without gaining direct armor damage.",
+    "All 160 upgrade steps retain outcome witnesses; all 936 legal builds retain modeled tradeoffs."
+  ],
+  "limitations": "The final gate commits both reserved cranes and the blower to each primary, with a separately paid Attack crane and Attack-primary ground fleet. Independent chassis cases are preliminary comparisons. These fixed six-seed strategies do not guarantee every composition or measure human win rates."
+}
