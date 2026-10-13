@@ -52,6 +52,7 @@ export class SimView {
   canFinishEarly = false;
   // Interpolation between the previous and latest tick for the shown snapshot.
   interpolation = 1;
+  private interpolationTime = 0;
   private statuses: Record<number, string> = {};
 
   constructor(
@@ -63,7 +64,9 @@ export class SimView {
     this.arena = arenaFor(run.arena, run.round, run.seed);
   }
 
-  apply(s: SimSnapshot) {
+  apply(s: SimSnapshot, interpolation = 1, receivedAt = performance.now()) {
+    this.interpolation = interpolation;
+    this.interpolationTime = receivedAt;
     this.tick = s.tick;
     this.arena = s.arena;
     syncById(this.balloons, s.balloons);
@@ -85,6 +88,14 @@ export class SimView {
     this.pending = s.pending;
     this.canFinishEarly = s.canFinishEarly;
     this.statuses = s.statuses;
+  }
+
+  // Keep rendering between snapshots, without extrapolating past the known tick.
+  interpolate(now: number, speed: number, paused: boolean) {
+    const elapsed = Math.max(0, now - this.interpolationTime) / 1000;
+    this.interpolationTime = now;
+    this.interpolation = paused ? 1 : Math.min(1, this.interpolation + elapsed * speed * 60);
+    return this.interpolation;
   }
 
   vehicleStatus(v: Pick<SimVehicle, 'id'>) {
@@ -144,8 +155,7 @@ export class SimClient {
         view.apply(message.snapshot);
       } else if (message.type === 'snapshot') {
         if (view?.session !== message.snapshot.session) return;
-        view.apply(message.snapshot);
-        view.interpolation = this.requestedInterpolation;
+        view.apply(message.snapshot, this.requestedInterpolation);
         this.inFlight = false;
       } else if (message.type === 'replay') {
         if (view?.session === message.session) this.replays.shift()?.(message.replay);

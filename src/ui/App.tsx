@@ -320,10 +320,13 @@ export default function App() {
           owed = 0;
         }
       }
-      interpolation.current =
-        current && latest.current.phase === 'round' && !latest.current.paused
-          ? current.interpolation
-          : 1;
+      interpolation.current = current
+        ? current.interpolate(
+            now,
+            latest.current.speed,
+            latest.current.phase !== 'round' || latest.current.paused,
+          )
+        : 1;
       if (now - lastUI > 100) {
         const vehicle = current?.vehicles.find((v) => v.id === latest.current.driverId);
         if (vehicle)

@@ -564,6 +564,11 @@ export function vehicleRadius(v: Pick<OwnedVehicle, 'kind'>) {
     ? 1.12
     : 0.95;
 }
+export function touchesObstacle(o: Obstacle, x: number, z: number, radius: number) {
+  const dx = Math.max(0, Math.abs(x - o.x) - o.w / 2);
+  const dz = Math.max(0, Math.abs(z - o.z) - o.d / 2);
+  return Math.hypot(dx, dz) < radius + 0.08;
+}
 export function clearPosition(a: Arena, x: number, z: number, radius: number) {
   if (
     x < radius + 0.1 ||
@@ -572,11 +577,7 @@ export function clearPosition(a: Arena, x: number, z: number, radius: number) {
     z > a.depth - radius - 0.1
   )
     return false;
-  return !a.obstacles.some((o) => {
-    const dx = Math.max(0, Math.abs(x - o.x) - o.w / 2);
-    const dz = Math.max(0, Math.abs(z - o.z) - o.d / 2);
-    return Math.hypot(dx, dz) < radius + 0.08;
-  });
+  return !a.obstacles.some((o) => touchesObstacle(o, x, z, radius));
 }
 export function footprint(v: OwnedVehicle) {
   const [w, d] = VEHICLES[v.kind].footprint;

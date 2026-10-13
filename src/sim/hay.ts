@@ -1,12 +1,14 @@
 import {
   clearPosition,
   grip,
+  touchesObstacle as touchesHay,
   VEHICLES,
   type Arena,
   type Obstacle,
   type OwnedVehicle,
 } from './data';
 import { terrainRouteCost } from './capabilities';
+export { touchesHay };
 
 export type HayVehicle = Pick<OwnedVehicle, 'kind' | 'upgrades'>;
 export interface HayBody {
@@ -48,27 +50,22 @@ export function hayLabel(v: HayVehicle) {
       : 'Routes around hay';
 }
 
-export function touchesHay(o: Obstacle, x: number, z: number, radius: number) {
-  return (
-    Math.hypot(Math.max(0, Math.abs(x - o.x) - o.w / 2), Math.max(0, Math.abs(z - o.z) - o.d / 2)) <
-    radius + 0.08
-  );
-}
-
-export function hayOnSweep(arena: Arena, self: HayBody, x: number, z: number) {
+export function hayOnSweep(arena: Pick<Arena, 'obstacles'>, self: HayBody, x: number, z: number) {
   const pad = self.radius + 0.08;
   const minX = Math.min(self.x, x) - pad,
     maxX = Math.max(self.x, x) + pad,
     minZ = Math.min(self.z, z) - pad,
     maxZ = Math.max(self.z, z) + pad;
-  return arena.obstacles.some(
-    (o) =>
+  for (const o of arena.obstacles)
+    if (
       o.loose &&
       o.x + o.w / 2 > minX &&
       o.x - o.w / 2 < maxX &&
       o.z + o.d / 2 > minZ &&
-      o.z - o.d / 2 < maxZ,
-  );
+      o.z - o.d / 2 < maxZ
+    )
+      return true;
+  return false;
 }
 
 // Rectangular bale clearance: pushing never shoves hay through walls, stacks,

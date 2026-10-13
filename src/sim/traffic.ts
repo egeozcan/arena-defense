@@ -1,4 +1,4 @@
-import { clearPosition, type Arena, type Obstacle } from './data';
+import { clearPosition, touchesObstacle, type Arena, type Obstacle } from './data';
 import { hayContacts, hayOnSweep, type HayVehicle } from './hay';
 
 export interface TrafficBody {
@@ -13,12 +13,11 @@ export interface TrafficBody {
 // Cache nearby obstacles per cell for that decision only; hay can move next tick.
 // Results match canTravel(arena, self, x, z, bodies) exactly.
 export function createTravelProbe(arena: Arena, radius: number, bodies: TrafficBody[]) {
-  const loose = arena.obstacles.filter((o) => o.loose);
+  const hay = { obstacles: arena.obstacles.filter((o) => o.loose) };
   const cells: Obstacle[][] = [];
   const edge = radius + 0.1,
     farX = arena.width - radius - 0.1,
-    farZ = arena.depth - radius - 0.1,
-    clearance = radius + 0.08;
+    farZ = arena.depth - radius - 0.1;
   const clearAt = (x: number, z: number) => {
     if (x < edge || z < edge || x > farX || z > farZ) return false;
     const cx = Math.floor(x),
@@ -35,37 +34,15 @@ export function createTravelProbe(arena: Arena, radius: number, bodies: TrafficB
           o.z - o.d / 2 - pad < cz + 1,
       );
     }
-    for (let i = 0; i < local.length; i++) {
-      const o = local[i];
-      const dx = Math.max(0, Math.abs(x - o.x) - o.w / 2);
-      const dz = Math.max(0, Math.abs(z - o.z) - o.d / 2);
-      if (Math.hypot(dx, dz) < clearance) return false;
-    }
+    for (let i = 0; i < local.length; i++)
+      if (touchesObstacle(local[i], x, z, radius)) return false;
     return true;
-  };
-  // Same overlap test as hayOnSweep, against the decision's loose hay only.
-  const hayOnPath = (self: TrafficBody, x: number, z: number) => {
-    if (!loose.length) return false;
-    const pad = self.radius + 0.08;
-    const minX = Math.min(self.x, x) - pad,
-      maxX = Math.max(self.x, x) + pad,
-      minZ = Math.min(self.z, z) - pad,
-      maxZ = Math.max(self.z, z) + pad;
-    for (const o of loose)
-      if (
-        o.x + o.w / 2 > minX &&
-        o.x - o.w / 2 < maxX &&
-        o.z + o.d / 2 > minZ &&
-        o.z - o.d / 2 < maxZ
-      )
-        return true;
-    return false;
   };
   return (self: TrafficBody, x: number, z: number) => {
     const dx = x - self.x,
       dz = z - self.z,
       length2 = dx * dx + dz * dz;
-    if (hayOnPath(self, x, z)) {
+    if (hayOnSweep(hay, self, x, z)) {
       if (!hayContacts(arena, self, x, z, bodies)) return false;
     } else {
       const samples = Math.max(1, Math.ceil(Math.sqrt(length2) / 0.2));
