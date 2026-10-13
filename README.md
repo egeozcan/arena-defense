@@ -461,6 +461,24 @@ Reproduce the complete checks with `npm test`, `npm run build`, `npm run balance
 
 The renderer reads simulation state; user actions enter a command queue. Pause and speed only change tick scheduling. The replay export records the starting run and each input tick.
 
+## Performance review
+
+The October 2026 review covered simulation, pathfinding, steering, traffic, combat, rendering, UI scheduling, saves, driving and replays. [The recorded measurements and review results](artifacts/performance-review.json) compare the fixes with commit `b1b9afd`.
+
+| Workload | Before | After |
+| --- | ---: | ---: |
+| Eight stock vehicles, Yard preparation, all render passes | 8,839 draw calls/frame | 2,233 draw calls/frame |
+| Eight idle vehicles, simulation tick P95 | 5.70 ms | 0.05 ms |
+| 300 uncovered balloons, simulation tick P95 | 6.12 ms | 0.59 ms |
+| Mixed Hard round 20, simulation tick P95 | 9.02 ms | 5.79 ms |
+| Upgraded mixed Hard round 60, simulation tick P95 | 11.45 ms | 6.95 ms |
+
+Target selection skips distance fields when no balloon is eligible or an eligible target is already in range. Steering reuses prediction bodies and caches nearby scenery only for the duration of one decision, preserving moving-hay and traffic checks. Wheel details and track links use instancing; static scene components avoid unnecessary React updates. The redundant contact-shadow pass was removed. Rounded paint geometries now dispose on replacement or unmount: the original scene retained 416 unused geometries after two rounds, while the fixed scene retained none. Balloon accessories share their balloon's interpolated position. Invalid saves recover to a fresh run instead of crashing before the controls appear.
+
+All seven 1,200-tick benchmark scenarios retain identical simulation-state checksums. The 341 gameplay and regression tests and production build pass. Three independent follow-up subagent reviews found no P0/P1 issues; collision changes also passed 44,408 comparisons against the original implementation. Browser checks covered round transitions, memory, driving, rear view, seat switching, pause, speed restoration and malformed-save recovery.
+
+Run `npm run perf -- --ticks=1200 --repetitions=3` for CPU measurements, or add `--scenario=late-60` to focus on the upgraded late wave. The tool reports mean, P50, P95, maximum tick time and deterministic state checksums. Measure rendering separately in a browser. These are local CPU and draw-call measurements, not a certified frame-rate result on a mid-range laptop; occasional cold steering searches still exceed a 16.7 ms frame budget. Save validation rejects freeplay rounds above 10,000 to prevent corrupted data from exhausting memory during eager wave creation.
+
 ## Prototype limits
 
 This is a first playable implementation, rather than the design document's fully validated release. Models are procedural rather than Blender/glTF assets. Chassis use circular collision proxies and planar steering dynamics; suspension and articulated tools remain visual. Barn loft hiding, true ramp climbing, and exact tool collider shape queries are still simplified. Later waves use seeded per-type counts rather than the proposed constraint-based budget generator. The fog cannon uses repeated radial hits instead of a persistent damage-over-time volume. Freeplay beyond the scripted balance scenarios needs more playtesting; the 300-balloon frame-rate target has not been certified on a mid-range laptop. There is replay export and deterministic replay verification in tests, but no in-app replay viewer.

@@ -1,6 +1,6 @@
-import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { memo, Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { OrbitControls, ContactShadows, Sky } from '@react-three/drei';
+import { OrbitControls, Sky } from '@react-three/drei';
 import { Color, Group, InstancedMesh, Mesh, Object3D, OrthographicCamera, Vector3 } from 'three';
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib';
 import {
@@ -47,7 +47,7 @@ interface Props {
   driverInput: { current: DriverInput };
   driverFocus: { current: boolean };
 }
-function Terrain({ run, grid }: { run: Run; grid: boolean }) {
+const Terrain = memo(function Terrain({ run, grid }: { run: Run; grid: boolean }) {
   const a = useMemo(
     () => arenaFor(run.arena, run.round, run.seed),
     [run.arena, run.round, run.seed],
@@ -296,7 +296,7 @@ function Terrain({ run, grid }: { run: Run; grid: boolean }) {
       <Box position={[a.width + 2, 0.05, 6]} size={[1, 0.1, 2]} color="#8ca28c" />
     </group>
   );
-}
+});
 function CameraRig({
   rotation,
   zoom,
@@ -320,6 +320,7 @@ function CameraRig({
     shake = useRef(0),
     previousSim = useRef(sim),
     time = useRef(0);
+  const target = useMemo(() => new Vector3(), []);
   const reduceMotion = useMemo(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     [],
@@ -341,9 +342,7 @@ function CameraRig({
     shake.current = Math.max(0, shake.current - delta * 1.5);
     if (controls.current) {
       const angle = Math.PI / 4 + (rotation * Math.PI) / 2;
-      const target = new Vector3(Math.sin(angle) * 35, 30, Math.cos(angle) * 35).add(
-        controls.current.target,
-      );
+      target.set(Math.sin(angle) * 35, 30, Math.cos(angle) * 35).add(controls.current.target);
       camera.position.lerp(target, 0.08);
       camera.position.x += Math.sin(time.current * 83) * shake.current;
       camera.position.z += Math.cos(time.current * 71) * shake.current;
@@ -408,11 +407,10 @@ function BalloonInstances({
         1,
         Math.max(0.2, (sim.tick - b.spawned + interpolation.current) / 12),
       );
-      obj.position.set(
-        b.px + (b.x - b.px) * interpolation.current,
-        b.py + (b.y - b.py) * interpolation.current,
-        b.pz + (b.z - b.pz) * interpolation.current,
-      );
+      const x = b.px + (b.x - b.px) * interpolation.current;
+      const y = b.py + (b.y - b.py) * interpolation.current;
+      const z = b.pz + (b.z - b.pz) * interpolation.current;
+      obj.position.set(x, y, z);
       obj.rotation.set(0, 0, Math.sin(sim.tick / 90 + b.id) * 0.08);
       obj.scale.set(r * (1 + hit * 0.22) * appear, r * (1.25 - hit * 0.18) * appear, r * appear);
       obj.updateMatrix();
@@ -420,31 +418,31 @@ function BalloonInstances({
       color.set(b.kind === 'layered' ? LAYER_COLORS[b.layer - 1] : BALLOONS[b.kind].color);
       color.lerp(flashColor, hit * 0.55);
       balls.current!.setColorAt(i, color);
-      obj.position.set(b.x + r * 0.38, b.y + r * 0.52, b.z + r * 0.77);
+      obj.position.set(x + r * 0.38, y + r * 0.52, z + r * 0.77);
       obj.scale.set(r * 0.15, r * 0.31, r * 0.06);
       obj.rotation.set(0, 0.5, -0.3);
       obj.updateMatrix();
       shine.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(b.x, b.y, b.z);
+      obj.position.set(x, y, z);
       obj.rotation.set(Math.PI / 2, 0, 0);
       obj.scale.setScalar(b.armor ? r * 1.03 : 0);
       obj.updateMatrix();
       armor.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(b.x, b.y - r * 1.5, b.z);
+      obj.position.set(x, y - r * 1.5, z);
       obj.rotation.set(0, 0, 0);
       obj.scale.setScalar(b.kind === 'carrier' ? 0.8 : 0);
       obj.updateMatrix();
       cargo.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(b.x, b.y - r * 1.2, b.z);
+      obj.position.set(x, y - r * 1.2, z);
       obj.scale.set(0.065, 0.12, 0.065);
       obj.updateMatrix();
       knots.current!.setMatrixAt(i, obj.matrix);
       knots.current!.setColorAt(i, color);
-      obj.position.y = b.y - r * 1.2 - 0.4;
+      obj.position.y = y - r * 1.2 - 0.4;
       obj.scale.set(0.008, 0.7, 0.008);
       obj.updateMatrix();
       strings.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(b.x, b.y, b.z);
+      obj.position.set(x, y, z);
       obj.scale.setScalar(b.regen ? r * 1.6 : 0);
       obj.updateMatrix();
       halo.current!.setMatrixAt(i, obj.matrix);
@@ -500,16 +498,29 @@ function BalloonInstances({
       {sim.balloons
         .filter((b) => b.fleeing || (b.armor && b.kind !== 'armored'))
         .map((b) => (
-          <BalloonMarker key={b.id} sim={sim} id={b.id} />
+          <BalloonMarker key={b.id} sim={sim} id={b.id} interpolation={interpolation} />
         ))}
     </>
   );
 }
-function BalloonMarker({ sim, id }: { sim: Simulation; id: number }) {
+function BalloonMarker({
+  sim,
+  id,
+  interpolation,
+}: {
+  sim: Simulation;
+  id: number;
+  interpolation: { current: number };
+}) {
   const ref = useRef<Group>(null);
   useFrame(() => {
     const b = sim.balloons.find((b) => b.id === id);
-    if (b && ref.current) ref.current.position.set(b.x, b.y, b.z);
+    if (b && ref.current)
+      ref.current.position.set(
+        b.px + (b.x - b.px) * interpolation.current,
+        b.py + (b.y - b.py) * interpolation.current,
+        b.pz + (b.z - b.pz) * interpolation.current,
+      );
   });
   return (
     <group ref={ref}>
@@ -718,7 +729,10 @@ function StagingBalloons({ run }: { run: Run }) {
 }
 function Scene(props: Props) {
   const { run, sim, phase, selected, shopKind, grid, armed } = props;
-  const a = arenaFor(run.arena, run.round, run.seed);
+  const a = useMemo(
+    () => arenaFor(run.arena, run.round, run.seed),
+    [run.arena, run.round, run.seed],
+  );
   const [hover, setHover] = useState<[number, number] | null>(null);
   const start = useRef<[number, number] | null>(null);
   const vehicle = run.fleet.find((v) => v.id === props.placementId);
@@ -866,8 +880,9 @@ function Scene(props: Props) {
           rotation={[-Math.PI / 2, 0, 0]}
           position={[a.width / 2, 0.06, a.depth / 2]}
           onPointerMove={(e) => {
+            if (phase !== 'setup' || !vehicle) return;
             const p = point(e);
-            setHover(p);
+            setHover((previous) => (previous?.[0] === p[0] && previous[1] === p[1] ? previous : p));
           }}
           onPointerOut={() => {
             setHover(null);
@@ -903,7 +918,6 @@ function Scene(props: Props) {
           </>
         )}
       </group>
-      <ContactShadows position={[0, -0.85, 0]} opacity={0.2} scale={90} blur={2.5} far={15} />
     </>
   );
 }

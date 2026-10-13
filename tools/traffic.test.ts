@@ -9,7 +9,7 @@ import {
   type VehicleKind,
 } from '../src/sim/data';
 import { Simulation, initPhysics } from '../src/sim/engine';
-import { canTravel, trafficCells } from '../src/sim/traffic';
+import { canTravel, createTravelProbe, trafficCells } from '../src/sim/traffic';
 import { findPath } from '../src/sim/pathfinding';
 await initPhysics();
 function vehicle(kind: VehicleKind, id: number, x: number, z: number): OwnedVehicle {
@@ -50,6 +50,33 @@ test('a swept collision blocks tunneling through parked vehicles', () => {
   const parked = { id: 2, x: 15, z: 12, radius: 1 };
   assert.equal(canTravel(a, self, 20, 12, [self, parked]), false);
   assert.equal(canTravel(a, self, 10, 15, [self, parked]), true);
+});
+test('a steering clearance probe matches full sweeps around scenery, hay, and traffic', () => {
+  for (const kind of ['barn', 'yard'] as const) {
+    const arena = arenaFor(kind, 20);
+    const owned = vehicle('baler', 1, 10, 12);
+    const self = { id: 1, x: 10, z: 12, radius: vehicleRadius(owned), vehicle: owned };
+    const parked = { id: 2, x: 15, z: 12, radius: 1.12 };
+    const bodies = [self, parked];
+    const probe = createTravelProbe(arena, self.radius, bodies);
+    for (let z = 0.5; z < arena.depth; z += 0.5)
+      for (let x = 0.5; x < arena.width; x += 0.5) {
+        self.x = x;
+        self.z = z;
+        for (const [dx, dz] of [
+          [0, 0],
+          [0.18, 0.12],
+          [-0.18, 0.12],
+          [0, 1],
+          [2, -1],
+        ])
+          assert.equal(
+            probe(self, x + dx, z + dz),
+            canTravel(arena, self, x + dx, z + dz, bodies),
+            `${kind} sweep at ${x},${z} by ${dx},${dz}`,
+          );
+      }
+  }
 });
 test('routing leaves space for the chassis around parked vehicles and scenery', () => {
   const a = arenaFor('barn');

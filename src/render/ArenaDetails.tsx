@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { memo, useLayoutEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color, Group, InstancedMesh, Object3D } from 'three';
 import { Random, type Arena } from '../sim/data';
@@ -154,7 +154,7 @@ function WorkLights({ a }: { a: Arena }) {
     </group>
   );
 }
-export function ArenaDetails({ arena: a }: { arena: Arena }) {
+export const ArenaDetails = memo(function ArenaDetails({ arena: a }: { arena: Arena }) {
   const barn = a.kind === 'barn';
   return (
     <group>
@@ -311,4 +311,4 @@ export function ArenaDetails({ arena: a }: { arena: Arena }) {
       )}
     </group>
   );
-}
+});

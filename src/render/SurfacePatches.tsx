@@ -1,8 +1,12 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Text } from '@react-three/drei';
 import { Random, type SurfacePatch } from '../sim/data';
 
-export function SurfacePatches({ patches }: { patches: SurfacePatch[] }) {
+export const SurfacePatches = memo(function SurfacePatches({
+  patches,
+}: {
+  patches: SurfacePatch[];
+}) {
   const stones = useMemo(
     () =>
       patches.map((p, index) => {
@@ -57,4 +61,4 @@ export function SurfacePatches({ patches }: { patches: SurfacePatch[] }) {
       ))}
     </group>
   );
-}
+});

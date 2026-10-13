@@ -1049,11 +1049,20 @@ export class Simulation {
         !this.balloons.some((b) => b.id === v.target && this.eligible(v, b))
       ) {
         let candidates = this.balloons.filter((b) => this.eligible(v, b));
-        const costs =
+        const distances = new Map(candidates.map((b) => [b.id, Math.hypot(b.x - v.x, b.z - v.z)]));
+        // In-range targets have zero approach cost and always outrank distant
+        // targets. Avoid searching the whole arena while already able to fire.
+        const local =
           v.targeting === 'Nearest'
+            ? candidates.filter(
+                (b) => distances.get(b.id)! <= s.range && this.clearToolPosition(v, b),
+              )
+            : [];
+        if (local.length) candidates = local;
+        const costs =
+          v.targeting === 'Nearest' && candidates.length > 0 && !local.length
             ? pathCosts(this.arena, v.x, v.z, s.traction, vehicleRadius(v), v)
             : null;
-        const distances = new Map(candidates.map((b) => [b.id, Math.hypot(b.x - v.x, b.z - v.z)]));
         // Vehicles need a reachable firing position, not a path onto the balloon's cell.
         const approach = new Map(
           candidates.map((b) => {

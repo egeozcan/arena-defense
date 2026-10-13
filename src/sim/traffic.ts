@@ -9,6 +9,41 @@ export interface TrafficBody {
   vehicle?: HayVehicle;
 }
 
+// A steering decision makes thousands of short sweeps against unchanged scenery.
+// Cache nearby obstacles per cell for that decision only; hay can move next tick.
+export function createTravelProbe(arena: Arena, radius: number, bodies: TrafficBody[]) {
+  const cells = new Map<number, Arena>();
+  const clearAt = (x: number, z: number) => {
+    if (
+      x < radius + 0.1 ||
+      z < radius + 0.1 ||
+      x > arena.width - radius - 0.1 ||
+      z > arena.depth - radius - 0.1
+    )
+      return false;
+    const cx = Math.floor(x),
+      cz = Math.floor(z),
+      id = cz * arena.width + cx;
+    let local = cells.get(id);
+    if (!local) {
+      const pad = radius + 0.08 + 1e-9;
+      local = {
+        ...arena,
+        obstacles: arena.obstacles.filter(
+          (o) =>
+            o.x + o.w / 2 + pad > cx &&
+            o.x - o.w / 2 - pad < cx + 1 &&
+            o.z + o.d / 2 + pad > cz &&
+            o.z - o.d / 2 - pad < cz + 1,
+        ),
+      };
+      cells.set(id, local);
+    }
+    return clearPosition(local, x, z, radius);
+  };
+  return (self: TrafficBody, x: number, z: number) => canTravel(arena, self, x, z, bodies, clearAt);
+}
+
 // Inflate parked and moving vehicles by the querying vehicle's chassis radius.
 export function trafficCells(arena: Arena, self: TrafficBody, bodies: TrafficBody[]) {
   const occupied = new Set<number>();
@@ -38,29 +73,51 @@ export function canTravel(
   x: number,
   z: number,
   bodies: TrafficBody[],
+  clearAt?: (x: number, z: number) => boolean,
 ) {
   const dx = x - self.x,
     dz = z - self.z,
     length2 = dx * dx + dz * dz;
+  const minX = Math.min(self.x, x),
+    maxX = Math.max(self.x, x),
+    minZ = Math.min(self.z, z),
+    maxZ = Math.max(self.z, z);
   const samples = Math.max(1, Math.ceil(Math.sqrt(length2) / 0.2));
   if (hayOnSweep(arena, self, x, z)) {
     if (!hayContacts(arena, self, x, z, bodies)) return false;
   } else
     for (let i = 1; i <= samples; i++)
       if (
-        !clearPosition(arena, self.x + (dx * i) / samples, self.z + (dz * i) / samples, self.radius)
+        !(clearAt
+          ? clearAt(self.x + (dx * i) / samples, self.z + (dz * i) / samples)
+          : clearPosition(
+              arena,
+              self.x + (dx * i) / samples,
+              self.z + (dz * i) / samples,
+              self.radius,
+            ))
       )
         return false;
   return bodies.every((other) => {
     if (other.id === self.id) return true;
+    const clearance = self.radius + other.radius + 0.02;
+    // Most teammates are far from a short steering rollout. Reject them with
+    // the sweep's bounds before computing the exact segment/circle distance.
+    if (
+      other.x < minX - clearance ||
+      other.x > maxX + clearance ||
+      other.z < minZ - clearance ||
+      other.z > maxZ + clearance
+    )
+      return true;
     const t = length2
       ? Math.max(0, Math.min(1, ((other.x - self.x) * dx + (other.z - self.z) * dz) / length2))
       : 0;
     const distance = Math.hypot(self.x + dx * t - other.x, self.z + dz * t - other.z);
     const startDistance = Math.hypot(self.x - other.x, self.z - other.z);
-    if (startDistance < self.radius + other.radius + 0.02)
+    if (startDistance < clearance)
       return Math.hypot(x - other.x, z - other.z) > startDistance + 1e-6;
-    return distance >= self.radius + other.radius + 0.02;
+    return distance >= clearance;
   });
 }
 

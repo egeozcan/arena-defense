@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { memo, useLayoutEffect, useMemo, useRef } from 'react';
 import { Color, InstancedMesh, Object3D } from 'three';
 import { Random, arenaFor, type ArenaKind } from '../sim/data';
 import { Box } from './models';
@@ -35,7 +35,7 @@ function Cone({ x, z }: { x: number; z: number }) {
     </group>
   );
 }
-export function Scenery({ kind }: { kind: ArenaKind }) {
+export const Scenery = memo(function Scenery({ kind }: { kind: ArenaKind }) {
   const a = useMemo(() => arenaFor(kind), [kind]);
   const grass = useRef<InstancedMesh>(null),
     stones = useRef<InstancedMesh>(null),
@@ -212,4 +212,4 @@ export function Scenery({ kind }: { kind: ArenaKind }) {
       )}
     </group>
   );
-}
+});

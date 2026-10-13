@@ -1,6 +1,13 @@
-import { useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { type Group, type MeshStandardMaterial } from 'three';
+import {
+  Object3D,
+  Sphere,
+  Vector3,
+  type Group,
+  type InstancedMesh,
+  type MeshStandardMaterial,
+} from 'three';
 import { type VehicleKind } from '../sim/data';
 import type { Simulation, SimVehicle } from '../sim/engine';
 import { angleDifference, wheelSteering } from '../sim/vehicle-motion';
@@ -8,6 +15,8 @@ import { Box, Paint, type ShapeProps, type Vec } from './vehicle-parts';
 export { Box } from './vehicle-parts';
 import { UPGRADE_COLORS, vehicleAppearance, type VehicleUpgrades } from './vehicle-appearance';
 import { ChassisUpgrades, ToolUpgrades, TractionUpgrades } from './vehicle-upgrades';
+import { InstancedBoxes } from './InstancedBoxes';
+import { TRACK_LINK_COUNT, trackLinkPose, wheelDetailMatrices } from './running-gear';
 function Glass({ position, size }: ShapeProps) {
   return (
     <mesh position={position} castShadow>
@@ -99,6 +108,7 @@ function Wheel({
     rotor = useRef<Group>(null);
   const r = (big ? 0.58 : 0.43) * tireScale;
   const outside = x > 0 ? -1 : 1;
+  const detail = useMemo(() => wheelDetailMatrices(r, outside), [r, outside]);
   useFrame(() => {
     const alpha = interpolation?.current ?? 1;
     const steer = vehicle ? vehicle.psteer + (vehicle.steer - vehicle.psteer) * alpha : 0;
@@ -132,31 +142,14 @@ function Wheel({
               <meshStandardMaterial color="#253038" roughness={0.9} />
             </mesh>
           ))}
-          {Array.from({ length: 16 }, (_, i) =>
-            [-1, 1].map((side) => {
-              const angle = (i * Math.PI) / 8;
-              return (
-                <group key={`${i}-${side}`} rotation={[0, angle, 0]}>
-                  <Box
-                    position={[r - 0.015, side * 0.09, 0]}
-                    size={[0.085, 0.19, 0.09]}
-                    rotation={[side * 0.48, 0, 0]}
-                    color="#354048"
-                  />
-                </group>
-              );
-            }),
+          <InstancedBoxes matrices={detail.treads} size={[0.085, 0.19, 0.09]} color="#354048" />
+          {traction >= 2 && (
+            <InstancedBoxes
+              matrices={detail.chains}
+              size={[0.05, 0.37, 0.05]}
+              color={UPGRADE_COLORS.traction}
+            />
           )}
-          {traction >= 2 &&
-            Array.from({ length: 8 }, (_, i) => (
-              <group key={`chain-${i}`} rotation={[0, (i * Math.PI) / 4, 0]}>
-                <Box
-                  position={[r, 0, 0]}
-                  size={[0.05, 0.37, 0.05]}
-                  color={UPGRADE_COLORS.traction}
-                />
-              </group>
-            ))}
           <mesh position={[0, outside * 0.195, 0]} castShadow>
             <cylinderGeometry args={[r * 0.56, r * 0.56, 0.055, 24]} />
             <meshStandardMaterial color="#c6ccca" metalness={0.7} roughness={0.32} />
@@ -165,18 +158,11 @@ function Wheel({
             <cylinderGeometry args={[r * 0.42, r * 0.42, 0.028, 20]} />
             <meshStandardMaterial color="#41515b" metalness={0.55} roughness={0.5} />
           </mesh>
-          {Array.from({ length: 6 }, (_, i) => {
-            const angle = (i * Math.PI) / 3;
-            return (
-              <Box
-                key={i}
-                position={[Math.cos(angle) * r * 0.26, outside * 0.252, Math.sin(angle) * r * 0.26]}
-                size={[r * 0.37, 0.03, 0.07]}
-                rotation={[0, -angle, 0]}
-                color={traction >= 1 ? UPGRADE_COLORS.traction : '#e0d9c4'}
-              />
-            );
-          })}
+          <InstancedBoxes
+            matrices={detail.spokes}
+            size={[r * 0.37, 0.03, 0.07]}
+            color={traction >= 1 ? UPGRADE_COLORS.traction : '#e0d9c4'}
+          />
           <mesh position={[0, outside * 0.27, 0]}>
             <cylinderGeometry args={[r * 0.18, r * 0.18, 0.045, 12]} />
             <meshStandardMaterial color="#e59b48" metalness={0.45} roughness={0.3} />
@@ -187,11 +173,14 @@ function Wheel({
   );
 }
 function Track({ x, vehicle, interpolation, traction = 0 }: RunningGearProps) {
-  const belt = useRef<Group>(null),
+  const links = useRef<InstancedMesh>(null),
+    cleats = useRef<InstancedMesh>(null),
     rollers = useRef<Group>(null);
-  const half = 0.85,
-    radius = 0.34;
-  const perimeter = 4 * half + 2 * Math.PI * radius;
+  const object = useMemo(() => new Object3D(), []);
+  const pose = useMemo(() => ({ y: 0, z: 0, tilt: 0 }), []);
+  // The belt occupies this envelope at every phase, including wider traction cleats.
+  const bounds = useMemo(() => new Sphere(new Vector3(0, 0.39, 0), 1.5), []);
+  const lastTravel = useRef<number | null>(null);
   useFrame(() => {
     const alpha = interpolation?.current ?? 1;
     const travel = vehicle
@@ -199,30 +188,21 @@ function Track({ x, vehicle, interpolation, traction = 0 }: RunningGearProps) {
         ? vehicle.pleftTravel + (vehicle.leftTravel - vehicle.pleftTravel) * alpha
         : vehicle.prightTravel + (vehicle.rightTravel - vehicle.prightTravel) * alpha
       : 0;
-    belt.current?.children.forEach((link, i) => {
-      let t = ((((i * perimeter) / 32 - travel) % perimeter) + perimeter) % perimeter;
-      let y = radius,
-        z = -half,
-        tilt = 0;
-      if (t < 2 * half) z += t;
-      else if ((t -= 2 * half) < Math.PI * radius) {
-        const angle = t / radius;
-        y = radius * Math.cos(angle);
-        z = half + radius * Math.sin(angle);
-        tilt = angle;
-      } else if ((t -= Math.PI * radius) < 2 * half) {
-        y = -radius;
-        z = half - t;
-        tilt = Math.PI;
-      } else {
-        const angle = (t - 2 * half) / radius + Math.PI;
-        y = radius * Math.cos(angle);
-        z = -half + radius * Math.sin(angle);
-        tilt = angle;
+    if (links.current && cleats.current && travel !== lastTravel.current) {
+      for (let i = 0; i < TRACK_LINK_COUNT; i++) {
+        trackLinkPose(i, travel, pose);
+        object.position.set(0, 0.39 + pose.y, pose.z);
+        object.rotation.set(pose.tilt, 0, 0);
+        object.updateMatrix();
+        links.current.setMatrixAt(i, object.matrix);
+        object.translateY(0.045);
+        object.updateMatrix();
+        cleats.current.setMatrixAt(i, object.matrix);
       }
-      link.position.set(0, 0.39 + y, z);
-      link.rotation.x = tilt;
-    });
+      links.current.instanceMatrix.needsUpdate = true;
+      cleats.current.instanceMatrix.needsUpdate = true;
+      lastTravel.current = travel;
+    }
     rollers.current?.children.forEach((roller) => {
       roller.rotation.x = travel / 0.27;
     });
@@ -249,22 +229,33 @@ function Track({ x, vehicle, interpolation, traction = 0 }: RunningGearProps) {
           </group>
         ))}
       </group>
-      <group ref={belt}>
-        {Array.from({ length: 32 }, (_, i) => (
-          <group key={i}>
-            <Box size={[0.54, 0.065, 0.15]} color="#35434b" />
-            <Box
-              position={[0, 0.045, 0]}
-              size={[traction >= 2 ? 0.67 : 0.56, traction >= 2 ? 0.055 : 0.03, 0.045]}
-              color={traction >= 2 ? UPGRADE_COLORS.traction : '#718079'}
-            />
-          </group>
-        ))}
-      </group>
+      <instancedMesh
+        ref={links}
+        args={[undefined, undefined, TRACK_LINK_COUNT]}
+        boundingSphere={bounds}
+        castShadow
+        receiveShadow
+      >
+        <boxGeometry args={[0.54, 0.065, 0.15]} />
+        <meshStandardMaterial color="#35434b" roughness={0.85} />
+      </instancedMesh>
+      <instancedMesh
+        ref={cleats}
+        args={[undefined, undefined, TRACK_LINK_COUNT]}
+        boundingSphere={bounds}
+        castShadow
+        receiveShadow
+      >
+        <boxGeometry args={[traction >= 2 ? 0.67 : 0.56, traction >= 2 ? 0.055 : 0.03, 0.045]} />
+        <meshStandardMaterial
+          color={traction >= 2 ? UPGRADE_COLORS.traction : '#718079'}
+          roughness={0.85}
+        />
+      </instancedMesh>
     </group>
   );
 }
-export function VehicleModel({
+export const VehicleModel = memo(function VehicleModel({
   kind,
   working = false,
   preview = false,
@@ -1003,7 +994,7 @@ export function VehicleModel({
       )}
     </group>
   );
-}
+});
 export function Hay({
   x,
   z,

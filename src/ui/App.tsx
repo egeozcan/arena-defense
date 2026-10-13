@@ -81,20 +81,12 @@ import { playClear, playPop, playRush, createEngineSound } from './audio';
 import { DriverHUD } from './DriverHUD';
 import { useDriverControls } from './useDriverControls';
 import { canSwitchDriverSide } from '../sim/vehicle-pilot';
+import { parseSavedRun } from './save';
 const SAVE_KEY = 'balloon-arena-defense-v1';
 type Phase = 'garage' | 'setup' | 'countdown' | 'round' | 'summary' | 'victory' | 'over';
 function loadRun(): Run {
   try {
-    const r = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
-    if (
-      r?.version === 1 &&
-      r.round >= 1 &&
-      MODES[r.mode as Mode] &&
-      ['barn', 'yard'].includes(r.arena) &&
-      Array.isArray(r.fleet) &&
-      r.lives > 0
-    )
-      return { ...r, fleet: fitFleet(arenaFor(r.arena, r.round, r.seed), r.fleet) };
+    return parseSavedRun(localStorage.getItem(SAVE_KEY));
   } catch {}
   return newRun();
 }
@@ -166,7 +158,10 @@ export default function App() {
   const interpolation = useRef(1);
   const owned = run.fleet.find((v) => v.id === selected);
   const liveVehicle = sim?.vehicles.find((v) => v.id === selected);
-  const arena = arenaFor(run.arena, run.round, run.seed);
+  const arena = useMemo(
+    () => arenaFor(run.arena, run.round, run.seed),
+    [run.arena, run.round, run.seed],
+  );
   const placed = run.fleet.filter((v) => v.placed).length;
   const types = useMemo(
     () => waveTypes(run.round, run.seed, run.mode),
@@ -321,7 +316,7 @@ export default function App() {
         const vehicle = current?.vehicles.find((v) => v.id === latest.current.driverId);
         if (vehicle)
           engineVoice.current?.update(Math.abs(vehicle.speed), vehicle.state === 'attacking');
-        setFrame((f) => f + 1);
+        if (latest.current.phase === 'round' && !latest.current.paused) setFrame((f) => f + 1);
         lastUI = now;
       }
       id = requestAnimationFrame(loop);

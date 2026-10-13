@@ -57,13 +57,17 @@ export function touchesHay(o: Obstacle, x: number, z: number, radius: number) {
 
 export function hayOnSweep(arena: Arena, self: HayBody, x: number, z: number) {
   const pad = self.radius + 0.08;
+  const minX = Math.min(self.x, x) - pad,
+    maxX = Math.max(self.x, x) + pad,
+    minZ = Math.min(self.z, z) - pad,
+    maxZ = Math.max(self.z, z) + pad;
   return arena.obstacles.some(
     (o) =>
       o.loose &&
-      o.x + o.w / 2 > Math.min(self.x, x) - pad &&
-      o.x - o.w / 2 < Math.max(self.x, x) + pad &&
-      o.z + o.d / 2 > Math.min(self.z, z) - pad &&
-      o.z - o.d / 2 < Math.max(self.z, z) + pad,
+      o.x + o.w / 2 > minX &&
+      o.x - o.w / 2 < maxX &&
+      o.z + o.d / 2 > minZ &&
+      o.z - o.d / 2 < maxZ,
   );
 }
 

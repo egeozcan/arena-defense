@@ -1,0 +1,279 @@
+{
+  "date": "2026-10-13",
+  "baselineCommit": "b1b9afd3b09ef35d60eda8c04e39b7d23a827c3d",
+  "method": {
+    "simulationCommand": "npm run perf -- --ticks=1200 --repetitions=1",
+    "node": "v25.3.0",
+    "simulationTicks": 1200,
+    "pairedRepetitions": 1,
+    "render": "Chromium, Hard Yard round 60, eight stock vehicles, setup, 1280x720; R3F addAfterEffect samples with renderer.info.autoReset=false include all render passes.",
+    "limitations": [
+      "CPU timings are local measurements, not laptop FPS certification.",
+      "Cold steering searches can still exceed a 16.7 ms frame budget.",
+      "Supplementary CPU-profiler timings overlapped tests and are excluded from this comparison."
+    ]
+  },
+  "simulation": [
+    {
+      "scenario": "idle",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 5.436987716666662,
+        "p50Ms": 5.41091700000004,
+        "p95Ms": 5.694916000000035,
+        "maxMs": 7.402375000000006,
+        "maxBalloons": 0,
+        "balloons": 0,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "6d6d45b3dd0b1d7929a152182b49d338296857ab0d03565ae3a885e53bd26039"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 0.02326982333333336,
+        "p50Ms": 0.01533399999999574,
+        "p95Ms": 0.047875000000004775,
+        "maxMs": 3.358249999999998,
+        "maxBalloons": 0,
+        "balloons": 0,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "6d6d45b3dd0b1d7929a152182b49d338296857ab0d03565ae3a885e53bd26039"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "uncovered",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 5.839599020833347,
+        "p50Ms": 5.815166000000318,
+        "p95Ms": 6.119957999999315,
+        "maxMs": 8.563874999999825,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "88e9fbbcae8d2766f96bc9ead643f8ffc692d475f615668f7b69f79424ad6f4a"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 0.434836166666666,
+        "p50Ms": 0.4103749999999309,
+        "p95Ms": 0.5920000000000414,
+        "maxMs": 1.9931669999999713,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "88e9fbbcae8d2766f96bc9ead643f8ffc692d475f615668f7b69f79424ad6f4a"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "mixed-20",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 2.1902627683333185,
+        "p50Ms": 1.1534580000006827,
+        "p95Ms": 9.023457999999664,
+        "maxMs": 45.25470899999891,
+        "maxBalloons": 300,
+        "balloons": 255,
+        "pending": 0,
+        "pops": 352,
+        "checksum": "bd35f6245620e9a725cecd24f1e4a7f1099e17a443238771699fe975788ab84e"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 1.373166113333331,
+        "p50Ms": 0.5449170000001686,
+        "p95Ms": 5.793582999999899,
+        "maxMs": 41.835290999999984,
+        "maxBalloons": 300,
+        "balloons": 255,
+        "pending": 0,
+        "pops": 352,
+        "checksum": "bd35f6245620e9a725cecd24f1e4a7f1099e17a443238771699fe975788ab84e"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "late-60",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 2.8877079783333737,
+        "p50Ms": 1.185417000000598,
+        "p95Ms": 11.44550000000163,
+        "maxMs": 37.04241700000057,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 406,
+        "pops": 649,
+        "checksum": "5e3c2352249fbe2db17578c233cf5c5bcee7dc27e539e112652920b477c4c8ae"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 1.898780705000011,
+        "p50Ms": 0.5557080000007772,
+        "p95Ms": 6.953916999999819,
+        "maxMs": 23.04337499999974,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 406,
+        "pops": 649,
+        "checksum": "5e3c2352249fbe2db17578c233cf5c5bcee7dc27e539e112652920b477c4c8ae"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "dense-harvesters",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 1.3295729100001337,
+        "p50Ms": 0.3952080000017304,
+        "p95Ms": 8.029458000000886,
+        "maxMs": 21.3093340000014,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "90abace5cea975d80abcb123d98e0bc8cfb425e9a1829600ab3aaab4a98341b7"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 0.7379346483333067,
+        "p50Ms": 0.38491699999940465,
+        "p95Ms": 3.1118749999996,
+        "maxMs": 9.611249999999927,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "90abace5cea975d80abcb123d98e0bc8cfb425e9a1829600ab3aaab4a98341b7"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "dense-cranes",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 1.0201555858333238,
+        "p50Ms": 0.2958749999997963,
+        "p95Ms": 8.941792000001442,
+        "maxMs": 9.76587500000096,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "44037dc3ac3c7e0b6c906f08bf7c99ca1a3183644760672b3d6da063d35acc36"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 0.3108665158333171,
+        "p50Ms": 0.286167000000205,
+        "p95Ms": 0.5235830000001442,
+        "maxMs": 1.9180420000002414,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "44037dc3ac3c7e0b6c906f08bf7c99ca1a3183644760672b3d6da063d35acc36"
+      },
+      "identicalState": true
+    },
+    {
+      "scenario": "dense-balers",
+      "before": {
+        "ticks": 1200,
+        "meanMs": 1.2646442658333006,
+        "p50Ms": 0.3550829999985581,
+        "p95Ms": 11.079999999998108,
+        "maxMs": 16.08733299999949,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "7f3419410cb9fe79ec36db4acdac29c7f131bc91f999ec001b252792e95f5cf1"
+      },
+      "after": {
+        "ticks": 1200,
+        "meanMs": 0.3503604208333483,
+        "p50Ms": 0.33729200000016135,
+        "p95Ms": 0.5851659999998446,
+        "maxMs": 0.9568749999998545,
+        "maxBalloons": 300,
+        "balloons": 300,
+        "pending": 1,
+        "pops": 0,
+        "checksum": "7f3419410cb9fe79ec36db4acdac29c7f131bc91f999ec001b252792e95f5cf1"
+      },
+      "identicalState": true
+    }
+  ],
+  "render": {
+    "drawCallsPerFrame": {
+      "before": 8839,
+      "after": 2233,
+      "reductionPercent": 74.73696119470529
+    },
+    "sceneGeometries": {
+      "before": 2333,
+      "after": 1240
+    },
+    "roundTransitionMemory": {
+      "baselineAfterTwoRounds": {
+        "allocated": 2600,
+        "live": 2184,
+        "orphaned": 416
+      },
+      "afterRound1": {
+        "allocated": 1091,
+        "live": 1091,
+        "orphaned": 0
+      },
+      "afterRound2": {
+        "allocated": 1091,
+        "live": 1091,
+        "orphaned": 0
+      }
+    }
+  },
+  "fixed": [
+    "Whole-arena target searches with no eligible targets or reachable targets already in range.",
+    "Repeated steering rollout body allocations and full scenery/traffic scans.",
+    "Separate draw calls for every wheel tread, spoke, chain, and track link.",
+    "Repeated full-scene contact shadow pass.",
+    "Rounded paint geometry leak on unmount/replacement.",
+    "Unnecessary idle/paused React refresh and floor hover updates.",
+    "Balloon accessories using current rather than interpolated coordinates.",
+    "Malformed version-one saves crashing startup."
+  ],
+  "validation": {
+    "testsPassed": 341,
+    "productionBuild": "passed",
+    "format": "passed",
+    "gitDiffCheck": "passed",
+    "differentialCollisionComparisons": 44408,
+    "allSevenSimulationChecksumsUnchanged": true,
+    "browser": [
+      "Natural wave clear and payout to next garage across two rounds.",
+      "Geometry allocations match live scene geometries after both rounds.",
+      "300-balloon first-person mode, front/rear input, switching seats, pause freezes tick, leaving driver restores 3x speed.",
+      "Malformed save recovers to a fresh run with zero page errors."
+    ]
+  },
+  "reviews": {
+    "initialAudit": "Simulation/performance; render/UI; driver/replay, followed by save recovery audit.",
+    "afterFixRound": 1,
+    "independentReviewers": 3,
+    "p0": 0,
+    "p1": 0,
+    "newActionableP2": 0,
+    "scopes": [
+      "Simulation target ranking, steering/traffic/hay, saved-run validation.",
+      "Renderer instancing/bounds/disposal/memoization, scheduler and controls.",
+      "UI run flow, saves, renderer lifecycle, driver mode."
+    ]
+  }
+}

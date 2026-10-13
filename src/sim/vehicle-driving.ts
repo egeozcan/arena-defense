@@ -1,6 +1,6 @@
 import { grip, type Arena, type OwnedVehicle, type VehicleKind } from './data';
 import { terrainHandlingFactor, terrainRouteCost, terrainSpeedFactor } from './capabilities';
-import { canTravel, type TrafficBody } from './traffic';
+import { createTravelProbe, type TrafficBody } from './traffic';
 import {
   angleDifference,
   driveVehicle,
@@ -64,6 +64,7 @@ export function chooseDriveControl(
   traction: number,
   previous?: DriveControl | null,
 ): DriveControl | null {
+  const canTravel = createTravelProbe(arena, body.radius, traffic);
   const controls: (DriveControl | null)[] = [null];
   const initialSpeedFactor = body.vehicle
     ? terrainSpeedFactor(body.vehicle, grip(arena, body.x, body.z))
@@ -97,6 +98,7 @@ export function chooseDriveControl(
     for (const pose of frontier)
       for (const control of controls) {
         const predicted = { ...pose.motion };
+        const predictedBody = { ...body, x: pose.x, z: pose.z };
         let x = pose.x,
           z = pose.z,
           traveled = 0,
@@ -128,7 +130,7 @@ export function chooseDriveControl(
             localTraction,
             control ?? undefined,
           );
-          if (!canTravel(arena, { ...body, x, z }, x + dx, z + dz, traffic)) {
+          if (!canTravel(predictedBody, x + dx, z + dz)) {
             safe = false;
             break;
           }
@@ -141,6 +143,8 @@ export function chooseDriveControl(
           }
           x += dx;
           z += dz;
+          predictedBody.x = x;
+          predictedBody.z = z;
           traveled += Math.hypot(dx, dz);
           arrived = goal.faceTarget
             ? Math.hypot(goal.x - x, goal.z - z) <= goal.faceTarget.range - 0.1 &&

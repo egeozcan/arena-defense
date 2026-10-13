@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { RoundedBoxGeometry } from 'three-stdlib';
 import { surfaceTexture } from './textures';
 export type Vec = [number, number, number];
@@ -37,6 +37,8 @@ export function Paint({
     () => new RoundedBoxGeometry(...size, 1, Math.min(0.09, Math.min(...size) * 0.22)),
     [size[0], size[1], size[2]],
   );
+  // Geometry supplied as a mesh property is not an owned R3F child.
+  useEffect(() => () => geometry.dispose(), [geometry]);
   return (
     <mesh geometry={geometry} position={position} rotation={rotation} castShadow receiveShadow>
       <meshPhysicalMaterial
