@@ -1,4 +1,51 @@
+import { VEHICLES, type VehicleKind } from '../sim/data';
 const crackle = new WeakMap<AudioContext, AudioBuffer>();
+
+export function createEngineSound(ctx: AudioContext, kind: VehicleKind) {
+  const engine = ctx.createOscillator();
+  const harmonic = ctx.createOscillator();
+  const filter = ctx.createBiquadFilter();
+  const volume = ctx.createGain();
+  const crawler = kind === 'excavator' || kind === 'crane' || kind === 'bulldozer';
+  engine.type = 'sawtooth';
+  harmonic.type = 'triangle';
+  filter.type = 'lowpass';
+  filter.frequency.value = 160;
+  volume.gain.value = 0;
+  engine.frequency.value = crawler ? 38 : 48;
+  harmonic.frequency.value = crawler ? 57 : 72;
+  engine.connect(filter);
+  harmonic.connect(filter);
+  filter.connect(volume);
+  volume.connect(ctx.destination);
+  engine.start();
+  harmonic.start();
+  let stopped = false;
+  return {
+    update(speed: number, working: boolean) {
+      if (stopped) return;
+      const rev = Math.min(1.8, speed / VEHICLES[kind].speed);
+      const frequency = (crawler ? 38 : 48) + rev * 45 + (working ? 6 : 0);
+      engine.frequency.setTargetAtTime(frequency, ctx.currentTime, 0.12);
+      harmonic.frequency.setTargetAtTime(frequency * 1.5, ctx.currentTime, 0.12);
+      filter.frequency.setTargetAtTime(150 + rev * 220, ctx.currentTime, 0.15);
+      volume.gain.setTargetAtTime(0.018 + rev * 0.012, ctx.currentTime, 0.1);
+    },
+    stop() {
+      if (stopped) return;
+      stopped = true;
+      volume.gain.setTargetAtTime(0, ctx.currentTime, 0.025);
+      engine.stop(ctx.currentTime + 0.15);
+      harmonic.stop(ctx.currentTime + 0.15);
+      engine.onended = () => {
+        engine.disconnect();
+        harmonic.disconnect();
+        filter.disconnect();
+        volume.disconnect();
+      };
+    },
+  };
+}
 
 function tone(
   ctx: AudioContext,

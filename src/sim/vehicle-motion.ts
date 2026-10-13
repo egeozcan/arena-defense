@@ -92,7 +92,12 @@ export function driveVehicle(
   let desiredSpeed = 0,
     desiredYaw = 0,
     desiredSteer = 0;
-  if (control && !tracked) {
+  if (control && tracked) {
+    desiredSpeed =
+      control.direction * maxSpeed * control.throttle * (control.direction < 0 ? 0.6 : 1);
+    desiredYaw =
+      (clamp(control.steer, MAX_STEER) / MAX_STEER) * (kind === 'crane' ? 1.6 : 2.2) * grip;
+  } else if (control) {
     desiredSteer = clamp(control.steer, MAX_STEER);
     const curvature = Math.abs(Math.tan(desiredSteer) / WHEELBASE);
     desiredSpeed =

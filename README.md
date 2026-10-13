@@ -66,7 +66,36 @@ For a fork, enable **Settings → Pages → Source → GitHub Actions**. CI deri
 
 Use the view buttons to zoom and rotate; right-drag pans. **V** rotates the camera; **+ / −** zoom. The settings icon starts a new run with Easy, Medium, or Hard difficulty in either arena. Progress saves locally during preparation. Reloading during a round returns to its saved preparation state. The sound icon toggles synthesized effects. Round summaries can export JSON replays.
 
+During a wave, select a vehicle and choose **Jump in**, or press **F** to take the selected vehicle (the first deployed vehicle if none is selected). All eight vehicles support first-person driving; the rest of your fleet keeps fighting automatically.
+
+| Driver control                | Action                                                            |
+| ----------------------------- | ----------------------------------------------------------------- |
+| **WASD / arrows**             | Accelerate, reverse and steer; crawlers can pivot at rest         |
+| **Mouse / left mouse button** | Look and aim / hold to operate active tools                       |
+| **Space / Shift / R**         | Brake / precision aim / center the view                           |
+| **C**                         | Switch front/rear view when a rear tool is installed              |
+| **E / Q**                     | Unlocked specialist ability / purchased boost on your vehicle     |
+| **Tab / F**                   | Switch to the next vehicle / return to fleet view and AI control  |
+| **P / Esc**                   | Pause and release the mouse; resume from the pause menu or with P |
+
+Driver mode runs at 1× speed and restores your previous speed when you leave. Click the arena to capture the mouse; if capture is unavailable, hold the right mouse button and drag to look. The cockpit shows speed, gear, tool reach, target limitations, personal pops and a live arena radar. Tools retain their upgrade, height, armor and cooldown rules. Manual inputs are included in exported replays. Camera bob, recoil and speed effects respect reduced-motion preferences; engine audio follows the sound toggle. Leaving the tab pauses driving and clears held controls.
+
+The harvester’s header and bulldozer’s blade cut automatically on contact while you drive, without clicking or aiming the camera. The harvester unlocks a rear header at Specialist tier 3. Press **C** or click the cockpit’s **Front / Rear** button to face either header. **W** drives toward the header you’re facing; **S** drives away, and steering follows your view. **R** recenters the selected view. The compass, radar view cone and contact hints follow that side; both headers continue cutting automatically. Switching vehicles resets to the front view. Tool width, reach, height, armor damage and attack interval still follow your upgrades. The other six vehicles use the left mouse button:
+
+| Vehicle   | Tool control while driving                              |
+| --------- | ------------------------------------------------------- |
+| Harvester | Automatic header cuts; drive into low packs             |
+| Bulldozer | Automatic front blade; steer through low, armored packs |
+| Sprayer   | Hold left mouse to spray the full cone                  |
+| Blower    | Hold left mouse for damaging airflow and herding        |
+| Excavator | Hold left mouse to operate the crushing bucket          |
+| Crane     | Hold left mouse to operate the high-reaching hook       |
+| Baler     | Hold left mouse to launch travelling, piercing bales    |
+| Mixer     | Hold left mouse to lob concrete splashes                |
+
 ## Implemented
+
+- First-person driver mode for every vehicle, with manual steering, aiming and tools, a cockpit HUD and radar, precision focus, responsive engine audio, working equipment, seat switching, and deterministic AI handoffs. The driver's own cab shell is hidden to preserve visibility; the arena and other vehicles remain fully rendered.
 
 - Eight detailed procedural vehicles with reflective glass, sculpted tires, chevron treads, metal wheel spokes, grilles, steps, and working headlamps, brake lamps, reversing lamps, and steering indicators. Wheeled vehicles use individual steering angles and signed wheel rotation; crawlers animate belt links and rollers independently on each side. Textured cutaway arenas include scenery, foliage, lighting, and shadows.
 - Every upgrade tier adds cumulative physical hardware and blends the body paint with its path color. Attack reinforces and transforms tools; Speed adds intakes, exhausts, turbo hardware and overdrive cores; Traction adds larger tires, rotating tire chains, wider crawler cleats, guards, plows and recovery equipment. Specialist tiers add vehicle-specific equipment including rear and raised headers, thresher turbines, radial fog cannons, demolition jaws, wrecking balls, magnets and tower-crane outriggers. Mounting zones keep both paths visible in combined builds. Upgraded models appear in the arena, placement ghosts and the garage's selected-vehicle preview; stock purchase icons remain baked images. The icon studio has primary and secondary path controls for inspecting all tiers and combinations.

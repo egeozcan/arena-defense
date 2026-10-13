@@ -37,7 +37,19 @@ import {
   stopAtCollision,
   type VehicleMotion,
   type DriveControl,
+  MAX_STEER,
 } from './vehicle-motion';
+import {
+  driverTarget,
+  driverAreaTargets,
+  isContactTool,
+  driverEye,
+  driverMotionInput,
+  driverViewAngle,
+  neutralDriverInput,
+  sanitizeDriverInput,
+  type DriverInput,
+} from './vehicle-pilot';
 import {
   approachSpeed,
   chooseDriveControl,
@@ -177,7 +189,8 @@ export interface AirBurst {
   vortex: boolean;
 }
 export type Command = {
-  ability: AbilityKind | 'vehicle' | 'finish' | 'targeting';
+  ability: AbilityKind | 'vehicle' | 'finish' | 'targeting' | 'pilot' | 'drive';
+  input?: DriverInput;
   targeting?: TargetMode;
   x?: number;
   z?: number;
@@ -232,6 +245,8 @@ export class Simulation {
   nextId = 100;
   commands: { tick: number; command: Command }[] = [];
   queue: Command[] = [];
+  driverId: number | null = null;
+  driverInput = neutralDriverInput();
   abilityReady: Record<AbilityKind, number[]> = { gust: [], boost: [], pitchfork: [] };
   gust = { until: 0, dx: 0, dz: 0 };
   clouds: { x: number; z: number; until: number }[] = [];
@@ -438,6 +453,8 @@ export class Simulation {
   }
   vehicleStatus(v: SimVehicle) {
     if (v.state === 'clearing') return 'Clearing hay';
+    if (v.id === this.driverId)
+      return v.state === 'stuck' ? 'Obstacle ahead · reverse and steer' : 'Player driving';
     if (v.yieldUntil > this.tick || v.state === 'yielding') return 'Yielding to traffic';
     if (v.state === 'turning') return 'Turning into position';
     if (v.wait > 0) return 'Waiting for traffic';
@@ -455,6 +472,29 @@ export class Simulation {
     return 'Armor needs upgrades';
   }
   private applyCommand(c: Command) {
+    if (c.ability === 'pilot') {
+      const next = this.vehicles.find((v) => v.id === c.vehicleId);
+      if (c.vehicleId !== undefined && !next) return;
+      for (const v of this.vehicles.filter((v) => v.id === this.driverId || v === next)) {
+        v.target = -1;
+        v.path = [];
+        v.nextSelect = v.nextPath = v.nextDrivePlan = 0;
+        v.yieldUntil = v.wait = v.blockedTicks = 0;
+        v.driveControl = v.driveGoal = null;
+        v.blacklist = {};
+        this.yieldRequests.delete(v.id);
+        this.movementProgress.delete(v.id);
+      }
+      this.driverId = next?.id ?? null;
+      this.driverInput = neutralDriverInput();
+      return;
+    }
+    if (c.ability === 'drive') {
+      const vehicle = this.vehicles.find((v) => v.id === this.driverId);
+      if (c.vehicleId === this.driverId && c.input && vehicle)
+        this.driverInput = sanitizeDriverInput(c.input, vehicle);
+      return;
+    }
     if (c.ability === 'finish') {
       if (this.canFinishEarly) this.finish('uncovered');
       return;
@@ -662,7 +702,7 @@ export class Simulation {
           { x: b.x + (i - 1) * 0.5, y: 0.8, z: b.z },
         );
   }
-  private launchBale(v: SimVehicle, target: Balloon, offset = 0) {
+  private launchBale(v: SimVehicle, target: Pick<Balloon, 'x' | 'y' | 'z'>, offset = 0) {
     const s = vehicleStats(v);
     const angle = Math.atan2(target.x - v.x, target.z - v.z) + offset;
     this.shots.push({
@@ -761,7 +801,7 @@ export class Simulation {
       return alive;
     });
   }
-  private blow(v: SimVehicle, target: Balloon) {
+  private blow(v: SimVehicle, target: Pick<Balloon, 'x' | 'z'>) {
     const s = vehicleStats(v);
     const halfAngle = vehicleTool(v).cone;
     const partner = this.vehicles
@@ -826,6 +866,9 @@ export class Simulation {
       });
     for (const b of victims.sort((a, b) => a.id - b.id))
       this.hit(b, s.damage * (v.activeUntil > this.tick ? 2 : 1), v);
+    this.recoverTool(v);
+  }
+  private recoverTool(v: SimVehicle) {
     // Carry a sub-tick remainder across consecutive attacks. Rounding every
     // cooldown made fast tools lose entire upgrades (e.g. 4.4 vs 3.5 ticks).
     // After travelling or turning, start a fresh cooldown instead of banking shots.
@@ -993,6 +1036,14 @@ export class Simulation {
       beginMotionTick(v);
       v.ptoolAngle = v.toolAngle;
       const s = vehicleStats(v);
+      if (v.id === this.driverId) {
+        this.drivePlayer(
+          v,
+          traffic.find((body) => body.id === v.id)!,
+          traffic,
+        );
+        continue;
+      }
       if (
         this.tick >= v.nextSelect ||
         !this.balloons.some((b) => b.id === v.target && this.eligible(v, b))
@@ -1211,19 +1262,7 @@ export class Simulation {
         const aligningHeader = target && frontTool && !yielding && dist <= s.range + 1;
         if (aligningHeader) point = [target.x, target.z];
         if (point) {
-          const terrain = grip(this.arena, v.x, v.z);
-          const traction = terrainHandlingFactor(v, terrain);
-          const speed = hayDriveSpeed(
-            this.arena,
-            body,
-            s.speed *
-              Math.min(
-                2.5,
-                (v.boostUntil > this.tick || v.activeUntil > this.tick ? 2 : 1) *
-                  (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
-              ) *
-              terrainSpeedFactor(v, terrain),
-          );
+          const { speed, traction } = this.movementStats(v, body);
           const wheeled = v.kind !== 'excavator' && v.kind !== 'crane' && v.kind !== 'bulldozer';
           if (
             wheeled &&
@@ -1440,10 +1479,93 @@ export class Simulation {
     return clear;
   }
   private aimTool(v: SimVehicle) {
-    const desired = v.state === 'attacking' ? v.aimAngle : v.angle;
+    const desired = v.id === this.driverId || v.state === 'attacking' ? v.aimAngle : v.angle;
     const step = (v.kind === 'crane' ? 1.8 : 2.6) / 60;
     const turn = angleDifference(desired, v.toolAngle);
     v.toolAngle = angleDifference(v.toolAngle + Math.max(-step, Math.min(step, turn)), 0);
+  }
+  private movementStats(v: SimVehicle, body: TrafficBody) {
+    const terrain = grip(this.arena, v.x, v.z);
+    const multiplier = Math.min(
+      2.5,
+      (v.boostUntil > this.tick || v.activeUntil > this.tick ? 2 : 1) *
+        (this.rhythm.active(this.tick) ? POP_RUSH.move : 1),
+    );
+    return {
+      traction: terrainHandlingFactor(v, terrain),
+      speed: hayDriveSpeed(
+        this.arena,
+        body,
+        vehicleStats(v).speed * multiplier * terrainSpeedFactor(v, terrain),
+      ),
+    };
+  }
+  private drivePlayer(v: SimVehicle, body: TrafficBody, traffic: TrafficBody[]) {
+    const input = this.driverInput;
+    const motion = driverMotionInput(v, input);
+    const contactTool = isContactTool(v.kind);
+    const s = vehicleStats(v);
+    const { speed, traction } = this.movementStats(v, body);
+    v.aimAngle = angleDifference(driverViewAngle(v, input), 0);
+    v.state =
+      input.fire && !contactTool ? 'attacking' : input.throttle || input.steer ? 'moving' : 'idle';
+    const clear = this.moveVehicle(v, body, traffic, null, input.brake ? 0 : speed, traction, {
+      direction: motion.throttle < 0 ? -1 : 1,
+      throttle: input.brake ? 0 : Math.abs(motion.throttle),
+      steer: input.brake ? 0 : motion.steer * MAX_STEER,
+    });
+    v.wait = clear ? 0 : v.wait + 1;
+    if (!clear) v.state = 'stuck';
+    v.aimAngle = angleDifference(driverViewAngle(v, input), 0);
+    const areaTarget = driverAreaTargets(v, this.balloons, contactTool ? v.angle : v.aimAngle)[0];
+    if (contactTool) {
+      const contact = areaTarget;
+      v.target = contact?.id ?? -1;
+      if (contact && this.tick >= v.attackTick) {
+        if (clear) v.state = 'attacking';
+        this.attack(v, contact);
+      }
+      return;
+    }
+    const target = vehicleTool(v).cone ? areaTarget : driverTarget(v, input, this.balloons);
+    v.target = target?.id ?? -1;
+    if (
+      input.fire &&
+      target &&
+      this.tick >= v.attackTick &&
+      Math.hypot(target.x - v.x, target.z - v.z) <= s.range &&
+      this.eligible(v, target, false) &&
+      this.clearToolPosition(v, target)
+    ) {
+      v.state = 'attacking';
+      this.attack(v, target);
+    } else if (input.fire && this.tick >= v.attackTick) {
+      // Tools still respond when you miss; bales and wind travel along your aim.
+      // Direct-hit tools only emit feedback, never acquire an off-screen target.
+      const angle = v.aimAngle;
+      const [, eyeHeight] = driverEye(v.kind);
+      const point = {
+        x: v.x + Math.sin(angle) * s.range,
+        y: Math.max(
+          0.25,
+          Math.min(this.arena.ceiling - 0.5, eyeHeight + Math.sin(input.pitch) * s.range),
+        ),
+        z: v.z + Math.cos(angle) * s.range,
+      };
+      v.state = clear ? 'attacking' : 'stuck';
+      if (v.kind === 'baler') this.launchBale(v, point);
+      else {
+        if (v.kind === 'blower') this.blow(v, point);
+        this.attacks.push({
+          kind: v.kind,
+          vehicleId: v.id,
+          tick: this.tick,
+          from: [v.x + Math.sin(angle) * 1.2, 1.3, v.z + Math.cos(angle) * 1.2],
+          to: [point.x, point.y, point.z],
+        });
+      }
+      this.recoverTool(v);
+    }
   }
   private requestTraffic(v: SimVehicle, body: TrafficBody, traffic: TrafficBody[]) {
     const target = this.balloons.find((b) => b.id === v.target);

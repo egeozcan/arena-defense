@@ -127,7 +127,7 @@ export function terrainRouteCost(v: MobileVehicle, terrain: number) {
 }
 
 // Tool geometry is shared by combat and the balance audit. Angles are half cones.
-export function vehicleTool(v: OwnedVehicle) {
+export function vehicleTool(v: Pick<OwnedVehicle, 'kind' | 'upgrades'>) {
   const u = v.upgrades,
     kind = v.kind;
   return {

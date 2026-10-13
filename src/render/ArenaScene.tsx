@@ -1,6 +1,6 @@
 import { Suspense, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, useFrame, type ThreeEvent } from '@react-three/fiber';
-import { OrbitControls, ContactShadows } from '@react-three/drei';
+import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
+import { OrbitControls, ContactShadows, Sky } from '@react-three/drei';
 import { Color, Group, InstancedMesh, Mesh, Object3D, OrthographicCamera, Vector3 } from 'three';
 import type { OrbitControls as OrbitControlsType } from 'three-stdlib';
 import {
@@ -24,6 +24,8 @@ import { SurfacePatches } from './SurfacePatches';
 import { CombatEffects } from './CombatEffects';
 import { BaleProjectiles } from './BaleProjectiles';
 import { ImpactWords } from './ImpactWords';
+import { DriverCamera } from './DriverCamera';
+import type { DriverInput } from '../sim/vehicle-pilot';
 interface Props {
   run: Run;
   sim: Simulation | null;
@@ -41,6 +43,9 @@ interface Props {
   onGust: (dx: number, dz: number) => void;
   armed: string | null;
   interpolation: { current: number };
+  driverId: number | null;
+  driverInput: { current: DriverInput };
+  driverFocus: { current: boolean };
 }
 function Terrain({ run, grid }: { run: Run; grid: boolean }) {
   const a = useMemo(
@@ -298,14 +303,19 @@ function CameraRig({
   width,
   depth,
   sim,
+  driving,
 }: {
   rotation: number;
   zoom: number;
   width: number;
   depth: number;
   sim: Simulation | null;
+  driving: boolean;
 }) {
   const controls = useRef<OrbitControlsType>(null);
+  const activeCamera = useThree((state) => state.camera);
+  // Keep the overview controls attached to their camera so a seat change retains pan.
+  const overviewCamera = useRef(activeCamera);
   const seenPops = useRef(0),
     shake = useRef(0),
     previousSim = useRef(sim),
@@ -315,6 +325,7 @@ function CameraRig({
     [],
   );
   useFrame(({ camera, size }, delta) => {
+    if (driving) return;
     time.current += delta;
     if (sim !== previousSim.current) {
       previousSim.current = sim;
@@ -351,6 +362,8 @@ function CameraRig({
   });
   return (
     <OrbitControls
+      camera={overviewCamera.current}
+      enabled={!driving}
       ref={controls}
       enableRotate={false}
       enablePan
@@ -522,6 +535,7 @@ function ActiveVehicle({
   onClick,
   onHover,
   interpolation,
+  cockpit,
 }: {
   sim: Simulation;
   id: number;
@@ -529,6 +543,7 @@ function ActiveVehicle({
   onClick: () => void;
   onHover: Props['onVehicleHover'];
   interpolation: { current: number };
+  cockpit: boolean;
 }) {
   const ref = useRef<Group>(null);
   const v = sim.vehicles.find((v) => v.id === id)!;
@@ -561,8 +576,14 @@ function ActiveVehicle({
         onClick();
       }}
     >
-      <VehicleModel kind={v.kind} vehicle={v} sim={sim} interpolation={interpolation} />
-      {selected && <Selection range={vehicleStats(v).range} />}{' '}
+      <VehicleModel
+        kind={v.kind}
+        vehicle={v}
+        sim={sim}
+        interpolation={interpolation}
+        cockpit={cockpit}
+      />
+      {selected && !cockpit && <Selection range={vehicleStats(v).range} />}{' '}
       {v.state === 'stuck' && (
         <group position={[0, 3, 0]}>
           <Box size={[0.15, 0.45, 0.15]} color="#edb766" />
@@ -715,6 +736,9 @@ function Scene(props: Props) {
   return (
     <>
       <color attach="background" args={['#94bb95']} />
+      {props.driverId !== null && (
+        <Sky distance={450000} sunPosition={[-80, 65, 90]} turbidity={5} rayleigh={1.5} />
+      )}
       <fog attach="fog" args={['#94bb95', 65, 110]} />
       <ambientLight intensity={0.25} />
       <hemisphereLight args={['#cfeaff', '#485a40', 0.9]} />
@@ -739,7 +763,17 @@ function Scene(props: Props) {
         width={a.width}
         depth={a.depth}
         sim={sim}
+        driving={props.driverId !== null}
       />
+      {sim && props.driverId !== null && (
+        <DriverCamera
+          sim={sim}
+          vehicleId={props.driverId}
+          input={props.driverInput}
+          focus={props.driverFocus}
+          interpolation={props.interpolation}
+        />
+      )}
       <group position={[-a.width / 2, 0, -a.depth / 2]}>
         <Terrain run={run} grid={grid && phase === 'setup'} />
         <Scenery kind={run.arena} />
@@ -817,6 +851,7 @@ function Scene(props: Props) {
                 id={v.id}
                 interpolation={props.interpolation}
                 selected={selected === v.id}
+                cockpit={props.driverId === v.id}
                 onClick={() => props.onVehicle(v.id)}
                 onHover={props.onVehicleHover}
               />

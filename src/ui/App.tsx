@@ -77,7 +77,10 @@ import { armorLabel, canTargetBalloon } from '../sim/capabilities';
 import { useVehicleTooltip, VehicleTooltip } from './VehicleTooltip';
 import { VEHICLE_GUIDES } from './vehicle-guide';
 import { ArcadeFeedback } from './ArcadeFeedback';
-import { playClear, playPop, playRush } from './audio';
+import { playClear, playPop, playRush, createEngineSound } from './audio';
+import { DriverHUD } from './DriverHUD';
+import { useDriverControls } from './useDriverControls';
+import { canSwitchDriverSide } from '../sim/vehicle-pilot';
 const SAVE_KEY = 'balloon-arena-defense-v1';
 type Phase = 'garage' | 'setup' | 'countdown' | 'round' | 'summary' | 'victory' | 'over';
 function loadRun(): Run {
@@ -148,10 +151,15 @@ export default function App() {
   const [newMode, setNewMode] = useState<Mode>('easy');
   const [newArena, setNewArena] = useState<ArenaKind>('barn');
   const [sound, setSound] = useState(true);
+  const [driverId, setDriverId] = useState<number | null>(null);
+  const drivingSpeed = useRef(1);
+  const worldSurface = useRef<HTMLDivElement>(null);
+  const lastDriverInput = useRef('');
+  const engineVoice = useRef<ReturnType<typeof createEngineSound> | null>(null);
   const contentPanel = useRef<HTMLDivElement>(null);
   const audio = useRef<AudioContext | null>(null);
-  const latest = useRef({ phase, speed, paused, sound });
-  latest.current = { phase, speed, paused, sound };
+  const latest = useRef({ phase, speed, paused, sound, driverId });
+  latest.current = { phase, speed, paused, sound, driverId };
   const notifiedPops = useRef(0);
   const notifiedRushes = useRef(0);
   const settled = useRef<Simulation | null>(null);
@@ -178,6 +186,34 @@ export default function App() {
   }
   const active = phase === 'round';
   const finished = phase === 'summary' || phase === 'over' || phase === 'victory';
+  const driverControls = useDriverControls({
+    vehicleId: driverId,
+    canSwitchSide: !!sim?.vehicles.some((v) => v.id === driverId && canSwitchDriverSide(v)),
+    enabled: active && driverId !== null && !modal,
+    paused,
+    surface: worldSurface,
+    onPause: (p) => {
+      latest.current.paused = p;
+      setPaused(p);
+    },
+    onExit: exitVehicle,
+    onNext: nextVehicle,
+    onAbility: driverAbility,
+    onBoost: driverBoost,
+  });
+  useEffect(() => {
+    if (driverId === null || !sound || paused || !active || !sim) return;
+    const vehicle = sim.vehicles.find((v) => v.id === driverId);
+    if (!vehicle) return;
+    audio.current ??= new AudioContext();
+    void audio.current.resume();
+    const voice = createEngineSound(audio.current, vehicle.kind);
+    engineVoice.current = voice;
+    return () => {
+      voice.stop();
+      engineVoice.current = null;
+    };
+  }, [driverId, sound, paused, active, sim]);
   useEffect(() => {
     vehicleTooltip.hide();
   }, [phase, tab, modal, vehicleTooltip.hide]);
@@ -216,6 +252,17 @@ export default function App() {
         acc += dt * latest.current.speed;
         let ticks = 0;
         while (acc >= 1 / 60 && ticks < 8 && !current.summary) {
+          if (latest.current.driverId !== null) {
+            const signature = JSON.stringify(driverControls.input.current);
+            if (signature !== lastDriverInput.current) {
+              current.enqueue({
+                ability: 'drive',
+                vehicleId: latest.current.driverId,
+                input: { ...driverControls.input.current },
+              });
+              lastDriverInput.current = signature;
+            }
+          }
           current.step();
           acc -= 1 / 60;
           ticks++;
@@ -233,6 +280,13 @@ export default function App() {
         }
         if (current.summary && settled.current !== current) {
           settled.current = current;
+          if (latest.current.driverId !== null) {
+            setDriverId(null);
+            latest.current.driverId = null;
+            latest.current.speed = drivingSpeed.current;
+            setSpeed(drivingSpeed.current);
+            driverControls.releaseMouse();
+          }
           latest.current.phase = 'summary';
           const s = current.summary;
           if (s.cleared && audio.current && latest.current.sound) playClear(audio.current);
@@ -264,6 +318,9 @@ export default function App() {
       interpolation.current =
         latest.current.phase === 'round' && !latest.current.paused ? Math.min(1, acc * 60) : 1;
       if (now - lastUI > 100) {
+        const vehicle = current?.vehicles.find((v) => v.id === latest.current.driverId);
+        if (vehicle)
+          engineVoice.current?.update(Math.abs(vehicle.speed), vehicle.state === 'attacking');
         setFrame((f) => f + 1);
         lastUI = now;
       }
@@ -453,7 +510,56 @@ export default function App() {
     if (!charges.some((t) => t <= sim.tick)) return;
     setArmed(armed === kind ? null : kind);
   }
+  function enterVehicle(id = selected ?? sim?.vehicles[0]?.id) {
+    if (
+      !active ||
+      !sim ||
+      paused ||
+      modal ||
+      id === undefined ||
+      !sim.vehicles.some((v) => v.id === id)
+    )
+      return;
+    if (driverId === null) drivingSpeed.current = speed;
+    latest.current.speed = 1;
+    latest.current.driverId = id;
+    setSpeed(1);
+    setDriverId(id);
+    setSelected(id);
+    setArmed(null);
+    lastDriverInput.current = '';
+    driverControls.clear();
+    vehicleTooltip.hide();
+    sim.enqueue({ ability: 'pilot', vehicleId: id });
+    driverControls.requestMouse();
+    playCue(180);
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  }
+  function exitVehicle() {
+    simRef.current?.enqueue({ ability: 'pilot' });
+    latest.current.driverId = null;
+    latest.current.speed = drivingSpeed.current;
+    setDriverId(null);
+    setSpeed(drivingSpeed.current);
+    lastDriverInput.current = '';
+    driverControls.releaseMouse();
+    playCue(260);
+  }
+  function nextVehicle() {
+    if (!sim || paused || sim.vehicles.length < 2) return;
+    const index = sim.vehicles.findIndex((v) => v.id === driverId);
+    enterVehicle(sim.vehicles[(index + 1) % sim.vehicles.length].id);
+  }
+  function driverAbility() {
+    if (!sim || driverId === null || paused) return;
+    sim.enqueue({ ability: 'vehicle', vehicleId: driverId });
+  }
+  function driverBoost() {
+    if (!sim || driverId === null || paused) return;
+    sim.enqueue({ ability: 'boost', vehicleId: driverId });
+  }
   function vehicleClick(id: number) {
+    if (driverId !== null) return;
     setSelected(id);
     if (active && armed === 'boost') {
       sim?.enqueue({ ability: 'boost', vehicleId: id });
@@ -506,6 +612,9 @@ export default function App() {
     setArmed(null);
   }
   function restart() {
+    setDriverId(null);
+    latest.current.driverId = null;
+    driverControls.releaseMouse();
     simRef.current?.dispose();
     simRef.current = null;
     setSim(null);
@@ -560,6 +669,7 @@ export default function App() {
       )
         return;
       const letter = e.key.toLowerCase();
+      if (driverId !== null && active && !modal) return;
       if (e.key === 'Escape') {
         e.preventDefault();
         if (modal) {
@@ -621,6 +731,11 @@ export default function App() {
         unplaceVehicle();
       }
       if (active) {
+        if (letter === 'f') {
+          e.preventDefault();
+          enterVehicle();
+          return;
+        }
         if (['1', '2', '3'].includes(e.key)) setSpeed(Number(e.key));
         const i = ['q', 'w', 'e'].indexOf(letter);
         if (i >= 0) useAbility((['gust', 'boost', 'pitchfork'] as AbilityKind[])[i]);
@@ -636,10 +751,10 @@ export default function App() {
   void frame;
   return (
     <div
-      className={`game-shell ${phase === 'round' ? 'in-round' : ''} ${placing !== null || armed ? 'targeting' : ''}`}
+      className={`game-shell ${phase === 'round' ? 'in-round' : ''} ${driverId !== null ? 'is-driving' : ''} ${placing !== null || armed ? 'targeting' : ''}`}
     >
       <VehicleTooltip hint={vehicleTooltip.hint} />
-      <div className="game-world">
+      <div className="game-world" ref={worldSurface}>
         <ArenaScene
           run={run}
           interpolation={interpolation}
@@ -651,10 +766,19 @@ export default function App() {
           grid={grid}
           rotation={rotation}
           zoom={zoom}
+          driverId={driverId}
+          driverInput={driverControls.input}
+          driverFocus={driverControls.focus}
           onPlace={place}
           onVehicle={vehicleClick}
           onVehicleHover={(kind, x = 0, y = 0) => {
-            if (kind && !armed && !modal && (phase === 'setup' || phase === 'round'))
+            if (
+              kind &&
+              driverId === null &&
+              !armed &&
+              !modal &&
+              (phase === 'setup' || phase === 'round')
+            )
               vehicleTooltip.showAt(kind, { left: x, right: x, top: y, bottom: y });
             else vehicleTooltip.hide();
           }}
@@ -665,6 +789,25 @@ export default function App() {
       </div>
       <div className="world-vignette" />
       {active && sim && <ArcadeFeedback sim={sim} paused={paused} />}
+      {active && sim && driverId !== null && (
+        <DriverHUD
+          key={driverId}
+          sim={sim}
+          vehicleId={driverId}
+          input={driverControls.input}
+          focused={driverControls.focus.current}
+          locked={driverControls.locked}
+          lockUnavailable={driverControls.lockUnavailable}
+          paused={paused}
+          onExit={exitVehicle}
+          onPause={() => setPaused(true)}
+          onNext={nextVehicle}
+          onMouse={driverControls.requestMouse}
+          onAbility={driverAbility}
+          onBoost={driverBoost}
+          onSide={driverControls.switchSide}
+        />
+      )}
       <header className="game-hud">
         <div className="hud-resources">
           <div className="hud-stat hearts" title="Lives">
@@ -869,6 +1012,17 @@ export default function App() {
           <p className="vehicle-status" role="status">
             {sim.vehicleStatus(liveVehicle)}
           </p>
+          <button
+            className="jump-in-button"
+            onClick={() => enterVehicle(owned.id)}
+            disabled={paused}
+          >
+            <Tractor size={18} />
+            <span>
+              Jump in <small>Drive in first person</small>
+            </span>
+            <kbd>F</kbd>
+          </button>
           <label>
             Strategy
             <select
@@ -913,6 +1067,15 @@ export default function App() {
             </button>
           ))}
         </div>
+      )}
+      {active && driverId === null && !owned && (
+        <button className="jump-in-invitation" disabled={paused} onClick={() => enterVehicle()}>
+          <Tractor size={19} />
+          <span>
+            Take the wheel <small>Jump into your fleet. Drive. Aim. Pop.</small>
+          </span>
+          <kbd>F</kbd>
+        </button>
       )}
       <div className="view-controls">
         <button
@@ -1138,9 +1301,16 @@ export default function App() {
           <section className="pause-menu" role="dialog" aria-modal="true" aria-label="Pause menu">
             <Pause size={30} />
             <h2>PAUSED</h2>
-            <button className="primary full-width" onClick={() => setPaused(false)}>
+            <button
+              className="primary full-width"
+              autoFocus={driverId !== null}
+              onClick={() => {
+                setPaused(false);
+                if (driverId !== null) driverControls.requestMouse();
+              }}
+            >
               <Play size={19} />
-              Resume<kbd>SPACE</kbd>
+              Resume<kbd>{driverId !== null ? 'P' : 'SPACE'}</kbd>
             </button>
             <button className="secondary full-width" onClick={() => openModal('help')}>
               Controls
@@ -1768,6 +1938,23 @@ export default function App() {
                         round. Space pauses; 1, 2, and 3 change speed. Q, W, and E select abilities.
                         Chain 10 pops with no gap over 2.5 seconds to trigger Pop Rush: five seconds
                         of faster movement and attacks for your entire fleet.
+                      </p>
+                    </section>
+                  </div>
+                  <div>
+                    <span>04</span>
+                    <section>
+                      <h3>Take the wheel</h3>
+                      <p>
+                        During a round, select any vehicle and choose Jump in, or press F. WASD or
+                        arrow keys drive; mouse looks. The harvester’s header and bulldozer’s blade
+                        cut balloons on contact; other tools use the left mouse button. Space
+                        brakes, Shift focuses your aim, and R centers the view. E uses your unlocked
+                        specialist ability; Q uses a purchased speed boost. C switches front/rear
+                        views when a rear tool is installed: W drives toward the tool you’re facing.
+                        Tab switches vehicles, P or Esc pauses, and F returns control to the AI.
+                        Driver mode uses 1× speed and restores your previous speed when you exit. If
+                        mouse capture is unavailable, hold right mouse and drag to look.
                       </p>
                     </section>
                   </div>
