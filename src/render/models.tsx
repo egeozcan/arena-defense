@@ -1,11 +1,12 @@
-import { memo, useMemo, useRef } from 'react';
+import { memo, useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import {
+  InstancedMesh,
+  Mesh,
   Object3D,
   Sphere,
   Vector3,
   type Group,
-  type InstancedMesh,
   type MeshStandardMaterial,
 } from 'three';
 import { type VehicleKind } from '../sim/data';
@@ -256,6 +257,7 @@ function Track({ x, vehicle, interpolation, traction = 0 }: RunningGearProps) {
     </group>
   );
 }
+const MIN_SHADOW_RADIUS = 0.15;
 export const VehicleModel = memo(function VehicleModel({
   kind,
   working = false,
@@ -280,7 +282,22 @@ export const VehicleModel = memo(function VehicleModel({
     beacon = useRef<Group>(null),
     chassis = useRef<Group>(null),
     upper = useRef<Group>(null),
-    outriggers = useRef<Group>(null);
+    outriggers = useRef<Group>(null),
+    root = useRef<Group>(null);
+  // Shadows of bolts, lamps and trim are a few pixels wide but each one is an
+  // extra draw in the shadow pass. Only parts larger than this cast shadows.
+  useLayoutEffect(() => {
+    const scale = new Vector3();
+    root.current?.updateWorldMatrix(true, true);
+    root.current?.traverse((object) => {
+      if (!(object instanceof Mesh) || object instanceof InstancedMesh || !object.castShadow)
+        return;
+      object.geometry.computeBoundingSphere();
+      object.getWorldScale(scale);
+      const radius = object.geometry.boundingSphere!.radius * Math.max(scale.x, scale.y, scale.z);
+      if (radius < MIN_SHADOW_RADIUS) object.castShadow = false;
+    });
+  });
   useFrame(({ clock }) => {
     const alpha = interpolation?.current ?? 1;
     const t = sim ? (sim.tick - 1 + alpha) / 60 : clock.elapsedTime;
@@ -325,7 +342,7 @@ export const VehicleModel = memo(function VehicleModel({
     farm = kind !== 'excavator' && kind !== 'crane' && kind !== 'bulldozer',
     cabX = kind === 'excavator' ? -0.35 : 0;
   return (
-    <group>
+    <group ref={root}>
       {farm
         ? [-0.91, 0.91].map((x) => (
             <group key={x}>

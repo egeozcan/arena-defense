@@ -22,6 +22,7 @@ import type { SimView } from '../ui/sim-client';
 import { Box, Hay, Tree, VehicleModel } from './models';
 import { Scenery } from './Scenery';
 import { ArenaDetails } from './ArenaDetails';
+import { StaticBatch } from './StaticBatch';
 import { SurfacePatches } from './SurfacePatches';
 import { CombatEffects } from './CombatEffects';
 import { BaleProjectiles } from './BaleProjectiles';
@@ -387,7 +388,8 @@ function BalloonInstances({
     halo = useRef<InstancedMesh>(null),
     shine = useRef<InstancedMesh>(null),
     armor = useRef<InstancedMesh>(null),
-    cargo = useRef<InstancedMesh>(null);
+    cargo = useRef<InstancedMesh>(null),
+    wings = useRef<InstancedMesh>(null);
   const obj = useMemo(() => new Object3D(), []);
   const color = useMemo(() => new Color(), []);
   const flashColor = useMemo(() => new Color('#fff7c4'), []);
@@ -399,9 +401,15 @@ function BalloonInstances({
       !halo.current ||
       !shine.current ||
       !armor.current ||
-      !cargo.current
+      !cargo.current ||
+      !wings.current
     )
       return;
+    // Optional parts only get instances for balloons that show them.
+    let armored = 0,
+      carriers = 0,
+      regens = 0,
+      marked = 0;
     sim.balloons.forEach((b, i) => {
       const r = BALLOONS[b.kind].radius;
       const hit = Math.max(0, 1 - (sim.tick - b.hitTick) / 10);
@@ -425,16 +433,30 @@ function BalloonInstances({
       obj.rotation.set(0, 0.5, -0.3);
       obj.updateMatrix();
       shine.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(x, y, z);
-      obj.rotation.set(Math.PI / 2, 0, 0);
-      obj.scale.setScalar(b.armor ? r * 1.03 : 0);
-      obj.updateMatrix();
-      armor.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(x, y - r * 1.5, z);
+      if (b.armor) {
+        obj.position.set(x, y, z);
+        obj.rotation.set(Math.PI / 2, 0, 0);
+        obj.scale.setScalar(r * 1.03);
+        obj.updateMatrix();
+        armor.current!.setMatrixAt(armored++, obj.matrix);
+      }
       obj.rotation.set(0, 0, 0);
-      obj.scale.setScalar(b.kind === 'carrier' ? 0.8 : 0);
-      obj.updateMatrix();
-      cargo.current!.setMatrixAt(i, obj.matrix);
+      if (b.kind === 'carrier') {
+        obj.position.set(x, y - r * 1.5, z);
+        obj.scale.setScalar(0.8);
+        obj.updateMatrix();
+        cargo.current!.setMatrixAt(carriers++, obj.matrix);
+      }
+      // Fleeing and shielded balloons carry a pair of wing markers.
+      if (b.fleeing || (b.armor && b.kind !== 'armored'))
+        for (const side of [-1, 1]) {
+          obj.position.set(x + side * 0.52, y, z);
+          obj.rotation.set(0, 0, side * 0.3);
+          obj.scale.setScalar(1);
+          obj.updateMatrix();
+          wings.current!.setMatrixAt(marked++, obj.matrix);
+        }
+      obj.rotation.set(0, 0, 0);
       obj.position.set(x, y - r * 1.2, z);
       obj.scale.set(0.065, 0.12, 0.065);
       obj.updateMatrix();
@@ -444,15 +466,25 @@ function BalloonInstances({
       obj.scale.set(0.008, 0.7, 0.008);
       obj.updateMatrix();
       strings.current!.setMatrixAt(i, obj.matrix);
-      obj.position.set(x, y, z);
-      obj.scale.setScalar(b.regen ? r * 1.6 : 0);
-      obj.updateMatrix();
-      halo.current!.setMatrixAt(i, obj.matrix);
+      if (b.regen) {
+        obj.position.set(x, y, z);
+        obj.scale.setScalar(r * 1.6);
+        obj.updateMatrix();
+        halo.current!.setMatrixAt(regens++, obj.matrix);
+      }
     });
-    for (const ref of [balls, knots, strings, halo, shine, armor, cargo]) {
-      const mesh = ref.current;
-      if (!mesh) continue;
-      mesh.count = sim.balloons.length;
+    const counts = new Map([
+      [balls.current, sim.balloons.length],
+      [knots.current, sim.balloons.length],
+      [strings.current, sim.balloons.length],
+      [shine.current, sim.balloons.length],
+      [armor.current, armored],
+      [cargo.current, carriers],
+      [halo.current, regens],
+      [wings.current, marked],
+    ]);
+    for (const [mesh, count] of counts) {
+      mesh.count = count;
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     }
@@ -497,48 +529,17 @@ function BalloonInstances({
         <sphereGeometry args={[1, 10, 8]} />
         <meshBasicMaterial color="#fff0be" wireframe transparent opacity={0.3} />
       </instancedMesh>
-      {sim.balloons
-        .filter((b) => b.fleeing || (b.armor && b.kind !== 'armored'))
-        .map((b) => (
-          <BalloonMarker key={b.id} sim={sim} id={b.id} interpolation={interpolation} />
-        ))}
+      <instancedMesh
+        ref={wings}
+        args={[undefined, undefined, 600]}
+        castShadow
+        receiveShadow
+        frustumCulled={false}
+      >
+        <boxGeometry args={[0.5, 0.06, 0.25]} />
+        <meshStandardMaterial color="#faf0d5" roughness={0.85} />
+      </instancedMesh>
     </>
-  );
-}
-function BalloonMarker({
-  sim,
-  id,
-  interpolation,
-}: {
-  sim: SimView;
-  id: number;
-  interpolation: { current: number };
-}) {
-  const ref = useRef<Group>(null);
-  useFrame(() => {
-    const b = sim.balloons.find((b) => b.id === id);
-    if (b && ref.current)
-      ref.current.position.set(
-        b.px + (b.x - b.px) * interpolation.current,
-        b.py + (b.y - b.py) * interpolation.current,
-        b.pz + (b.z - b.pz) * interpolation.current,
-      );
-  });
-  return (
-    <group ref={ref}>
-      <Box
-        position={[-0.52, 0, 0]}
-        size={[0.5, 0.06, 0.25]}
-        rotation={[0, 0, -0.3]}
-        color="#faf0d5"
-      />
-      <Box
-        position={[0.52, 0, 0]}
-        size={[0.5, 0.06, 0.25]}
-        rotation={[0, 0, 0.3]}
-        color="#faf0d5"
-      />
-    </group>
   );
 }
 function ActiveVehicle({
@@ -791,13 +792,15 @@ function Scene(props: Props) {
         />
       )}
       <group position={[-a.width / 2, 0, -a.depth / 2]}>
-        <Terrain run={run} grid={grid && phase === 'setup'} />
-        <Scenery kind={run.arena} />
+        <StaticBatch deps={[a, grid && phase === 'setup']}>
+          <Terrain run={run} grid={grid && phase === 'setup'} />
+          <Scenery kind={run.arena} />
+          <ArenaDetails arena={a} />
+        </StaticBatch>
         {!(phase === 'round' || phase === 'summary') &&
           a.obstacles
             .filter((o) => o.loose)
             .map((o) => <Hay key={o.id} x={o.x} z={o.z} w={o.w} d={o.d} h={o.h} />)}
-        <ArenaDetails arena={a} />
         {(phase === 'setup' || phase === 'countdown') && <StagingBalloons run={run} />}
         {phase === 'garage' && !run.fleet.some((v) => v.placed) && (
           <group position={[a.width / 2, 0, a.depth / 2]} rotation={[0, 0.25, 0]}>
