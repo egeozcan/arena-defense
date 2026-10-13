@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Zap } from 'lucide-react';
-import type { Simulation } from '../sim/engine';
+import type { SimView } from './sim-client';
 import { POP_RUSH } from '../sim/pop-rush';
 
-export function ArcadeFeedback({ sim, paused }: { sim: Simulation; paused: boolean }) {
+export function ArcadeFeedback({ sim, paused }: { sim: SimView; paused: boolean }) {
   const [tick, setTick] = useState(sim.tick);
   const [burst, setBurst] = useState({ serial: 0, amount: 0, cash: 0 });
   useEffect(() => {

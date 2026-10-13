@@ -69,6 +69,22 @@ export function chooseDriveControl(
   const initialSpeedFactor = body.vehicle
     ? terrainSpeedFactor(body.vehicle, grip(arena, body.x, body.z))
     : 1;
+  // Arenas have only a few distinct grip values; cache [traction, speed] per value.
+  const terrain = new Map<number, [number, number]>();
+  const terrainAt = (x: number, z: number) => {
+    const surface = grip(arena, x, z);
+    let factors = terrain.get(surface);
+    if (!factors) {
+      factors = body.vehicle
+        ? [
+            terrainHandlingFactor(body.vehicle, surface),
+            (speed * terrainSpeedFactor(body.vehicle, surface)) / initialSpeedFactor,
+          ]
+        : [traction, speed];
+      terrain.set(surface, factors);
+    }
+    return factors;
+  };
   for (const direction of [1, -1] as const)
     for (const steer of [-MAX_STEER, -MAX_STEER / 2, 0, MAX_STEER / 2, MAX_STEER])
       controls.push({ direction, steer, throttle: 1 });
@@ -108,17 +124,11 @@ export function chooseDriveControl(
             Math.abs(predicted.speed) > 0.1
               ? Math.sign(predicted.speed)
               : (pose.last?.direction ?? 0),
-          switches = 0;
+          switches = 0,
+          remaining = Math.hypot(goal.x - x, goal.z - z);
         for (let tick = 0; tick < DRIVE_PLAN_TICKS; tick++) {
-          const remaining = Math.hypot(goal.x - x, goal.z - z);
           // Match real surface transitions, including oil entered during an arc.
-          const surface = grip(arena, x, z);
-          const localTraction = body.vehicle
-            ? terrainHandlingFactor(body.vehicle, surface)
-            : traction;
-          const localSpeed = body.vehicle
-            ? (speed * terrainSpeedFactor(body.vehicle, surface)) / initialSpeedFactor
-            : speed;
+          const [localTraction, localSpeed] = terrainAt(x, z);
           const limit = goal.faceTarget
             ? localSpeed
             : approachSpeed(localSpeed, remaining, localTraction);
@@ -146,10 +156,11 @@ export function chooseDriveControl(
           predictedBody.x = x;
           predictedBody.z = z;
           traveled += Math.hypot(dx, dz);
+          remaining = Math.hypot(goal.x - x, goal.z - z);
           arrived = goal.faceTarget
-            ? Math.hypot(goal.x - x, goal.z - z) <= goal.faceTarget.range - 0.1 &&
+            ? remaining <= goal.faceTarget.range - 0.1 &&
               Math.abs(angleDifference(Math.atan2(goal.x - x, goal.z - z), predicted.angle)) <= 0.5
-            : Math.hypot(goal.x - x, goal.z - z) < 0.005 &&
+            : remaining < 0.005 &&
               Math.abs(predicted.speed) < 0.05 &&
               (!goal.faceDirection ||
                 Math.abs(

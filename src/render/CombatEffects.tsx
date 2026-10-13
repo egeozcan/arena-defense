@@ -1,9 +1,9 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { AdditiveBlending, Color, InstancedMesh, Object3D, Vector3 } from 'three';
-import type { Simulation } from '../sim/engine';
+import type { SimView } from '../ui/sim-client';
 
-export function CombatEffects({ sim }: { sim: Simulation }) {
+export function CombatEffects({ sim }: { sim: SimView }) {
   const drops = useRef<InstancedMesh>(null),
     rings = useRef<InstancedMesh>(null),
     dust = useRef<InstancedMesh>(null),

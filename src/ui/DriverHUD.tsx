@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { ArrowLeftRight, Crosshair, LogOut, Pause, RotateCcw, Tractor, Zap } from 'lucide-react';
 import { BALLOONS, VEHICLES, VEHICLE_ABILITIES } from '../sim/data';
-import { vehicleStats, type Simulation } from '../sim/engine';
+import { vehicleStats } from '../sim/capabilities';
+import type { SimView } from './sim-client';
 import { canTargetBalloon, toolIntervalTicks, vehicleTool } from '../sim/capabilities';
 import { balePathClear } from '../sim/vehicle-tools';
 import { angleDifference } from '../sim/vehicle-motion';
@@ -32,7 +33,7 @@ export function DriverHUD({
   onBoost,
   onSide,
 }: {
-  sim: Simulation;
+  sim: SimView;
   vehicleId: number;
   input: { current: DriverInput };
   focused: boolean;

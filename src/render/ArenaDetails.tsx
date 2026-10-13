@@ -67,7 +67,7 @@ function Windmill({ x, z }: { x: number; z: number }) {
         rotation={[0, 0, Math.PI / 2 + 0.25]}
         color="#9a7954"
       />
-      <group ref={blades} position={[0, 5.1, 0.45]}>
+      <group ref={blades} position={[0, 5.1, 0.45]} userData={{ dynamic: true }}>
         {Array.from({ length: 8 }, (_, i) => (
           <group key={i} rotation={[0, 0, (i * Math.PI) / 4]}>
             <Box position={[0, 1.15, 0]} size={[0.12, 2.3, 0.08]} color="#707e76" />

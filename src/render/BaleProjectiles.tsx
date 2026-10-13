@@ -1,13 +1,13 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color, InstancedMesh, Object3D } from 'three';
-import type { Simulation } from '../sim/engine';
+import type { SimView } from '../ui/sim-client';
 
 export function BaleProjectiles({
   sim,
   interpolation,
 }: {
-  sim: Simulation;
+  sim: SimView;
   interpolation: { current: number };
 }) {
   const bales = useRef<InstancedMesh>(null),
