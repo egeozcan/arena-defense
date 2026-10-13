@@ -1,6 +1,9 @@
 import { blocked, clearPosition, grip, type OwnedVehicle, type Arena } from './data';
 import { hayContacts, hayHandling, hayRouteCost, touchesHay } from './hay';
 
+const NEIGHBOR_X = [1, -1, 0, 0],
+  NEIGHBOR_Z = [0, 0, 1, -1];
+
 // Cache cell clearance and terrain costs within a search. Exact push validation
 // is needed only at hay contact cells; open floor keeps the cheap grid query.
 function routeProbe(arena: Arena, traction: number, radius: number, vehicle?: OwnedVehicle) {
@@ -132,53 +135,60 @@ export function pathCosts(
 ): Float64Array {
   const probe = routeProbe(arena, traction, radius, vehicle);
   const w = arena.width,
-    dist = new Float64Array(w * arena.depth).fill(Infinity),
-    heap: [number, number][] = [];
+    dist = new Float64Array(w * arena.depth).fill(Infinity);
+  // Binary heap in parallel typed arrays; a cell is pushed at most once per
+  // incoming edge, so four entries per cell is a hard upper bound.
+  const heapIds = new Int32Array(dist.length * 4 + 1),
+    heapCosts = new Float64Array(heapIds.length);
+  let size = 0;
   const start = Math.floor(sz) * w + Math.floor(sx);
   dist[start] = 0;
   function push(id: number, cost: number) {
-    heap.push([id, cost]);
-    let i = heap.length - 1;
+    let i = size++;
     while (i) {
       const p = (i - 1) >> 1;
-      if (heap[p][1] <= heap[i][1]) break;
-      [heap[p], heap[i]] = [heap[i], heap[p]];
+      if (heapCosts[p] <= cost) break;
+      heapIds[i] = heapIds[p];
+      heapCosts[i] = heapCosts[p];
       i = p;
     }
+    heapIds[i] = id;
+    heapCosts[i] = cost;
   }
+  // Removes the root; the caller reads it first.
   function pop() {
-    const root = heap[0],
-      last = heap.pop()!;
-    if (heap.length) {
-      heap[0] = last;
-      let i = 0;
-      for (;;) {
-        const l = i * 2 + 1,
-          r = l + 1;
-        let j = i;
-        if (l < heap.length && heap[l][1] < heap[j][1]) j = l;
-        if (r < heap.length && heap[r][1] < heap[j][1]) j = r;
-        if (j === i) break;
-        [heap[i], heap[j]] = [heap[j], heap[i]];
-        i = j;
-      }
+    const id = heapIds[--size],
+      cost = heapCosts[size];
+    if (!size) return;
+    let i = 0;
+    for (;;) {
+      const l = i * 2 + 1,
+        r = l + 1;
+      let j = i,
+        best = cost;
+      if (l < size && heapCosts[l] < best) ((j = l), (best = heapCosts[l]));
+      if (r < size && heapCosts[r] < best) j = r;
+      if (j === i) break;
+      heapIds[i] = heapIds[j];
+      heapCosts[i] = heapCosts[j];
+      i = j;
     }
-    return root;
+    heapIds[i] = id;
+    heapCosts[i] = cost;
   }
   push(start, 0);
-  while (heap.length) {
-    const [id, cost] = pop();
+  while (size) {
+    const id = heapIds[0],
+      cost = heapCosts[0];
+    pop();
     if (cost > dist[id]) continue;
-    for (const [dx, dz] of [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
-    ]) {
-      const x = (id % w) + dx,
-        z = Math.floor(id / w) + dz,
+    const cx = id % w,
+      cz = Math.floor(id / w);
+    for (let k = 0; k < 4; k++) {
+      const x = cx + NEIGHBOR_X[k],
+        z = cz + NEIGHBOR_Z[k],
         n = z * w + x;
-      if (!probe.clear((id % w) + 0.5, Math.floor(id / w) + 0.5, x + 0.5, z + 0.5)) continue;
+      if (!probe.clear(cx + 0.5, cz + 0.5, x + 0.5, z + 0.5)) continue;
       const next = cost + probe.cost(x, z);
       if (next < dist[n]) {
         dist[n] = next;
