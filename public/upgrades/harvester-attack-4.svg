@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#18241b"/>
+      <stop offset="60%" stop-color="#121b14"/>
+      <stop offset="100%" stop-color="#0a100c"/>
+    </linearGradient>
+    <linearGradient id="pathGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffa394"/>
+      <stop offset="40%" stop-color="#ed654e"/>
+      <stop offset="100%" stop-color="#421410"/>
+    </linearGradient>
+    <linearGradient id="vehGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f2786d"/>
+      <stop offset="50%" stop-color="#e84332"/>
+      <stop offset="100%" stop-color="#4a110b"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#cfdade"/>
+      <stop offset="40%" stop-color="#8ba0ab"/>
+      <stop offset="100%" stop-color="#495d67"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="32" y1="20" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ff8573" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff8573" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Badge -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="11" fill="url(#bgGrad)"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="11" stroke="url(#pathGrad)" stroke-width="1.5"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="9" stroke="#ed654e" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Blueprint grid dots and subtle reticle -->
+  <circle cx="10" cy="10" r="0.8" fill="#ed654e" fill-opacity="0.35"/>
+  <circle cx="54" cy="10" r="0.8" fill="#ed654e" fill-opacity="0.35"/>
+  <circle cx="10" cy="54" r="0.8" fill="#ed654e" fill-opacity="0.35"/>
+  <circle cx="54" cy="54" r="0.8" fill="#ed654e" fill-opacity="0.35"/>
+  <circle cx="32" cy="33" r="23" stroke="#ed654e" stroke-opacity="0.08" stroke-dasharray="2 3"/>
+  <circle cx="32" cy="33" r="14" fill="url(#glowGrad)"/>
+
+  <!-- Technical Corner Brackets -->
+  <path d="M 6 12 L 6 6 L 12 6" stroke="#ed654e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M 6 52 L 6 58 L 12 58" stroke="#ed654e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M 58 52 L 58 58 L 52 58" stroke="#ed654e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+
+  <!-- Tier Badge -->
+  <g transform="translate(42, 4)">
+    <rect width="18" height="11" rx="3.5" fill="#0c150e" stroke="#ed654e" stroke-width="1"/>
+    <text x="9" y="8.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="900" text-anchor="middle" fill="#ff8573" letter-spacing="0.4">T4</text>
+  </g>
+
+  <!-- Artwork Centerpiece -->
+  <g class="artwork-centerpiece">
+    <!-- T4: Heavy Dual Serrated Sickle Bar (Double damage) -->
+    <!-- Backing bar -->
+    <rect x="12" y="29" width="40" height="7" rx="1.5" fill="url(#vehGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <!-- Top serrations -->
+    <polygon points="15,29 19,20 23,29" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <polygon points="24,29 28,19 32,29" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <polygon points="33,29 37,19 41,29" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <polygon points="42,29 46,20 50,29" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <!-- Bottom opposed serrations -->
+    <polygon points="19,36 23,45 27,36" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <polygon points="28,36 32,46 36,36" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <polygon points="37,36 41,45 45,36" fill="url(#metalGrad)" stroke="#ffffff" stroke-width="0.8"/>
+    <!-- Electric slash line -->
+    <line x1="8" y1="32.5" x2="56" y2="32.5" stroke="#ed654e" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+  </g>
+</svg>

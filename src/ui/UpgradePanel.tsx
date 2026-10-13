@@ -34,6 +34,7 @@ import {
 } from '../sim/data';
 import { UPGRADE_DIRECTIONS } from './vehicle-guide';
 import { upgradeChanges, upgradeCommitment } from './upgrade-preview';
+import { UpgradeStepArt } from './UpgradeStepArt';
 
 const PATH_INFO = {
   attack: {
@@ -201,7 +202,6 @@ function UpgradePath({
   const info = PATH_INFO[path];
   const name = path === 'unique' ? VEHICLES[vehicle.kind].unique : info.name;
   const PathIcon = path === 'unique' ? UNIQUE_ICONS[vehicle.kind][0] : info.icon;
-  const effectIcons = path === 'unique' ? UNIQUE_ICONS[vehicle.kind] : SHARED_ICONS[path];
   const cost = upgradePrice(run, vehicle, path, index + 1);
   const allowed = upgradeAllowed(vehicle, path);
   const used = PATHS.filter((p) => vehicle.upgrades[p] > 0);
@@ -253,13 +253,16 @@ function UpgradePath({
             }}
             onBlur={() => setFocusedTier(null)}
           >
-            {i < tier ? (
-              <Check size={15} />
-            ) : i > tier || !allowed ? (
-              <Lock size={12} />
-            ) : (
-              <PlusMark />
-            )}
+            <UpgradeStepArt kind={vehicle.kind} path={path} tier={i + 1} mini />
+            <span className="tier-status">
+              {i < tier ? (
+                <Check size={13} />
+              ) : i > tier || !allowed ? (
+                <Lock size={10} />
+              ) : (
+                <PlusMark />
+              )}
+            </span>
             <small>{i + 1}</small>
           </button>
         ))}
@@ -267,17 +270,16 @@ function UpgradePath({
       <div className="upgrade-effect-stack">
         {/* Overlapping previews reserve the tallest tier at the current width, so
             hover and keyboard inspection cannot resize the card or its neighbors. */}
-        {effectIcons.map((EffectIcon, previewIndex) => (
+        {Array.from({ length: 5 }, (_, previewIndex) => (
           <div
             key={previewIndex}
             className={`upgrade-effect ${previewIndex === index ? 'is-inspected' : ''}`}
             aria-hidden={previewIndex !== index}
           >
             <div className="upgrade-effect-art" aria-hidden="true">
-              <EffectIcon size={30} />
-              <span>{String(previewIndex + 1).padStart(2, '0')}</span>
+              <UpgradeStepArt kind={vehicle.kind} path={path} tier={previewIndex + 1} />
             </div>
-            <div>
+            <div className="upgrade-effect-copy">
               <span className="upgrade-tier-label">
                 TIER {previewIndex + 1}
                 {path === 'unique' && previewIndex === 2 ? ' · ABILITY UNLOCK' : ''}
@@ -294,7 +296,7 @@ function UpgradePath({
         ))}
       </div>
       <div className="upgrade-commitment-stack">
-        {effectIcons.map((_, previewIndex) => (
+        {Array.from({ length: 5 }, (_, previewIndex) => (
           <p
             key={previewIndex}
             className={`upgrade-commitment ${previewIndex === index ? 'is-inspected' : ''}`}

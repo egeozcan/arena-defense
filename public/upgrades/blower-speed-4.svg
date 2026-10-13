@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#18241b"/>
+      <stop offset="60%" stop-color="#121b14"/>
+      <stop offset="100%" stop-color="#0a100c"/>
+    </linearGradient>
+    <linearGradient id="pathGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fff0be"/>
+      <stop offset="40%" stop-color="#ffd45e"/>
+      <stop offset="100%" stop-color="#3d3008"/>
+    </linearGradient>
+    <linearGradient id="vehGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#70d1de"/>
+      <stop offset="50%" stop-color="#39b8c9"/>
+      <stop offset="100%" stop-color="#0e343a"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#cfdade"/>
+      <stop offset="40%" stop-color="#8ba0ab"/>
+      <stop offset="100%" stop-color="#495d67"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="32" y1="20" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffe394" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffe394" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Badge -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="11" fill="url(#bgGrad)"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="11" stroke="url(#pathGrad)" stroke-width="1.5"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="9" stroke="#ffd45e" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Blueprint grid dots and subtle reticle -->
+  <circle cx="10" cy="10" r="0.8" fill="#ffd45e" fill-opacity="0.35"/>
+  <circle cx="54" cy="10" r="0.8" fill="#ffd45e" fill-opacity="0.35"/>
+  <circle cx="10" cy="54" r="0.8" fill="#ffd45e" fill-opacity="0.35"/>
+  <circle cx="54" cy="54" r="0.8" fill="#ffd45e" fill-opacity="0.35"/>
+  <circle cx="32" cy="33" r="23" stroke="#ffd45e" stroke-opacity="0.08" stroke-dasharray="2 3"/>
+  <circle cx="32" cy="33" r="14" fill="url(#glowGrad)"/>
+
+  <!-- Technical Corner Brackets -->
+  <path d="M 6 12 L 6 6 L 12 6" stroke="#ffd45e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M 6 52 L 6 58 L 12 58" stroke="#ffd45e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M 58 52 L 58 58 L 52 58" stroke="#ffd45e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+
+  <!-- Tier Badge -->
+  <g transform="translate(42, 4)">
+    <rect width="18" height="11" rx="3.5" fill="#0c150e" stroke="#ffd45e" stroke-width="1"/>
+    <text x="9" y="8.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="900" text-anchor="middle" fill="#ffe394" letter-spacing="0.4">T4</text>
+  </g>
+
+  <!-- Artwork Centerpiece -->
+  <g class="artwork-centerpiece">
+    <!-- T4: Overdrive Jet Assist (5s overdrive) -->
+    <rect x="18" y="22" width="28" height="20" rx="3" fill="#18241b" stroke="url(#vehGrad)" stroke-width="1.2"/>
+    <!-- Jet nozzle firing rearward -->
+    <polygon points="18,27 10,24 10,39 18,36" fill="url(#metalGrad)"/>
+    <polygon points="10,28 3,31.5 10,35" fill="#ffd45e" filter="url(#glow)"/>
+  </g>
+</svg>
