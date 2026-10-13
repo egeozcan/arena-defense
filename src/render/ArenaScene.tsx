@@ -16,7 +16,9 @@ import {
   type VehicleKind,
 } from '../sim/data';
 import { angleDifference } from '../sim/vehicle-motion';
-import { Simulation, vehicleStats, type Bale } from '../sim/engine';
+import type { Bale } from '../sim/engine';
+import { vehicleStats } from '../sim/capabilities';
+import type { SimView } from '../ui/sim-client';
 import { Box, Hay, Tree, VehicleModel } from './models';
 import { Scenery } from './Scenery';
 import { ArenaDetails } from './ArenaDetails';
@@ -28,7 +30,7 @@ import { DriverCamera } from './DriverCamera';
 import type { DriverInput } from '../sim/vehicle-pilot';
 interface Props {
   run: Run;
-  sim: Simulation | null;
+  sim: SimView | null;
   phase: string;
   selected: number | null;
   placementId: number | null;
@@ -309,7 +311,7 @@ function CameraRig({
   zoom: number;
   width: number;
   depth: number;
-  sim: Simulation | null;
+  sim: SimView | null;
   driving: boolean;
 }) {
   const controls = useRef<OrbitControlsType>(null);
@@ -376,7 +378,7 @@ function BalloonInstances({
   sim,
   interpolation,
 }: {
-  sim: Simulation;
+  sim: SimView;
   interpolation: { current: number };
 }) {
   const balls = useRef<InstancedMesh>(null),
@@ -508,7 +510,7 @@ function BalloonMarker({
   id,
   interpolation,
 }: {
-  sim: Simulation;
+  sim: SimView;
   id: number;
   interpolation: { current: number };
 }) {
@@ -548,7 +550,7 @@ function ActiveVehicle({
   interpolation,
   cockpit,
 }: {
-  sim: Simulation;
+  sim: SimView;
   id: number;
   selected: boolean;
   onClick: () => void;
@@ -625,7 +627,7 @@ function Selection({ range = 3, color = '#eff4c2' }: { range?: number; color?: s
     </mesh>
   );
 }
-function Confetti({ sim }: { sim: Simulation }) {
+function Confetti({ sim }: { sim: SimView }) {
   const ref = useRef<InstancedMesh>(null);
   const obj = useMemo(() => new Object3D(), []);
   const fragmentColor = useMemo(() => new Color(), []);

@@ -9,7 +9,8 @@ import {
   type MeshStandardMaterial,
 } from 'three';
 import { type VehicleKind } from '../sim/data';
-import type { Simulation, SimVehicle } from '../sim/engine';
+import type { SimVehicle } from '../sim/engine';
+import type { SimView } from '../ui/sim-client';
 import { angleDifference, wheelSteering } from '../sim/vehicle-motion';
 import { Box, Paint, type ShapeProps, type Vec } from './vehicle-parts';
 export { Box } from './vehicle-parts';
@@ -43,7 +44,7 @@ function Lamp({
   role: 'head' | 'brake' | 'reverse' | 'indicator';
   side?: number;
   vehicle?: SimVehicle;
-  sim?: Simulation;
+  sim?: SimView;
 }) {
   const material = useRef<MeshStandardMaterial>(null);
   const color = role === 'brake' ? '#fa5940' : role === 'indicator' ? '#ffb83b' : '#fff4c4';
@@ -270,7 +271,7 @@ export const VehicleModel = memo(function VehicleModel({
   working?: boolean;
   preview?: boolean;
   vehicle?: SimVehicle;
-  sim?: Simulation;
+  sim?: SimView;
   interpolation?: { current: number };
   cockpit?: boolean;
 }) {

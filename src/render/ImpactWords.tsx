@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { CanvasTexture, InstancedMesh, Object3D } from 'three';
-import type { Simulation } from '../sim/engine';
+import type { SimView } from '../ui/sim-client';
 
 // One locally drawn texture and one draw call, even in a crowded late wave.
-export function ImpactWords({ sim }: { sim: Simulation }) {
+export function ImpactWords({ sim }: { sim: SimView }) {
   const ref = useRef<InstancedMesh>(null);
   const object = useMemo(() => new Object3D(), []);
   const texture = useMemo(() => {

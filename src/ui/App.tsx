@@ -59,7 +59,9 @@ import {
   type VehicleKind,
   type TargetMode,
 } from '../sim/data';
-import { Simulation, initPhysics, vehicleStats, type Summary } from '../sim/engine';
+import type { Summary } from '../sim/engine';
+import { vehicleStats } from '../sim/capabilities';
+import { SimClient, type SimView } from './sim-client';
 import {
   abilityCost,
   canBuyAbility,
@@ -80,7 +82,7 @@ import { ArcadeFeedback } from './ArcadeFeedback';
 import { playClear, playPop, playRush, createEngineSound } from './audio';
 import { DriverHUD } from './DriverHUD';
 import { useDriverControls } from './useDriverControls';
-import { canSwitchDriverSide } from '../sim/vehicle-pilot';
+import { canSwitchDriverSide, type DriverInput } from '../sim/vehicle-pilot';
 import { parseSavedRun } from './save';
 const SAVE_KEY = 'balloon-arena-defense-v1';
 type Phase = 'garage' | 'setup' | 'countdown' | 'round' | 'summary' | 'victory' | 'over';
@@ -123,8 +125,9 @@ export default function App() {
   const [tab, setTab] = useState<'shop' | 'fleet' | 'abilities'>('shop');
   const [shopKind, setShopKind] = useState<VehicleKind>('harvester');
   const [selected, setSelected] = useState<number | null>(null);
-  const [sim, setSim] = useState<Simulation | null>(null);
-  const simRef = useRef<Simulation | null>(null);
+  const [sim, setSim] = useState<SimView | null>(null);
+  const simRef = useRef<SimView | null>(null);
+  const client = useRef<SimClient | null>(null);
   const [ready, setReady] = useState(false);
   const [engineError, setEngineError] = useState('');
   const [speed, setSpeed] = useState(1);
@@ -154,7 +157,7 @@ export default function App() {
   latest.current = { phase, speed, paused, sound, driverId };
   const notifiedPops = useRef(0);
   const notifiedRushes = useRef(0);
-  const settled = useRef<Simulation | null>(null);
+  const settled = useRef<SimView | null>(null);
   const interpolation = useRef(1);
   const owned = run.fleet.find((v) => v.id === selected);
   const liveVehicle = sim?.vehicles.find((v) => v.id === selected);
@@ -213,12 +216,15 @@ export default function App() {
     vehicleTooltip.hide();
   }, [phase, tab, modal, vehicleTooltip.hide]);
   useEffect(() => {
-    initPhysics()
-      .then(() => setReady(true))
-      .catch((e) => setEngineError(String(e)));
+    // The round simulates in a worker; the page only renders its snapshots.
+    const worker = new SimClient(setEngineError);
+    client.current = worker;
+    worker.ready.then(() => setReady(true)).catch(() => {});
     return () => {
       simRef.current?.dispose();
       simRef.current = null;
+      worker.terminate();
+      client.current = null;
     };
   }, []);
   useEffect(() => {
@@ -238,6 +244,7 @@ export default function App() {
     let id = 0,
       last = 0,
       acc = 0,
+      owed = 0,
       lastUI = 0;
     function loop(now: number) {
       const dt = last ? Math.min((now - last) / 1000, 0.12) : 0;
@@ -245,24 +252,26 @@ export default function App() {
       const current = simRef.current;
       if (current && latest.current.phase === 'round' && !latest.current.paused) {
         acc += dt * latest.current.speed;
-        let ticks = 0;
-        while (acc >= 1 / 60 && ticks < 8 && !current.summary) {
-          if (latest.current.driverId !== null) {
-            const signature = JSON.stringify(driverControls.input.current);
-            if (signature !== lastDriverInput.current) {
-              current.enqueue({
-                ability: 'drive',
-                vehicleId: latest.current.driverId,
-                input: { ...driverControls.input.current },
-              });
-              lastDriverInput.current = signature;
-            }
-          }
-          current.step();
+        // Ticks owed while the worker is busy carry over, capped like a stalled frame.
+        while (acc >= 1 / 60 && owed < 8 && !current.summary) {
           acc -= 1 / 60;
-          ticks++;
+          owed++;
         }
-        if (ticks === 8) acc = Math.min(acc, 1 / 60);
+        if (owed === 8) acc = Math.min(acc, 1 / 60);
+        if (owed && !current.summary) {
+          let drive: { vehicleId: number; input: DriverInput } | undefined;
+          const signature =
+            latest.current.driverId !== null ? JSON.stringify(driverControls.input.current) : '';
+          if (signature && signature !== lastDriverInput.current)
+            drive = {
+              vehicleId: latest.current.driverId!,
+              input: { ...driverControls.input.current },
+            };
+          if (current.advance(owed, Math.min(1, acc * 60), drive)) {
+            owed = 0;
+            if (drive) lastDriverInput.current = signature;
+          }
+        }
         if (current.pops > notifiedPops.current) {
           const amount = current.pops - notifiedPops.current;
           notifiedPops.current = current.pops;
@@ -308,10 +317,13 @@ export default function App() {
           }
           setArmed(null);
           acc = 0;
+          owed = 0;
         }
       }
       interpolation.current =
-        latest.current.phase === 'round' && !latest.current.paused ? Math.min(1, acc * 60) : 1;
+        current && latest.current.phase === 'round' && !latest.current.paused
+          ? current.interpolation
+          : 1;
       if (now - lastUI > 100) {
         const vehicle = current?.vehicles.find((v) => v.id === latest.current.driverId);
         if (vehicle)
@@ -402,10 +414,11 @@ export default function App() {
     setPlacing(id);
     setGrid(true);
   }
-  function exportReplay() {
+  async function exportReplay() {
     const current = simRef.current;
     if (!current) return;
-    const blob = new Blob([JSON.stringify(current.replay(), null, 2)], {
+    const replay = await current.replay();
+    const blob = new Blob([JSON.stringify(replay, null, 2)], {
       type: 'application/json',
     });
     const url = URL.createObjectURL(blob);
@@ -484,8 +497,8 @@ export default function App() {
     }
     setModal(null);
     setLastRound(null);
-    simRef.current?.dispose();
-    const s = new Simulation(run);
+    if (!client.current) return;
+    const s = client.current.start(run);
     simRef.current = s;
     setSim(s);
     setSummary(null);

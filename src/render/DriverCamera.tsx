@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import { PerspectiveCamera as ThreePerspectiveCamera, Vector3 } from 'three';
-import type { Simulation } from '../sim/engine';
+import type { SimView } from '../ui/sim-client';
 import { angleDifference } from '../sim/vehicle-motion';
 import { driverEye, driverSide, driverViewAngle, type DriverInput } from '../sim/vehicle-pilot';
 
@@ -13,7 +13,7 @@ export function DriverCamera({
   focus,
   interpolation,
 }: {
-  sim: Simulation;
+  sim: SimView;
   vehicleId: number;
   input: { current: DriverInput };
   focus: { current: boolean };
