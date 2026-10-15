@@ -1314,7 +1314,7 @@ export default function App() {
             <h2>PAUSED</h2>
             <button
               className="primary full-width"
-              autoFocus={driverId !== null}
+              autoFocus
               onClick={() => {
                 setPaused(false);
                 if (driverId !== null) driverControls.requestMouse();
